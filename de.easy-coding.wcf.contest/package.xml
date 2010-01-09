@@ -12,7 +12,7 @@
 
 	<authorinformation>
 		<author>Torben Brodt</author>
-		<authorurl>http://trac.easy-coding.de/trac/biz</authorurl>
+		<authorurl>http://trac.easy-coding.de/trac/contest</authorurl>
 	</authorinformation>
 	
 	<requiredpackages>
@@ -26,7 +26,7 @@
 	</requiredpackages>
 	
 	<optionalpackages>
-                <optionalpackage file="optionals/de.easy-coding.wcf.contents.commentNotification.tar.gz">de.easy-coding.wcf.contents.commentNotification</optionalpackage>
+                <optionalpackage file="optionals/de.easy-coding.wcf.contest.commentNotification.tar.gz">de.easy-coding.wcf.contest.commentNotification</optionalpackage>
 	</optionalpackages>
 	
 	<instructions type="install">
