@@ -22,10 +22,15 @@
 	</requiredpackages>
 
 	<instructions type="install">
+		<!-- files -->
+		<files>files.tar</files>
 		<sql>install.sql</sql>
+		
+		<!-- config -->
+		<eventlistener>eventlistener.xml</eventlistener>
 	</instructions>
 	
 	<instructions type="update" fromversion="1.0.0">
-		<sql>install.sql</sql>
+		<files>files.tar</files>
 	</instructions>
 </package>
