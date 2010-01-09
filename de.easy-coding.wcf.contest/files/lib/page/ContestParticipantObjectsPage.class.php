@@ -54,8 +54,8 @@ class ContestParticipantObjectsPage extends AbstractPage {
 				UNION
 				(SELECT		groupName AS name, groupID AS id, 'group' AS type 
 				FROM		wcf".WCF_N."_group
-				WHERE		groupName IN ('".$names."'))
-				AND		groupID NOT IN (".implode(",", $groupIDs).")
+				WHERE		groupName IN ('".$names."')
+				AND		groupID NOT IN (".implode(",", $groupIDs)."))
 				ORDER BY 	name";
 			$result = WCF::getDB()->sendQuery($sql);
 			while ($row = WCF::getDB()->fetchArray($result)) {

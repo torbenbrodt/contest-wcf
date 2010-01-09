@@ -12,12 +12,13 @@ var jurys = new Array();
 onloadEvents.push(function() {
 	// jurys
 	var list1 = new ContestPermissionList('jury', jurys);
+	
 	// add onsubmit event
-	document.getElementById('ContestAddForm').onsubmit = function() { 
+	onsubmitEvents.push(function(form) {
 		if (suggestion.selectedIndex != -1) return false;
 		if (list1.inputHasFocus) return false;
-		list1.submit(this);
-	};
+		list1.submit(form);
+	});
 });
 </script>
 

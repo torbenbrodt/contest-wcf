@@ -12,12 +12,13 @@ var sponsors = new Array();
 onloadEvents.push(function() {
 	// sponsors
 	var list1 = new ContestPermissionList('sponsor', sponsors);
+	
 	// add onsubmit event
-	document.getElementById('ContestAddForm').onsubmit = function() { 
+	onsubmitEvents.push(function(form) {
 		if (suggestion.selectedIndex != -1) return false;
 		if (list1.inputHasFocus) return false;
-		list1.submit(this);
-	};
+		list1.submit(form);
+	});
 });
 </script>
 

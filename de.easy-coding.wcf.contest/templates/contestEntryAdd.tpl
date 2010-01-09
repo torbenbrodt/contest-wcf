@@ -12,9 +12,16 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript">
 		//<![CDATA[
+		onsubmitEvents = [];
 		var steppedTabMenu = new ContestTabMenu();
 		onloadEvents.push(function() {
-			steppedTabMenu.showSubTabMenu('step1'); 
+			steppedTabMenu.showSubTabMenu('step1');
+			
+			document.getElementById('ContestAddForm').onsubmit = function() { 
+				for(var i=0; i<onsubmitEvents.length; i++) {
+					onsubmitEvents[i](this);
+				}
+			};
 		});
 		//]]>
 	</script>

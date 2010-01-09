@@ -21,11 +21,12 @@ class ContestEntryAddForm extends MessageForm {
 	public $templateName = 'contestEntryAdd';
 	public $showPoll = false;
 	public $showSignatureSetting = false;
-	public $preview, $send;
 	public $tags = '';
 	
 	// form parameters
 	public $ownerID = 0;
+	public $userID = 0;
+	public $groupID = 0;
 	
 	/**
 	 * attachment list editor
@@ -42,34 +43,6 @@ class ContestEntryAddForm extends MessageForm {
 	public $classIDArray = array();
 	
 	/**
-	 * list of jury ids
-	 * 
-	 * @var	array<integer>
-	 */
-	public $juryIDArray = array();
-	
-	/**
-	 * list of participant ids
-	 * 
-	 * @var	array<integer>
-	 */
-	public $participantIDArray = array();
-	
-	/**
-	 * list of price ids
-	 * 
-	 * @var	array<integer>
-	 */
-	public $priceIDArray = array();
-	
-	/**
-	 * list of price ids
-	 * 
-	 * @var	array<integer>
-	 */
-	public $sponsorIDArray = array();
-	
-	/**
 	 * list of available classes
 	 * 
 	 * @var	array<ContestClass>
@@ -84,6 +57,20 @@ class ContestEntryAddForm extends MessageForm {
 	public $availableGroups = array();
 	
 	/**
+	 * list of available participant permisions
+	 * 
+	 * @var	array
+	 */
+	public $participants = array();
+	
+	/**
+	 * list of available prices
+	 * 
+	 * @var	array
+	 */
+	public $prices = array();
+	
+	/**
 	 * list of available sponsor permisions
 	 * 
 	 * @var	array
@@ -96,13 +83,6 @@ class ContestEntryAddForm extends MessageForm {
 	 * @var	array
 	 */
 	public $jurys = array();
-	
-	/**
-	 * list of available participant permisions
-	 * 
-	 * @var	array
-	 */
-	public $participants = array();
 	
 	/**
 	 * @see Page::readParameters()
@@ -156,55 +136,20 @@ class ContestEntryAddForm extends MessageForm {
 		parent::readFormParameters();
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
-		if (isset($_POST['preview'])) $this->preview = (boolean) $_POST['preview'];
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
 		if (isset($_POST['classIDArray'])) $this->classIDArray = array(intval($_POST['classIDArray']));
 		else $this->classIDArray = array();
-		if (isset($_POST['juryIDArray']) && is_array($_POST['juryIDArray'])) $this->juryIDArray = ArrayUtil::toIntegerArray($_POST['juryIDArray']);
-		else $this->juryIDArray = array();
-		if (isset($_POST['participantIDArray']) && is_array($_POST['participantIDArray'])) $this->participantIDArray = ArrayUtil::toIntegerArray($_POST['participantIDArray']);
-		else $this->participantIDArray = array();
-		if (isset($_POST['priceIDArray']) && is_array($_POST['priceIDArray'])) $this->priceIDArray = ArrayUtil::toIntegerArray($_POST['priceIDArray']);
-		else $this->priceIDArray = array();
-		if (isset($_POST['sponsorIDArray']) && is_array($_POST['sponsorIDArray'])) $this->sponsorIDArray = ArrayUtil::toIntegerArray($_POST['sponsorIDArray']);
-		else $this->sponsorIDArray = array();
-		
+
 		if (isset($_POST['sponsor']) && is_array($_POST['sponsor'])) $this->sponsors = $_POST['sponsor'];
 		if (isset($_POST['jury']) && is_array($_POST['jury'])) $this->jurys = $_POST['jury'];
-		if (isset($_POST['participant']) && is_array($_POST['participant'])) $this->participant = $_POST['participant'];
+		if (isset($_POST['participant']) && is_array($_POST['participant'])) $this->participants = $_POST['participant'];
+		if (isset($_POST['price']) && is_array($_POST['price'])) $this->prices = $_POST['price'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
-	}
-	
-	/**
-	 * @see Form::submit()
-	 */
-	public function submit() {
-		// call submit event
-		EventHandler::fireAction($this, 'submit');
 		
-		$this->readFormParameters();
-		
-		try {
-			// attachment handling
-			if ($this->showAttachments) {
-				$this->attachmentListEditor->handleRequest();
-			}
-			// preview
-			if ($this->preview) {
-				require_once(WCF_DIR.'lib/data/message/bbcode/AttachmentBBCode.class.php');
-				AttachmentBBCode::setAttachments($this->attachmentListEditor->getSortedAttachments());
-				WCF::getTPL()->assign('preview', ContestEntryEditor::createPreview($this->text, $this->enableSmilies, $this->enableHtml, $this->enableBBCodes));
-			}
-			// save message
-			if ($this->send) {
-				$this->validate();
-				// no errors
-				$this->save();
-			}
-		}
-		catch (UserInputException $e) {
-			$this->errorField = $e->getField();
-			$this->errorType = $e->getType();
+		if ($this->ownerID == 0) {
+			$this->userID = WCF::getUser()->userID;
+		} else {
+			$this->groupID = $this->ownerID;
 		}
 	}
 	
@@ -225,11 +170,13 @@ class ContestEntryAddForm extends MessageForm {
 			throw new UserInputException('classes'); 
 		}
 		
-		$this->readAvailableGroups();
+		if($this->ownerID != 0) {
+			$this->readAvailableGroups();
 		
-		// validate group ids
-		if(!array_key_exists($this->ownerID, $this->availableGroups)) {
-			throw new UserInputException('ownerID'); 
+			// validate group ids
+			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
+				throw new UserInputException('ownerID'); 
+			}
 		}
 	}
 	
@@ -240,8 +187,8 @@ class ContestEntryAddForm extends MessageForm {
 		parent::save();
 		
 		// save entry
-		$entry = ContestEntryEditor::create(WCF::getUser()->userID, $this->subject, $this->text, $this->getOptions(), 
-			$this->classIDArray, $this->participantIDArray, $this->juryIDArray, $this->priceIDArray, $this->sponsorIDArray, $this->attachmentListEditor);
+		$entry = ContestEntryEditor::create($this->ownerID, $this->subject, $this->text, $this->getOptions(), 
+			$this->classIDArray, $this->participants, $this->jurys, $this->prices, $this->sponsors, $this->attachmentListEditor);
 		$this->saved();
 		
 		// save tags
@@ -270,12 +217,10 @@ class ContestEntryAddForm extends MessageForm {
 			'availableGroups' => $this->availableGroups,
 			'ownerID' => $this->ownerID,
 			'classIDArray' => $this->classIDArray,
-			'juryIDArray' => $this->juryIDArray,
-			'participantIDArray' => $this->participantIDArray,
-			'priceIDArray' => $this->priceIDArray,
 			'sponsors' => $this->sponsors,
 			'participants' => $this->participants,
-			'jurys' => $this->jurys
+			'jurys' => $this->jurys,
+			'prices' => $this->prices
 		));
 	}
 	

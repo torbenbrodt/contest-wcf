@@ -12,12 +12,13 @@ var participants = new Array();
 onloadEvents.push(function() {
 	// participants
 	var list1 = new ContestPermissionList('participant', participants);
+	
 	// add onsubmit event
-	document.getElementById('ContestAddForm').onsubmit = function() { 
+	onsubmitEvents.push(function(form) {
 		if (suggestion.selectedIndex != -1) return false;
 		if (list1.inputHasFocus) return false;
-		list1.submit(this);
-	};
+		list1.submit(form);
+	});
 });
 </script>
 
@@ -54,7 +55,7 @@ onloadEvents.push(function() {
 
 <div class="formSubmit">
 	<input type="submit" name="next" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.back()" />
-	<input type="submit" name="next" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.next()" />
+	<input type="submit" name="next" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}"/>
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

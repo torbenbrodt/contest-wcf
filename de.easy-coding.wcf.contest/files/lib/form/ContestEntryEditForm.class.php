@@ -75,6 +75,12 @@ class ContestEntryEditForm extends ContestEntryAddForm {
 			$this->enableSmilies =  $this->entry->enableSmilies;
 			$this->enableHtml = $this->entry->enableHtml;
 			$this->enableBBCodes = $this->entry->enableBBCodes;
+			$this->userID = $this->entry->userID;
+			$this->groupID = $this->entry->groupID;
+			
+			if($this->groupID > 0) {
+				$this->ownerID = $this->groupID;
+			}
 			
 			// tags
 			if (MODULE_TAGGING) {

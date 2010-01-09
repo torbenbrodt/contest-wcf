@@ -30,8 +30,8 @@ class ContestJurySuggestPage extends UserSuggestPage {
 				UNION ALL
 				(SELECT		groupName AS name, 'group' AS type
 				FROM		wcf".WCF_N."_group
-				WHERE		groupName LIKE '".escapeString($this->query)."%')
-				AND		groupID NOT IN (".implode(",", $groupIDs).")
+				WHERE		groupName LIKE '".escapeString($this->query)."%'
+				AND		groupID NOT IN (".implode(",", $groupIDs)."))
 				ORDER BY	name";
 			$result = WCF::getDB()->sendQuery($sql, 10);
 			while ($row = WCF::getDB()->fetchArray($result)) {
