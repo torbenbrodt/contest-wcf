@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest"</packagename>
 		<packagedescription>contest portal.</packagedescription>
-		<version>0.1.0 Beta 1</version>
+		<version>0.1.1 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -53,7 +53,7 @@
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="1.0.0">
+	<instructions type="update" fromversion="0.1.0 Beta 1">
 		<files>files.tar</files>
 	</instructions>
 </package>

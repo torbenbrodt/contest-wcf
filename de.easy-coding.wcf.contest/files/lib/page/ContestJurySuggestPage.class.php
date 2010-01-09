@@ -4,6 +4,7 @@ require_once(WCF_DIR.'lib/acp/page/UserSuggestPage.class.php');
 
 /**
  * Outputs an XML document with a list of permissions objects (user or user groups).
+ * file looks stupidly redundant, but it is planned to become very smart... listing the latest jurys.
  * 
  * @author	Torben Brodt
  * @copyright	2009 TBR Solutions
@@ -19,6 +20,7 @@ class ContestJurySuggestPage extends UserSuggestPage {
 				
 		header('Content-type: text/xml');
 		echo "<?xml version=\"1.0\" encoding=\"".CHARSET."\"?>\n<suggestions>\n";
+		$groupIDs = array(Group::GUESTS, Group::EVERYONE, Group::USERS);
 		
 		if (!empty($this->query)) {
 			// get suggestions
@@ -29,6 +31,7 @@ class ContestJurySuggestPage extends UserSuggestPage {
 				(SELECT		groupName AS name, 'group' AS type
 				FROM		wcf".WCF_N."_group
 				WHERE		groupName LIKE '".escapeString($this->query)."%')
+				AND		groupID NOT IN (".implode(",", $groupIDs).")
 				ORDER BY	name";
 			$result = WCF::getDB()->sendQuery($sql, 10);
 			while ($row = WCF::getDB()->fetchArray($result)) {
