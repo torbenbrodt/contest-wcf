@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/notification-event.xsd">
+	<import>
+		<event>
+			<name>newContestSolution</name>
+			<objecttype>contestEntry</objecttype>
+			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<defaultnotificationtype>pm</defaultnotificationtype>
+			<icon>contest</icon>
+			<requiresconfirmation>1</requiresconfirmation>
+			<options>module_contest</options>
+		</event>
+	</import>
+</data>

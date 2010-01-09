@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/smt.dtd">
+<data>	
+	<import>
+		<smt name="contestEntry">
+			<classpath>lib/data/contest/ContestSearch.class.php</classpath>
+		</smt>
+	</import>
+</data>

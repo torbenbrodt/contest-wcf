@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/options.dtd">
+<data>
+	<import>
+		<categories>
+			<category name="user.profile.contest">
+				<parent>user.profile</parent>
+				<options>module_contest</options>
+			</category>
+			<category name="mod.contest">
+				<parent>mod</parent>
+				<options>module_contest</options>
+			</category>
+		</categories>
+		
+		<options>
+			<option name="user.contest.canViewContest">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.canSolution">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.maxSolutionLength">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>1000</defaultvalue>
+			</option>
+			<option name="user.contest.canEditOwnSolution">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.canDeleteOwnSolution">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			
+			<option name="user.contest.canUseContest">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.canDownloadAttachment">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.canViewAttachmentPreview">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.contest.canUploadAttachment">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<enableoptions>user.contest.maxAttachmentSize,user.contest.allowedAttachmentExtensions,user.contest.maxAttachmentCount</enableoptions>
+			</option>
+			<option name="user.contest.maxAttachmentSize">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>150000</defaultvalue>
+			</option>
+			<option name="user.contest.allowedAttachmentExtensions">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>textarea</optiontype>
+				<defaultvalue><![CDATA[gif
+jpg
+jpeg
+png
+bmp
+zip
+txt
+pdf]]></defaultvalue>
+			</option>
+			<option name="user.contest.maxAttachmentCount">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>5</defaultvalue>
+			</option>
+			
+			
+			<option name="user.contest.canEditSolution">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="user.contest.canDeleteSolution">
+				<categoryname>user.profile.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			
+			<!-- mod -->
+			<option name="mod.contest.canEditEntry">
+				<categoryname>mod.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="mod.contest.canDeleteEntry">
+				<categoryname>mod.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="mod.contest.canEditSolution">
+				<categoryname>mod.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="mod.contest.canDeleteSolution">
+				<categoryname>mod.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+		</options>
+	</import>
+	<delete>
+		<option name="mod.contest.canEditClass"/>
+		<option name="mod.contest.canDeleteClass"/>
+	</delete>
+</data>

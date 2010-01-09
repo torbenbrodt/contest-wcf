@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/pageLocations.dtd">
+<data>	
+	<import>
+		<pagelocation name="wcf.usersOnline.location.contestSolution">
+			<pattern><![CDATA[index\.php\?form=ContestSolution]]></pattern>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestManage">
+			<pattern><![CDATA[index\.php\?(?:form|action)=Contest]]></pattern>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestOverview">
+			<pattern><![CDATA[index\.php\?page=ContestOverview]]></pattern>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestEntry">
+			<pattern><![CDATA[index\.php\?page=ContestEntry&.*contestID=(\d+)]]></pattern>
+			<classpath>lib/data/page/location/ContestEntryLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contest">
+			<pattern><![CDATA[index\.php\?page=Contest&.*userID=(\d+)]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+	</import>
+</data>

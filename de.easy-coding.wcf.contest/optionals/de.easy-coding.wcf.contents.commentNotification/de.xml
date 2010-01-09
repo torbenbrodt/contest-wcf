@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+	<category name="wcf.user.notification">
+		<item name="wcf.user.notification.object.type.contestEntry"><![CDATA[Contest-Kommentare]]></item>                
+	</category>
+	<category name="wcf.user.contest">
+		<item name="wcf.user.contest.notification.newContestSolution"><![CDATA[Sie haben einen neuen <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">Kommentar</a>{if $event->getObject()->userID} von <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} zu einem Ihrer Contest-Einträge erhalten.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.accept"><![CDATA[Bestätigen]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.title"><![CDATA[Neuer Contest-Kommentar]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.description"><![CDATA[Sie erhalten eine Benachrichtigung bei neuen Kommentaren zu Ihren Contest-Einträgen.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.short"><![CDATA[Neuer <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">Contest-Kommentar</a>{if $event->getObject()->userID} von <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if}]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.medium"><![CDATA[Neuer <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">Kommentar</a>{if $event->getObject()->userID} von <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} zu einem Ihrer Contest Einträge.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.userMessages"><![CDATA[Sie haben einen neuen <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">Kommentar</a>{if $event->getObject()->userID} von <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} zu einem Ihrer Contest Einträge erhalten.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.mail"><![CDATA[Hallo {$user->username},
+
+{$event->getObject()->username} hat einen neuen Kommentar zu einem Ihrer Contest-Einträge geschrieben:
+"{$event->getObject()->getFormattedMessage('text/plain')}"
+
+Mit diesem Link gelangen Sie direkt zu dem neuen Kommentar: {@$pageURL}{@$event->getObject()->getURL()}]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.pm"><![CDATA[Hallo {$user->username},
+
+{$event->getObject()->username} hat einen neuen Kommentar zu einem Ihrer Contest Einträge geschrieben:
+"{$event->getObject()->getFormattedMessage()}"
+
+Mit diesem Link gelangen Sie direkt zu dem neuen Kommentar: [url]{@$pageURL}{@$event->getObject()->getURL()}[/url]]]></item>
+	</category>
+</language>

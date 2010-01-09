@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="en">
+	<category name="wcf.user.notification">
+		<item name="wcf.user.notification.object.type.contestEntry"><![CDATA[Contest-Solution]]></item>                
+	</category>
+	<category name="wcf.user.contest">
+		<item name="wcf.user.contest.notification.newContestSolution"><![CDATA[You got a new <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">solution</a>{if $event->getObject()->userID} from <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.accept"><![CDATA[Confirm]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.title"><![CDATA[New Contest-Solution]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.description"><![CDATA[You will get notifications for solutions to all new solutions for your contest entries.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.short"><![CDATA[New <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">contest solution</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if}]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.medium"><![CDATA[New <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">contest solution</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.userMessages"><![CDATA[You got a new <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">solution</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.mail"><![CDATA[Hello {$user->username},
+
+{$event->getObject()->username} has published a new solution to one of your contest listings:
+"{$event->getObject()->getFormattedMessage('text/plain')}"
+
+Follow this link to read the solution online: {@$pageURL}{@$event->getObject()->getURL()}]]></item>
+		<item name="wcf.user.contest.notification.newContestSolution.pm"><![CDATA[Hallo {$user->username},
+
+{$event->getObject()->username} has published a new solution to one of your contest listings:
+"{$event->getObject()->getFormattedMessage()}"
+
+Follow this link to read the solution online: [url]{@$pageURL}{@$event->getObject()->getURL()}[/url]]]></item>
+	</category>
+</language>

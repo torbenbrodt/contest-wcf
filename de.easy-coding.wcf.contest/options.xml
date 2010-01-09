@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/options.dtd">
+<data>
+	<import>
+		<options>
+			<option name="module_contest">
+				<categoryname>module.user</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			
+			<option name="profile_show_last_contest_entries">
+				<categoryname>user.profile.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<options>module_contest</options>
+			</option>
+		</options>
+	</import>
+</data>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/taggable.dtd">
+<data>	
+	<import>
+		<taggable name="de.easy-coding.wcf.contest.entry">
+			<classpath>lib/data/contest/TaggableContestEntry.class.php</classpath>
+		</taggable>
+	</import>
+</data>

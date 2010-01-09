@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.class.mod.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Kann Lösungen löschen]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen löschen.]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canDeleteEntry"><![CDATA[Kann Contest löschen]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canDeleteEntry.description"><![CDATA[Mitglieder dieser Benutzergruppe können Contest löschen.]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canEditSolution"><![CDATA[Kann Lösungen bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canEditSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canEditEntry"><![CDATA[Kann Contest bearbeiten]]></item>
+		<item name="wcf.acp.group.option.mod.contest.canEditEntry.description"><![CDATA[Mitglieder dieser Benutzergruppe können Contest bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions"><![CDATA[Erlaubte Dateiendungen]]></item>
+		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions.description"><![CDATA[Erlaubte Endungen für Dateianhänge. Pro Zeile eine Dateiendung angeben.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canSolution"><![CDATA[Kann Lösungen erstellen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Contest von anderen Benutzern kommentieren.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDeleteSolution"><![CDATA[Kann Lösungen im eigenen Contest löschen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDeleteSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen im eigenen Contest löschen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDeleteOwnSolution"><![CDATA[Kann eigene Lösungen löschen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDeleteOwnSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können eigene Lösungen löschen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDownloadAttachment"><![CDATA[Kann Dateianhänge herunterladen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canDownloadAttachment.description"><![CDATA[Mitglieder dieser Benutzergruppe können Dateianhänge herunterladen/betrachten.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canEditSolution"><![CDATA[Kann Lösungen im eigenen Contest bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.contest.canEditSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen im eigenen Contest bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canEditOwnSolution"><![CDATA[Kann eigene Lösungen bearbeiten]]></item>
+		<item name="wcf.acp.group.option.user.contest.canEditOwnSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können eigene Lösungen bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUploadAttachment"><![CDATA[Kann Dateianhänge hochladen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUploadAttachment.description"><![CDATA[Mitglieder dieser Benutzergruppe können eigene Dateianhänge hochladen. Bei der Eintragserstellung werden die entsprechenden Felder angezeigt. ]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest"><![CDATA[Kann Contest nutzen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können den Contest nutzen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewAttachmentPreview"><![CDATA[Kann Dateianhangs-Vorschau sehen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewAttachmentPreview.description"><![CDATA[Mitglieder dieser Benutzergruppe können die Vorschau von Dateianhängen sehen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest"><![CDATA[Kann Contest von Benutzern ansehen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können Contest von anderen Benutzern aufrufen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxAttachmentCount"><![CDATA[Maximale Dateianhänge pro Eintrag]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxAttachmentCount.description"><![CDATA[Wieviele Dateianhänge sollen Mitglieder dieser Benutzergruppe pro Eintrag einfügen können?]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxAttachmentSize"><![CDATA[Maximale Dateianhangsgröße]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxAttachmentSize.description"><![CDATA[Maximale Größe pro Dateianhang in Byte.]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxSolutionLength"><![CDATA[Maximale Lösungslänge]]></item>
+		<item name="wcf.acp.group.option.user.contest.maxSolutionLength.description"><![CDATA[Geben Sie hier die maximale Anzahl an Zeichen an, die ein Contest-Lösung enthalten darf.]]></item>
+	</category>
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.module_contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.option.module_contest.description"><![CDATA[Aktiviert die Contest Wettbewerbsplattform.]]></item>
+		<item name="wcf.acp.option.profile_show_last_contest_entries"><![CDATA[Letzte gestartete Contests im Profil anzeigen]]></item>
+		<item name="wcf.acp.option.profile_show_last_contest_entries.description"><![CDATA[Aktiviert die Anzeige der letzten fünf gestarteten Contests auf der Startseite des Profils]]></item>
+	</category>
+	<category name="wcf.attachment">
+		<item name="wcf.attachment.containerType.contestEntry"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.header.menu">
+		<item name="wcf.header.menu.user.contest"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.help.item">
+		<item name="wcf.help.item.user.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.help.item.user.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest</span></p>
+<p>Contest ist eine Plattform für Programmierwettbewerbe.<br/>
+Klassen drücken dabei das Können oder eine Altergruppe der teilnehmenden Mitglieder aus.<br/>
+Ihr werdet zum einen selbst Juror, könnt aber auch andere Juroren (zum Beispiel das Projektteam) als Juror einladen.<br/>
+Ihr könnt selbst Preise beisteuern. Während des Wettbewerbs können aber von Sponsoren auch weitere Preise hinzugefügt werden um den Anreiz zu erhöhen.</p>
+
+<p>Nachdem ihr eine Aufgabe erstellt habt, wird diese zuerst als "private" markiert.<br/>
+Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen bestimmten Termin planen.</p>
+
+<h4>Weitere Informationen</h4>
+<ul>
+	{if $allItemNames['message']|isset}<li><a href="index.php?page=Help&item=message{@SID_ARG_2ND}">Texte schreiben</a></li>{/if}
+</ul>]]></item>
+	</category>
+	<category name="wcf.search">
+		<item name="wcf.search.type.contestEntry"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.tagging">
+		<item name="wcf.tagging.taggable.all.de.easy-coding.wcf.contest.entry"><![CDATA[Alle Contests]]></item>
+		<item name="wcf.tagging.taggable.de.easy-coding.wcf.contest.entry"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.user.contest">
+		<item name="wcf.user.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.user.contest.allEntries"><![CDATA[Alle Contests anzeigen]]></item>
+		<item name="wcf.user.contest.button.entry.add"><![CDATA[Eintragen]]></item>
+		<item name="wcf.user.contest.classes"><![CDATA[Kategorien]]></item>
+		<item name="wcf.user.contest.jurys"><![CDATA[Jurys]]></item>
+		<item name="wcf.user.contest.participants"><![CDATA[Teilnehmer]]></item>
+		<item name="wcf.user.contest.sponsors"><![CDATA[Sponsoren]]></item>
+		<item name="wcf.user.contest.prices"><![CDATA[Preise]]></item>
+		<item name="wcf.user.contest.class.add"><![CDATA[Hinzufügen]]></item>
+		<item name="wcf.user.contest.class.delete"><![CDATA[Kategorie löschen]]></item>
+		<item name="wcf.user.contest.class.delete.sure"><![CDATA[Wollen Sie die Kategorie wirklich löschen?]]></item>
+		<item name="wcf.user.contest.class.entries"><![CDATA[Contest in der Kategorie &raquo;{$class->title}&laquo;]]></item>
+		<item name="wcf.user.contest.class.error.tooManyClasses"><![CDATA[Sie haben die maximale Anzahl an Kategorien erreicht. Sie können keine weiteren Kategorien mehr erstellen.]]></item>
+		<item name="wcf.user.contest.class.title"><![CDATA[Name]]></item>
+		<item name="wcf.user.contest.class.title.error.notUnique"><![CDATA[Dieser Name ist bereits vorgeben.]]></item>
+		<item name="wcf.user.contest.entries.allEntries"><![CDATA[Alle Contests]]></item>
+		<item name="wcf.user.contest.entries.tagged"><![CDATA[Contest mit dem Tag &raquo;{$tag->getName()}&laquo;]]></item>
+		<item name="wcf.user.contest.entry.add"><![CDATA[Eigenen Contest starten]]></item>
+		<item name="wcf.user.contest.entry.by"><![CDATA[Von]]></item>
+		<item name="wcf.user.contest.entry.contest.description"><![CDATA[Sie haben sich bereits eine passende Aufgabe überlegt. Starten Sie jetzt ihren eigenen Contest.]]></item>
+		<item name="wcf.user.contest.entry.classes"><![CDATA[Kategorien]]></item>
+		<item name="wcf.user.contest.entry.classes.beginner"><![CDATA[Anfänger]]></item>
+		<item name="wcf.user.contest.entry.classes.expert"><![CDATA[Fortgeschritten]]></item>
+		<item name="wcf.user.contest.entry.owner"><![CDATA[Besitzer]]></item>
+		<item name="wcf.user.contest.entry.owner.self"><![CDATA[Ich selbst]]></item>
+		<item name="wcf.user.contest.entry.owner.description"><![CDATA[Unter wem soll der Wettbewerb gestartet werden? Sie können selbst der Besitzer sein oder aber eine ihrer Gruppen, für die Sie die notwendigen Berechtigungen haben.]]></item>
+		<item name="wcf.user.contest.entry.jury"><![CDATA[Jury]]></item>
+		<item name="wcf.user.contest.entry.jury.add"><![CDATA[Jury hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.jury.description"><![CDATA[Als Ersteller der Aufgabe werdet ihr selbst zum Juror. Allerdings empfiehlt es sich auch andere Mitglieder für die Jury zu suchen. Mitglieder Jury können selbstverständlich nicht am Wettbewerb teilnehmen.]]></item>
+		<item name="wcf.user.contest.entry.participant"><![CDATA[Teilnehmer]]></item>
+		<item name="wcf.user.contest.entry.participant.add"><![CDATA[Teilnehmer hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.participant.description"><![CDATA[Sie können die Teilnehmer bestimmen.]]></item>
+		<item name="wcf.user.contest.entry.sponsor"><![CDATA[Sponsor]]></item>
+		<item name="wcf.user.contest.entry.sponsor.add"><![CDATA[Sponsor hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.solution"><![CDATA[Lösung]]></item>
+		<item name="wcf.user.contest.entry.solution.add"><![CDATA[Lösung hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.solution.by"><![CDATA[Von]]></item>
+		<item name="wcf.user.contest.entry.solution.delete"><![CDATA[Lösung löschen]]></item>
+		<item name="wcf.user.contest.entry.solution.delete.sure"><![CDATA[Wollen Sie diese Lösung wirklich löschen?]]></item>
+		<item name="wcf.user.contest.entry.solution.edit"><![CDATA[Lösung bearbeiten]]></item>
+		<item name="wcf.user.contest.entry.solution.error.tooLong"><![CDATA[Ihre Nachricht ist zu lang. Es stehen maximal {#$maxTextLength} Zeichen zur Verfügung.]]></item>
+		<item name="wcf.user.contest.entry.solution.permalink"><![CDATA[Permalink zur {#$messageNumber}. Lösung]]></item>
+		<item name="wcf.user.contest.entry.solutions"><![CDATA[Lösungen]]></item>
+		<item name="wcf.user.contest.entry.jurytalk"><![CDATA[Jurytalk]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.subject"><![CDATA[Betreff]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.message"><![CDATA[Nachricht]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.description"><![CDATA[Wenn Sie Juroren überzeugen wollen, an ihrem Wettbewerb teilzunehmen, sollten Sie mit einem Text überzeugen. Der Text ist optional.]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.add"><![CDATA[Jurytalk hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.by"><![CDATA[Von]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.delete"><![CDATA[Jurytalk löschen]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.delete.sure"><![CDATA[Wollen Sie diese Jurytalk wirklich löschen?]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.edit"><![CDATA[Jurytalk bearbeiten]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.error.tooLong"><![CDATA[Ihre Nachricht ist zu lang. Es stehen maximal {#$maxTextLength} Zeichen zur Verfügung.]]></item>
+		<item name="wcf.user.contest.entry.jurytalk.permalink"><![CDATA[Permalink zur {#$messageNumber}. Jurytalk]]></item>
+		<item name="wcf.user.contest.entry.jurytalks"><![CDATA[Jurytalks]]></item>
+		<item name="wcf.user.contest.entry.delete"><![CDATA[Eintrag löschen]]></item>
+		<item name="wcf.user.contest.entry.delete.sure"><![CDATA[Wollen Sie den Eintrag wirklich löschen?]]></item>
+		<item name="wcf.user.contest.entry.edit"><![CDATA[Eintrag bearbeiten]]></item>
+		<item name="wcf.user.contest.entry.information"><![CDATA[Informationen]]></item>
+		<item name="wcf.user.contest.entry.message"><![CDATA[Aufgabe]]></item>
+		<item name="wcf.user.contest.entry.more"><![CDATA[Weiterlesen]]></item>
+		<item name="wcf.user.contest.entry.numberOfSolutions"><![CDATA[{#$entry->solutions} Lösung{if $entry->solutions != 1}en{/if}]]></item>
+		<item name="wcf.user.contest.entry.permalink"><![CDATA[Permalink zum {#$messageNumber}. Eintrag]]></item>
+		<item name="wcf.user.contest.entry.subject"><![CDATA[Titel]]></item>
+		<item name="wcf.user.contest.entry.subject.description"><![CDATA[Überlegen Sie sich eine passende Überschrift für die Aufgabe.]]></item>
+		<item name="wcf.user.contest.entry.tags"><![CDATA[Tags]]></item>
+		
+		<item name="wcf.user.contest.entry.price"><![CDATA[Preis]]></item>
+		<item name="wcf.user.contest.entry.price.description"><![CDATA[Hier können Sie selbst Preise beisteuern. Während des Wettbewerbs können aber von Sponsoren auch weitere Preise hinzugefügt werden um den Anreiz zu erhöhen.]]></item>
+		<item name="wcf.user.contest.entry.price.add"><![CDATA[Preis hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.price.subject"><![CDATA[Name]]></item>
+		<item name="wcf.user.contest.entry.price.message"><![CDATA[Beschreibung]]></item>
+
+		<item name="wcf.user.contest.feed"><![CDATA[Contest abonnieren]]></item>
+		<item name="wcf.user.contest.feed.title"><![CDATA[Contest Feed]]></item>
+		<item name="wcf.user.contest.feed.description"><![CDATA[Contest aus dem Contest Bereich.]]></item>
+		<item name="wcf.user.contest.lastestSolutions"><![CDATA[Letzte Lösungen]]></item>
+		<item name="wcf.user.contest.lastestEntries"><![CDATA[Letzte Contests]]></item>
+		<item name="wcf.user.contest.noEntries"><![CDATA[Es sind keine Contest vorhanden.]]></item>
+		<item name="wcf.user.contest.overview"><![CDATA[Contest]]></item>
+		<item name="wcf.user.contest.overview.empty"><![CDATA[Es wurden bislang noch keine Contests erstellt.]]></item>
+		<item name="wcf.user.contest.search.query"><![CDATA[Contest durchsuchen]]></item>
+
+		<item name="wcf.user.contest.sidebar.addcontest.title"><![CDATA[Starte deinen eigenen Contest]]></item>
+		<item name="wcf.user.contest.sidebar.addcontest.submit"><![CDATA[Contest erstellen]]></item>
+		<item name="wcf.user.contest.sidebar.addcontest.description"><![CDATA[easy-coding ist eins der meistgenutzten Programmierforen in Deutschland. Starten Sie ihren eigenen Contest. Überlegen Sie sich eine passende Aufgabe, erstellen Sie Preise, uvm.]]></item>
+
+		<item name="wcf.user.contest.sidebar.becomesponsor.title"><![CDATA[Werde Sponsor]]></item>
+		<item name="wcf.user.contest.sidebar.becomesponsor.submit"><![CDATA[Preis hinzufügen]]></item>
+		<item name="wcf.user.contest.sidebar.becomesponsor.description"><![CDATA[Es gibt die verschiedensten Motive warum man Preise für einen Contest sponsorn sollte. Jeder kann davon profitieren.]]></item>
+
+		<item name="wcf.user.contest.sidebar.becomejury.title"><![CDATA[Werde Juror]]></item>
+		<item name="wcf.user.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>
+		<item name="wcf.user.contest.sidebar.becomejury.description"><![CDATA[Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
+	</category>
+	<category name="wcf.user.profile">
+		<item name="wcf.user.profile.menu.link.contest"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.usersOnline">
+		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest von &raquo;{$user}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Lösung in Contest schreiben]]></item>
+		<item name="wcf.usersOnline.location.contestEntry"><![CDATA[Eintrag &raquo;{$entry}&laquo; im Contest von &raquo;{$user}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Contest verwalten]]></item>
+		<item name="wcf.usersOnline.location.contestOverview"><![CDATA[<a href="index.php?page=ContestOverview{SID_ARG_2ND}">Contest</a>]]></item>
+	</category>
+</language>

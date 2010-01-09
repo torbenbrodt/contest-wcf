@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
+<package name="de.easy-coding.wcf.contest">
+	<packageinformation>
+		<packagename>easy-coding "contest"</packagename>
+		<packagedescription>contest portal.</packagedescription>
+		<version>0.1.0 Beta 1</version>
+		<plugin>com.woltlab.wcf</plugin>
+		<isunique>1</isunique>
+		<date>DATE</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author>Torben Brodt</author>
+		<authorurl>http://trac.easy-coding.de/trac/biz</authorurl>
+	</authorinformation>
+	
+	<requiredpackages>
+		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="1.0.0 Beta 1">com.woltlab.wcf.tagging</requiredpackage>
+		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.page.user.profile</requiredpackage>
+		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.form.message</requiredpackage>
+		<requiredpackage minversion="0.8.2">de.easy-coding.wcf.taggingreloaded</requiredpackage>
+		<requiredpackage>com.woltlab.wcf.message.multiQuote</requiredpackage>
+		<requiredpackage>com.woltlab.wcf.user.infraction</requiredpackage>
+	</requiredpackages>
+	
+	<optionalpackages>
+                <optionalpackage file="optionals/de.easy-coding.wcf.contents.commentNotification.tar.gz">de.easy-coding.wcf.contents.commentNotification</optionalpackage>
+	</optionalpackages>
+	
+	<instructions type="install">
+		<!-- files -->
+		<files>files.tar</files>
+		<templates>templates.tar</templates>
+		<sql>install.sql</sql>
+		<script>acp/install_contest.php</script>
+		
+		<!-- config -->
+		<eventlistener>eventlistener.xml</eventlistener>
+		<options>options.xml</options>
+		<taggable>taggable.xml</taggable>
+		<groupoptions>groupoptions.xml</groupoptions>
+		<pagemenu>pagemenu.xml</pagemenu>
+		<pagelocation>pagelocation.xml</pagelocation>
+		<warningobjecttype>warningobjecttype.xml</warningobjecttype>
+		<help>help.xml</help>
+		<searchablemessagetypes>smt.xml</searchablemessagetypes>
+		<attachmentcontainertype>act.xml</attachmentcontainertype>
+		
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+	</instructions>
+	
+	<instructions type="update" fromversion="1.0.0">
+		<files>files.tar</files>
+	</instructions>
+</package>

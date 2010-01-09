@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/headerMenu.dtd">
+<data>	
+	<import>
+		<pagemenuitem name="wcf.header.menu.user.contest">
+			<iconmedium>contestM.png</iconmedium>
+			<iconsmall>contestS.png</iconsmall>
+			<link>index.php?page=ContestOverview</link>
+			<permissions>user.contest.canViewContest</permissions>
+			<options>module_contest</options>
+		</pagemenuitem>
+	</import>
+</data>

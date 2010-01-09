@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
+<data>	
+	<import>
+		<eventlistener>
+			<eventclassname>UserPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/UserPageContestListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>UserProfileFrame</eventclassname>
+			<eventname>init</eventname>
+			<listenerclassfile>lib/system/event/listener/UserProfileFrameContestTabListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>UserProfileFrame</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/UserProfileFrameContestTabListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventClassName>URLParser</eventClassName>
+			<eventName>didParse</eventName>
+			<listenerClassFile>lib/system/event/listener/URLParserContestURLListener.class.php</listenerClassFile>
+		</eventlistener>
+	</import>
+</data>
