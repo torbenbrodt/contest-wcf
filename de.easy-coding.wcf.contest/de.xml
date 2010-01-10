@@ -165,6 +165,10 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.user.contest.sidebar.addcontest.submit"><![CDATA[Contest erstellen]]></item>
 		<item name="wcf.user.contest.sidebar.addcontest.description"><![CDATA[easy-coding ist eins der meistgenutzten Programmierforen in Deutschland. Starten Sie ihren eigenen Contest. Überlegen Sie sich eine passende Aufgabe, erstellen Sie Preise, uvm.]]></item>
 
+		<item name="wcf.user.contest.sidebar.becomeparticipant.title"><![CDATA[Werde Teilnehmer]]></item>
+		<item name="wcf.user.contest.sidebar.becomeparticipant.submit"><![CDATA[Teilnehmer werden]]></item>
+		<item name="wcf.user.contest.sidebar.becomeparticipant.description"><![CDATA[Willst du an diesem Contest teilnehmen oder an einem der zukünftigen?]]></item>
+
 		<item name="wcf.user.contest.sidebar.becomesponsor.title"><![CDATA[Werde Sponsor]]></item>
 		<item name="wcf.user.contest.sidebar.becomesponsor.submit"><![CDATA[Preis hinzufügen]]></item>
 		<item name="wcf.user.contest.sidebar.becomesponsor.description"><![CDATA[Es gibt die verschiedensten Motive warum man Preise für einen Contest sponsorn sollte. Jeder kann davon profitieren.]]></item>

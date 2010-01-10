@@ -198,7 +198,7 @@ class ContestEntryAddForm extends MessageForm {
 		}
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&userID='.WCF::getUser()->userID.'&contestID='.$entry->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$entry->contestID.SID_ARG_2ND_NOT_ENCODED);
 		exit;
 	}
 	

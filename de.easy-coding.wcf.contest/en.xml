@@ -158,6 +158,10 @@
 		<item name="wcf.user.contest.sidebar.addcontest.submit"><![CDATA[Create your contest]]></item>
 		<item name="wcf.user.contest.sidebar.addcontest.description"><![CDATA[easy-coding is one of the most flexible coding solution on the web. Use can use the contest platform <i>for free</i> to create your own contest.]]></item>
 
+		<item name="wcf.user.contest.sidebar.becomeparticipant.title"><![CDATA[Become participant]]></item>
+		<item name="wcf.user.contest.sidebar.becomeparticipant.submit"><![CDATA[Join the battle]]></item>
+		<item name="wcf.user.contest.sidebar.becomeparticipant.description"><![CDATA[Do you want to join this contest or want to take part in future contests?]]></item>
+
 		<item name="wcf.user.contest.sidebar.becomesponsor.title"><![CDATA[Become Sponsor]]></item>
 		<item name="wcf.user.contest.sidebar.becomesponsor.submit"><![CDATA[Add a price]]></item>
 		<item name="wcf.user.contest.sidebar.becomesponsor.description"><![CDATA[There are different reasons why peope add prices. Everybody can benefit from it.]]></item>

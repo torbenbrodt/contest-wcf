@@ -22,6 +22,27 @@
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
+			<h3>{lang}wcf.user.contest.sidebar.becomeparticipant.title{/lang}</h3>
+		</div>
+		<div style="padding:10px">
+		{lang}wcf.user.contest.sidebar.becomeparticipant.description{/lang}
+		
+		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+			<ul>
+				{if $isRegistered}
+				<li><a href="index.php?form=ContestParticipantAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				{/if}
+			</ul>
+		</div>
+		
+		</div>
+	</div>
+</div>
+
+<div class="contentBox">
+	<div class="border"> 
+		<div class="containerHead">
 			<h3>{lang}wcf.user.contest.sidebar.becomesponsor.title{/lang}</h3>
 		</div>
 		<div style="padding:10px">
@@ -30,7 +51,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestEntryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+				<li><a href="index.php?form=ContestSponsorAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
@@ -51,7 +72,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestEntryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+				<li><a href="index.php?form=ContestJuryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{/if}
 			</ul>

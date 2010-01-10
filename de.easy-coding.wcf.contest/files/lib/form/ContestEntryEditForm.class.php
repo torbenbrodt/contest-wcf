@@ -36,9 +36,6 @@ class ContestEntryEditForm extends ContestEntryAddForm {
 		if (!$this->entry->contestID || !$this->entry->isEditable()) {
 			throw new IllegalLinkException();
 		}
-		
-		// get profile frame
-		$this->frame = new UserProfileFrame($this, $this->entry->userID);
 	}
 	
 	/**
@@ -57,7 +54,7 @@ class ContestEntryEditForm extends ContestEntryAddForm {
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&userID='.$this->frame->getUserID().'&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->contestID);
+		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->contestID);
 		exit;
 	}
 	
