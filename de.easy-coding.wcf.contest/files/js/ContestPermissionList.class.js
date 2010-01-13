@@ -3,9 +3,10 @@
  * @copyright	2009 TBR Solutions
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  */
-function ContestPermissionList(key, data) {
+function ContestPermissionList(key, data, url) {
 	this.key = key;
 	this.data = data;
+	this.url = url;
 	this.selectedIndex = -1;
 	this.ajaxRequest;
 	this.inputHasFocus = false;
@@ -129,41 +130,31 @@ function ContestPermissionList(key, data) {
 		if (query) {
 			var activePermissionList = this;
 			this.ajaxRequest = new AjaxRequest();
-			this.ajaxRequest.openPost('index.php?page=ContestSponsorObjects'+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() { activePermissionList.receiveResponse(); });
+			this.ajaxRequest.openPost(this.url+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() { 
+				activePermissionList.receiveResponseJson(); 
+			});
 		}
 	}
 	
 	/**
 	 * Receives the response of an opened ajax request.
 	 */
-	this.receiveResponse = function() {
-		if (this.ajaxRequest && this.ajaxRequest.xmlHttpRequest.readyState == 4 && this.ajaxRequest.xmlHttpRequest.status == 200 && this.ajaxRequest.xmlHttpRequest.responseXML) {
-			var objects = this.ajaxRequest.xmlHttpRequest.responseXML.getElementsByTagName('objects');
+	this.receiveResponseJson = function() {
+		if (this.ajaxRequest && this.ajaxRequest.xmlHttpRequest.readyState == 4 && this.ajaxRequest.xmlHttpRequest.status == 200) {
+			var objects = eval('(' + this.ajaxRequest.xmlHttpRequest.responseText + ')');
 			if (objects.length > 0) {
-				var firstNewKey = -1;
-				for (var i = 0; i < objects[0].childNodes.length; i++) {
-					// get name
-					var name = objects[0].childNodes[i].childNodes[0].childNodes[0].nodeValue;
-					
-					// get type
-					var type = objects[0].childNodes[i].childNodes[1].childNodes[0].nodeValue;  
-					
-					// get id
-					var id = objects[0].childNodes[i].childNodes[2].childNodes[0].nodeValue;  
+				for (var i = 0; i < objects.length; i++) {
+  					var ob = objects[i];
 					
 					var doBreak = false;
 					for (var j = 0; j < this.data.length; j++) {
-						if (this.data[j]['id'] == id && this.data[j]['type'] == type) doBreak = true;
+						if (this.data[j]['id'] == ob.id && this.data[j]['type'] == ob.type) doBreak = true;
 					}
 					
 					if (doBreak) continue;
 					
 					var key = this.data.length;
-					if (firstNewKey == -1) firstNewKey = key;
-					this.data[key] = new Object();
-					this.data[key]['name'] = name;
-					this.data[key]['type'] = type;
-					this.data[key]['id'] = id;
+					this.data[key] = ob;
 				}
 				
 				document.getElementById(this.key + 'AddInput').value = '';
@@ -178,25 +169,16 @@ function ContestPermissionList(key, data) {
 	 * Saves the selected permissions in hidden input fields.
 	 */
 	this.submit = function(form) {
+		var typeField;
+
 		for (var i = 0; i < this.data.length; i++) {
-			// general
-			var typeField = document.createElement('input');
-			typeField.type = 'hidden';
-			typeField.name = this.key + '[' + i + '][type]';
-			typeField.value = this.data[i]['type'];
-			form.appendChild(typeField);
-			
-			var idField = document.createElement('input');
-			idField.type = 'hidden';
-			idField.name = this.key + '[' + i + '][id]';
-			idField.value = this.data[i]['id'];
-			form.appendChild(idField);
-			
-			var nameField = document.createElement('input');
-			nameField.type = 'hidden';
-			nameField.name = this.key + '[' + i + '][name]';
-			nameField.value = this.data[i]['name'];
-			form.appendChild(nameField);
+			for(var key in this.data[i]) {
+				typeField = document.createElement('input');
+				typeField.type = 'hidden';
+				typeField.name = this.key + '[' + i + ']['+key+']';
+				typeField.value = this.data[i][key];
+				form.appendChild(typeField);
+			}
 		}
 	}
 

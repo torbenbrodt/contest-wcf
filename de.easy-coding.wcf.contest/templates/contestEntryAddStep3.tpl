@@ -9,15 +9,34 @@ var sponsors = new Array();
 	{assign var=i value=$i+1}
 {/foreach}
 
+var prices = new Array();
+{assign var=i value=0}
+{foreach from=$prices item=price}
+	prices[{@$i}] = new Object();
+	prices[{@$i}]['name'] = '{@$price.name|encodeJS}';
+	prices[{@$i}]['type'] = '{@$price.type}';
+	prices[{@$i}]['id'] = '{@$price.id}';
+	{assign var=i value=$i+1}
+{/foreach}
+
 onloadEvents.push(function() {
 	// sponsors
-	var list1 = new ContestPermissionList('sponsor', sponsors);
+	var list1 = new ContestPermissionList('sponsor', sponsors, 'index.php?page=ContestSponsorObjects');
+	// prices
+	var list2 = new ContestPermissionList('price', prices, 'index.php?page=ContestPriceObjects'+
+		'&text='+escape($('priceAddText').getValue()));
+		
+	$('priceAddInput').onfocus = $('priceAddInput').onblur = $('priceAddInput').onkeyup = function() {
+		return false;
+	};
+	// TODO: after 'add', clear text... $('priceAddText').setValue('');
 	
 	// add onsubmit event
 	onsubmitEvents.push(function(form) {
 		if (suggestion.selectedIndex != -1) return false;
-		if (list1.inputHasFocus) return false;
+		if (list1.inputHasFocus || list2.inputHasFocus) return false;
 		list1.submit(form);
+		list2.submit(form);
 	});
 });
 </script>

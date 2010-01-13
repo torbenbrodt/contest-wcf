@@ -100,6 +100,7 @@ CREATE TABLE wcf1_contest_price (
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
+	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
 	position SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

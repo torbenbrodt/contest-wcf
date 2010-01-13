@@ -16,5 +16,20 @@
 			<eventName>assignVariables</eventName>
 			<listenerClassFile>lib/system/event/listener/ContestEntrySolutionNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
+		<eventlistener>
+			<eventClassName>ContestEntryJurytalkAddForm</eventClassName>
+			<eventName>saved</eventName>
+			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+		</eventlistener>
+		<eventlistener>
+			<eventClassName>ContestJurytalkDeleteAction</eventClassName>
+			<eventName>executed</eventName>
+			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+		</eventlistener>
+		<eventlistener>
+			<eventClassName>ContestEntryPage</eventClassName>
+			<eventName>assignVariables</eventName>
+			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+		</eventlistener>
 	</import>
 </data>

@@ -23,5 +23,27 @@ Follow this link to read the solution online: {@$pageURL}{@$event->getObject()->
 "{$event->getObject()->getFormattedMessage()}"
 
 Follow this link to read the solution online: [url]{@$pageURL}{@$event->getObject()->getURL()}[/url]]]></item>
+
+
+		
+		<item name="wcf.user.contest.notification.newContestJurytalk"><![CDATA[You got a new <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">jurytalk</a>{if $event->getObject()->userID} from <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.accept"><![CDATA[Confirm]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.title"><![CDATA[New Contest-Jurytalk]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.description"><![CDATA[You will get notifications for jurytalks to all new jurytalks for your contest entries.]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.short"><![CDATA[New <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">contest jurytalk</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if}]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.medium"><![CDATA[New <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">contest jurytalk</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.userMessages"><![CDATA[You got a new <a href="{@$event->getObject()->getURL()}{@SID_ARG_2ND}">jurytalk</a>{if $event->getObject()->userID} by <a href="index.php?page=User&amp;userID={@$event->getObject()->userID}{@SID_ARG_2ND}">{$event->getObject()->username}</a>{/if} to one of your contest listings.]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.mail"><![CDATA[Hello {$user->username},
+
+{$event->getObject()->username} has published a new jurytalk to one of your contest listings:
+"{$event->getObject()->getFormattedMessage('text/plain')}"
+
+Follow this link to read the jurytalk online: {@$pageURL}{@$event->getObject()->getURL()}]]></item>
+		<item name="wcf.user.contest.notification.newContestJurytalk.pm"><![CDATA[Hallo {$user->username},
+
+{$event->getObject()->username} has published a new jurytalk to one of your contest listings:
+"{$event->getObject()->getFormattedMessage()}"
+
+Follow this link to read the jurytalk online: [url]{@$pageURL}{@$event->getObject()->getURL()}[/url]]]></item>
 	</category>
 </language>

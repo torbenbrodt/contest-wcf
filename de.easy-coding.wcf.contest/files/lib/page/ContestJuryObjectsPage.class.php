@@ -3,7 +3,7 @@
 require_once(WCF_DIR.'lib/page/AbstractPage.class.php');
 
 /**
- * Outputs an XML document with a list of permissions objects (user or user groups).
+ * Outputs an json document with a list of permissions objects (user or user groups).
  * file looks stupidly redundant, but it is planned to become very smart... listing the latest jurys.
  * 
  * @author	Torben Brodt
@@ -41,8 +41,8 @@ class ContestJuryObjectsPage extends AbstractPage {
 	public function show() {
 		parent::show();
 				
-		header('Content-type: text/xml');
-		echo "<?xml version=\"1.0\" encoding=\"".CHARSET."\"?>\n<objects>";
+		header('Content-Type: application/json');
+		$objects = array();
 		$groupIDs = array(Group::GUESTS, Group::EVERYONE, Group::USERS);
 		
 		if (count($this->query)) {
@@ -59,14 +59,11 @@ class ContestJuryObjectsPage extends AbstractPage {
 				ORDER BY 	name";
 			$result = WCF::getDB()->sendQuery($sql);
 			while ($row = WCF::getDB()->fetchArray($result)) {
-				echo "<object>";
-				echo "<name><![CDATA[".StringUtil::escapeCDATA($row['name'])."]]></name>";
-				echo "<type>".$row['type']."</type>";
-				echo "<id>".$row['id']."</id>";
-				echo "</object>";
+				$objects[] = $row;
 			}
 		}
-		echo '</objects>';
+		
+		echo json_encode($objects);
 		exit;
 	}
 }

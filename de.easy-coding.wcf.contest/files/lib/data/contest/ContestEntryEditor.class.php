@@ -50,7 +50,7 @@ class ContestEntryEditor extends ContestEntry {
 		
 		// update classes
 		if (count($classIDArray) > 0) {
-			$this->setClasses($classIDArray);
+			$entry->setClasses($classIDArray);
 		}
 		
 		// update participants
@@ -64,13 +64,18 @@ class ContestEntryEditor extends ContestEntry {
 		}
 		
 		// update prices
-		if (count($prices) > 0) {
-			$entry->setPrices($prices);
+		if (count($sponsors) > 0 || count($prices) > 0) {
+			if(count($prices)) {
+				$sponsorID = $entry->setSponsors($sponsors, $userID, $groupID);
+			} else {
+				$entry->setSponsors($sponsors);
+				$sponsorID = 0;
+			}
 		}
 		
 		// update prices
-		if (count($sponsors) > 0) {
-			$entry->setSponsors($sponsors);
+		if (count($prices) > 0) {
+			$entry->setPrices($prices, $sponsorID);
 		}
 		
 		// update attachments
@@ -153,11 +158,19 @@ class ContestEntryEditor extends ContestEntry {
 		// update jurys
 		$this->setJurys($jurys);
 		
-		// update prices
-		$this->setPrices($prices);
-		
 		// update sponsors
-		$this->setSponsors($sponsors);
+		if(count($prices)) {
+			$sponsorID = $entry->setSponsors($sponsors, $userID, $groupID);
+		} else {
+			$entry->setSponsors($sponsors);
+			$sponsorID = 0;
+		}
+		
+		if($sponsorID) {
+		
+			// update prices
+			$this->setPrices($prices, $sponsorID);
+		}
 	}
 	
 	/**
@@ -181,32 +194,63 @@ class ContestEntryEditor extends ContestEntry {
 	/**
 	 * Saves sponsors.
 	 */
-	public function setSponsors($sponsors = array()) {
+	public function setSponsors($sponsors = array(), $userID = 0, $groupID = 0) {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
 			WHERE		contestID = ".$this->contestID;
 		WCF::getDB()->sendQuery($sql);
+		
+		$foundUserID = $foundGroupID = false;
+
+		// existing?
+		if($userID || $groupID)  {
+			foreach ($sponsors as $sponsor) {
+				$foundUserID = $userID > 0 && $sponsor['type'] == 'user' && $sponsor['id'] == $userID;
+				$foundGroupID = $groupID > 0 && $sponsor['type'] == 'group' && $sponsor['id'] == $groupID;
+			}
+			
+			if($userID && $foundUserID == false) {
+				$sponsors[] = array(
+					'type' => 'user',
+					'id' => $userID
+				);
+			} else if($groupID && $foundGroupID == false) {
+				$sponsors[] = array(
+					'type' => 'group',
+					'id' => $groupID
+				);
+			}
+		}
 
 		// create inserts
 		$inserts = '';
 		foreach ($sponsors as $sponsor) {
 			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->board->boardID.',
+			$inserts .= '	('.$this->contestID.',
 					'.($sponsor['type'] == 'user' ? intval($sponsor['id']) : 0).',
 					'.($sponsor['type'] == 'group' ? intval($sponsor['id']) : 0).')';
+					
+			$foundUserID = $userID > 0 && $sponsor['type'] == 'user' && $sponsor['id'] == $userID;
+			$foundGroupID = $groupID > 0 && $sponsor['type'] == 'group' && $sponsor['id'] == $groupID;
 		}
 	
 		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wbb".WBB_N."_contest_sponsor
-						(boardID, userID, groupID)
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_sponsor
+						(contestID, userID, groupID)
 				VALUES		".$inserts;
 			WCF::getDB()->sendQuery($sql);
 		}
+		
+		$sponsorID = 0;
+		if($userID || $groupID)  {
+			#$sponsorID = WCF::getDB()->getInsertID("wcf".WCF_N."_sponsor", 'sponsorID');
+		}
+		return $sponsorID;
 	}
 	
 	/**
 	 * Saves prices.
 	 */
-	public function setPrices($prices = array()) {
+	public function setPrices($prices = array(), $sponsorID = 0) {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_price
 			WHERE		contestID = ".$this->contestID;
 		WCF::getDB()->sendQuery($sql);
@@ -215,14 +259,15 @@ class ContestEntryEditor extends ContestEntry {
 		$inserts = '';
 		foreach ($prices as $price) {
 			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->board->boardID.',
-					'.($price['type'] == 'user' ? intval($price['id']) : 0).',
-					'.($price['type'] == 'group' ? intval($price['id']) : 0).')';
+			$inserts .= '	('.$this->contestID.', 
+					'/*.intval($sponsorID)*/.',
+					"'.(isset($price['subject']) ? escapeString($price['subject']) : '').'",
+					"'.(isset($price['message']) ? escapeString($price['message']) : '').'")';
 		}
 	
 		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wbb".WBB_N."_contest_price
-						(boardID, userID, groupID)
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_price
+						(contestID, sponsorID, subject, message)
 				VALUES		".$inserts;
 			WCF::getDB()->sendQuery($sql);
 		}
@@ -240,14 +285,14 @@ class ContestEntryEditor extends ContestEntry {
 		$inserts = '';
 		foreach ($participants as $participant) {
 			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->board->boardID.',
+			$inserts .= '	('.$this->contestID.',
 					'.($participant['type'] == 'user' ? intval($participant['id']) : 0).',
 					'.($participant['type'] == 'group' ? intval($participant['id']) : 0).')';
 		}
 	
 		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wbb".WBB_N."_contest_participant
-						(boardID, userID, groupID)
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_participant
+						(contestID, userID, groupID)
 				VALUES		".$inserts;
 			WCF::getDB()->sendQuery($sql);
 		}
@@ -265,14 +310,14 @@ class ContestEntryEditor extends ContestEntry {
 		$inserts = '';
 		foreach ($jurys as $jury) {
 			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->board->boardID.',
+			$inserts .= '	('.$this->contestID.',
 					'.($jury['type'] == 'user' ? intval($jury['id']) : 0).',
 					'.($jury['type'] == 'group' ? intval($jury['id']) : 0).')';
 		}
 	
 		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wbb".WBB_N."_contest_jury
-						(boardID, userID, groupID)
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_jury
+						(contestID, userID, groupID)
 				VALUES		".$inserts;
 			WCF::getDB()->sendQuery($sql);
 		}

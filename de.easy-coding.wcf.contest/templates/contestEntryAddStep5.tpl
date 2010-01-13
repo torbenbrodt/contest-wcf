@@ -11,7 +11,7 @@ var participants = new Array();
 
 onloadEvents.push(function() {
 	// participants
-	var list1 = new ContestPermissionList('participant', participants);
+	var list1 = new ContestPermissionList('participant', participants, 'index.php?page=ContestParticipantObjects');
 	
 	// add onsubmit event
 	onsubmitEvents.push(function(form) {

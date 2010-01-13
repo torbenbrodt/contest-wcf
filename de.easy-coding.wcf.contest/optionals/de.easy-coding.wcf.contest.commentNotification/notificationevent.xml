@@ -11,5 +11,15 @@
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
+		<event>
+			<name>newContestJurytalk</name>
+			<objecttype>contestEntry</objecttype>
+			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<defaultnotificationtype>pm</defaultnotificationtype>
+			<icon>contest</icon>
+			<requiresconfirmation>1</requiresconfirmation>
+			<options>module_contest</options>
+		</event>
 	</import>
 </data>

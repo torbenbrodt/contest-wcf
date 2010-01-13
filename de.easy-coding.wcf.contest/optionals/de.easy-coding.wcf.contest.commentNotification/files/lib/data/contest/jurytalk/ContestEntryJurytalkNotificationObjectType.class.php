@@ -1,28 +1,28 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/user/notification/object/AbstractNotificationObjectType.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionNotificationObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJurytalkNotificationObject.class.php');
 
 /**
- * An implementation of NotificationObjectType to support the usage of an user contest solutions as a warning object.
+ * An implementation of NotificationObjectType to support the usage of an user contest jurytalks as a warning object.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Solutions
+ * @copyright	2009 TBR Jurytalks
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.commentNotification
  */
-class ContestEntrySolutionNotificationObjectType extends AbstractNotificationObjectType {
+class ContestEntryJurytalkNotificationObjectType extends AbstractNotificationObjectType {
 
 	/**
 	 * @see NotificationObjectType::getObjectByID()
 	 */
 	public function getObjectByID($objectID) {
 		// get object
-		$solution = new ContestEntrySolutionNotificationObject($objectID);
-		if (!$solution->solutionID) return null;
+		$jurytalk = new ContestEntryJurytalkNotificationObject($objectID);
+		if (!$jurytalk->jurytalkID) return null;
 
 		// return object
-		return $solution;
+		return $jurytalk;
 	}
 
 	/**
@@ -30,28 +30,28 @@ class ContestEntrySolutionNotificationObjectType extends AbstractNotificationObj
 	 */
 	public function getObjectByObject($object) {
 		// build object using its data array
-		$solution = new ContestEntrySolutionNotificationObject(null, $object);
-		if (!$solution->solutionID) return null;
+		$jurytalk = new ContestEntryJurytalkNotificationObject(null, $object);
+		if (!$jurytalk->jurytalkID) return null;
 
 		// return object
-		return $solution;
+		return $jurytalk;
 	}
 
 	/**
 	 * @see NotificationObjectType::getObjectsByIDArray()
 	 */
 	public function getObjectsByIDArray($objectIDArray) {
-		$solutions = array();
+		$jurytalks = array();
 		$sql = "SELECT		*
-			FROM 		wcf".WCF_N."_contest_solution
-			WHERE 		solutionID IN (".implode(',', $objectID).")";
+			FROM 		wcf".WCF_N."_contest_jurytalk
+			WHERE 		jurytalkID IN (".implode(',', $objectID).")";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$solutions[$row['solutionID']] = new ContestEntrySolutionNotificationObject(null, $row);
+			$jurytalks[$row['jurytalkID']] = new ContestEntryJurytalkNotificationObject(null, $row);
 		}
 		
 		// return objects
-		return $solutions;
+		return $jurytalks;
 	}
 
 	/**

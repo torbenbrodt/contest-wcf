@@ -11,7 +11,7 @@ var jurys = new Array();
 
 onloadEvents.push(function() {
 	// jurys
-	var list1 = new ContestPermissionList('jury', jurys);
+	var list1 = new ContestPermissionList('jury', jurys, 'index.php?page=ContestJuryObjects');
 	
 	// add onsubmit event
 	onsubmitEvents.push(function(form) {

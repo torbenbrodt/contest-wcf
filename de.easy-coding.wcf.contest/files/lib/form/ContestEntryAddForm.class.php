@@ -187,7 +187,7 @@ class ContestEntryAddForm extends MessageForm {
 		parent::save();
 		
 		// save entry
-		$entry = ContestEntryEditor::create($this->ownerID, $this->subject, $this->text, $this->getOptions(), 
+		$entry = ContestEntryEditor::create($this->userID, $this->groupID, $this->subject, $this->text, $this->getOptions(), 
 			$this->classIDArray, $this->participants, $this->jurys, $this->prices, $this->sponsors, $this->attachmentListEditor);
 		$this->saved();
 		

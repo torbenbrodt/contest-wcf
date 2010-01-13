@@ -45,7 +45,7 @@ class ContestEntryEditForm extends ContestEntryAddForm {
 		MessageForm::save();
 		
 		// save entry
-		$this->entry->update($this->subject, $this->location, $this->text, $this->getOptions(), $this->classIDArray, $this->participantIDArray, $this->juryIDArray, $this->priceIDArray, $this->sponsorIDArray, $this->attachmentListEditor);
+		$this->entry->update($this->userID, $this->groupID, $this->subject, $this->location, $this->text, $this->getOptions(), $this->classIDArray, $this->participantIDArray, $this->juryIDArray, $this->priceIDArray, $this->sponsorIDArray, $this->attachmentListEditor);
 		
 		// save tags
 		if (MODULE_TAGGING) {
