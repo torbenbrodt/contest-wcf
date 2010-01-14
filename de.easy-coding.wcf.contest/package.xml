@@ -20,7 +20,7 @@
 		<requiredpackage minversion="1.0.0 Beta 1">com.woltlab.wcf.tagging</requiredpackage>
 		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.page.user.profile</requiredpackage>
 		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.form.message</requiredpackage>
-		<requiredpackage minversion="0.8.2">de.easy-coding.wcf.taggingreloaded</requiredpackage>
+	<!--	<requiredpackage minversion="0.8.2">de.easy-coding.wcf.taggingreloaded</requiredpackage> -->
 		<requiredpackage>com.woltlab.wcf.message.multiQuote</requiredpackage>
 		<requiredpackage>com.woltlab.wcf.user.infraction</requiredpackage>
 	</requiredpackages>
