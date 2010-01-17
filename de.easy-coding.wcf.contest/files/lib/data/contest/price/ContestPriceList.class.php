@@ -1,10 +1,10 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
-require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
+require_once(WCF_DIR.'lib/data/contest/price/ViewableContestPrice.class.php');
 
 /**
- * Represents a list of contest classes.
+ * Represents a list of contest prices.
  * 
  * @author	Torben Brodt
  * @copyright	2009 TBR Solutions
@@ -13,11 +13,11 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
  */
 class ContestPriceList extends DatabaseObjectList {
 	/**
-	 * list of classes
+	 * list of prices
 	 * 
 	 * @var array<ContestPrice>
 	 */
-	public $classes = array();
+	public $prices = array();
 
 	/**
 	 * sql order by statement
@@ -49,7 +49,7 @@ class ContestPriceList extends DatabaseObjectList {
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->classes[] = new ContestPrice(null, $row);
+			$this->prices[] = new ViewableContestPrice(null, $row);
 		}
 	}
 	
@@ -57,7 +57,7 @@ class ContestPriceList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::getObjects()
 	 */
 	public function getObjects() {
-		return $this->classes;
+		return $this->prices;
 	}
 }
 ?>

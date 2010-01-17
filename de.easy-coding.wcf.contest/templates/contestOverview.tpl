@@ -83,9 +83,6 @@
 										<div class="editNote smallFont light">
 											{if $tags[$contestID]|isset}<p>{lang}wcf.user.contest.entry.tags{/lang}: {implode from=$tags[$contestID] item=entryTag}<a href="index.php?page=ContestOverview&amp;tagID={@$entryTag->getID()}{@SID_ARG_2ND}">{$entryTag->getName()}</a>{/implode}</p>{/if}
 											{if $classes[$contestID]|isset}<p>{lang}wcf.user.contest.entry.classes{/lang}: {implode from=$classes[$contestID] item=entryClass}<a href="index.php?page=ContestOverview&amp;classID={@$entryClass->classID}{@SID_ARG_2ND}">{lang}{$entryClass->title}{/lang}</a>{/implode}</p>{/if}
-											{if $jurys[$contestID]|isset}<p>{lang}wcf.user.contest.entry.jurys{/lang}: {implode from=$jurys[$contestID] item=entryjury}<a href="index.php?page=ContestOverview&amp;juryID={@$entryjury->juryID}{@SID_ARG_2ND}">{lang}{$entryjury->title}{/lang}</a>{/implode}</p>{/if}
-											{if $prices[$contestID]|isset}<p>{lang}wcf.user.contest.entry.prices{/lang}: {implode from=$prices[$contestID] item=entryprice}<a href="index.php?page=ContestOverview&amp;priceID={@$entryprice->priceID}{@SID_ARG_2ND}">{lang}{$entryprice->title}{/lang}</a>{/implode}</p>{/if}
-											{if $entry->location|empty == false}<p>{lang}wcf.user.contest.entry.prices{/lang}: {$entry->location}</p>{/if}
 										</div>
 									{/if}
 									
@@ -94,7 +91,8 @@
 											<ul>
 												<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
 												<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.user.contest.entry.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfSolutions{/lang}</span></a></li>
-												{if $entry->hasMoreText}<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.more{/lang}"><img src="{icon}blogReadMoreS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.more{/lang}</span></a></li>{/if}
+												<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#jurys" title="{lang}wcf.user.contest.entry.numberOfJurys{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfJurys{/lang}</span></a></li>
+												<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#prices" title="{lang}wcf.user.contest.entry.numberOfPrices{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfPrices{/lang}</span></a></li>
 												{if $additionalSmallButtons[$entry->contestID]|isset}{@$additionalSmallButtons[$entry->contestID]}{/if}
 											</ul>
 										</div>

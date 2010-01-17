@@ -63,6 +63,13 @@ class ViewableContestEntryList extends ContestEntryList {
 	public $participants = array();
 	
 	/**
+	 * list of sponsors
+	 * 
+	 * @var	array
+	 */
+	public $sponsors = array();
+	
+	/**
 	 * list of prices
 	 * 
 	 * @var	array
@@ -139,12 +146,19 @@ class ViewableContestEntryList extends ContestEntryList {
 	 */
 	protected function readJurys() {
 		$sql = "SELECT		contest_jury.contestID,
-					contest_jury.juryID, contest_jury.title
+					contest_jury.juryID, 
+					IF(
+						contest_jury.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
 			FROM		wcf".WCF_N."_contest_jury contest_jury
-			LEFT JOIN	wcf".WCF_N."_contest_jury contest_jury
-			ON		(contest_jury.juryID = contest_jury.juryID)
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_jury.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_jury.groupID)
 			WHERE		contest_jury.contestID IN (".implode(',', $this->objectIDArray).")
-			ORDER BY	contest_jury.title";
+			ORDER BY	title";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			if (!isset($this->jurys[$row['contestID']])) $this->jurys[$row['contestID']] = array();
@@ -157,12 +171,19 @@ class ViewableContestEntryList extends ContestEntryList {
 	 */
 	protected function readParticipants() {
 		$sql = "SELECT		contest_participant.contestID,
-					contest_participant.participantID, contest_participant.title
+					contest_participant.participantID, 
+					IF(
+						contest_participant.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
 			FROM		wcf".WCF_N."_contest_participant contest_participant
-			LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
-			ON		(contest_participant.participantID = contest_participant.participantID)
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_participant.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_participant.groupID)
 			WHERE		contest_participant.contestID IN (".implode(',', $this->objectIDArray).")
-			ORDER BY	contest_participant.title";
+			ORDER BY	title";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			if (!isset($this->participants[$row['contestID']])) $this->participants[$row['contestID']] = array();
@@ -171,11 +192,37 @@ class ViewableContestEntryList extends ContestEntryList {
 	}
 	
 	/**
+	 * Gets the list of sponsors.
+	 */
+	protected function readSponsors() {
+		$sql = "SELECT		contest_sponsor.contestID,
+					contest_sponsor.sponsorID, 
+					IF(
+						contest_sponsor.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
+			FROM		wcf".WCF_N."_contest_sponsor contest_sponsor
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_sponsor.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_sponsor.groupID)
+			WHERE		contest_sponsor.contestID IN (".implode(',', $this->objectIDArray).")
+			ORDER BY	title";
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			if (!isset($this->sponsors[$row['contestID']])) $this->sponsors[$row['contestID']] = array();
+			$this->sponsors[$row['contestID']][] = new ContestSponsor(null, $row);
+		}
+	}
+	
+	/**
 	 * Gets the list of prices.
 	 */
 	protected function readPrices() {
 		$sql = "SELECT		contestID,
-					contest_price.priceID, contest_price.title
+					contest_price.priceID, 
+					contest_price.subject
 			FROM		wcf".WCF_N."_contest_price contest_price
 			WHERE		contestID IN (".implode(',', $this->objectIDArray).")
 			ORDER BY	contest_price.position";

@@ -98,6 +98,7 @@
 		<item name="wcf.user.contest.entry.owner.self"><![CDATA[Myself]]></item>
 		<item name="wcf.user.contest.entry.owner.description"><![CDATA[Whom should this contest belongs to.]]></item>
 		<item name="wcf.user.contest.entry.jury"><![CDATA[Jury]]></item>
+		<item name="wcf.user.contest.entry.jurys"><![CDATA[Jurys]]></item>
 		<item name="wcf.user.contest.entry.jury.add"><![CDATA[Add jury]]></item>
 		<item name="wcf.user.contest.entry.jury.description"><![CDATA[]]></item>
 		<item name="wcf.user.contest.entry.participant"><![CDATA[Jury]]></item>
@@ -133,12 +134,15 @@
 		<item name="wcf.user.contest.entry.message"><![CDATA[Contest Description]]></item>
 		<item name="wcf.user.contest.entry.more"><![CDATA[Read more]]></item>
 		<item name="wcf.user.contest.entry.numberOfSolutions"><![CDATA[{#$entry->solutions} solution{if $entry->solutions != 1}s{/if}]]></item>
+		<item name="wcf.user.contest.entry.numberOfPrices"><![CDATA[{#$entry->prices} Price{if $entry->prices != 1}es{/if}]]></item>
+		<item name="wcf.user.contest.entry.numberOfJurys"><![CDATA[{#$entry->jurys} Jury{if $entry->jurys != 1}s{/if}]]></item>
 		<item name="wcf.user.contest.entry.permalink"><![CDATA[Perma link of {#$messageNumber}. entry]]></item>
 		<item name="wcf.user.contest.entry.subject"><![CDATA[Contest Title]]></item>
 		<item name="wcf.user.contest.entry.subject.description"><![CDATA[Think about a good teaser for your contest.]]></item>
 		<item name="wcf.user.contest.entry.tags"><![CDATA[Tags]]></item>
 		
 		<item name="wcf.user.contest.entry.price"><![CDATA[Price]]></item>
+		<item name="wcf.user.contest.entry.prices"><![CDATA[Prices]]></item>
 		<item name="wcf.user.contest.entry.price.description"><![CDATA[]]></item>
 		<item name="wcf.user.contest.entry.price.add"><![CDATA[Add price]]></item>
 		<item name="wcf.user.contest.entry.price.subject"><![CDATA[Name]]></item>

@@ -2,7 +2,6 @@
 // wcf imports
 require_once(WCF_DIR.'lib/action/AbstractSecureAction.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestEntryEditor.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntryList.class.php');
 
 /**
  * Deletes a contest entry.
@@ -54,15 +53,8 @@ class ContestDeleteAction extends AbstractSecureAction {
 		$this->executed();
 		
 		// forward
-		$entryList = new ContestEntryList();
-		$entryList->sqlConditions .= 'contest.userID = '.$this->entry->userID;
 		if (empty($_REQUEST['ajax'])) {
-			if ($entryList->countObjects() > 0 || WCF::getUser()->userID == $this->entry->userID) {
-				HeaderUtil::redirect('index.php?page=Contest&userID='.$this->entry->userID.SID_ARG_2ND_NOT_ENCODED);
-			}
-			else {
-				HeaderUtil::redirect('index.php?page=User&userID='.$this->entry->userID.SID_ARG_2ND_NOT_ENCODED);
-			}
+			HeaderUtil::redirect('index.php?page=ContestOverview'.SID_ARG_2ND_NOT_ENCODED);
 		}
 		exit;
 	}

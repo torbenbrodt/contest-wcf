@@ -11,6 +11,12 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestEntry extends DatabaseObject {
+	
+	/**
+	 * @see getUser
+	 */
+	protected $user = null;
+
 	/**
 	 * Creates a new ContestEntry object.
 	 *
@@ -81,14 +87,24 @@ class ContestEntry extends DatabaseObject {
 	 * @return	array<ContestParticipant>
 	 */
 	public function getParticipants() {
+		
 		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 		$classes = array();
-		$sql = "SELECT		contest_participant.*
+		
+		$sql = "SELECT		contest_participant.contestID,
+					contest_participant.participantID, 
+					IF(
+						contest_participant.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
 			FROM		wcf".WCF_N."_contest_participant contest_participant
-			LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
-			ON		(contest_participant.participantID = contest_participant.participantID)
-			WHERE		contest_participant.contestID = ".$this->contestID."
-			ORDER BY	contest_participant.title";
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_participant.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_participant.groupID)
+			WHERE		contest_participant.contestID IN (".$this->contestID.")
+			ORDER BY	title";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$classes[$row['participantID']] = new ContestParticipant(null, $row);
@@ -105,12 +121,21 @@ class ContestEntry extends DatabaseObject {
 	public function getJurys() {
 		require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
 		$classes = array();
-		$sql = "SELECT		contest_jury.*
+		
+		$sql = "SELECT		contest_jury.contestID,
+					contest_jury.juryID, 
+					IF(
+						contest_jury.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
 			FROM		wcf".WCF_N."_contest_jury contest_jury
-			LEFT JOIN	wcf".WCF_N."_contest_jury contest_jury
-			ON		(contest_jury.juryID = contest_jury.juryID)
-			WHERE		contest_jury.contestID = ".$this->contestID."
-			ORDER BY	contest_jury.title";
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_jury.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_jury.groupID)
+			WHERE		contest_jury.contestID IN (".$this->contestID.")
+			ORDER BY	title";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$classes[$row['juryID']] = new ContestJury(null, $row);
@@ -120,10 +145,50 @@ class ContestEntry extends DatabaseObject {
 	}
 	
 	/**
+	 * Gets the sponsors of this entry.
+	 * 
+	 * @return	array<ContestSponsor>
+	 */
+	public function getSponsors() {
+		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
+		$classes = array();
+		
+		$sql = "SELECT		contest_sponsor.contestID,
+					contest_sponsor.sponsorID, 
+					IF(
+						contest_sponsor.groupID > 0, 
+						wcf_group.groupName, 
+						wcf_user.username
+					) AS title
+			FROM		wcf".WCF_N."_contest_sponsor contest_sponsor
+			LEFT JOIN	wcf".WCF_N."_user wcf_user
+			ON		(wcf_user.userID = contest_sponsor.userID)
+			LEFT JOIN	wcf".WCF_N."_group wcf_group
+			ON		(wcf_group.groupID = contest_sponsor.groupID)
+			WHERE		contest_sponsor.contestID IN (".$this->contestID.")
+			ORDER BY	title";
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$classes[$row['sponsorID']] = new ContestSponsor(null, $row);
+		}
+		
+		return $classes;
+	}
+	
+	/**
+	 * return the creator
+	 */
+	public function getUser() {
+		return $this->user !== null ? $this->user : $this->user = new User($this->userID);
+	}
+	
+	/**
 	 * Gets the prices of this entry.
 	 * 
 	 * @return	array<ContestPrice>
+	 * @deprecated
 	 */
+/*
 	public function getPrices() {
 		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
 		$classes = array();
@@ -138,7 +203,7 @@ class ContestEntry extends DatabaseObject {
 		
 		return $classes;
 	}
-	
+*/	
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 * 

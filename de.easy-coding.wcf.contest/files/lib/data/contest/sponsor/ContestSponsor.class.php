@@ -19,12 +19,30 @@ class ContestSponsor extends DatabaseObject {
 	 */
 	public function __construct($sponsorID, $row = null) {
 		if ($sponsorID !== null) {
-			$sql = "SELECT		contest_sponsor.*
-				FROM 		wcf".WCF_N."_contest_sponsor contest_sponsor
-				WHERE 		contest_sponsor.sponsorID = ".$sponsorID;
+			$sql = "SELECT		*, 
+						IF(
+							contest_sponsor.groupID > 0, 
+							wcf_group.groupName, 
+							wcf_user.username
+						) AS title
+				FROM		wcf".WCF_N."_contest_sponsor contest_sponsor
+				LEFT JOIN	wcf".WCF_N."_user wcf_user
+				ON		(wcf_user.userID = contest_sponsor.userID)
+				LEFT JOIN	wcf".WCF_N."_group wcf_group
+				ON		(wcf_group.groupID = contest_sponsor.groupID)
+				WHERE		contest_sponsor.sponsorID = ".intval($this->sponsorID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
+	}
+	
+	/**
+	 * Returns the title of this class.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return $this->title;
 	}
 	
 	/**
