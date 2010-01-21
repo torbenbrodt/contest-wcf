@@ -19,12 +19,30 @@ class ContestParticipant extends DatabaseObject {
 	 */
 	public function __construct($participantID, $row = null) {
 		if ($participantID !== null) {
-			$sql = "SELECT		contest_participant.*
-				FROM 		wcf".WCF_N."_contest_participant contest_participant
-				WHERE 		contest_participant.participantID = ".$participantID;
+			$sql = "SELECT		*, 
+						IF(
+							contest_participant.groupID > 0, 
+							wcf_group.groupName, 
+							wcf_user.username
+						) AS title
+				FROM		wcf".WCF_N."_contest_participant contest_participant
+				LEFT JOIN	wcf".WCF_N."_user wcf_user
+				ON		(wcf_user.userID = contest_participant.userID)
+				LEFT JOIN	wcf".WCF_N."_group wcf_group
+				ON		(wcf_group.groupID = contest_participant.groupID)
+				WHERE		contest_participant.participantID = ".intval($this->participantID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
+	}
+	
+	/**
+	 * Returns the title of this class.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return $this->title;
 	}
 	
 	/**

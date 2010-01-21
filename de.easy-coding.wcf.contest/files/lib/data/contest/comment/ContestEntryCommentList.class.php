@@ -1,23 +1,23 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
-require_once(WCF_DIR.'lib/data/contest/jurytalk/ViewableContestEntryJurytalk.class.php');
+require_once(WCF_DIR.'lib/data/contest/comment/ViewableContestEntryComment.class.php');
 
 /**
- * Represents a list of contest entry jurytalks.
+ * Represents a list of contest entry comments.
  * 
  * @author	Torben Brodt
- * @copyright	2009 TBR Jurys
+ * @copyright	2009 TBR Comments
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEntryJurytalkList extends DatabaseObjectList {
+class ContestEntryCommentList extends DatabaseObjectList {
 	/**
-	 * list of jurytalks
+	 * list of comments
 	 * 
-	 * @var array<ViewableContestEntryJurytalk>
+	 * @var array<ViewableContestEntryComment>
 	 */
-	public $jurytalks = array();
+	public $comments = array();
 
 	/**
 	 * sql order by statement
@@ -31,7 +31,7 @@ class ContestEntryJurytalkList extends DatabaseObjectList {
 	 */
 	public function countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
-			FROM	wcf".WCF_N."_contest_jurytalk contest_jurytalk
+			FROM	wcf".WCF_N."_contest_comment contest_comment
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
@@ -42,10 +42,10 @@ class ContestEntryJurytalkList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					avatar.*, user_table.*, contest_jurytalk.*
-			FROM		wcf".WCF_N."_contest_jurytalk contest_jurytalk
+					avatar.*, user_table.*, contest_comment.*
+			FROM		wcf".WCF_N."_contest_comment contest_comment
 			LEFT JOIN	wcf".WCF_N."_user user_table
-			ON		(user_table.userID = contest_jurytalk.userID)
+			ON		(user_table.userID = contest_comment.userID)
 			LEFT JOIN	wcf".WCF_N."_avatar avatar
 			ON		(avatar.avatarID = user_table.avatarID)
 			".$this->sqlJoins."
@@ -53,7 +53,7 @@ class ContestEntryJurytalkList extends DatabaseObjectList {
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->jurytalks[] = new ViewableContestEntryJurytalk(null, $row);
+			$this->comments[] = new ViewableContestEntryComment(null, $row);
 		}
 	}
 	
@@ -61,7 +61,7 @@ class ContestEntryJurytalkList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::getObjects()
 	 */
 	public function getObjects() {
-		return $this->jurytalks;
+		return $this->comments;
 	}
 }
 ?>

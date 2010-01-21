@@ -6,6 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionList.class.p
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
+require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 
 /**
  * Shows a detailed view of a user contest entry.
@@ -296,7 +297,9 @@ class ContestEntryPage extends MultipleLinkPage {
 			'previousEntry' => $this->previousEntry,
 			'nextEntry' => $this->nextEntry,
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisPage' => true
+			'allowSpidersToIndexThisPage' => true,
+			
+			'contestmenu' => ContestMenu::getInstance(),
 		));
 	}
 	
@@ -306,6 +309,9 @@ class ContestEntryPage extends MultipleLinkPage {
 	public function show() {
 		// set active header menu item
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
+		
+		// set active menu item
+		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.overview');
 		
 		// check permission
 		WCF::getUser()->checkPermission('user.contest.canViewContest');

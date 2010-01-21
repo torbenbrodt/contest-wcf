@@ -4,6 +4,7 @@ require_once(WCF_DIR.'lib/form/MessageForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestEntryEditor.class.php');
 require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
+require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
@@ -85,6 +86,24 @@ class ContestEntryAddForm extends MessageForm {
 	public $jurys = array();
 	
 	/**
+	 * send jurytalks?
+	 * @var boolean
+	 */
+	public $jurytalk_trigger = false;
+	
+	/**
+	 * send sponsortalks?
+	 * @var boolean
+	 */
+	public $sponsortalk_trigger = false;
+	
+	/**
+	 * send first comment?
+	 * @var boolean
+	 */
+	public $comment_trigger = false;
+	
+	/**
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
@@ -145,6 +164,10 @@ class ContestEntryAddForm extends MessageForm {
 		if (isset($_POST['participant']) && is_array($_POST['participant'])) $this->participants = $_POST['participant'];
 		if (isset($_POST['price']) && is_array($_POST['price'])) $this->prices = $_POST['price'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		
+		$this->jurytalk_trigger = isset($_POST['jurytalk_trigger']);
+		$this->sponsortalk_trigger = isset($_POST['sponsortalk_trigger']);
+		$this->comment_trigger = isset($_POST['comment_trigger']);
 		
 		if ($this->ownerID == 0) {
 			$this->userID = WCF::getUser()->userID;
@@ -220,7 +243,11 @@ class ContestEntryAddForm extends MessageForm {
 			'sponsors' => $this->sponsors,
 			'participants' => $this->participants,
 			'jurys' => $this->jurys,
-			'prices' => $this->prices
+			'prices' => $this->prices,
+			'jurytalk_trigger' => $this->jurytalk_trigger,
+			'sponsortalk_trigger' => $this->sponsortalk_trigger,
+			'comment_trigger' => $this->comment_trigger,
+			
 		));
 	}
 	

@@ -14,6 +14,7 @@ CREATE TABLE wcf1_contest (
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
 	solutions SMALLINT(5) NOT NULL DEFAULT 0,
 	jurytalks SMALLINT(5) NOT NULL DEFAULT 0,
+	sponsortalks SMALLINT(5) NOT NULL DEFAULT 0,
 	state ENUM('private', 'waiting', 'reviewed', 'scheduled') NOT NULL DEFAULT 'private',
 	FULLTEXT KEY (subject, message),
 	KEY (userID)
@@ -34,6 +35,17 @@ CREATE TABLE wcf1_contest_solution (
 DROP TABLE IF EXISTS wcf1_contest_jurytalk;
 CREATE TABLE wcf1_contest_jurytalk (
 	jurytalkID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	contestID INT(10) NOT NULL,
+	userID INT(10) NOT NULL DEFAULT 0,
+	username VARCHAR(255) NOT NULL DEFAULT '',
+	message TEXT NULL,
+	time INT(10) NOT NULL DEFAULT 0,
+	KEY (contestID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_sponsortalk;
+CREATE TABLE wcf1_contest_sponsortalk (
+	sponsortalkID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	contestID INT(10) NOT NULL,
 	userID INT(10) NOT NULL DEFAULT 0,
 	username VARCHAR(255) NOT NULL DEFAULT '',
@@ -63,8 +75,8 @@ CREATE TABLE wcf1_contest_jury (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
-	UNIQUE KEY (userID, contestID),
-	UNIQUE KEY (groupID, contestID),
+	KEY (userID, contestID),
+	KEY (groupID, contestID),
 	KEY (contestID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -75,8 +87,8 @@ CREATE TABLE wcf1_contest_participant (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
-	UNIQUE KEY (userID, contestID),
-	UNIQUE KEY (groupID, contestID),
+	KEY (userID, contestID),
+	KEY (groupID, contestID),
 	KEY (contestID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -87,8 +99,8 @@ CREATE TABLE wcf1_contest_sponsor (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
-	UNIQUE KEY (userID, contestID),
-	UNIQUE KEY (groupID, contestID),
+	KEY (userID, contestID),
+	KEY (groupID, contestID),
 	KEY (contestID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -105,7 +117,25 @@ CREATE TABLE wcf1_contest_price (
 	KEY (contestID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS wcf1_contest_menu_item;
+CREATE TABLE wcf1_contest_menu_item (
+	menuItemID int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	menuItem varchar(255) NOT NULL DEFAULT '',
+	parentMenuItem varchar(255) NOT NULL DEFAULT '',
+	menuItemLink varchar(255) NOT NULL DEFAULT '',
+	menuItemIcon varchar(255) NOT NULL DEFAULT '',
+	showOrder int(10) NOT NULL DEFAULT '0',
+	permissions text,
+	options text,
+	UNIQUE KEY menuItem (menuItem)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO wcf1_contest_class (title) VALUES 
 	('wcf.user.contest.entry.classes.beginner'),
 	('wcf.user.contest.entry.classes.expert');
+
+INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIcon, showOrder, permissions, options) VALUES
+	('wcf.contest.menu.link.overview', '', 'index.php?page=ContestEntry&contestID=%s', 'contestM.png', 1, '', ''),
+	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestM.png', 1, '', ''),
+	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%d', 'contestM.png', 1, '', ''),
+	('wcf.contest.menu.link.participant', '', 'index.php?page=ContestParticipant&contestID=%d', 'contestM.png', 1, '', '');

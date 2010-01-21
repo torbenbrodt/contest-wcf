@@ -10,9 +10,9 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEntryJury extends DatabaseObject {
+class ContestEntryJurytalk extends DatabaseObject {
 	/**
-	 * Creates a new ContestEntryJury object.
+	 * Creates a new ContestEntryJurytalk object.
 	 *
 	 * @param	integer		$jurytalkID
 	 * @param 	array<mixed>	$row
@@ -54,11 +54,11 @@ class ContestEntryJury extends DatabaseObject {
 	/**
 	 * Returns an editor object for this jurytalk.
 	 *
-	 * @return	ContestEntryJuryEditor
+	 * @return	ContestEntryJurytalkEditor
 	 */
 	public function getEditor() {
-		require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJuryEditor.class.php');
-		return new ContestEntryJuryEditor(null, $this->data);
+		require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJurytalkEditor.class.php');
+		return new ContestEntryJurytalkEditor(null, $this->data);
 	}
 }
 ?>

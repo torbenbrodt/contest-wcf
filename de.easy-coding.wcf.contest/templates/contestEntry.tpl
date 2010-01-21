@@ -36,7 +36,19 @@
 
 	{if $entry->isSolutionable()}{assign var=solutionUsername value=$username}{/if}
 	
-	<div class="border">
+	<div class="tabMenu">
+		<ul>
+			<li class="activeTabMenu"><a href="index.php?page=ContestEntry&contestID={$contestID}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}icon/contestM.png" alt="" /> {lang}Übersicht{/lang}</a></li>
+			
+			<li><a href="index.php?page=ContestJurytalk&contestID={$contestID}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}icon/contestM.png" alt="" /> {lang}Jurytalk{/lang}</a></li>
+			<li><a href="index.php?page=ContestSponsortalk&contestID={$contestID}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}icon/contestM.png" alt="" /> {lang}Sponsortalk{/lang}</a></li>
+			
+		</ul>
+	</div>
+	<div class="subTabMenu">
+		<div class="containerHead"></div>
+	</div>
+	<div class="border tabMenuContent">
 		<div class="layout-2 blog">
 			<div class="columnContainer">
 				<div class="container-1 column first">

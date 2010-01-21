@@ -47,7 +47,50 @@ onloadEvents.push(function() {
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
 	</div>
-	
+		<div class="formElement">
+		<div class="formField">
+			<label for="comment_trigger">
+				<input type="checkbox" name="comment_trigger" id="comment_trigger" value="1" {if $comment_trigger} checked="checked"{/if} onclick="Effect.toggle('comment', 'slide');"/>
+				{lang}comment eröffnen{/lang}
+				
+				
+				<script type="text/javascript">
+					//<![CDATA[
+					document.observe("dom:loaded", function() {
+						if(typeof document.getElementById('comment_trigger').checked == 'undefined' || !document.getElementById('comment_trigger').checked) {
+							document.getElementById('comment').style.display = 'none';
+						}
+					});
+					//]]>
+				</script>
+			</label>
+		</div>
+		<p class="formFieldDesc">{lang}Um Teilnehmer zu gewinnen können Sie ihnen eine persönliche Nachricht schicken. Die Nachricht wird verschickt, nachdem der Contest freigeschatet wurde.{/lang}</p>
+	</div>
+	<div class="formElement" id="comment">
+		<div class="formField">
+			<fieldset>
+				<legend>{lang}wcf.user.contest.entry.comment{/lang}</legend>
+				
+				<div class="formElement">
+					<div class="formFieldLabel">
+						{lang}wcf.user.contest.entry.comment.subject{/lang}
+					</div>
+					<div class="formField">
+						<input id="commentAddInput" type="text" name="" value="" class="inputText" />
+					</div>
+				</div>
+				<div class="formElement">
+					<div class="formFieldLabel">
+						{lang}wcf.user.contest.entry.comment.message{/lang}
+					</div>
+					<div class="formField">
+						<textarea id="commentAddText" type="text" name="" rows="5" cols="40"></textarea>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
 	{if $additionalInformationFields|isset}{@$additionalInformationFields}{/if}
 </fieldset>
 

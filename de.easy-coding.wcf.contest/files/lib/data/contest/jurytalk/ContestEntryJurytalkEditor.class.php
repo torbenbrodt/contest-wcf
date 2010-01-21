@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJury.class.php');
+require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJurytalk.class.php');
 
 /**
  * Provides functions to manage entry jurytalks.
@@ -10,7 +10,7 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJury.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEntryJuryEditor extends ContestEntryJury {
+class ContestEntryJurytalkEditor extends ContestEntryJurytalk {
 	/**
 	 * Creates a new entry jurytalk.
 	 *
@@ -19,7 +19,7 @@ class ContestEntryJuryEditor extends ContestEntryJury {
 	 * @param	integer		$userID
 	 * @param	string		$username
 	 * @param	integer		$time
-	 * @return	ContestEntryJuryEditor
+	 * @return	ContestEntryJurytalkEditor
 	 */
 	public static function create($contestID, $jurytalk, $userID, $username, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_jurytalk
@@ -36,7 +36,7 @@ class ContestEntryJuryEditor extends ContestEntryJury {
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
 		
-		return new ContestEntryJuryEditor($jurytalkID);
+		return new ContestEntryJurytalkEditor($jurytalkID);
 	}
 	
 	/**

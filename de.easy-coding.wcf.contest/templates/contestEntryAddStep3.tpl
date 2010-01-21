@@ -110,6 +110,50 @@ onloadEvents.push(function() {
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
 	</div>
+	<div class="formElement">
+		<div class="formField">
+			<label for="sponsortalk_trigger">
+				<input type="checkbox" name="sponsortalk_trigger" id="sponsortalk_trigger" value="1" {if $sponsortalk_trigger} checked="checked"{/if} onclick="Effect.toggle('sponsortalk', 'slide');"/>
+				{lang}Sponsortalk eröffnen{/lang}
+				
+				
+				<script type="text/javascript">
+					//<![CDATA[
+					document.observe("dom:loaded", function() {
+						if(typeof document.getElementById('sponsortalk_trigger').checked == 'undefined' || !document.getElementById('sponsortalk_trigger').checked) {
+							document.getElementById('sponsortalk').style.display = 'none';
+						}
+					});
+					//]]>
+				</script>
+			</label>
+		</div>
+		<p class="formFieldDesc">{lang}Um Juroren zu gewinnen können Sie ihnen eine persönliche Nachricht schicken.{/lang}</p>
+	</div>
+	<div class="formElement" id="sponsortalk">
+		<div class="formField">
+			<fieldset>
+				<legend>{lang}wcf.user.contest.entry.sponsortalk{/lang}</legend>
+				
+				<div class="formElement">
+					<div class="formFieldLabel">
+						{lang}wcf.user.contest.entry.sponsortalk.subject{/lang}
+					</div>
+					<div class="formField">
+						<input id="sponsortalkAddInput" type="text" name="" value="" class="inputText" />
+					</div>
+				</div>
+				<div class="formElement">
+					<div class="formFieldLabel">
+						{lang}wcf.user.contest.entry.sponsortalk.message{/lang}
+					</div>
+					<div class="formField">
+						<textarea id="sponsortalkAddText" type="text" name="" rows="5" cols="40"></textarea>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
 </fieldset>
 
 {if $additionalFields2|isset}{@$additionalFields2}{/if}
