@@ -21,10 +21,10 @@ class ContestEntryJurytalkEditor extends ContestEntryJurytalk {
 	 * @param	integer		$time
 	 * @return	ContestEntryJurytalkEditor
 	 */
-	public static function create($contestID, $jurytalk, $userID, $username, $time = TIME_NOW) {
+	public static function create($contestID, $message, $userID, $username, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_jurytalk
-					(contestID, userID, username, jurytalk, time)
-			VALUES		(".$contestID.", ".$userID.", '".escapeString($username)."', '".escapeString($jurytalk)."', ".$time.")";
+					(contestID, userID, username, message, time)
+			VALUES		(".intval($contestID).", ".intval($userID).", '".escapeString($username)."', '".escapeString($message)."', ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id
@@ -42,11 +42,11 @@ class ContestEntryJurytalkEditor extends ContestEntryJurytalk {
 	/**
 	 * Updates this entry jurytalk.
 	 *
-	 * @param	string		$jurytalk
+	 * @param	string		$message
 	 */
-	public function update($jurytalk) {
+	public function update($message) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_jurytalk
-			SET	jurytalk = '".escapeString($jurytalk)."'
+			SET	message = '".escapeString($message)."'
 			WHERE	jurytalkID = ".$this->jurytalkID;
 		WCF::getDB()->sendQuery($sql);
 	}

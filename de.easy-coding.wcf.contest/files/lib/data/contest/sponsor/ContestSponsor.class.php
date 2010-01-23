@@ -30,7 +30,7 @@ class ContestSponsor extends DatabaseObject {
 				ON		(wcf_user.userID = contest_sponsor.userID)
 				LEFT JOIN	wcf".WCF_N."_group wcf_group
 				ON		(wcf_group.groupID = contest_sponsor.groupID)
-				WHERE		contest_sponsor.sponsorID = ".intval($this->sponsorID);
+				WHERE		contest_sponsor.sponsorID = ".intval($sponsorID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -42,7 +42,7 @@ class ContestSponsor extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return $this->title;
+		return "".$this->title;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class ContestSponsor extends DatabaseObject {
 			return false;
 		}
 		
-		return in_array($this->groupID, WCF::getUser()->getGroupIDs());
+		return $this->userID == $userID || in_array($this->groupID, WCF::getUser()->getGroupIDs());
 	}
 	
 	/**

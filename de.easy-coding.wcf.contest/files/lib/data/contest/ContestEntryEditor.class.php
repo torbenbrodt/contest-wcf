@@ -222,27 +222,18 @@ class ContestEntryEditor extends ContestEntry {
 		}
 
 		// create inserts
-		$inserts = '';
 		foreach ($sponsors as $sponsor) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contestID.',
-					'.($sponsor['type'] == 'user' ? intval($sponsor['id']) : 0).',
-					'.($sponsor['type'] == 'group' ? intval($sponsor['id']) : 0).')';
-					
-			$foundUserID = $userID > 0 && $sponsor['type'] == 'user' && $sponsor['id'] == $userID;
-			$foundGroupID = $groupID > 0 && $sponsor['type'] == 'group' && $sponsor['id'] == $groupID;
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wcf".WCF_N."_contest_sponsor
+			$sql = "INSERT INTO	wcf".WCF_N.'_contest_sponsor
 						(contestID, userID, groupID)
-				VALUES		".$inserts;
+				VALUES		('.$this->contestID.',
+						'.($sponsor['type'] == 'user' ? intval($sponsor['id']) : 0).',
+						'.($sponsor['type'] == 'group' ? intval($sponsor['id']) : 0).')';
 			WCF::getDB()->sendQuery($sql);
 		}
 		
 		$sponsorID = 0;
 		if($userID || $groupID)  {
-			#$sponsorID = WCF::getDB()->getInsertID("wcf".WCF_N."_sponsor", 'sponsorID');
+			$sponsorID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_sponsor", 'sponsorID');
 		}
 		return $sponsorID;
 	}
@@ -260,7 +251,7 @@ class ContestEntryEditor extends ContestEntry {
 		foreach ($prices as $price) {
 			if (!empty($inserts)) $inserts .= ',';
 			$inserts .= '	('.$this->contestID.', 
-					'/*.intval($sponsorID)*/.',
+					'.intval($sponsorID).',
 					"'.(isset($price['subject']) ? escapeString($price['subject']) : '').'",
 					"'.(isset($price['message']) ? escapeString($price['message']) : '').'")';
 		}
@@ -409,6 +400,15 @@ class ContestEntryEditor extends ContestEntry {
 		if (count($tagArray) > 0) {
 			TagEngine::getInstance()->addTags($tagArray, $tagged, $languageID);
 		}
+	}
+	
+	public static function getStates() {
+		return array(
+			'private',
+			'waiting',
+			'reviewed',
+			'scheduled'
+		);
 	}
 }
 ?>

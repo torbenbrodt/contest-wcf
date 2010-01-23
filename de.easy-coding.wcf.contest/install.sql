@@ -13,6 +13,7 @@ CREATE TABLE wcf1_contest (
 	enableHtml TINYINT(1) NOT NULL DEFAULT 0,
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
 	solutions SMALLINT(5) NOT NULL DEFAULT 0,
+	comments SMALLINT(5) NOT NULL DEFAULT 0,
 	jurytalks SMALLINT(5) NOT NULL DEFAULT 0,
 	sponsortalks SMALLINT(5) NOT NULL DEFAULT 0,
 	state ENUM('private', 'waiting', 'reviewed', 'scheduled') NOT NULL DEFAULT 'private',
@@ -27,6 +28,19 @@ CREATE TABLE wcf1_contest_solution (
 	userID INT(10) NOT NULL DEFAULT 0,
 	username VARCHAR(255) NOT NULL DEFAULT '',
 	solution TEXT NULL,
+	time INT(10) NOT NULL DEFAULT 0,
+	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
+	attachments SMALLINT(5) NOT NULL DEFAULT 0,
+	KEY (contestID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_comment;
+CREATE TABLE wcf1_contest_comment (
+	commentID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	contestID INT(10) NOT NULL,
+	userID INT(10) NOT NULL DEFAULT 0,
+	username VARCHAR(255) NOT NULL DEFAULT '',
+	comment TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID)
@@ -74,6 +88,7 @@ CREATE TABLE wcf1_contest_jury (
 	contestID INT(10) NOT NULL DEFAULT 0,
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
+	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
@@ -86,6 +101,7 @@ CREATE TABLE wcf1_contest_participant (
 	contestID INT(10) NOT NULL DEFAULT 0,
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
+	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
@@ -98,6 +114,7 @@ CREATE TABLE wcf1_contest_sponsor (
 	contestID INT(10) NOT NULL DEFAULT 0,
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
+	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
@@ -136,6 +153,10 @@ INSERT INTO wcf1_contest_class (title) VALUES
 
 INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIcon, showOrder, permissions, options) VALUES
 	('wcf.contest.menu.link.overview', '', 'index.php?page=ContestEntry&contestID=%s', 'contestM.png', 1, '', ''),
-	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestM.png', 1, '', ''),
-	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%d', 'contestM.png', 1, '', ''),
-	('wcf.contest.menu.link.participant', '', 'index.php?page=ContestParticipant&contestID=%d', 'contestM.png', 1, '', '');
+	('wcf.contest.menu.link.jury', '', 'index.php?page=ContestJury&contestID=%s', 'contestM.png', 2, '', ''),
+	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestM.png', 3, '', ''),
+	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestM.png', 4, '', ''),
+	('wcf.contest.menu.link.participant', '', 'index.php?page=ContestParticipant&contestID=%s', 'contestM.png', 5, '', ''),
+	('wcf.contest.menu.link.sponsor', '', 'index.php?page=ContestSponsor&contestID=%s', 'contestM.png', 6, '', ''),
+	('wcf.contest.menu.link.solution', '', 'index.php?page=ContestSolution&contestID=%s', 'contestM.png', 7, '', ''),
+	('wcf.contest.menu.link.price', '', 'index.php?page=ContestPrice&contestID=%s', 'contestM.png', 7, '', '');

@@ -1,15 +1,11 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
-require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestEntry.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
 
 /**
- * Shows the form for adding a new jury.
- *
- * can be contructed with 
- * - contestID, if the user decided to become a jury
- * - without, if the user wants to be jury for another contest
+ * Shows the form for adding contest entry jurys.
  *
  * @author	Torben Brodt
  * @copyright	2009 TBR Solutions
@@ -17,19 +13,29 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestJuryAddForm extends AbstractForm {
-	// system
-	public $templateName = 'contestJuryAdd';
+	// parameters
+	public $message = '';
+	public $username = '';
 	
-	// form parameters
-	public $contestID = 0;
-	public $ownerID = 0;
+	public $states = array();
+	public $state = '';
 	
 	/**
-	 * list of available groups
-	 * 
-	 * @var	array<Group>
+	 * entry editor
+	 *
+	 * @var ContestEntry
 	 */
-	public $availableGroups = array();
+	public $entry = null;
+	
+	/**
+	 * Creates a new ContestJuryAddForm object.
+	 *
+	 * @param	ContestEntry	$entry
+	 */
+	public function __construct(ContestEntry $entry) {
+		$this->entry = $entry;
+		parent::__construct();
+	}
 	
 	/**
 	 * @see Page::readParameters()
@@ -37,41 +43,9 @@ class ContestJuryAddForm extends AbstractForm {
 	public function readParameters() {
 		parent::readParameters();
 		
-		// check permissions
-		if (MODULE_CONTEST != 1 || !WCF::getUser()->userID) {
-			throw new IllegalLinkException();
-		}
-	}
-	
-	/**
-	 * @see Page::readData()
-	 */
-	public function readData() {
-		parent::readData();
-		
-		$this->readAvailableGroups();
-	}
-	
-	/**
-	 * returns the groups for which the user is admin
-	 */
-	protected function readAvailableGroups() {
-		$sql = "SELECT		usergroup.*, (
-						SELECT	COUNT(*)
-						FROM	wcf".WCF_N."_user_to_groups
-						WHERE	groupID = usergroup.groupID
-					) AS members
-			FROM 		wcf".WCF_N."_group usergroup
-			WHERE		groupID IN (
-						SELECT	groupID
-						FROM	wcf".WCF_N."_group_leader
-						WHERE	leaderUserID = ".WCF::getUser()->userID."
-							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
-					)
-			ORDER BY 	groupName";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->availableGroups[$row['groupID']] = new Group(null, $row);
+		// get entry
+		if (!$this->entry->isJuryable()) {
+			throw new PermissionDeniedException();
 		}
 	}
 	
@@ -81,7 +55,18 @@ class ContestJuryAddForm extends AbstractForm {
 	public function readFormParameters() {
 		parent::readFormParameters();
 		
-		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		// get parameters
+		if (isset($_POST['message'])) $this->jury = StringUtil::trim($_POST['message']);
+		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
+	}
+	
+	/**
+	 * @see Page::readData()
+	 */
+	public function readData() {
+		parent::readData();
+		
+		$this->states = ContestJuryEditor::getStates();
 	}
 	
 	/**
@@ -90,13 +75,39 @@ class ContestJuryAddForm extends AbstractForm {
 	public function validate() {
 		parent::validate();
 		
-		if($this->ownerID != 0) {
-			$this->readAvailableGroups();
+		if (empty($this->jury)) {
+			throw new UserInputException('message');
+		}
 		
-			// validate group ids
-			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
-				throw new UserInputException('ownerID'); 
+		if (StringUtil::length($this->jury) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
+			throw new UserInputException('message', 'tooLong');
+		}
+		
+		// username
+		$this->validateUsername();
+	}
+	
+	/**
+	 * Validates the username.
+	 */
+	protected function validateUsername() {
+		// only for guests
+		if (WCF::getUser()->userID == 0) {
+			// username
+			if (empty($this->username)) {
+				throw new UserInputException('username');
 			}
+			if (!UserUtil::isValidUsername($this->username)) {
+				throw new UserInputException('username', 'notValid');
+			}
+			if (!UserUtil::isAvailableUsername($this->username)) {
+				throw new UserInputException('username', 'notAvailable');
+			}
+			
+			WCF::getSession()->setUsername($this->username);
+		}
+		else {
+			$this->username = WCF::getUser()->username;
 		}
 	}
 	
@@ -106,12 +117,12 @@ class ContestJuryAddForm extends AbstractForm {
 	public function save() {
 		parent::save();
 		
-		// save entry
-		$entry = ContestJuryEditor::create($this->contestID, $this->userID, $this->groupID, $this->state);
+		// save jury
+		$jury = ContestJuryEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$entry->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?page=ContestJury&contestID='.$this->entry->contestID.'&juryID='.$jury->juryID.SID_ARG_2ND_NOT_ENCODED.'#jury'.$jury->juryID);
 		exit;
 	}
 	
@@ -122,30 +133,12 @@ class ContestJuryAddForm extends AbstractForm {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'action' => 'add',
-			'userID' => WCF::getUser()->userID,
-			'ownerID' => $this->ownerID,
-			'availableGroups' => $this->availableGroups,
-			'contestID' => $this->contestID,
-			'contest' => $this->contest
+			'message' => $this->message,
+			'username' => $this->username,
+			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength'),
+			'states' => $this->states,
+			'state' => $this->state
 		));
-	}
-	
-	/**
-	 * @see Page::show()
-	 */
-	public function show() {
-		// set active header menu item
-		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
-		
-		// check permission
-		WCF::getUser()->checkPermission('user.contest.canUseContest');
-		
-		if (!MODULE_CONTEST) {
-			throw new IllegalLinkException();
-		}
-		
-		parent::show();
 	}
 }
 ?>

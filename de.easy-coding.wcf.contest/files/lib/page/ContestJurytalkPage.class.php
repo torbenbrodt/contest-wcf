@@ -1,13 +1,14 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
-require_once(WCF_DIR.'lib/data/contest/jurytalk/ViewableContestJurytalk.class.php');
-require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJurytalkList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 
 /**
- * Shows a detailed view of a user contest entry.
+ * show/edit jurytalk entries
  * 
  * @author	Torben Brodt
  * @copyright	2009 TBR Jurytalks
@@ -28,14 +29,14 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	/**
 	 * entry object
 	 * 
-	 * @var	ContestJurytalk
+	 * @var	ContestEntryJurytalk
 	 */
 	public $entry = null;
 	
 	/**
 	 * list of jurytalks
 	 *
-	 * @var ContestJurytalkJurytalkList
+	 * @var ContestEntryJurytalkList
 	 */
 	public $jurytalkList = null;
 	
@@ -49,7 +50,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	/**
 	 * jurytalk object
 	 * 
-	 * @var	ContestJurytalkJurytalk
+	 * @var	ContestEntryJurytalk
 	 */
 	public $jurytalk = null;
 	
@@ -61,26 +62,33 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	public $action = '';
 	
 	/**
-	 * @see Page::readParameters()
+	 * contest sidebar
+	 * 
+	 * @var	ContestSidebar
+	 */
+	public $sidebar = null;
+	
+	/**
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
-		$this->entry = new ViewableContestJurytalk($this->contestID);
+		$this->entry = new ViewableContestEntry($this->contestID);
 		if (!$this->entry->contestID) {
 			throw new IllegalLinkException();
 		}
 		
 		// init jurytalk list
-		$this->jurytalkList = new ContestJurytalkJurytalkList();
+		$this->jurytalkList = new ContestEntryJurytalkList();
 		$this->jurytalkList->sqlConditions .= 'contest_jurytalk.contestID = '.$this->contestID;
 		$this->jurytalkList->sqlOrderBy = 'contest_jurytalk.time DESC';
 	}
 	
 	/**
-	 * @see Page::readData()
+	 * @see Form::readData()
 	 */
 	public function readData() {
 		parent::readData();
@@ -89,10 +97,13 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		$this->jurytalkList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->jurytalkList->sqlLimit = $this->itemsPerPage;
 		$this->jurytalkList->readObjects();
+		
+		// init sidebar
+		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
 	}
 	
 	/**
-	 * @see MultipleLinkPage::countItems()
+	 * @see MultipleLinkForm::countItems()
 	 */
 	public function countItems() {
 		parent::countItems();
@@ -101,7 +112,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	}
 	
 	/**
-	 * @see Page::assignVariables()
+	 * @see Form::assignVariables()
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
@@ -109,36 +120,38 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		// init form
 		if ($this->entry->isJurytalkable()) {
 			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestJurytalkJurytalkEditForm.class.php');
-				new ContestJurytalkJurytalkEditForm($this->jurytalk);
+				require_once(WCF_DIR.'lib/form/ContestJurytalkEditForm.class.php');
+				new ContestJurytalkEditForm($this->entry);
 			}
 			else {
-				require_once(WCF_DIR.'lib/form/ContestJurytalkJurytalkAddForm.class.php');
-				new ContestJurytalkJurytalkAddForm($this->entry);
+				require_once(WCF_DIR.'lib/form/ContestJurytalkAddForm.class.php');
+				new ContestJurytalkAddForm($this->entry);
 			}
 		}
-		
+
+		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'jurytalks' => $this->jurytalkList->getObjects(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisPage' => true,
+			'allowSpidersToIndexThisForm' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));
 	}
 	
 	/**
-	 * @see Page::show()
+	 * @see Form::show()
 	 */
 	public function show() {
 		// set active header menu item
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.overview');
+		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.jurytalk');
 		
 		// check permission
 		WCF::getUser()->checkPermission('user.contest.canViewContest');

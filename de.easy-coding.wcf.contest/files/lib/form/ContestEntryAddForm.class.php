@@ -156,9 +156,7 @@ class ContestEntryAddForm extends MessageForm {
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
-		if (isset($_POST['classIDArray'])) $this->classIDArray = array(intval($_POST['classIDArray']));
-		else $this->classIDArray = array();
-
+		if (isset($_POST['classIDArray']) && is_array($_POST['classIDArray'])) $this->classIDArray = $_POST['classIDArray'];
 		if (isset($_POST['sponsor']) && is_array($_POST['sponsor'])) $this->sponsors = $_POST['sponsor'];
 		if (isset($_POST['jury']) && is_array($_POST['jury'])) $this->jurys = $_POST['jury'];
 		if (isset($_POST['participant']) && is_array($_POST['participant'])) $this->participants = $_POST['participant'];

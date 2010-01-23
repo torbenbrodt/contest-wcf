@@ -212,6 +212,69 @@ class ContestEntry extends DatabaseObject {
 	public function isSolutionable() {
 		return WCF::getUser()->getPermission('user.contest.canSolution');
 	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isJurytalkable() {
+		return true; // TODO: isJurytalkable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isCommentable() {
+		return true; // TODO: isCommentable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isSponsorable() {
+		return true; // TODO: isSponsorable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isSponsortalkable() {
+		return true; // TODO: isSponsortalkable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isParticipantable() {
+		return true; // TODO: isParticipantable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isJuryable() {
+		return true; // TODO: isJuryable
+	}
+		
+	/**
+	 * Returns true, if the active user can solution this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isPriceable() {
+		return true; // TODO: isPriceable
+	}
 	
 	/**
 	 * Returns true, if the active user can edit this entry.

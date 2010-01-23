@@ -65,5 +65,13 @@ class ContestPriceEditor extends ContestPrice {
 			WHERE		priceID = ".$this->priceID;
 		WCF::getDB()->sendQuery($sql);
 	}
+	
+	public static function getStates() {
+		return array(
+			'unknown',
+			'accepted',
+			'declined'
+		);
+	}
 }
 ?>

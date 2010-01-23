@@ -21,7 +21,7 @@ class ContestEntryJurytalk extends DatabaseObject {
 		if ($jurytalkID !== null) {
 			$sql = "SELECT	*
 				FROM 	wcf".WCF_N."_contest_jurytalk
-				WHERE 	jurytalkID = ".$jurytalkID;
+				WHERE 	jurytalkID = ".intval($jurytalkID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);

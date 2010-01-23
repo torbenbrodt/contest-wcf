@@ -21,7 +21,7 @@ class ContestPrice extends DatabaseObject {
 		if ($priceID !== null) {
 			$sql = "SELECT		contest_price.*
 				FROM 		wcf".WCF_N."_contest_price contest_price
-				WHERE 		contest_price.priceID = ".$priceID;
+				WHERE 		contest_price.priceID = ".intval($priceID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -33,7 +33,7 @@ class ContestPrice extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return $this->title;
+		return $this->subject;
 	}
 	
 	/**

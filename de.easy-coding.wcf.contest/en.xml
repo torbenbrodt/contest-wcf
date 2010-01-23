@@ -101,7 +101,8 @@
 		<item name="wcf.user.contest.entry.jurys"><![CDATA[Jurys]]></item>
 		<item name="wcf.user.contest.entry.jury.add"><![CDATA[Add jury]]></item>
 		<item name="wcf.user.contest.entry.jury.description"><![CDATA[]]></item>
-		<item name="wcf.user.contest.entry.participant"><![CDATA[Jury]]></item>
+		<item name="wcf.user.contest.entry.participant"><![CDATA[Participant]]></item>
+		<item name="wcf.user.contest.entry.participant"><![CDATA[Participants]]></item>
 		<item name="wcf.user.contest.entry.participant.add"><![CDATA[Add participant]]></item>
 		<item name="wcf.user.contest.entry.participant.description"><![CDATA[]]></item>
 		<item name="wcf.user.contest.entry.sponsor"><![CDATA[Sponsor]]></item>
@@ -115,6 +116,15 @@
 		<item name="wcf.user.contest.entry.solution.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.user.contest.entry.solution.permalink"><![CDATA[Permalink to solution no. {#$messageNumber}]]></item>
 		<item name="wcf.user.contest.entry.solutions"><![CDATA[Solutions]]></item>
+		<item name="wcf.user.contest.entry.comment"><![CDATA[Comment]]></item>
+		<item name="wcf.user.contest.entry.comment.add"><![CDATA[Add comment]]></item>
+		<item name="wcf.user.contest.entry.comment.by"><![CDATA[By]]></item>
+		<item name="wcf.user.contest.entry.comment.delete"><![CDATA[Delete comment]]></item>
+		<item name="wcf.user.contest.entry.comment.delete.sure"><![CDATA[Do you really want to delete this comment?]]></item>
+		<item name="wcf.user.contest.entry.comment.edit"><![CDATA[Edit comment]]></item>
+		<item name="wcf.user.contest.entry.comment.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
+		<item name="wcf.user.contest.entry.comment.permalink"><![CDATA[Permalink to comment no. {#$messageNumber}]]></item>
+		<item name="wcf.user.contest.entry.comments"><![CDATA[Comments]]></item>
 		<item name="wcf.user.contest.entry.jurytalk"><![CDATA[Jurytalk]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.message"><![CDATA[Message]]></item>
@@ -127,6 +137,18 @@
 		<item name="wcf.user.contest.entry.jurytalk.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.permalink"><![CDATA[Permalink to Jurytalk no. {#$messageNumber}]]></item>
 		<item name="wcf.user.contest.entry.jurytalks"><![CDATA[Jurytalks]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk"><![CDATA[Sponsortalk]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.subject"><![CDATA[Subject]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.message"><![CDATA[Message]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.add"><![CDATA[Add Sponsortalk]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.by"><![CDATA[By]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.delete"><![CDATA[Delete Sponsortalk]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.delete.sure"><![CDATA[Do you really want to delete this Sponsortalk?]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.edit"><![CDATA[Edit Sponsortalk]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
+		<item name="wcf.user.contest.entry.sponsortalk.permalink"><![CDATA[Permalink to Sponsortalk no. {#$messageNumber}]]></item>
+		<item name="wcf.user.contest.entry.sponsortalks"><![CDATA[Sponsortalks]]></item>
 		<item name="wcf.user.contest.entry.delete"><![CDATA[Delete entry]]></item>
 		<item name="wcf.user.contest.entry.delete.sure"><![CDATA[Do you really want to delete this entry?]]></item>
 		<item name="wcf.user.contest.entry.edit"><![CDATA[Edit entry]]></item>
@@ -134,6 +156,7 @@
 		<item name="wcf.user.contest.entry.message"><![CDATA[Contest Description]]></item>
 		<item name="wcf.user.contest.entry.more"><![CDATA[Read more]]></item>
 		<item name="wcf.user.contest.entry.numberOfSolutions"><![CDATA[{#$entry->solutions} solution{if $entry->solutions != 1}s{/if}]]></item>
+		<item name="wcf.user.contest.entry.numberOfParticipants"><![CDATA[{#$entry->participants} Participant{if $entry->participants != 1}s{/if}]]></item>
 		<item name="wcf.user.contest.entry.numberOfPrices"><![CDATA[{#$entry->prices} Price{if $entry->prices != 1}es{/if}]]></item>
 		<item name="wcf.user.contest.entry.numberOfJurys"><![CDATA[{#$entry->jurys} Jury{if $entry->jurys != 1}s{/if}]]></item>
 		<item name="wcf.user.contest.entry.permalink"><![CDATA[Perma link of {#$messageNumber}. entry]]></item>
@@ -174,8 +197,15 @@
 		<item name="wcf.user.contest.sidebar.becomejury.submit"><![CDATA[Become judge]]></item>
 		<item name="wcf.user.contest.sidebar.becomejury.description"><![CDATA[As a judge you can decide who wins the tournament.]]></item>
 	</category>
-	<category name="wcf.user.profile">
-		<item name="wcf.user.profile.menu.link.contest"><![CDATA[Contest]]></item>
+	<category name="wcf.contest.menu">
+		<item name="wcf.contest.menu.link.overview"><![CDATA[Overview]]></item>
+		<item name="wcf.contest.menu.link.jury"><![CDATA[Jury]]></item>
+		<item name="wcf.contest.menu.link.jurytalk"><![CDATA[Jurytalk]]></item>
+		<item name="wcf.contest.menu.link.sponsortalk"><![CDATA[Sponsortalk]]></item>
+		<item name="wcf.contest.menu.link.participant"><![CDATA[Participants]]></item>
+		<item name="wcf.contest.menu.link.solution"><![CDATA[Solutions]]></item>
+		<item name="wcf.contest.menu.link.price"><![CDATA[Prices]]></item>
+		<item name="wcf.contest.menu.link.sponsor"><![CDATA[Sponsors]]></item>
 	</category>
 	<category name="wcf.usersOnline">
 		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest of &quot;{$user}&quot;]]></item>

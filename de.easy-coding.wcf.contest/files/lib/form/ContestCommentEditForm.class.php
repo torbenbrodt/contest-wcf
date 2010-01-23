@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/ContestEntrySolutionAddForm.class.php');
+require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');
 
 /**
  * Shows the form for editing contest entry solutions.
@@ -10,20 +10,20 @@ require_once(WCF_DIR.'lib/form/ContestEntrySolutionAddForm.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEntrySolutionEditForm extends ContestEntrySolutionAddForm {
+class ContestCommentEditForm extends ContestCommentAddForm {
 	/**
 	 * solution editor
 	 *
-	 * @var ContestEntrySolutionEditor
+	 * @var ContestCommentEditor
 	 */
 	public $solutionObj = null;
 	
 	/**
-	 * Creates a new ContestEntrySolutionEditForm object.
+	 * Creates a new ContestCommentEditForm object.
 	 *
-	 * @param	ContestEntrySolution		$solution
+	 * @param	ContestComment		$solution
 	 */
-	public function __construct(ContestEntrySolution $solution) {
+	public function __construct(ContestComment $solution) {
 		$this->solutionObj = $solution->getEditor();
 		CaptchaForm::__construct();
 	}

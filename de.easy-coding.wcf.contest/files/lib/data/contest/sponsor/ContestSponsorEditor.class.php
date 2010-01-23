@@ -58,5 +58,13 @@ class ContestSponsorEditor extends ContestSponsor {
 			WHERE		sponsorID = ".$this->sponsorID;
 		WCF::getDB()->sendQuery($sql);
 	}
+	
+	public static function getStates() {
+		return array(
+			'unknown',
+			'accepted',
+			'declined'
+		);
+	}
 }
 ?>

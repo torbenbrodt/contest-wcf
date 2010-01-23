@@ -12,7 +12,7 @@ require_once(WCF_DIR.'lib/page/util/menu/TreeMenu.class.php');
  */
 class ContestMenu extends TreeMenu {
 	protected static $instance = null;
-	public $userID = 0;
+	public $contestID = 0;
 	
 	/**
 	 * Returns an instance of the ContestMenu class.
@@ -49,7 +49,7 @@ class ContestMenu extends TreeMenu {
 		}
 		
 		// insert user id
-		$link = str_replace('%s', $this->userID, $link);
+		$link = str_replace('%s', $this->contestID, $link);
 		
 		return $link;
 	}

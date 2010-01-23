@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/sponsortalk/ViewableContestEntrySponsorta
  * Represents a list of contest entry sponsortalks.
  * 
  * @author	Torben Brodt
- * @copyright	2009 TBR Sponsors
+ * @copyright	2009 TBR Jurys
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */

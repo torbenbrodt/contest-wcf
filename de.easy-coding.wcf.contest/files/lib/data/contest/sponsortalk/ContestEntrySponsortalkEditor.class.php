@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/sponsortalk/ContestEntrySponsortalk.class
  * Provides functions to manage entry sponsortalks.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Sponsors
+ * @copyright	2009 TBR Jurys
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -21,10 +21,10 @@ class ContestEntrySponsortalkEditor extends ContestEntrySponsortalk {
 	 * @param	integer		$time
 	 * @return	ContestEntrySponsortalkEditor
 	 */
-	public static function create($contestID, $sponsortalk, $userID, $username, $time = TIME_NOW) {
+	public static function create($contestID, $message, $userID, $username, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_sponsortalk
-					(contestID, userID, username, sponsortalk, time)
-			VALUES		(".$contestID.", ".$userID.", '".escapeString($username)."', '".escapeString($sponsortalk)."', ".$time.")";
+					(contestID, userID, username, message, time)
+			VALUES		(".intval($contestID).", ".intval($userID).", '".escapeString($username)."', '".escapeString($message)."', ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id
@@ -42,11 +42,11 @@ class ContestEntrySponsortalkEditor extends ContestEntrySponsortalk {
 	/**
 	 * Updates this entry sponsortalk.
 	 *
-	 * @param	string		$sponsortalk
+	 * @param	string		$message
 	 */
-	public function update($sponsortalk) {
+	public function update($message) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_sponsortalk
-			SET	sponsortalk = '".escapeString($sponsortalk)."'
+			SET	message = '".escapeString($message)."'
 			WHERE	sponsortalkID = ".$this->sponsortalkID;
 		WCF::getDB()->sendQuery($sql);
 	}

@@ -33,34 +33,13 @@ class ViewableContestPrice extends ContestPrice {
 	 * 
 	 * @return	string
 	 */
-	public function getFormattedPrice() {
+	public function getFormattedMessage() {
 		$enableSmilies = 1; 
 		$enableHtml = 0; 
 		$enableBBCodes = 1;
 	
 		MessageParser::getInstance()->setOutputType('text/html');
-		return MessageParser::getInstance()->parse($this->message, $enableSmilies, $enableHtml, $enableBBCodes);
-	}
-	
-	/**
-	 * Returns an excerpt of the message.
-	 * 
-	 * @return	string
-	 */
-	public function getExcerpt() {
-		$enableSmilies = 1; 
-		$enableHtml = 0; 
-		$enableBBCodes = 1;
-	
-		MessageParser::getInstance()->setOutputType('text/plain');
-		$message = MessageParser::getInstance()->parse($this->price, $enableSmilies, $enableHtml, $enableBBCodes);
-		
-		// get abstract
-		if (StringUtil::length($message) > 50) {
-			$message = StringUtil::substring($message, 0, 47) . '...';
-		}
-		
-		return $message;
+		return MessageParser::getInstance()->parse($this->subject, $enableSmilies, $enableHtml, $enableBBCodes);
 	}
 	
 	/**

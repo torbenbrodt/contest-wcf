@@ -30,7 +30,7 @@ class ContestParticipant extends DatabaseObject {
 				ON		(wcf_user.userID = contest_participant.userID)
 				LEFT JOIN	wcf".WCF_N."_group wcf_group
 				ON		(wcf_group.groupID = contest_participant.groupID)
-				WHERE		contest_participant.participantID = ".intval($this->participantID);
+				WHERE		contest_participant.participantID = ".intval($participantID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -42,7 +42,7 @@ class ContestParticipant extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return $this->title;
+		return "".$this->title;
 	}
 	
 	/**
@@ -79,8 +79,8 @@ class ContestParticipant extends DatabaseObject {
 		if(empty($userID)) {
 			return false;
 		}
-		
-		return in_array($this->groupID, WCF::getUser()->getGroupIDs());
+
+		return $this->userID == $userID || in_array($this->groupID, WCF::getUser()->getGroupIDs());
 	}
 	
 	/**

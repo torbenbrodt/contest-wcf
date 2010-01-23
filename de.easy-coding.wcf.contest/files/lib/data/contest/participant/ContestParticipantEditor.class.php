@@ -58,5 +58,14 @@ class ContestParticipantEditor extends ContestParticipant {
 			WHERE		participantID = ".$this->participantID;
 		WCF::getDB()->sendQuery($sql);
 	}
+	
+	public static function getStates() {
+		return array(
+			'invited',
+			'accepted',
+			'declined',
+			'left'
+		);
+	}
 }
 ?>

@@ -2,7 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionList.class.php');
+require_once(WCF_DIR.'lib/data/contest/comment/ContestEntryCommentList.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
@@ -12,7 +12,7 @@ require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
  * Shows a detailed view of a user contest entry.
  * 
  * @author	Torben Brodt
- * @copyright	2009 TBR Solutions
+ * @copyright	2009 TBR Comments
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -35,30 +35,30 @@ class ContestEntryPage extends MultipleLinkPage {
 	public $entry = null;
 	
 	/**
-	 * list of solutions
+	 * list of comments
 	 *
-	 * @var ContestEntrySolutionList
+	 * @var ContestEntryCommentList
 	 */
-	public $solutionList = null;
+	public $commentList = null;
 	
 	/**
-	 * solution id
+	 * comment id
 	 * 
 	 * @var	integer
 	 */
-	public $solutionID = 0;
+	public $commentID = 0;
 	
 	/**
-	 * solution object
+	 * comment object
 	 * 
-	 * @var	ContestEntrySolution
+	 * @var	ContestComment
 	 */
-	public $solution = null;
+	public $comment = null;
 	
 	/**
-	 * list of solutions
+	 * list of comments
 	 *
-	 * @var ContestEntrySolutionList
+	 * @var ContestEntryCommentList
 	 */
 	public $priceList = null;
 	
@@ -133,31 +133,31 @@ class ContestEntryPage extends MultipleLinkPage {
 		
 		if (isset($_REQUEST['errorField'])) $this->errorField = $_REQUEST['errorField'];
 		if (isset($_REQUEST['action'])) $this->action = $_REQUEST['action'];
-		if (isset($_REQUEST['solutionID'])) $this->solutionID = intval($_REQUEST['solutionID']);
-		if ($this->solutionID != 0) {
-			$this->solution = new ContestEntrySolution($this->solutionID);
-			if (!$this->solution->solutionID || $this->solution->contestID != $this->contestID) {
+		if (isset($_REQUEST['commentID'])) $this->commentID = intval($_REQUEST['commentID']);
+		if ($this->commentID != 0) {
+			$this->comment = new ContestComment($this->commentID);
+			if (!$this->comment->commentID || $this->comment->contestID != $this->contestID) {
 				throw new IllegalLinkException();
 			}
 			
 			// check permissions
-			if ($this->action == 'edit' && !$this->solution->isEditable()) {
+			if ($this->action == 'edit' && !$this->comment->isEditable()) {
 				throw new PermissionDeniedException();
 			}
 						
 			// get page number
-			$sql = "SELECT	COUNT(*) AS solutions
-				FROM 	wcf".WCF_N."_contest_solution
+			$sql = "SELECT	COUNT(*) AS comments
+				FROM 	wcf".WCF_N."_contest_comment
 				WHERE 	contestID = ".$this->contestID."
-					AND time < ".$this->solution->time;
+					AND time < ".$this->comment->time;
 			$result = WCF::getDB()->getFirstRow($sql);
-			$this->pageNo = intval(ceil($result['solutions'] / $this->itemsPerPage));
+			$this->pageNo = intval(ceil($result['comments'] / $this->itemsPerPage));
 		}
 		
-		// init solution list
-		$this->solutionList = new ContestEntrySolutionList();
-		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
-		$this->solutionList->sqlOrderBy = 'contest_solution.time DESC';
+		// init comment list
+		$this->commentList = new ContestEntryCommentList();
+		$this->commentList->sqlConditions .= 'contest_comment.contestID = '.$this->contestID;
+		$this->commentList->sqlOrderBy = 'contest_comment.time DESC';
 		
 		// price
 		if (isset($_REQUEST['priceID'])) $this->priceID = intval($_REQUEST['priceID']);
@@ -194,9 +194,9 @@ class ContestEntryPage extends MultipleLinkPage {
 		parent::readData();
 		
 		// read objects
-		$this->solutionList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->solutionList->sqlLimit = $this->itemsPerPage;
-		$this->solutionList->readObjects();
+		$this->commentList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
+		$this->commentList->sqlLimit = $this->itemsPerPage;
+		$this->commentList->readObjects();
 		
 		// read objects
 		$this->priceList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
@@ -256,7 +256,7 @@ class ContestEntryPage extends MultipleLinkPage {
 	public function countItems() {
 		parent::countItems();
 		
-		return $this->solutionList->countObjects();
+		return $this->commentList->countObjects();
 	}
 	
 	/**
@@ -266,14 +266,14 @@ class ContestEntryPage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// init form
-		if ($this->entry->isSolutionable()) {
+		if ($this->entry->isCommentable()) {
 			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestEntrySolutionEditForm.class.php');
-				new ContestEntrySolutionEditForm($this->solution);
+				require_once(WCF_DIR.'lib/form/ContestCommentEditForm.class.php');
+				new ContestCommentEditForm($this->comment);
 			}
 			else {
-				require_once(WCF_DIR.'lib/form/ContestEntrySolutionAddForm.class.php');
-				new ContestEntrySolutionAddForm($this->entry);
+				require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');
+				new ContestCommentAddForm($this->entry);
 			}
 		}
 		
@@ -284,7 +284,7 @@ class ContestEntryPage extends MultipleLinkPage {
 			'userID' => $this->entry->userID,
 			'user' => $this->entry->getUser(),
 			'tags' => (MODULE_TAGGING ? $this->entry->getTags(WCF::getSession()->getVisibleLanguageIDArray()) : array()),
-			'solutions' => $this->solutionList->getObjects(),
+			'comments' => $this->commentList->getObjects(),
 			'classes' => $this->entry->getClasses(),
 			'jurys' => $this->entry->getJurys(),
 			'participants' => $this->entry->getParticipants(),
@@ -292,7 +292,7 @@ class ContestEntryPage extends MultipleLinkPage {
 			'attachments' => $this->attachments,
 			'location' => $this->entry->location,
 			'action' => $this->action,
-			'solutionID' => $this->solutionID,
+			'commentID' => $this->commentID,
 			'priceID' => $this->priceID,
 			'previousEntry' => $this->previousEntry,
 			'nextEntry' => $this->nextEntry,
@@ -311,6 +311,7 @@ class ContestEntryPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
+		ContestMenu::getInstance()->contestID = $this->contestID;
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.overview');
 		
 		// check permission

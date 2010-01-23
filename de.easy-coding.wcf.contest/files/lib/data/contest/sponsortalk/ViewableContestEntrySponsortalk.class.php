@@ -8,7 +8,7 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  * Represents a viewable contest entry sponsortalk.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Sponsors
+ * @copyright	2009 TBR Jurys
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -33,34 +33,13 @@ class ViewableContestEntrySponsortalk extends ContestEntrySponsortalk {
 	 * 
 	 * @return	string
 	 */
-	public function getFormattedSponsor() {
+	public function getFormattedMessage() {
 		$enableSmilies = 1; 
 		$enableHtml = 0; 
 		$enableBBCodes = 1;
 	
 		MessageParser::getInstance()->setOutputType('text/html');
-		return MessageParser::getInstance()->parse($this->sponsortalk, $enableSmilies, $enableHtml, $enableBBCodes);
-	}
-	
-	/**
-	 * Returns an excerpt of the message.
-	 * 
-	 * @return	string
-	 */
-	public function getExcerpt() {
-		$enableSmilies = 1; 
-		$enableHtml = 0; 
-		$enableBBCodes = 1;
-	
-		MessageParser::getInstance()->setOutputType('text/plain');
-		$message = MessageParser::getInstance()->parse($this->sponsortalk, $enableSmilies, $enableHtml, $enableBBCodes);
-		
-		// get abstract
-		if (StringUtil::length($message) > 50) {
-			$message = StringUtil::substring($message, 0, 47) . '...';
-		}
-		
-		return $message;
+		return MessageParser::getInstance()->parse($this->message, $enableSmilies, $enableHtml, $enableBBCodes);
 	}
 	
 	/**

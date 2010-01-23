@@ -58,5 +58,14 @@ class ContestJuryEditor extends ContestJury {
 			WHERE		juryID = ".$this->juryID;
 		WCF::getDB()->sendQuery($sql);
 	}
+	
+	public static function getStates() {
+		return array(
+			'invited',
+			'accepted',
+			'declined',
+			'left'
+		);
+	}
 }
 ?>

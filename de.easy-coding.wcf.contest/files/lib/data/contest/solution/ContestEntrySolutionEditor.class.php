@@ -66,5 +66,13 @@ class ContestEntrySolutionEditor extends ContestEntrySolution {
 			WHERE		solutionID = ".$this->solutionID;
 		WCF::getDB()->sendQuery($sql);
 	}
+	
+	public static function getStates() {
+		return array(
+			'unknown',
+			'accepted',
+			'declined'
+		);
+	}
 }
 ?>

@@ -30,7 +30,7 @@ class ContestJury extends DatabaseObject {
 				ON		(wcf_user.userID = contest_jury.userID)
 				LEFT JOIN	wcf".WCF_N."_group wcf_group
 				ON		(wcf_group.groupID = contest_jury.groupID)
-				WHERE		contest_jury.juryID = ".intval($this->juryID);
+				WHERE		contest_jury.juryID = ".intval($juryID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -42,7 +42,7 @@ class ContestJury extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return $this->title;
+		return "".$this->title;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class ContestJury extends DatabaseObject {
 			return false;
 		}
 		
-		return in_array($this->groupID, WCF::getUser()->getGroupIDs());
+		return $this->userID == $userID || in_array($this->groupID, WCF::getUser()->getGroupIDs());
 	}
 	
 	/**

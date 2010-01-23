@@ -21,7 +21,7 @@ class ContestEntrySolution extends DatabaseObject {
 		if ($solutionID !== null) {
 			$sql = "SELECT	*
 				FROM 	wcf".WCF_N."_contest_solution
-				WHERE 	solutionID = ".$solutionID;
+				WHERE 	solutionID = ".intval($solutionID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);

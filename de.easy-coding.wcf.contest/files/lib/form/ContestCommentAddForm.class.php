@@ -2,19 +2,19 @@
 // wcf imports
 require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestEntry.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/comment/ContestEntryCommentEditor.class.php');
 
 /**
- * Shows the form for adding contest entry solutions.
+ * Shows the form for adding contest entry comments.
  *
  * @author	Torben Brodt
  * @copyright	2009 TBR Solutions
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEntrySolutionAddForm extends CaptchaForm {
+class ContestCommentAddForm extends CaptchaForm {
 	// parameters
-	public $solution = '';
+	public $comment = '';
 	public $username = '';
 	
 	/**
@@ -25,7 +25,7 @@ class ContestEntrySolutionAddForm extends CaptchaForm {
 	public $entry = null;
 	
 	/**
-	 * Creates a new ContestEntrySolutionAddForm object.
+	 * Creates a new ContestCommentAddForm object.
 	 *
 	 * @param	ContestEntry	$entry
 	 */
@@ -53,7 +53,7 @@ class ContestEntrySolutionAddForm extends CaptchaForm {
 		parent::readFormParameters();
 		
 		// get parameters
-		if (isset($_POST['solution'])) $this->solution = StringUtil::trim($_POST['solution']);
+		if (isset($_POST['comment'])) $this->comment = StringUtil::trim($_POST['comment']);
 		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 	}
 	
@@ -63,12 +63,12 @@ class ContestEntrySolutionAddForm extends CaptchaForm {
 	public function validate() {
 		parent::validate();
 		
-		if (empty($this->solution)) {
-			throw new UserInputException('solution');
+		if (empty($this->comment)) {
+			throw new UserInputException('comment');
 		}
 		
-		if (StringUtil::length($this->solution) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
-			throw new UserInputException('solution', 'tooLong');
+		if (StringUtil::length($this->comment) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
+			throw new UserInputException('comment', 'tooLong');
 		}
 		
 		// username
@@ -105,12 +105,12 @@ class ContestEntrySolutionAddForm extends CaptchaForm {
 	public function save() {
 		parent::save();
 		
-		// save solution
-		$solution = ContestEntrySolutionEditor::create($this->entry->contestID, $this->entry->userID, $this->solution, WCF::getUser()->userID, $this->username);
+		// save comment
+		$comment = ContestEntryCommentEditor::create($this->entry->contestID, $this->entry->userID, $this->comment, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$this->entry->contestID.'&solutionID='.$solution->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$solution->solutionID);
+		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$this->entry->contestID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
 		exit;
 	}
 	
@@ -121,7 +121,7 @@ class ContestEntrySolutionAddForm extends CaptchaForm {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'solution' => $this->solution,
+			'comment' => $this->comment,
 			'username' => $this->username,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')
 		));
