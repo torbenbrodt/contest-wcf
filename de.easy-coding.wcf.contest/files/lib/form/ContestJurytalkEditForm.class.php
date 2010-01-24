@@ -25,14 +25,14 @@ class ContestJurytalkEditForm extends ContestJurytalkAddForm {
 	 */
 	public function __construct(ContestJurytalk $jurytalk) {
 		$this->jurytalkObj = $jurytalk->getEditor();
-		CaptchaForm::__construct();
+		AbstractForm::__construct();
 	}
 	
 	/**
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
-		CaptchaForm::readParameters();
+		AbstractForm::readParameters();
 		
 		// get jurytalk
 		if (!$this->jurytalkObj->isEditable()) {
@@ -44,7 +44,7 @@ class ContestJurytalkEditForm extends ContestJurytalkAddForm {
 	 * @see Form::save()
 	 */
 	public function save() {
-		CaptchaForm::save();
+		AbstractForm::save();
 		
 		// save jurytalk
 		$this->jurytalkObj->update($this->message);

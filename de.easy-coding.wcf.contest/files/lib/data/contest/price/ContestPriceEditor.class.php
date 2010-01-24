@@ -18,11 +18,11 @@ class ContestPriceEditor extends ContestPrice {
 	 * @param	integer		$sponsorID
 	 * @param	string		$subject
 	 * @param	string		$message
-	 * @param	integer		$time
 	 * @param	integer		$position
+	 * @param	integer		$time
 	 * @return	ContestPriceEditor
 	 */
-	public static function create($contestID, $sponsorID, $subject, $message, $time, $position) {
+	public static function create($contestID, $sponsorID, $subject, $message, $position, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_price
 					(contestID, sponsorID, subject, message, time, position)
 			VALUES		(".intval($contestID).", ".intval($sponsorID).", '".escapeString($subject)."', 

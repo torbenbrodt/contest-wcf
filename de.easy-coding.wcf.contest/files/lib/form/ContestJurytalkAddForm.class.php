@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
+require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php');
 
@@ -12,7 +12,7 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php'
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestJurytalkAddForm extends CaptchaForm {
+class ContestJurytalkAddForm extends AbstractForm {
 	// parameters
 	public $message = '';
 	public $username = '';
@@ -53,7 +53,7 @@ class ContestJurytalkAddForm extends CaptchaForm {
 		parent::readFormParameters();
 		
 		// get parameters
-		if (isset($_POST['message'])) $this->jurytalk = StringUtil::trim($_POST['message']);
+		if (isset($_POST['message'])) $this->message = StringUtil::trim($_POST['message']);
 		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 	}
 	
@@ -63,11 +63,11 @@ class ContestJurytalkAddForm extends CaptchaForm {
 	public function validate() {
 		parent::validate();
 		
-		if (empty($this->jurytalk)) {
+		if (empty($this->message)) {
 			throw new UserInputException('message');
 		}
 		
-		if (StringUtil::length($this->jurytalk) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
+		if (StringUtil::length($this->message) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
 			throw new UserInputException('message', 'tooLong');
 		}
 		

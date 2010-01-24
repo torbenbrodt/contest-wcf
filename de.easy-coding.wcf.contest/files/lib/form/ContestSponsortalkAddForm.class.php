@@ -53,7 +53,7 @@ class ContestSponsortalkAddForm extends CaptchaForm {
 		parent::readFormParameters();
 		
 		// get parameters
-		if (isset($_POST['message'])) $this->sponsortalk = StringUtil::trim($_POST['message']);
+		if (isset($_POST['message'])) $this->message = StringUtil::trim($_POST['message']);
 		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 	}
 	
@@ -63,11 +63,11 @@ class ContestSponsortalkAddForm extends CaptchaForm {
 	public function validate() {
 		parent::validate();
 		
-		if (empty($this->sponsortalk)) {
+		if (empty($this->message)) {
 			throw new UserInputException('message');
 		}
 		
-		if (StringUtil::length($this->sponsortalk) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
+		if (StringUtil::length($this->message) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
 			throw new UserInputException('message', 'tooLong');
 		}
 		

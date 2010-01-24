@@ -11,7 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * show/edit sponsor entries
  * 
  * @author	Torben Brodt
- * @copyright	2009 TBR Sponsors
+ * @copyright	2009 TBR Solutions
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -44,20 +44,6 @@ class ContestSponsorPage extends MultipleLinkPage {
 	public $sponsorList = null;
 	
 	/**
-	 * sponsor id
-	 * 
-	 * @var	integer
-	 */
-	public $sponsorID = 0;
-	
-	/**
-	 * sponsor object
-	 * 
-	 * @var	ContestSponsor
-	 */
-	public $sponsor = null;
-	
-	/**
 	 * action
 	 * 
 	 * @var	string
@@ -70,13 +56,6 @@ class ContestSponsorPage extends MultipleLinkPage {
 	 * @var	ContestSidebar
 	 */
 	public $sidebar = null;
-	
-	/**
-	 * available groups
-	 *
-	 * @var array<Group>
-	 */
-	protected $availableGroups = array();
 	
 	/**
 	 * @see Form::readParameters()
@@ -110,9 +89,6 @@ class ContestSponsorPage extends MultipleLinkPage {
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
-
-		// owner
-		$this->readAvailableGroups();
 	}
 	
 	/**
@@ -148,8 +124,6 @@ class ContestSponsorPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'sponsors' => $this->sponsorList->getObjects(),
-			'availableGroups' => $this->availableGroups,
-			'ownerID' => $this->ownerID,
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			
@@ -176,29 +150,6 @@ class ContestSponsorPage extends MultipleLinkPage {
 		}
 		
 		parent::show();
-	}
-	
-	/**
-	 * returns the groups for which the user is admin
-	 */
-	protected function readAvailableGroups() {
-		$sql = "SELECT		usergroup.*, (
-						SELECT	COUNT(*)
-						FROM	wcf".WCF_N."_user_to_groups
-						WHERE	groupID = usergroup.groupID
-					) AS members
-			FROM 		wcf".WCF_N."_group usergroup
-			WHERE		groupID IN (
-						SELECT	groupID
-						FROM	wcf".WCF_N."_group_leader
-						WHERE	leaderUserID = ".WCF::getUser()->userID."
-							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
-					)
-			ORDER BY 	groupName";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->availableGroups[$row['groupID']] = new Group(null, $row);
-		}
 	}
 }
 ?>

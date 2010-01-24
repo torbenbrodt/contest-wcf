@@ -107,9 +107,7 @@
 							</div>
 						</div>
 						
-						{if $entry->isPriceable()}{assign var=priceUsername value=$username}{/if}
 						{if $entry->isPriceable() && $action != 'edit'}
-							{assign var=username value=$priceUsername}
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

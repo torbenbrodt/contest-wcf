@@ -122,8 +122,6 @@
 												</fieldset>
 											</div>
 										</div>
-										
-										{include file='captcha' enableFieldset=false}
 									</fieldset>
 									
 									<div class="formSubmit">

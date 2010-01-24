@@ -24,7 +24,7 @@ class ContestCommentEditor extends ContestComment {
 	public static function create($contestID, $comment, $userID, $username, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_comment
 					(contestID, userID, username, comment, time)
-			VALUES		(".$contestID.", ".$userID.", '".escapeString($username)."', '".escapeString($comment)."', ".$time.")";
+			VALUES		(".intval($contestID).", ".intval($userID).", '".escapeString($username)."', '".escapeString($comment)."', ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id

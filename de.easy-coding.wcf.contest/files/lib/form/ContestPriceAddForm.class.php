@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
+require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
 
@@ -12,11 +12,13 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestPriceAddForm extends CaptchaForm {
-	// parameters
+class ContestPriceAddForm extends AbstractForm {
+	// form parameters
+	public $ownerID = 0;
+	public $userID = 0;
+	public $groupID = 0;
 	public $subject = '';
 	public $message = '';
-	public $username = '';
 	
 	public $states = array();
 	public $state = '';
@@ -27,6 +29,13 @@ class ContestPriceAddForm extends CaptchaForm {
 	 * @var Contest
 	 */
 	public $entry = null;
+	
+	/**
+	 * available groups
+	 *
+	 * @var array<Group>
+	 */
+	protected $availableGroups = array();
 	
 	/**
 	 * Creates a new ContestPriceAddForm object.
@@ -57,9 +66,16 @@ class ContestPriceAddForm extends CaptchaForm {
 		parent::readFormParameters();
 		
 		// get parameters
+		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		if (isset($_POST['state'])) $this->state = $_POST['state'];
 		if (isset($_POST['subject'])) $this->subject = StringUtil::trim($_POST['subject']);
 		if (isset($_POST['message'])) $this->message = StringUtil::trim($_POST['message']);
-		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
+		
+		if ($this->ownerID == 0) {
+			$this->userID = WCF::getUser()->userID;
+		} else {
+			$this->groupID = $this->ownerID;
+		}
 	}
 	
 	/**
@@ -69,6 +85,9 @@ class ContestPriceAddForm extends CaptchaForm {
 		parent::readData();
 		
 		$this->states = ContestPriceEditor::getStates();
+
+		// owner
+		$this->readAvailableGroups();
 	}
 	
 	/**
@@ -89,31 +108,13 @@ class ContestPriceAddForm extends CaptchaForm {
 			throw new UserInputException('message', 'tooLong');
 		}
 		
-		// username
-		$this->validateUsername();
-	}
-	
-	/**
-	 * Validates the username.
-	 */
-	protected function validateUsername() {
-		// only for guests
-		if (WCF::getUser()->userID == 0) {
-			// username
-			if (empty($this->username)) {
-				throw new UserInputException('username');
+		if($this->ownerID != 0) {
+			$this->readAvailableGroups();
+		
+			// validate group ids
+			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
+				throw new UserInputException('ownerID'); 
 			}
-			if (!UserUtil::isValidUsername($this->username)) {
-				throw new UserInputException('username', 'notValid');
-			}
-			if (!UserUtil::isAvailableUsername($this->username)) {
-				throw new UserInputException('username', 'notAvailable');
-			}
-			
-			WCF::getSession()->setUsername($this->username);
-		}
-		else {
-			$this->username = WCF::getUser()->username;
 		}
 	}
 	
@@ -123,8 +124,11 @@ class ContestPriceAddForm extends CaptchaForm {
 	public function save() {
 		parent::save();
 		
+		$sponsorID = 0; // TODO: get sponsorID get from userid/groupid
+		$position = 0; // TODO: price, allow position
+		
 		// save price
-		$price = ContestPriceEditor::create($this->entry->contestID, $this->subject, $this->message, WCF::getUser()->userID, $this->username);
+		$price = ContestPriceEditor::create($this->entry->contestID, $sponsorID, $this->subject, $this->message, $position);
 		$this->saved();
 		
 		// forward
@@ -139,11 +143,37 @@ class ContestPriceAddForm extends CaptchaForm {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
+			'states' => $this->states,
+			'state' => $this->state,
+			'availableGroups' => $this->availableGroups,
+			'ownerID' => $this->ownerID,
 			'subject' => $this->subject,
 			'message' => $this->message,
-			'username' => $this->username,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')
 		));
+	}
+	
+	/**
+	 * returns the groups for which the user is admin
+	 */
+	protected function readAvailableGroups() {
+		$sql = "SELECT		usergroup.*, (
+						SELECT	COUNT(*)
+						FROM	wcf".WCF_N."_user_to_groups
+						WHERE	groupID = usergroup.groupID
+					) AS members
+			FROM 		wcf".WCF_N."_group usergroup
+			WHERE		groupID IN (
+						SELECT	groupID
+						FROM	wcf".WCF_N."_group_leader
+						WHERE	leaderUserID = ".WCF::getUser()->userID."
+							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
+					)
+			ORDER BY 	groupName";
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$this->availableGroups[$row['groupID']] = new Group(null, $row);
+		}
 	}
 }
 ?>

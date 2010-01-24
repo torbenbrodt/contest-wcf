@@ -24,7 +24,7 @@ class ContestSolutionEditor extends ContestSolution {
 	public static function create($contestID, $solution, $userID, $username, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_solution
 					(contestID, userID, username, solution, time)
-			VALUES		(".$contestID.", ".$userID.", '".escapeString($username)."', '".escapeString($solution)."', ".$time.")";
+			VALUES		(".intval($contestID).", ".intval($userID).", '".escapeString($username)."', '".escapeString($solution)."', ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id

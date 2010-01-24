@@ -30,7 +30,7 @@ class ContestJuryEditForm extends ContestJuryAddForm {
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
-		MessageForm::readParameters();
+		AbstractForm::readParameters();
 		
 		if (isset($_REQUEST['juryID'])) $this->juryID = intval($_REQUEST['juryID']);
 		$this->entry = new ContestJuryEditor($this->juryID);

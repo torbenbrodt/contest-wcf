@@ -106,7 +106,7 @@ class ContestCommentAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save comment
-		$comment = ContestCommentEditor::create($this->entry->contestID, $this->entry->userID, $this->comment, WCF::getUser()->userID, $this->username);
+		$comment = ContestCommentEditor::create($this->entry->contestID, $this->comment, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward

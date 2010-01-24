@@ -58,13 +58,6 @@ class ContestJuryPage extends MultipleLinkPage {
 	public $sidebar = null;
 	
 	/**
-	 * available groups
-	 *
-	 * @var array<Group>
-	 */
-	protected $availableGroups = array();
-	
-	/**
 	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
@@ -96,9 +89,6 @@ class ContestJuryPage extends MultipleLinkPage {
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
-
-		// owner
-		$this->readAvailableGroups();
 	}
 	
 	/**
@@ -134,9 +124,6 @@ class ContestJuryPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'jurys' => $this->juryList->getObjects(),
-			'availableGroups' => $this->availableGroups,
-			'availableGroups' => $this->availableGroups,
-			'ownerID' => $this->ownerID,
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			
@@ -163,29 +150,6 @@ class ContestJuryPage extends MultipleLinkPage {
 		}
 		
 		parent::show();
-	}
-	
-	/**
-	 * returns the groups for which the user is admin
-	 */
-	protected function readAvailableGroups() {
-		$sql = "SELECT		usergroup.*, (
-						SELECT	COUNT(*)
-						FROM	wcf".WCF_N."_user_to_groups
-						WHERE	groupID = usergroup.groupID
-					) AS members
-			FROM 		wcf".WCF_N."_group usergroup
-			WHERE		groupID IN (
-						SELECT	groupID
-						FROM	wcf".WCF_N."_group_leader
-						WHERE	leaderUserID = ".WCF::getUser()->userID."
-							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
-					)
-			ORDER BY 	groupName";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->availableGroups[$row['groupID']] = new Group(null, $row);
-		}
 	}
 }
 ?>
