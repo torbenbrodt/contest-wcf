@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/user/notification/NotificationHandler.class.php')
  * Handles the notification system regarding the user contest entry solution.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Solutions
+ * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.commentNotification
  */

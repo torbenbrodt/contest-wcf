@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkNotificationObjec
  * An implementation of NotificationObjectType to support the usage of an user contest jurytalks as a warning object.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Jurytalks
+ * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.commentNotification
  */

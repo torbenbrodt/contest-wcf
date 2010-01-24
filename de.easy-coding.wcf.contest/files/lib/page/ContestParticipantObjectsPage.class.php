@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/page/AbstractPage.class.php');
  * file looks stupidly redundant, but it is planned to become very smart... listing the latest participants.
  * 
  * @author	Torben Brodt
- * @copyright	2009 TBR Solutions
+ * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */

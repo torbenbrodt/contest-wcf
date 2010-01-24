@@ -8,7 +8,7 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  * Represents a viewable contest entry comment.
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Comments
+ * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */

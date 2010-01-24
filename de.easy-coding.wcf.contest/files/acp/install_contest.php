@@ -2,7 +2,7 @@
 /**
  *
  * @author	Torben Brodt
- * @copyright	2009 TBR Solutions
+ * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
