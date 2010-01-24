@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntryList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContestList.class.php');
 
 /**
  * Represents a list of contest entries of a class.
@@ -10,7 +10,7 @@ require_once(WCF_DIR.'lib/data/contest/ViewableContestEntryList.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestClassEntryList extends ViewableContestEntryList {
+class ContestClassEntryList extends ViewableContestList {
 	/**
 	 * class id
 	 * 

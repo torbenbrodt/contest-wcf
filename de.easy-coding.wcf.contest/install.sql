@@ -14,7 +14,10 @@ CREATE TABLE wcf1_contest (
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
 	solutions SMALLINT(5) NOT NULL DEFAULT 0,
 	comments SMALLINT(5) NOT NULL DEFAULT 0,
+	prices SMALLINT(5) NOT NULL DEFAULT 0,
+	participants SMALLINT(5) NOT NULL DEFAULT 0,
 	jurytalks SMALLINT(5) NOT NULL DEFAULT 0,
+	jurys SMALLINT(5) NOT NULL DEFAULT 0,
 	sponsortalks SMALLINT(5) NOT NULL DEFAULT 0,
 	state ENUM('private', 'waiting', 'reviewed', 'scheduled') NOT NULL DEFAULT 'private',
 	FULLTEXT KEY (subject, message),
@@ -152,7 +155,7 @@ INSERT INTO wcf1_contest_class (title) VALUES
 	('wcf.user.contest.entry.classes.expert');
 
 INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIcon, showOrder, permissions, options) VALUES
-	('wcf.contest.menu.link.overview', '', 'index.php?page=ContestEntry&contestID=%s', 'contestM.png', 1, '', ''),
+	('wcf.contest.menu.link.overview', '', 'index.php?page=Contest&contestID=%s', 'contestM.png', 1, '', ''),
 	('wcf.contest.menu.link.jury', '', 'index.php?page=ContestJury&contestID=%s', 'contestM.png', 2, '', ''),
 	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestM.png', 3, '', ''),
 	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestM.png', 4, '', ''),

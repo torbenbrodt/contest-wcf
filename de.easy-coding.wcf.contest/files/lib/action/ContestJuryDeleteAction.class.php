@@ -53,7 +53,7 @@ class ContestJuryDeleteAction extends AbstractSecureAction {
 		$this->executed();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$this->jury->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->jury->contestID.SID_ARG_2ND_NOT_ENCODED);
 		exit;
 	}
 }

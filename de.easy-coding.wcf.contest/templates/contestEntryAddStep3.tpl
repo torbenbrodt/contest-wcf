@@ -142,7 +142,7 @@ onloadEvents.push(function() {
 						{lang}wcf.user.contest.entry.sponsortalk.message{/lang}
 					</div>
 					<div class="formField">
-						<textarea id="sponsortalkAddText" type="text" name="" rows="5" cols="40"></textarea>
+						<textarea id="sponsortalkAddText" type="text" name="sponsortalkAddText" rows="5" cols="40"></textarea>
 					</div>
 				</div>
 			</fieldset>

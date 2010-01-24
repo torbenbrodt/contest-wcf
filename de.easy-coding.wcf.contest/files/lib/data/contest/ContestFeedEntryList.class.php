@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/contest/ContestEntryList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestFeedEntry.class.php');
 
 /**
@@ -11,7 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestFeedEntry.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestFeedEntryList extends ContestEntryList {
+class ContestFeedEntryList extends ContestList {
 	/**
 	 * @see DatabaseObjectList::readObjects()
 	 */

@@ -77,7 +77,7 @@ onloadEvents.push(function() {
 						{lang}wcf.user.contest.entry.jurytalk.message{/lang}
 					</div>
 					<div class="formField">
-						<textarea id="jurytalkAddText" type="text" name="" rows="5" cols="40"></textarea>
+						<textarea id="jurytalkAddText" type="text" name="jurytalkAddText" rows="5" cols="40"></textarea>
 					</div>
 				</div>
 			</fieldset>

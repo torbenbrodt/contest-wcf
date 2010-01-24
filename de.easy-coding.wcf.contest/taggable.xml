@@ -3,7 +3,7 @@
 <data>	
 	<import>
 		<taggable name="de.easy-coding.wcf.contest.entry">
-			<classpath>lib/data/contest/TaggableContestEntry.class.php</classpath>
+			<classpath>lib/data/contest/TaggableContest.class.php</classpath>
 		</taggable>
 	</import>
 </data>

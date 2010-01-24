@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
 
 /**
@@ -23,16 +23,16 @@ class ContestJuryAddForm extends AbstractForm {
 	/**
 	 * entry editor
 	 *
-	 * @var ContestEntry
+	 * @var Contest
 	 */
 	public $entry = null;
 	
 	/**
 	 * Creates a new ContestJuryAddForm object.
 	 *
-	 * @param	ContestEntry	$entry
+	 * @param	Contest	$entry
 	 */
-	public function __construct(ContestEntry $entry) {
+	public function __construct(Contest $entry) {
 		$this->entry = $entry;
 		parent::__construct();
 	}

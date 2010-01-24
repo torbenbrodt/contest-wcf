@@ -76,7 +76,7 @@ onloadEvents.push(function() {
 						{lang}wcf.user.contest.entry.comment.message{/lang}
 					</div>
 					<div class="formField">
-						<textarea id="commentAddText" type="text" name="" rows="5" cols="40"></textarea>
+						<textarea id="commentAddText" type="text" name="commentAddText" rows="5" cols="40"></textarea>
 					</div>
 				</div>
 			</fieldset>

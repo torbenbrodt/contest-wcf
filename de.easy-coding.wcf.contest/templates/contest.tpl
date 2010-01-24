@@ -42,7 +42,7 @@
 								{if ($userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')) || $additionalLargeButtons|isset}
 									<div class="largeButtons">
 										<ul>
-											{if $userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')}<li><a href="index.php?form=ContestEntryAdd&amp;userID={@$userID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.add{/lang}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.button.entry.add{/lang}</span></a></li>{/if}
+											{if $userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')}<li><a href="index.php?form=ContestAdd&amp;userID={@$userID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.add{/lang}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.button.entry.add{/lang}</span></a></li>{/if}
 											{if $additionalLargeButtons|isset}{@$additionalLargeButtons}{/if}
 										</ul>
 									</div>
@@ -58,7 +58,7 @@
 											<a id="entry{@$entry->contestID}"></a>
 											<div class="messageHeader">
 												<p class="messageCount">
-													<a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+													<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 												</p>
 												<div class="containerIcon">
 													{if $user->getAvatar()}
@@ -69,7 +69,7 @@
 													{/if}
 												</div>
 												<div class="containerContent">
-													<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
+													<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 													<p class="light smallFont">{@$entry->time|time}</p>
 												</div>
 											</div>
@@ -90,8 +90,8 @@
 												<div class="smallButtons">
 													<ul>
 														<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-														<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.user.contest.entry.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfSolutions{/lang}</span></a></li>
-														{if $entry->hasMoreText}<li><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.more{/lang}"><img src="{icon}blogReadMoreS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.more{/lang}</span></a></li>{/if}
+														<li><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.user.contest.entry.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfSolutions{/lang}</span></a></li>
+														{if $entry->hasMoreText}<li><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.more{/lang}"><img src="{icon}blogReadMoreS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.more{/lang}</span></a></li>{/if}
 														{if $additionalSmallButtons[$entry->contestID]|isset}{@$additionalSmallButtons[$entry->contestID]}{/if}
 													</ul>
 												</div>
@@ -110,7 +110,7 @@
 									{if ($userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')) || $additionalLargeButtons|isset}
 										<div class="largeButtons">
 											<ul>
-												{if $userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')}<li><a href="index.php?form=ContestEntryAdd&amp;userID={@$userID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.add{/lang}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.button.entry.add{/lang}</span></a></li>{/if}
+												{if $userID == $this->user->userID && $this->user->getPermission('user.contest.canUseContest')}<li><a href="index.php?form=ContestAdd&amp;userID={@$userID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.add{/lang}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.button.entry.add{/lang}</span></a></li>{/if}
 												{if $additionalLargeButtons|isset}{@$additionalLargeButtons}{/if}
 											</ul>
 										</div>

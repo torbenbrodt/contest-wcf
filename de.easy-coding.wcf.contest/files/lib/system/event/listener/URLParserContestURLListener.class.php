@@ -16,7 +16,7 @@ class URLParserContestURLListener implements EventListener {
 	protected $classes = array();
 	protected $entries = array();
 	protected $classURLPattern = 'index\.php\?page=Contest&classID=([0-9]+)';
-	protected $entryURLPattern = 'index\.php\?page=ContestEntry&contestID=([0-9]+)';
+	protected $entryURLPattern = 'index\.php\?page=Contest&contestID=([0-9]+)';
 	
 	/**
 	 * @see EventListener::execute()

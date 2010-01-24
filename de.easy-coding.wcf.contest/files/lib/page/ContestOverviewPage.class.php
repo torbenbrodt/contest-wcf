@@ -20,7 +20,7 @@ class ContestOverviewPage extends MultipleLinkPage {
 	/**
 	 * list of contest entrys
 	 *
-	 * @var ContestEntryList
+	 * @var ContestList
 	 */
 	public $entryList = null;
 	
@@ -112,29 +112,29 @@ class ContestOverviewPage extends MultipleLinkPage {
 			if ($this->tag === null) {
 				throw new IllegalLinkException();
 			}
-			require_once(WCF_DIR.'lib/data/contest/TaggedContestEntryOverviewList.class.php');
-			$this->entryList = new TaggedContestEntryOverviewList($this->tagID);
+			require_once(WCF_DIR.'lib/data/contest/TaggedContestOverviewList.class.php');
+			$this->entryList = new TaggedContestOverviewList($this->tagID);
 		} else if($this->juryID) {
-			require_once(WCF_DIR.'lib/data/contest/ContestEntryOverviewList.class.php');
-			$this->entryList = new ContestEntryOverviewList();
+			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
+			$this->entryList = new ContestOverviewList();
 			$this->entryList->sqlConditions .= 'contest_jury.juryID = '.$this->juryID;
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_jury contest_jury ON (contest_jury.contestID = contest.contestID) ";
 		
 		} else if($this->participantID) {
-			require_once(WCF_DIR.'lib/data/contest/ContestEntryOverviewList.class.php');
-			$this->entryList = new ContestEntryOverviewList();
+			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
+			$this->entryList = new ContestOverviewList();
 			$this->entryList->sqlConditions .= 'contest_participant.participantID = '.$this->participantID;
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_participant contest_participant ON (contest_participant.contestID = contest.contestID) ";
 		
 		} else if($this->classID) {
-			require_once(WCF_DIR.'lib/data/contest/ContestEntryOverviewList.class.php');
-			$this->entryList = new ContestEntryOverviewList();
+			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
+			$this->entryList = new ContestOverviewList();
 			$this->entryList->sqlConditions .= 'contest_to_class.classID = '.$this->classID;
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_to_class contest_to_class ON (contest_to_class.contestID = contest.contestID) ";
 		}
 		else {
-			require_once(WCF_DIR.'lib/data/contest/ContestEntryOverviewList.class.php');
-			$this->entryList = new ContestEntryOverviewList();
+			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
+			$this->entryList = new ContestOverviewList();
 		}
 		
 		// init tag list

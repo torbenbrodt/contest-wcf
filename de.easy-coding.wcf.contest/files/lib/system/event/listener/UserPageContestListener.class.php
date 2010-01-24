@@ -17,8 +17,8 @@ class UserPageContestListener implements EventListener {
 	public function execute($eventObj, $className, $eventName) {
 		if (MODULE_CONTEST == 1 && PROFILE_SHOW_LAST_CONTEST_ENTRIES == 1 && WCF::getUser()->getPermission('user.contest.canViewContest') && $eventObj->frame->getUser()->getPermission('user.contest.canUseContest')) {
 			// get entries
-			require_once(WCF_DIR.'lib/data/contest/ContestEntryList.class.php');
-			$entryList = new ContestEntryList();
+			require_once(WCF_DIR.'lib/data/contest/ContestList.class.php');
+			$entryList = new ContestList();
 			$entryList->sqlConditions .= 'contest.userID = '.$eventObj->frame->getUserID();
 			$count = $entryList->countObjects();
 			if ($count > 0) {

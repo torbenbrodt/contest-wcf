@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/action/AbstractSecureAction.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntryEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
 
 /**
  * Deletes a contest entry.
@@ -22,7 +22,7 @@ class ContestDeleteAction extends AbstractSecureAction {
 	/**
 	 * entry editor object
 	 *
-	 * @var ContestEntryEditor
+	 * @var ContestEditor
 	 */
 	public $entry = null;
 	
@@ -33,7 +33,7 @@ class ContestDeleteAction extends AbstractSecureAction {
 		parent::readParameters();
 		
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
-		$this->entry = new ContestEntryEditor($this->contestID);
+		$this->entry = new ContestEditor($this->contestID);
 		if (!$this->entry->contestID) {
 			throw new IllegalLinkException();
 		}

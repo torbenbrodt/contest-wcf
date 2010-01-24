@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
 
 /**
@@ -23,16 +23,16 @@ class ContestSponsorAddForm extends CaptchaForm {
 	/**
 	 * entry editor
 	 *
-	 * @var ContestEntry
+	 * @var Contest
 	 */
 	public $entry = null;
 	
 	/**
 	 * Creates a new ContestSponsorAddForm object.
 	 *
-	 * @param	ContestEntry	$entry
+	 * @param	Contest	$entry
 	 */
-	public function __construct(ContestEntry $entry) {
+	public function __construct(Contest $entry) {
 		$this->entry = $entry;
 		parent::__construct();
 	}

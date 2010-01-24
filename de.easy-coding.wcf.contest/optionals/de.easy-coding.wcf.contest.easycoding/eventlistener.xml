@@ -8,7 +8,7 @@
 			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
 		</eventlistener>
 		<eventlistener>
-			<eventclassname>ContestEntryAddForm</eventclassname>
+			<eventclassname>ContestAddForm</eventclassname>
 			<eventname>assignVariables</eventname>
 			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
 		</eventlistener>

@@ -28,6 +28,13 @@ class ContestParticipantEditor extends ContestParticipant {
 		
 		// get new id
 		$participantID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_participant", 'participantID');
+
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	participants = participants + 1
+			WHERE	contestID = ".$contestID;
+		WCF::getDB()->sendQuery($sql);
+
 		return new ContestParticipantEditor($participantID);
 	}
 	
@@ -53,6 +60,12 @@ class ContestParticipantEditor extends ContestParticipant {
 	 * Deletes this participant.
 	 */
 	public function delete() {
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	participants = participants - 1
+			WHERE	contestID = ".$this->contestID;
+		WCF::getDB()->sendQuery($sql);
+		
 		// delete participant
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
 			WHERE		participantID = ".$this->participantID;

@@ -1,8 +1,8 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntry.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 
 /**
  * Shows the form for adding contest entry solutions.
@@ -23,16 +23,16 @@ class ContestSolutionAddForm extends CaptchaForm {
 	/**
 	 * entry editor
 	 *
-	 * @var ContestEntry
+	 * @var Contest
 	 */
 	public $entry = null;
 	
 	/**
 	 * Creates a new ContestSolutionAddForm object.
 	 *
-	 * @param	ContestEntry	$entry
+	 * @param	Contest	$entry
 	 */
-	public function __construct(ContestEntry $entry) {
+	public function __construct(Contest $entry) {
 		$this->entry = $entry;
 		parent::__construct();
 	}
@@ -66,7 +66,7 @@ class ContestSolutionAddForm extends CaptchaForm {
 	public function readData() {
 		parent::readData();
 		
-		$this->states = ContestEntrySolutionEditor::getStates();
+		$this->states = ContestSolutionEditor::getStates();
 	}
 	
 	/**
@@ -118,7 +118,7 @@ class ContestSolutionAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save solution
-		$solution = ContestEntrySolutionEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, $this->username);
+		$solution = ContestSolutionEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward

@@ -6,8 +6,8 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestEntryList.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestList.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 
 /**
  * Manages the user contest sidebar.
@@ -77,14 +77,14 @@ class ContestSidebar {
 	/**
 	 * list of lastest solutions
 	 * 
-	 * @var	ContestEntrySolutionList
+	 * @var	ContestSolutionList
 	 */	
 	public $lastestSolutionList = array();
 	
 	/**
 	 * list of lastest entries
 	 * 
-	 * @var	ContestEntryList
+	 * @var	ContestList
 	 */
 	public $lastestEntryList = array();
 	
@@ -137,13 +137,13 @@ class ContestSidebar {
 		}
 
 		// get lastest entries
-		$this->lastestEntryList = new ContestEntryList();
+		$this->lastestEntryList = new ContestList();
 		$this->lastestEntryList->sqlConditions .= 'contest.userID = '.$this->userID;
 		$this->lastestEntryList->sqlLimit = 10;
 		$this->lastestEntryList->readObjects();
 
 		// get lastest solutions
-		$this->lastestSolutionList = new ContestEntrySolutionList();
+		$this->lastestSolutionList = new ContestSolutionList();
 		$this->lastestSolutionList->sqlConditions .= 'contest_solution.userID = '.$this->userID;
 		$this->lastestSolutionList->sqlOrderBy = 'time DESC';
 		$this->lastestSolutionList->sqlLimit = 5;

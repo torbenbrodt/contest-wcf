@@ -60,7 +60,7 @@
 									<a id="entry{@$entry->contestID}"></a>
 									<div class="messageHeader">
 										<p class="messageCount">
-											<a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+											<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 										</p>
 										<div class="containerIcon">
 											{if $entry->getUser()->getAvatar()}
@@ -71,7 +71,7 @@
 											{/if}
 										</div>
 										<div class="containerContent">
-											<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
+											<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 											<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
 										</div>
 									</div>

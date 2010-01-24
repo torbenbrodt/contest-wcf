@@ -31,6 +31,13 @@ class ContestPriceEditor extends ContestPrice {
 		
 		// get new id
 		$priceID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_price", 'priceID');
+		
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	prices = prices + 1
+			WHERE	contestID = ".$contestID;
+		WCF::getDB()->sendQuery($sql);
+
 		return new ContestPriceEditor($priceID);
 	}
 	
@@ -60,6 +67,12 @@ class ContestPriceEditor extends ContestPrice {
 	 * Deletes this price.
 	 */
 	public function delete() {
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	prices = prices - 1
+			WHERE	contestID = ".$this->contestID;
+		WCF::getDB()->sendQuery($sql);
+
 		// delete price
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_price
 			WHERE		priceID = ".$this->priceID;

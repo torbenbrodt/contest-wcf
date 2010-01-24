@@ -28,6 +28,13 @@ class ContestJuryEditor extends ContestJury {
 		
 		// get new id
 		$juryID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_jury", 'juryID');
+
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	jurys = jurys + 1
+			WHERE	contestID = ".$contestID;
+		WCF::getDB()->sendQuery($sql);
+		
 		return new ContestJuryEditor($juryID);
 	}
 	
@@ -53,6 +60,12 @@ class ContestJuryEditor extends ContestJury {
 	 * Deletes this jury.
 	 */
 	public function delete() {
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	jurys = jurys - 1
+			WHERE	contestID = ".$this->contestID;
+		WCF::getDB()->sendQuery($sql);
+		
 		// delete jury
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_jury
 			WHERE		juryID = ".$this->juryID;

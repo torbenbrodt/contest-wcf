@@ -12,13 +12,13 @@
 	{foreach from=$entries item=entry}
 		<entry>
 			<title>{$entry->subject}</title>
-			<id>{@PAGE_URL}/index.php?page=ContestEntry&amp;contestID={@$entry->contestID}</id>
+			<id>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</id>
 			<updated>{@'c'|gmdate:$entry->time}</updated>
 			<author>
 				<name>{$entry->username}</name>
 			</author>
 			<content type="html"><![CDATA[{@$entry->getFormattedMessage()}]]></content>
-			<link href="{@PAGE_URL}/index.php?page=ContestEntry&amp;contestID={@$entry->contestID}" />
+			<link href="{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}" />
 		</entry>
 	{/foreach}
 </feed>

@@ -3,7 +3,7 @@
 	<import>
 		<type>
 			<name>contestEntry</name>
-			<classfile>lib/data/contest/ContestEntryWarningObjectType.class.php</classfile>
+			<classfile>lib/data/contest/ContestWarningObjectType.class.php</classfile>
 		</type>
 	</import>
 </data>

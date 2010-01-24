@@ -2,7 +2,7 @@
 	<div class="messageInner container-{cycle name='results' values='1,2'}">
 		<div class="messageHeader">
 			<div class="containerIcon">
-				<a href="index.php?page=ContestEntry&amp;contestID={@$item.message->contestID}&amp;highlight={$query|urlencode}{@SID_ARG_2ND}"><img src="{icon}contestM.png{/icon}" alt="" /></a>
+				<a href="index.php?page=Contest&amp;contestID={@$item.message->contestID}&amp;highlight={$query|urlencode}{@SID_ARG_2ND}"><img src="{icon}contestM.png{/icon}" alt="" /></a>
 			</div>
 			<div class="containerContent">
 				<p class="light smallFont">{@$item.message->time|time}</p>
@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		
-		<h3><a href="index.php?page=ContestEntry&amp;contestID={@$item.message->contestID}&amp;highlight={$query|urlencode}{@SID_ARG_2ND}">{$item.message->subject}</a></h3>
+		<h3><a href="index.php?page=Contest&amp;contestID={@$item.message->contestID}&amp;highlight={$query|urlencode}{@SID_ARG_2ND}">{$item.message->subject}</a></h3>
 		
 		<div class="messageBody">
 			{@$item.message->getFormattedMessage()}

@@ -1,5 +1,5 @@
 <?php
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/message/util/SearchResultTextParser.class.php');
 
 /**
@@ -10,9 +10,9 @@ require_once(WCF_DIR.'lib/data/message/util/SearchResultTextParser.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSearchResult extends ViewableContestEntry {
+class ContestSearchResult extends ViewableContest {
 	/**
-	 * @see ViewableContestEntry::handleData();
+	 * @see ViewableContest::handleData();
 	 */
 	protected function handleData($data) {
 		$data['messagePreview'] = true;
@@ -20,7 +20,7 @@ class ContestSearchResult extends ViewableContestEntry {
 	}
 
 	/**
-	 * @see ViewableContestEntry::getFormattedMessage()
+	 * @see ViewableContest::getFormattedMessage()
 	 */
 	public function getFormattedMessage() {
 		return SearchResultTextParser::parse(parent::getFormattedMessage());

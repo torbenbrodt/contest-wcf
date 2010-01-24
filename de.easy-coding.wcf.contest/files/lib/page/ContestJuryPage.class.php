@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
@@ -72,7 +72,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
-		$this->entry = new ViewableContestEntry($this->contestID);
+		$this->entry = new ViewableContest($this->contestID);
 		if (!$this->entry->contestID) {
 			throw new IllegalLinkException();
 		}

@@ -8,7 +8,7 @@
 					<img src="{icon}contestM.png{/icon}" alt="" />
 				</div>
 				<div class="containerContent">
-					<h4><a href="index.php?page=ContestEntry&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
+					<h4><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 					<p class="firstPost smallFont light">{@$entry->time|time}</p>
 				</div>
 			</li>

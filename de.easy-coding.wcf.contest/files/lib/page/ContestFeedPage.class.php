@@ -16,7 +16,7 @@ class ContestFeedPage extends AbstractFeedPage {
 	/**
 	 * list of contest entries
 	 *
-	 * @var ContestEntryList
+	 * @var ContestList
 	 */
 	public $entryList = null;
 	

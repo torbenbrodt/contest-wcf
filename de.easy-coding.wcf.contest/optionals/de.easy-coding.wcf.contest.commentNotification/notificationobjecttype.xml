@@ -3,12 +3,12 @@
 	<import>
 		<type>
 			<name>contestEntry</name>
-			<classfile>lib/data/contest/solution/ContestEntrySolutionNotificationObjectType.class.php</classfile>
+			<classfile>lib/data/contest/solution/ContestSolutionNotificationObjectType.class.php</classfile>
 			<options>module_contest</options>
 		</type>
 		<type>
 			<name>contestEntry</name>
-			<classfile>lib/data/contest/jurytalk/ContestEntryJurytalkNotificationObjectType.class.php</classfile>
+			<classfile>lib/data/contest/jurytalk/ContestJurytalkNotificationObjectType.class.php</classfile>
 			<options>module_contest</options>
 		</type>
 	</import>

@@ -1,8 +1,8 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestEntrySolutionList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
@@ -32,14 +32,14 @@ class ContestSolutionPage extends MultipleLinkPage {
 	/**
 	 * entry object
 	 * 
-	 * @var	ContestEntrySolution
+	 * @var	ContestSolution
 	 */
 	public $entry = null;
 	
 	/**
 	 * list of solutions
 	 *
-	 * @var ContestEntrySolutionList
+	 * @var ContestSolutionList
 	 */
 	public $solutionList = null;
 	
@@ -53,7 +53,7 @@ class ContestSolutionPage extends MultipleLinkPage {
 	/**
 	 * solution object
 	 * 
-	 * @var	ContestEntrySolution
+	 * @var	ContestSolution
 	 */
 	public $solution = null;
 	
@@ -86,13 +86,13 @@ class ContestSolutionPage extends MultipleLinkPage {
 		
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
-		$this->entry = new ViewableContestEntry($this->contestID);
+		$this->entry = new ViewableContest($this->contestID);
 		if (!$this->entry->contestID) {
 			throw new IllegalLinkException();
 		}
 		
 		// init solution list
-		$this->solutionList = new ContestEntrySolutionList();
+		$this->solutionList = new ContestSolutionList();
 		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
 		$this->solutionList->sqlOrderBy = 'contest_solution.time DESC';
 	}

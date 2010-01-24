@@ -51,7 +51,7 @@
 		</ul>
 	</div>
 	
-	<form method="post" id="ContestAddForm" enctype="multipart/form-data" action="index.php?form=ContestEntry{@$action|ucfirst}{if $action == 'add'}{elseif $action == 'edit'}&amp;contestID={@$contestID}{/if}">
+	<form method="post" id="ContestAddForm" enctype="multipart/form-data" action="index.php?form=Contest{@$action|ucfirst}{if $action == 'add'}{elseif $action == 'edit'}&amp;contestID={@$contestID}{/if}">
 	
 		<div class="tabMenu">
 			<ul>

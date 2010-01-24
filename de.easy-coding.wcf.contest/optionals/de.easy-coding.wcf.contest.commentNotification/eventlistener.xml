@@ -2,34 +2,34 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/event-listener.xsd">
 	<import>
 		<eventlistener>
-			<eventClassName>ContestEntrySolutionAddForm</eventClassName>
+			<eventClassName>ContestSolutionAddForm</eventClassName>
 			<eventName>saved</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntrySolutionNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestSolutionNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 		<eventlistener>
 			<eventClassName>ContestSolutionDeleteAction</eventClassName>
 			<eventName>executed</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntrySolutionNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestSolutionNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 		<eventlistener>
-			<eventClassName>ContestEntryPage</eventClassName>
+			<eventClassName>ContestPage</eventClassName>
 			<eventName>assignVariables</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntrySolutionNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestSolutionNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 		<eventlistener>
-			<eventClassName>ContestEntryJurytalkAddForm</eventClassName>
+			<eventClassName>ContestJurytalkAddForm</eventClassName>
 			<eventName>saved</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestJurytalkNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 		<eventlistener>
 			<eventClassName>ContestJurytalkDeleteAction</eventClassName>
 			<eventName>executed</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestJurytalkNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 		<eventlistener>
-			<eventClassName>ContestEntryPage</eventClassName>
+			<eventClassName>ContestPage</eventClassName>
 			<eventName>assignVariables</eventName>
-			<listenerClassFile>lib/system/event/listener/ContestEntryJurytalkNotificationListener.class.php</listenerClassFile>
+			<listenerClassFile>lib/system/event/listener/ContestJurytalkNotificationListener.class.php</listenerClassFile>
 		</eventlistener>
 	</import>
 </data>

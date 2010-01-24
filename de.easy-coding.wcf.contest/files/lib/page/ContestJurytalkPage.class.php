@@ -1,8 +1,8 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
-require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestEntryJurytalkList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
+require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
@@ -29,14 +29,14 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	/**
 	 * entry object
 	 * 
-	 * @var	ContestEntryJurytalk
+	 * @var	ContestJurytalk
 	 */
 	public $entry = null;
 	
 	/**
 	 * list of jurytalks
 	 *
-	 * @var ContestEntryJurytalkList
+	 * @var ContestJurytalkList
 	 */
 	public $jurytalkList = null;
 	
@@ -50,7 +50,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 	/**
 	 * jurytalk object
 	 * 
-	 * @var	ContestEntryJurytalk
+	 * @var	ContestJurytalk
 	 */
 	public $jurytalk = null;
 	
@@ -76,13 +76,13 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
-		$this->entry = new ViewableContestEntry($this->contestID);
+		$this->entry = new ViewableContest($this->contestID);
 		if (!$this->entry->contestID) {
 			throw new IllegalLinkException();
 		}
 		
 		// init jurytalk list
-		$this->jurytalkList = new ContestEntryJurytalkList();
+		$this->jurytalkList = new ContestJurytalkList();
 		$this->jurytalkList->sqlConditions .= 'contest_jurytalk.contestID = '.$this->contestID;
 		$this->jurytalkList->sqlOrderBy = 'contest_jurytalk.time DESC';
 	}

@@ -12,8 +12,8 @@
 			<pattern><![CDATA[index\.php\?page=ContestOverview]]></pattern>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestEntry">
-			<pattern><![CDATA[index\.php\?page=ContestEntry&.*contestID=(\d+)]]></pattern>
-			<classpath>lib/data/page/location/ContestEntryLocation.class.php</classpath>
+			<pattern><![CDATA[index\.php\?page=Contest&.*contestID=(\d+)]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contest">
 			<pattern><![CDATA[index\.php\?page=Contest&.*userID=(\d+)]]></pattern>

@@ -51,7 +51,7 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestEntry&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->solutionObj->solutionID);
+		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->solutionObj->solutionID);
 		exit;
 	}
 	

@@ -14,8 +14,8 @@
 			<item>
 				<title>{$entry->subject}</title>
 				<author>{$entry->username}</author>
-				<link>{@PAGE_URL}/index.php?page=ContestEntry&amp;contestID={@$entry->contestID}</link>
-				<guid>{@PAGE_URL}/index.php?page=ContestEntry&amp;contestID={@$entry->contestID}</guid>
+				<link>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</link>
+				<guid>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</guid>
 				<pubDate>{@'r'|gmdate:$entry->time}</pubDate>
 				<description><![CDATA[{@$entry->getFormattedMessage()}]]></description>
 			</item>

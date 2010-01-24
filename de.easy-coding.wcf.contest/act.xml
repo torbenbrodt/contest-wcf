@@ -2,10 +2,10 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/act.xsd">
 	<import>
 		<act name="contestEntry">
-			<url><![CDATA[index.php?page=ContestEntry&contestID=%s]]></url>
+			<url><![CDATA[index.php?page=Contest&contestID=%s]]></url>
 		</act>
 		<act name="contestSolutionEntry">
-			<url><![CDATA[index.php?page=ContestEntry&solutionID=%s]]></url>
+			<url><![CDATA[index.php?page=Contest&solutionID=%s]]></url>
 		</act>
 	</import>
 </data>

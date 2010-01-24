@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 
 /**
  * Represents a viewable contest entry in a rss or an atom feed.
@@ -10,9 +10,9 @@ require_once(WCF_DIR.'lib/data/contest/ViewableContestEntry.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestFeedEntry extends ViewableContestEntry {
+class ContestFeedEntry extends ViewableContest {
 	/**
-	 * @see ViewableContestEntry::getFormattedMessage()
+	 * @see ViewableContest::getFormattedMessage()
 	 */
 	public function getFormattedMessage() {
 		// replace relative urls
