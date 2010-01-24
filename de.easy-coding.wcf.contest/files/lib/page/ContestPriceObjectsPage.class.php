@@ -63,6 +63,8 @@ class ContestPriceObjectsPage extends AbstractPage {
 			array(
 				'name' => $this->subject,
 				'type' => 'contestPrice',
+				'message' => $this->message,
+				'subject' => $this->subject,
 				'id' => rand(1,1000),
 			)
 		));

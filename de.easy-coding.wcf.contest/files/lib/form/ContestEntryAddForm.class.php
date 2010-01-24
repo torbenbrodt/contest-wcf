@@ -153,7 +153,7 @@ class ContestEntryAddForm extends MessageForm {
 	 */
 	public function readFormParameters() {
 		parent::readFormParameters();
-		
+
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
 		if (isset($_POST['classIDArray']) && is_array($_POST['classIDArray'])) $this->classIDArray = $_POST['classIDArray'];
@@ -163,9 +163,17 @@ class ContestEntryAddForm extends MessageForm {
 		if (isset($_POST['price']) && is_array($_POST['price'])) $this->prices = $_POST['price'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
 		
+		// sponsortalk
 		$this->jurytalk_trigger = isset($_POST['jurytalk_trigger']);
+		$this->jurytalk_message = $_POST['jurytalkAddText'];
+		
+		// jurytalk
 		$this->sponsortalk_trigger = isset($_POST['sponsortalk_trigger']);
+		$this->sponsortalk_message = $_POST['sponsortalkAddText'];
+		
+		// comment
 		$this->comment_trigger = isset($_POST['comment_trigger']);
+		$this->comment_message = $_POST['commentAddText'];
 		
 		if ($this->ownerID == 0) {
 			$this->userID = WCF::getUser()->userID;
@@ -211,6 +219,26 @@ class ContestEntryAddForm extends MessageForm {
 		$entry = ContestEntryEditor::create($this->userID, $this->groupID, $this->subject, $this->text, $this->getOptions(), 
 			$this->classIDArray, $this->participants, $this->jurys, $this->prices, $this->sponsors, $this->attachmentListEditor);
 		$this->saved();
+
+		$contestID = $entry->contestID;
+		
+		if($this->sponsortalk_trigger) {
+			require_once(WCF_DIR.'lib/data/contest/ContestEntrySponsortalkEditor.class.php');
+			$sponsortalk = ContestEntrySponsortalkEditor::create($contestID, $this->sponsortalk_message, 
+				WCF::getUser()->userID, WCF::getUser()->username);
+		}
+		
+		if($this->jurytalk_trigger) {
+			require_once(WCF_DIR.'lib/data/contest/ContestEntryJurytalkEditor.class.php');
+			$jurytalk = ContestEntryJurytalkEditor::create($contestID, $this->jurytalk_message, 
+				WCF::getUser()->userID, WCF::getUser()->username);
+		}
+		
+		if($this->commenttalk_trigger) {
+			require_once(WCF_DIR.'lib/data/contest/ContestEntryCommenttalkEditor.class.php');
+			$commenttalk = ContestEntryCommenttalkEditor::create($contestID, $this->commenttalk_message, 
+				WCF::getUser()->userID, WCF::getUser()->username);
+		}
 		
 		// save tags
 		if (MODULE_TAGGING) {

@@ -23,8 +23,11 @@ onloadEvents.push(function() {
 	// sponsors
 	var list1 = new ContestPermissionList('sponsor', sponsors, 'index.php?page=ContestSponsorObjects');
 	// prices
-	var list2 = new ContestPermissionList('price', prices, 'index.php?page=ContestPriceObjects'+
-		'&text='+escape($('priceAddText').getValue()));
+	var list2 = new ContestPermissionList('price', prices, function() {
+		var url = 'index.php?page=ContestPriceObjects&text='+escape($('priceAddText').getValue());
+		$('priceAddText').setValue(''); // reset
+		return url;
+	});
 		
 	$('priceAddInput').onfocus = $('priceAddInput').onblur = $('priceAddInput').onkeyup = function() {
 		return false;
@@ -134,15 +137,6 @@ onloadEvents.push(function() {
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.user.contest.entry.sponsortalk{/lang}</legend>
-				
-				<div class="formElement">
-					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.sponsortalk.subject{/lang}
-					</div>
-					<div class="formField">
-						<input id="sponsortalkAddInput" type="text" name="" value="" class="inputText" />
-					</div>
-				</div>
 				<div class="formElement">
 					<div class="formFieldLabel">
 						{lang}wcf.user.contest.entry.sponsortalk.message{/lang}

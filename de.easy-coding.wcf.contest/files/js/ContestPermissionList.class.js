@@ -6,6 +6,8 @@
 function ContestPermissionList(key, data, url) {
 	this.key = key;
 	this.data = data;
+	
+	// can be a callback function
 	this.url = url;
 	this.selectedIndex = -1;
 	this.ajaxRequest;
@@ -128,9 +130,11 @@ function ContestPermissionList(key, data, url) {
 		var query = new StringUtil(document.getElementById(this.key + 'AddInput').value).trim();
 		
 		if (query) {
+			var url = typeof this.url === 'function' ? this.url() : this.url;
 			var activePermissionList = this;
 			this.ajaxRequest = new AjaxRequest();
-			this.ajaxRequest.openPost(this.url+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() { 
+			
+			this.ajaxRequest.openPost(url+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() { 
 				activePermissionList.receiveResponseJson(); 
 			});
 		}

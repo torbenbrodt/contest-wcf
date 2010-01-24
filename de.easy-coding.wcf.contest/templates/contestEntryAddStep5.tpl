@@ -71,15 +71,6 @@ onloadEvents.push(function() {
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.user.contest.entry.comment{/lang}</legend>
-				
-				<div class="formElement">
-					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.comment.subject{/lang}
-					</div>
-					<div class="formField">
-						<input id="commentAddInput" type="text" name="" value="" class="inputText" />
-					</div>
-				</div>
 				<div class="formElement">
 					<div class="formFieldLabel">
 						{lang}wcf.user.contest.entry.comment.message{/lang}

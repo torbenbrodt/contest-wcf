@@ -72,15 +72,6 @@ onloadEvents.push(function() {
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.user.contest.entry.jurytalk{/lang}</legend>
-				
-				<div class="formElement">
-					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.jurytalk.subject{/lang}
-					</div>
-					<div class="formField">
-						<input id="jurytalkAddInput" type="text" name="" value="" class="inputText" />
-					</div>
-				</div>
 				<div class="formElement">
 					<div class="formFieldLabel">
 						{lang}wcf.user.contest.entry.jurytalk.message{/lang}
