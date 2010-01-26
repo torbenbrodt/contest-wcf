@@ -37,6 +37,29 @@ class ContestSponsor extends DatabaseObject {
 	}
 	
 	/**
+	 * finds existing sponsor by foreign key combination
+	 * 
+	 * @param	integer		$contestID
+	 * @param	integer		$userID
+	 * @param	integer		$groupID
+	 * @return	ContestSponsor
+	 */
+	public static function find($contestID, $userID, $groupID) {
+		$sql = "SELECT		*
+			FROM		wcf".WCF_N."_contest_sponsor
+			WHERE		contestID = ".intval($contestID)."
+			AND		userID = ".intval($contestID)."
+			AND		groupID = ".intval($contestID);
+		$row = WCF::getDB()->getFirstRow($sql);
+		
+		if($row) {
+			return new self(null, $row);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * Returns the title of this class.
 	 * 
 	 * @return	string

@@ -15,7 +15,7 @@ class ContestParticipantList extends DatabaseObjectList {
 	/**
 	 * list of participants
 	 * 
-	 * @var array<ViewableContestParticipant>
+	 * @var array<ContestParticipant>
 	 */
 	public $participants = array();
 
@@ -42,17 +42,17 @@ class ContestParticipantList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					contest_participant.*, 
-					IF(
-						contest_participant.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
+					group_table.groupName, 
+					user_table.username,
+					avatar_table.*,
+					contest_participant.*
 			FROM		wcf".WCF_N."_contest_participant contest_participant
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_participant.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_participant.groupID)
+			LEFT JOIN	wcf".WCF_N."_user user_table
+			ON		(user_table.userID = contest_participant.userID)
+			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+			ON		(avatar_table.avatarID = user_table.avatarID)
+			LEFT JOIN	wcf".WCF_N."_group group_table
+			ON		(group_table.groupID = contest_participant.groupID)
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');

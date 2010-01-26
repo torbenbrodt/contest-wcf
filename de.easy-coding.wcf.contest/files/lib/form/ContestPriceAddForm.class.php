@@ -3,6 +3,7 @@
 require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
+require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
  * Shows the form for adding contest entry prices.
@@ -87,7 +88,7 @@ class ContestPriceAddForm extends AbstractForm {
 		$this->states = ContestPriceEditor::getStates();
 
 		// owner
-		$this->readAvailableGroups();
+		$this->availableGroups = ContestUtil::readAvailableGroups();
 	}
 	
 	/**
@@ -109,7 +110,7 @@ class ContestPriceAddForm extends AbstractForm {
 		}
 		
 		if($this->ownerID != 0) {
-			$this->readAvailableGroups();
+			$this->availableGroups = ContestUtil::readAvailableGroups();
 		
 			// validate group ids
 			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
@@ -124,11 +125,16 @@ class ContestPriceAddForm extends AbstractForm {
 	public function save() {
 		parent::save();
 		
-		$sponsorID = 0; // TODO: get sponsorID get from userid/groupid
+		$sponsor = ContestSponsor::find($this->entry->contestID, $this->userID, $this->groupID);
+		$state = 'invited';
+		if($sponsor === null) {
+			require_once(WCF_DIR.'lib/data/contest/price/ContestSponsorEditor.class.php');
+			$sponsor = ContestSponsorEditor::create($this->entry->contestID, $this->userID, $this->groupID, $state);
+		}
 		$position = 0; // TODO: price, allow position
 		
 		// save price
-		$price = ContestPriceEditor::create($this->entry->contestID, $sponsorID, $this->subject, $this->message, $position);
+		$price = ContestPriceEditor::create($this->entry->contestID, $sponsor->sponsorID, $this->subject, $this->message, $position);
 		$this->saved();
 		
 		// forward
@@ -151,29 +157,6 @@ class ContestPriceAddForm extends AbstractForm {
 			'message' => $this->message,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')
 		));
-	}
-	
-	/**
-	 * returns the groups for which the user is admin
-	 */
-	protected function readAvailableGroups() {
-		$sql = "SELECT		usergroup.*, (
-						SELECT	COUNT(*)
-						FROM	wcf".WCF_N."_user_to_groups
-						WHERE	groupID = usergroup.groupID
-					) AS members
-			FROM 		wcf".WCF_N."_group usergroup
-			WHERE		groupID IN (
-						SELECT	groupID
-						FROM	wcf".WCF_N."_group_leader
-						WHERE	leaderUserID = ".WCF::getUser()->userID."
-							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
-					)
-			ORDER BY 	groupName";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->availableGroups[$row['groupID']] = new Group(null, $row);
-		}
 	}
 }
 ?>

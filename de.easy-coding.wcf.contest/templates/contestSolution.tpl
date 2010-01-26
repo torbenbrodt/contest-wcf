@@ -43,9 +43,9 @@
 									<li class="{cycle values='container-1,container-2'}">
 										<a id="solution{@$solutionObj->solutionID}"></a>
 										<div class="containerIcon">
-											{if $solutionObj->getUser()->getAvatar()}
-												{assign var=x value=$solutionObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{/if}{@$solutionObj->getUser()->getAvatar()}{if $solutionObj->userID}</a>{/if}
+											{if $solutionObj->getOwner()->getAvatar()}
+												{assign var=x value=$solutionObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												{if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{/if}{@$solutionObj->getOwner()->getAvatar()}{if $solutionObj->userID}</a>{/if}
 											{else}
 												{if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $solutionObj->userID}</a>{/if}
 											{/if}
@@ -74,7 +74,7 @@
 													{if $solutionObj->isDeletable()}<a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.solution.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.user.contest.entry.solution.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.solution.by{/lang} {if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}">{$solutionObj->username}</a>{else}{$solutionObj->username}{/if} ({@$solutionObj->time|time})</p>
+												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.solution.by{/lang} <a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
 												<p>{@$solutionObj->getFormattedMessage()}</p>
 												
 											{/if}
@@ -135,8 +135,6 @@
 												{/if}
 											</div>
 										</div>
-										
-										{include file='captcha' enableFieldset=false}
 									</fieldset>
 									
 									<div class="formSubmit">

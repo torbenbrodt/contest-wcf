@@ -63,9 +63,9 @@
 											<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 										</p>
 										<div class="containerIcon">
-											{if $entry->getUser()->getAvatar()}
-												{assign var=x value=$entry->getUser()->getAvatar()->setMaxSize(24, 24)}
-												<a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}" title="{lang username=$entry->username}wcf.user.viewProfile{/lang}">{@$entry->getUser()->getAvatar()}</a>
+											{if $entry->getOwner()->getAvatar()}
+												{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												<a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}" title="{lang username=$entry->username}wcf.user.viewProfile{/lang}">{@$entry->getOwner()->getAvatar()}</a>
 											{else}
 												<a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}" title="{lang username=$entry->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 											{/if}

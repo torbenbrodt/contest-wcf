@@ -15,16 +15,16 @@ class ContestSolutionEditor extends ContestSolution {
 	 * Creates a new entry solution.
 	 *
 	 * @param	integer		$contestID
-	 * @param	string		$solution
+	 * @param	string		$message
 	 * @param	integer		$userID
-	 * @param	string		$username
+	 * @param	integer		$groupID
 	 * @param	integer		$time
 	 * @return	ContestSolutionEditor
 	 */
-	public static function create($contestID, $solution, $userID, $username, $time = TIME_NOW) {
+	public static function create($contestID, $message, $userID, $groupID, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_solution
-					(contestID, userID, username, solution, time)
-			VALUES		(".intval($contestID).", ".intval($userID).", '".escapeString($username)."', '".escapeString($solution)."', ".$time.")";
+					(contestID, userID, groupID, message, time)
+			VALUES		(".intval($contestID).", ".intval($userID).", ".intval($groupID).", '".escapeString($message)."', ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id
@@ -42,11 +42,11 @@ class ContestSolutionEditor extends ContestSolution {
 	/**
 	 * Updates this entry solution.
 	 *
-	 * @param	string		$solution
+	 * @param	string		$message
 	 */
-	public function update($solution) {
+	public function update($message) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
-			SET	solution = '".escapeString($solution)."'
+			SET	message = '".escapeString($message)."'
 			WHERE	solutionID = ".$this->solutionID;
 		WCF::getDB()->sendQuery($sql);
 	}

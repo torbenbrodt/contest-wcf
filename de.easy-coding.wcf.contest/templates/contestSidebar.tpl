@@ -110,7 +110,7 @@
 			<ul class="dataList">
 				{foreach from=$availableJurys item=jury}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;juryID={@$jury->juryID}{@SID_ARG_2ND}"><span>{lang}{$jury}{/lang}</span></a>
+						<a href="index.php?page=ContestOverview&amp;juryID={@$jury->juryID}{@SID_ARG_2ND}"><span>{lang}{$jury->getOwner()->getName()}{/lang}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -128,7 +128,7 @@
 			<ul class="dataList">
 				{foreach from=$availableSponsors item=sponsor}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;sponsorID={@$sponsor->sponsorID}{@SID_ARG_2ND}"><span>{lang}{$sponsor}{/lang}</span></a>
+						<a href="index.php?page=ContestOverview&amp;sponsorID={@$sponsor->sponsorID}{@SID_ARG_2ND}"><span>{lang}{$sponsor->getOwner()->getName()}{/lang}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -164,7 +164,7 @@
 			<ul class="dataList">
 				{foreach from=$availableParticipants item=participant}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;participantID={@$participant->participantID}{@SID_ARG_2ND}"><span>{lang}{$participant}{/lang}</span></a>
+						<a href="index.php?page=ContestOverview&amp;participantID={@$participant->participantID}{@SID_ARG_2ND}"><span>{lang}{$participant->getOwner()->getName()}{/lang}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -221,9 +221,9 @@
 					<li class="{cycle values='container-1,container-2'}">
 						<div class="containerIcon">
 							<a href="index.php?page=Contest&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">
-								{if $solution->getUser()->getAvatar()}
-									{assign var=x value=$solution->getUser()->getAvatar()->setMaxSize(24, 24)}
-									{@$solution->getUser()->getAvatar()}
+								{if $solution->getOwner()->getAvatar()}
+									{assign var=x value=$solution->getOwner()->getAvatar()->setMaxSize(24, 24)}
+									{@$solution->getOwner()->getAvatar()}
 								{else}
 									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
 								{/if}
@@ -231,7 +231,7 @@
 						</div>
 						<div class="containerContent">
 							<h4><a href="index.php?page=Contest&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">{$solution->getExcerpt()}</a></h4>
-							<p class="light smallFont">{lang}wcf.user.contest.entry.solution.by{/lang} {if $solution->userID}<a href="index.php?page=User&amp;userID={@$solution->userID}{@SID_ARG_2ND}">{$solution->username}</a>{else}{$solution->username}{/if} ({@$solution->time|shorttime})</p>
+							<p class="light smallFont">{lang}wcf.user.contest.entry.solution.by{/lang} <a href="{$solution->getOwner()->getLink()}{@SID_ARG_2ND}">{$solution->getOwner()->getName()}</a> ({@$solution->time|shorttime})</p>
 						</div>
 					</li>
 				{/foreach}

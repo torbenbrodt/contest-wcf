@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * contest utilities
+ *
+ * @author	Torben Brodt
+ * @copyright 2010 easy-coding.de
+ * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
+ * @package	de.easy-coding.wcf.contest
+ */
+class ContestUtil {
+	
+	/**
+	 * returns the groups for which the current user is admin
+	 */
+	public static function readAvailableGroups() {
+		$sql = "SELECT		usergroup.*, (
+						SELECT	COUNT(*)
+						FROM	wcf".WCF_N."_user_to_groups
+						WHERE	groupID = usergroup.groupID
+					) AS members
+			FROM 		wcf".WCF_N."_group usergroup
+			WHERE		groupID IN (
+						SELECT	groupID
+						FROM	wcf".WCF_N."_group_leader
+						WHERE	leaderUserID = ".WCF::getUser()->userID."
+							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
+					)
+			ORDER BY 	groupName";
+		$result = WCF::getDB()->sendQuery($sql);
+		$availableGroups = array();
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$availableGroups[$row['groupID']] = new Group(null, $row);
+		}
+		return $availableGroups;
+	}
+}
+?>

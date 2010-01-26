@@ -1,8 +1,9 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
+require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
+require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
  * Shows the form for adding contest entry solutions.
@@ -12,10 +13,12 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php'
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSolutionAddForm extends CaptchaForm {
+class ContestSolutionAddForm extends AbstractForm {
 	// parameters
 	public $message = '';
-	public $username = '';
+	public $ownerID = 0;
+	public $userID = 0;
+	public $groupID = 0;
 	
 	public $states = array();
 	public $state = '';
@@ -26,6 +29,13 @@ class ContestSolutionAddForm extends CaptchaForm {
 	 * @var Contest
 	 */
 	public $entry = null;
+	
+	/**
+	 * available groups
+	 *
+	 * @var array<Group>
+	 */
+	protected $availableGroups = array();
 	
 	/**
 	 * Creates a new ContestSolutionAddForm object.
@@ -56,8 +66,16 @@ class ContestSolutionAddForm extends CaptchaForm {
 		parent::readFormParameters();
 		
 		// get parameters
-		if (isset($_POST['message'])) $this->solution = StringUtil::trim($_POST['message']);
-		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
+		if (isset($_POST['message'])) $this->message = StringUtil::trim($_POST['message']);
+		
+		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		if (isset($_POST['state'])) $this->state = $_POST['state'];
+		
+		if ($this->ownerID == 0) {
+			$this->userID = WCF::getUser()->userID;
+		} else {
+			$this->groupID = $this->ownerID;
+		}
 	}
 	
 	/**
@@ -67,6 +85,7 @@ class ContestSolutionAddForm extends CaptchaForm {
 		parent::readData();
 		
 		$this->states = ContestSolutionEditor::getStates();
+		$this->availableGroups = ContestUtil::readAvailableGroups();
 	}
 	
 	/**
@@ -75,39 +94,21 @@ class ContestSolutionAddForm extends CaptchaForm {
 	public function validate() {
 		parent::validate();
 		
-		if (empty($this->solution)) {
+		if (empty($this->message)) {
 			throw new UserInputException('message');
 		}
 		
-		if (StringUtil::length($this->solution) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
+		if (StringUtil::length($this->message) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
 			throw new UserInputException('message', 'tooLong');
 		}
 		
-		// username
-		$this->validateUsername();
-	}
-	
-	/**
-	 * Validates the username.
-	 */
-	protected function validateUsername() {
-		// only for guests
-		if (WCF::getUser()->userID == 0) {
-			// username
-			if (empty($this->username)) {
-				throw new UserInputException('username');
+		if($this->ownerID != 0) {
+			$this->availableGroups = ContestUtil::readAvailableGroups();
+		
+			// validate group ids
+			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
+				throw new UserInputException('ownerID'); 
 			}
-			if (!UserUtil::isValidUsername($this->username)) {
-				throw new UserInputException('username', 'notValid');
-			}
-			if (!UserUtil::isAvailableUsername($this->username)) {
-				throw new UserInputException('username', 'notAvailable');
-			}
-			
-			WCF::getSession()->setUsername($this->username);
-		}
-		else {
-			$this->username = WCF::getUser()->username;
 		}
 	}
 	
@@ -118,7 +119,7 @@ class ContestSolutionAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save solution
-		$solution = ContestSolutionEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, $this->username);
+		$solution = ContestSolutionEditor::create($this->entry->contestID, $this->message, $this->userID, $this->groupID);
 		$this->saved();
 		
 		// forward
@@ -134,10 +135,10 @@ class ContestSolutionAddForm extends CaptchaForm {
 		
 		WCF::getTPL()->assign(array(
 			'message' => $this->message,
-			'username' => $this->username,
-			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength'),
 			'states' => $this->states,
 			'state' => $this->state,
+			'availableGroups' => $this->availableGroups,
+			'ownerID' => $this->ownerID,
 		));
 	}
 }

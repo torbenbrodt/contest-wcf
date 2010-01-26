@@ -15,7 +15,7 @@ class ContestSponsorList extends DatabaseObjectList {
 	/**
 	 * list of sponsors
 	 * 
-	 * @var array<ViewableContestSponsor>
+	 * @var array<ContestSponsor>
 	 */
 	public $sponsors = array();
 
@@ -42,17 +42,17 @@ class ContestSponsorList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					contest_sponsor.*, 
-					IF(
-						contest_sponsor.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
+					group_table.groupName, 
+					user_table.username,
+					avatar_table.*,
+					contest_sponsor.*
 			FROM		wcf".WCF_N."_contest_sponsor contest_sponsor
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_sponsor.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_sponsor.groupID)
+			LEFT JOIN	wcf".WCF_N."_user user_table
+			ON		(user_table.userID = contest_sponsor.userID)
+			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+			ON		(avatar_table.avatarID = user_table.avatarID)
+			LEFT JOIN	wcf".WCF_N."_group group_table
+			ON		(group_table.groupID = contest_sponsor.groupID)
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');

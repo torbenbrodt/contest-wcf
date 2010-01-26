@@ -43,9 +43,9 @@
 									<li class="{cycle values='container-1,container-2'}">
 										<a id="price{@$priceObj->priceID}"></a>
 										<div class="containerIcon">
-											{if $priceObj->getUser()->getAvatar()}
-												{assign var=x value=$priceObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $priceObj->userID}<a href="index.php?page=User&amp;userID={@$priceObj->userID}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{/if}{@$priceObj->getUser()->getAvatar()}{if $priceObj->userID}</a>{/if}
+											{if $priceObj->getOwner()->getAvatar()}
+												{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												{if $priceObj->userID}<a href="index.php?page=User&amp;userID={@$priceObj->userID}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{/if}{@$priceObj->getOwner()->getAvatar()}{if $priceObj->userID}</a>{/if}
 											{else}
 												{if $priceObj->userID}<a href="index.php?page=User&amp;userID={@$priceObj->userID}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $priceObj->userID}</a>{/if}
 											{/if}
@@ -86,6 +86,7 @@
 													<a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.user.contest.entry.price.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
 												<p>{@$priceObj->getFormattedMessage()}</p>
+												<p><a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
 												
 											{/if}
 										</div>

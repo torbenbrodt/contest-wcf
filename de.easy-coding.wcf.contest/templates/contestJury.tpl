@@ -43,9 +43,9 @@
 									<li class="{cycle values='container-1,container-2'}">
 										<a id="jury{@$juryObj->juryID}"></a>
 										<div class="containerIcon">
-											{if $juryObj->getUser()->getAvatar()}
-												{assign var=x value=$juryObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $juryObj->userID}<a href="index.php?page=User&amp;userID={@$juryObj->userID}{@SID_ARG_2ND}" title="{lang username=$juryObj->username}wcf.user.viewProfile{/lang}">{/if}{@$juryObj->getUser()->getAvatar()}{if $juryObj->userID}</a>{/if}
+											{if $juryObj->getOwner()->getAvatar()}
+												{assign var=x value=$juryObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												{if $juryObj->userID}<a href="index.php?page=User&amp;userID={@$juryObj->userID}{@SID_ARG_2ND}" title="{lang username=$juryObj->username}wcf.user.viewProfile{/lang}">{/if}{@$juryObj->getOwner()->getAvatar()}{if $juryObj->userID}</a>{/if}
 											{else}
 												{if $juryObj->userID}<a href="index.php?page=User&amp;userID={@$juryObj->userID}{@SID_ARG_2ND}" title="{lang username=$juryObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $juryObj->userID}</a>{/if}
 											{/if}
@@ -77,7 +77,7 @@
 													{if $juryObj->isDeletable()}<a href="index.php?action=ContestJuryDelete&amp;juryID={@$juryObj->juryID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.jury.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.jury.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;juryID={@$juryObj->juryID}{@SID_ARG_2ND}#jury{@$juryObj->juryID}" title="{lang}wcf.user.contest.entry.jury.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p>{@$juryObj}</p>
+												<p><a href="{$juryObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$juryObj->getOwner()->getName()}</a></p>
 												
 											{/if}
 										</div>

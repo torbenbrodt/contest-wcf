@@ -4,7 +4,7 @@ require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ViewableContestJury.class.php');
 
 /**
- * Represents a list of contest classes.
+ * Represents a list of contest jurys.
  * 
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -13,11 +13,11 @@ require_once(WCF_DIR.'lib/data/contest/jury/ViewableContestJury.class.php');
  */
 class ContestJuryList extends DatabaseObjectList {
 	/**
-	 * list of classes
+	 * list of jurys
 	 * 
 	 * @var array<ContestJury>
 	 */
-	public $classes = array();
+	public $jurys = array();
 
 	/**
 	 * sql order by statement
@@ -42,23 +42,23 @@ class ContestJuryList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					contest_jury.*,
-					IF(
-						contest_jury.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
+					group_table.groupName, 
+					user_table.username,
+					avatar_table.*,
+					contest_jury.*
 			FROM		wcf".WCF_N."_contest_jury contest_jury
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_jury.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_jury.groupID)
+			LEFT JOIN	wcf".WCF_N."_user user_table
+			ON		(user_table.userID = contest_jury.userID)
+			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+			ON		(avatar_table.avatarID = user_table.avatarID)
+			LEFT JOIN	wcf".WCF_N."_group group_table
+			ON		(group_table.groupID = contest_jury.groupID)
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->classes[] = new ViewableContestJury(null, $row);
+			$this->jurys[] = new ViewableContestJury(null, $row);
 		}
 	}
 	
@@ -66,7 +66,7 @@ class ContestJuryList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::getObjects()
 	 */
 	public function getObjects() {
-		return $this->classes;
+		return $this->jurys;
 	}
 }
 ?>

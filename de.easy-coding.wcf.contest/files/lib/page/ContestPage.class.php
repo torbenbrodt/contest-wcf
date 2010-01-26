@@ -281,8 +281,6 @@ class ContestPage extends MultipleLinkPage {
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
-			'userID' => $this->entry->userID,
-			'user' => $this->entry->getUser(),
 			'tags' => (MODULE_TAGGING ? $this->entry->getTags(WCF::getSession()->getVisibleLanguageIDArray()) : array()),
 			'comments' => $this->commentList->getObjects(),
 			'classes' => $this->entry->getClasses(),

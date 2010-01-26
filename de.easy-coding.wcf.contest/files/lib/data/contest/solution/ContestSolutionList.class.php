@@ -4,7 +4,7 @@ require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/ViewableContestSolution.class.php');
 
 /**
- * Represents a list of contest entry solutions.
+ * Represents a list of contest solutions.
  * 
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -15,7 +15,7 @@ class ContestSolutionList extends DatabaseObjectList {
 	/**
 	 * list of solutions
 	 * 
-	 * @var array<ViewableContestSolution>
+	 * @var array<ContestSolution>
 	 */
 	public $solutions = array();
 
@@ -24,7 +24,7 @@ class ContestSolutionList extends DatabaseObjectList {
 	 *
 	 * @var	string
 	 */
-	public $sqlOrderBy = 'time ASC';
+	public $sqlOrderBy = 'contest_solution.solutionID';
 	
 	/**
 	 * @see DatabaseObjectList::countObjects()
@@ -42,12 +42,17 @@ class ContestSolutionList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					avatar.*, user_table.*, contest_solution.*
+					group_table.groupName, 
+					user_table.username,
+					avatar_table.*,
+					contest_solution.*
 			FROM		wcf".WCF_N."_contest_solution contest_solution
 			LEFT JOIN	wcf".WCF_N."_user user_table
 			ON		(user_table.userID = contest_solution.userID)
-			LEFT JOIN	wcf".WCF_N."_avatar avatar
-			ON		(avatar.avatarID = user_table.avatarID)
+			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+			ON		(avatar_table.avatarID = user_table.avatarID)
+			LEFT JOIN	wcf".WCF_N."_group group_table
+			ON		(group_table.groupID = contest_solution.groupID)
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');

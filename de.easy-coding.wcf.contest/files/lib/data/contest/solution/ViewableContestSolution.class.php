@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
-require_once(WCF_DIR.'lib/data/user/UserProfile.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
 
 /**
@@ -14,18 +14,43 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  */
 class ViewableContestSolution extends ContestSolution {
 	/**
-	 * user object
+	 * owner object
 	 *
-	 * @var UserProfile
+	 * @var ContestOwner
 	 */
-	protected $user = null;
+	protected $owner = null;
+
+	/**
+	 * Creates a new ViewableContest object.
+	 *
+	 * @param	integer		$contestID
+	 * @param 	array<mixed>	$row
+	 */
+	public function __construct($contestID, $row = null) {
+		if ($contestID !== null) {
+			$sql = "SELECT		user_table.username, 
+						group_table.groupName,
+						avatar_table.*, 
+						contest_solution.*
+				FROM 		wcf".WCF_N."_contest_solution contest_solution
+				LEFT JOIN	wcf".WCF_N."_user user_table
+				ON		(user_table.userID = contest_solution.userID)
+				LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+				ON		(avatar_table.avatarID = user_table.avatarID)
+				LEFT JOIN	wcf".WCF_N."_group group_table
+				ON		(group_table.groupID = contest_solution.groupID)
+				WHERE 		contest.contestID = ".$contestID;
+			$row = WCF::getDB()->getFirstRow($sql);
+		}
+		DatabaseObject::__construct($row);
+	}
 	
 	/**
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {
 		parent::handleData($data);
-		$this->user = new UserProfile(null, $data);
+		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
 	}
 	
 	/**
@@ -33,13 +58,13 @@ class ViewableContestSolution extends ContestSolution {
 	 * 
 	 * @return	string
 	 */
-	public function getFormattedSolution() {
+	public function getFormattedMessage() {
 		$enableSmilies = 1; 
 		$enableHtml = 0; 
 		$enableBBCodes = 1;
 	
 		MessageParser::getInstance()->setOutputType('text/html');
-		return MessageParser::getInstance()->parse($this->solution, $enableSmilies, $enableHtml, $enableBBCodes);
+		return MessageParser::getInstance()->parse($this->message, $enableSmilies, $enableHtml, $enableBBCodes);
 	}
 	
 	/**
@@ -53,7 +78,7 @@ class ViewableContestSolution extends ContestSolution {
 		$enableBBCodes = 1;
 	
 		MessageParser::getInstance()->setOutputType('text/plain');
-		$message = MessageParser::getInstance()->parse($this->solution, $enableSmilies, $enableHtml, $enableBBCodes);
+		$message = MessageParser::getInstance()->parse($this->message, $enableSmilies, $enableHtml, $enableBBCodes);
 		
 		// get abstract
 		if (StringUtil::length($message) > 50) {
@@ -64,12 +89,12 @@ class ViewableContestSolution extends ContestSolution {
 	}
 	
 	/**
-	 * Returns the user object.
+	 * Returns the owner object.
 	 * 
-	 * @return	UserProfile
+	 * @return	ContestOwner
 	 */
-	public function getUser() {
-		return $this->user;
+	public function getOwner() {
+		return $this->owner;
 	}
 }
 ?>

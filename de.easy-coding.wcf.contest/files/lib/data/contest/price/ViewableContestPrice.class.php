@@ -1,7 +1,8 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
-require_once(WCF_DIR.'lib/data/user/UserProfile.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
 
 /**
@@ -14,18 +15,47 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  */
 class ViewableContestPrice extends ContestPrice {
 	/**
-	 * user object
+	 * owner object
 	 *
-	 * @var UserProfile
+	 * @var ContestOwner
 	 */
-	protected $user = null;
+	protected $owner = null;
+
+	/**
+	 * Creates a new ViewableContest object.
+	 *
+	 * @param	integer		$contestID
+	 * @param 	array<mixed>	$row
+	 */
+	public function __construct($contestID, $row = null) {
+		if ($contestID !== null) {
+			$sql = "SELECT		user_table.username, 
+						contest_sponsor.userID, 
+						contest_sponsor.groupID, 
+						group_table.groupName,
+						avatar_table.*, 
+						contest_price.*
+				FROM 		wcf".WCF_N."_contest_price contest_price
+				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
+				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
+				LEFT JOIN	wcf".WCF_N."_user user_table
+				ON		(user_table.userID = contest_sponsor.userID)
+				LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+				ON		(avatar_table.avatarID = user_table.avatarID)
+				LEFT JOIN	wcf".WCF_N."_group group_table
+				ON		(group_table.groupID = contest_sponsor.groupID)
+				WHERE 		contest.contestID = ".$contestID;
+			$row = WCF::getDB()->getFirstRow($sql);
+		}
+		DatabaseObject::__construct($row);
+	}
 	
 	/**
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {
 		parent::handleData($data);
-		$this->user = new UserProfile(null, $data);
+		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
 	}
 	
 	/**
@@ -43,12 +73,12 @@ class ViewableContestPrice extends ContestPrice {
 	}
 	
 	/**
-	 * Returns the user object.
+	 * Returns the owner object.
 	 * 
-	 * @return	UserProfile
+	 * @return	ContestOwner
 	 */
-	public function getUser() {
-		return $this->user;
+	public function getOwner() {
+		return $this->owner;
 	}
 }
 ?>

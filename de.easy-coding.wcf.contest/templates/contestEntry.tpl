@@ -48,17 +48,15 @@
 									<div class="messageInner container-1">
 										<a id="entry{@$entry->contestID}"></a>
 										<div class="messageHeader">
-											{if $userID}
 											<div class="containerIcon">
 												
-												{if $user->getAvatar()}
-													{assign var=x value=$user->getAvatar()->setMaxSize(24, 24)}
-													<a href="index.php?page=User&amp;userID={@$user->userID}{@SID_ARG_2ND}" title="{lang username=$user->username}wcf.user.viewProfile{/lang}">{@$user->getAvatar()}</a>
+												{if $entry->getOwner()->getAvatar()}
+													{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
+													<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{@$entry->getOwner()->getAvatar()}</a>
 												{else}
-													<a href="index.php?page=User&amp;userID={@$user->userID}{@SID_ARG_2ND}" title="{lang username=$user->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+													<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
-											{/if}
 											<div class="containerContent">
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 												<p class="light smallFont">{@$entry->time|time}</p>
@@ -67,12 +65,6 @@
 										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 											{@$entry->getFormattedMessage()}
 										</div>
-										
-										{if $userID}
-										{include file='attachmentsShow' messageID=$entry->contestID author=$user}
-										{else}
-										{include file='attachmentsShow' messageID=$entry->contestID}
-										{/if}
 										
 										{if $tags|count > 0 || $classes|count > 0}
 											<div class="editNote smallFont light">

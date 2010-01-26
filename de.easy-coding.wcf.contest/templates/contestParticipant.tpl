@@ -43,9 +43,9 @@
 									<li class="{cycle values='container-1,container-2'}">
 										<a id="participant{@$participantObj->participantID}"></a>
 										<div class="containerIcon">
-											{if $participantObj->getUser()->getAvatar()}
-												{assign var=x value=$participantObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}" title="{lang username=$participantObj->username}wcf.user.viewProfile{/lang}">{/if}{@$participantObj->getUser()->getAvatar()}{if $participantObj->userID}</a>{/if}
+											{if $participantObj->getOwner()->getAvatar()}
+												{assign var=x value=$participantObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}" title="{lang username=$participantObj->username}wcf.user.viewProfile{/lang}">{/if}{@$participantObj->getOwner()->getAvatar()}{if $participantObj->userID}</a>{/if}
 											{else}
 												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}" title="{lang username=$participantObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $participantObj->userID}</a>{/if}
 											{/if}
@@ -77,7 +77,7 @@
 													{if $participantObj->isDeletable()}<a href="index.php?action=ContestParticipantDelete&amp;participantID={@$participantObj->participantID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.participant.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.participant.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.user.contest.entry.participant.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p>{@$participantObj}</p>
+												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a></p>
 												
 											{/if}
 										</div>

@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-require_once(WCF_DIR.'lib/data/user/UserProfile.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a viewable contest entry.
@@ -13,11 +13,11 @@ require_once(WCF_DIR.'lib/data/user/UserProfile.class.php');
  */
 class ViewableContest extends Contest {
 	/**
-	 * user object
+	 * owner object
 	 *
-	 * @var UserProfile
+	 * @var ContestOwner
 	 */
-	protected $user = null;
+	protected $owner = null;
 
 	/**
 	 * Creates a new ViewableContest object.
@@ -27,10 +27,17 @@ class ViewableContest extends Contest {
 	 */
 	public function __construct($contestID, $row = null) {
 		if ($contestID !== null) {
-			$sql = "SELECT		user_table.username, contest.*
+			$sql = "SELECT		user_table.username, 
+						group_table.groupName,
+						avatar_table.*,  
+						contest.*
 				FROM 		wcf".WCF_N."_contest contest
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest.userID)
+				LEFT JOIN	wcf".WCF_N."_group group_table
+				ON		(group_table.groupID = contest.groupID)
+				LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+				ON		(avatar_table.avatarID = user_table.avatarID)
 				WHERE 		contest.contestID = ".$contestID;
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
@@ -42,7 +49,7 @@ class ViewableContest extends Contest {
 	 */
 	protected function handleData($data) {
 		parent::handleData($data);
-		$this->user = new UserProfile(null, $data);
+		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
 	}
 	
 	/**
@@ -82,12 +89,12 @@ class ViewableContest extends Contest {
 	}
 	
 	/**
-	 * Returns the user object.
+	 * Returns the owner object.
 	 * 
-	 * @return	UserProfile
+	 * @return	ContestOwner
 	 */
-	public function getUser() {
-		return $this->user;
+	public function getOwner() {
+		return $this->owner;
 	}
 }
 ?>

@@ -43,9 +43,9 @@
 									<li class="{cycle values='container-1,container-2'}">
 										<a id="sponsor{@$sponsorObj->sponsorID}"></a>
 										<div class="containerIcon">
-											{if $sponsorObj->getUser()->getAvatar()}
-												{assign var=x value=$sponsorObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $sponsorObj->userID}<a href="index.php?page=User&amp;userID={@$sponsorObj->userID}{@SID_ARG_2ND}" title="{lang username=$sponsorObj->username}wcf.user.viewProfile{/lang}">{/if}{@$sponsorObj->getUser()->getAvatar()}{if $sponsorObj->userID}</a>{/if}
+											{if $sponsorObj->getOwner()->getAvatar()}
+												{assign var=x value=$sponsorObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												{if $sponsorObj->userID}<a href="index.php?page=User&amp;userID={@$sponsorObj->userID}{@SID_ARG_2ND}" title="{lang username=$sponsorObj->username}wcf.user.viewProfile{/lang}">{/if}{@$sponsorObj->getOwner()->getAvatar()}{if $sponsorObj->userID}</a>{/if}
 											{else}
 												{if $sponsorObj->userID}<a href="index.php?page=User&amp;userID={@$sponsorObj->userID}{@SID_ARG_2ND}" title="{lang username=$sponsorObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $sponsorObj->userID}</a>{/if}
 											{/if}
@@ -77,7 +77,7 @@
 													{if $sponsorObj->isDeletable()}<a href="index.php?action=ContestSponsorDelete&amp;sponsorID={@$sponsorObj->sponsorID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.sponsor.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.sponsor.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;sponsorID={@$sponsorObj->sponsorID}{@SID_ARG_2ND}#sponsor{@$sponsorObj->sponsorID}" title="{lang}wcf.user.contest.entry.sponsor.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p>{@$sponsorObj}</p>
+												<p><a href="{$sponsorObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsorObj->getOwner()->getName()}</a></p>
 												
 											{/if}
 										</div>

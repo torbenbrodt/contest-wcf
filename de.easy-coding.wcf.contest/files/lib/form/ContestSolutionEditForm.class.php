@@ -25,14 +25,14 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 	 */
 	public function __construct(ContestSolution $solution) {
 		$this->solutionObj = $solution->getEditor();
-		CaptchaForm::__construct();
+		AbstractForm::__construct();
 	}
 	
 	/**
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
-		CaptchaForm::readParameters();
+		AbstractForm::readParameters();
 		
 		// get solution
 		if (!$this->solutionObj->isEditable()) {
@@ -44,7 +44,7 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 	 * @see Form::save()
 	 */
 	public function save() {
-		CaptchaForm::save();
+		AbstractForm::save();
 		
 		// save solution
 		$this->solutionObj->update($this->message);
