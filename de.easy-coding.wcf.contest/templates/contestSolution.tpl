@@ -97,9 +97,7 @@
 							</div>
 						</div>
 						
-						{if $entry->isSolutionable()}{assign var=solutionUsername value=$username}{/if}
 						{if $entry->isSolutionable() && $action != 'edit'}
-							{assign var=username value=$solutionUsername}
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

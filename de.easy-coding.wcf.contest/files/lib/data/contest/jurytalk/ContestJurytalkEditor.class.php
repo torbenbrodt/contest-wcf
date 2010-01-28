@@ -15,7 +15,7 @@ class ContestJurytalkEditor extends ContestJurytalk {
 	 * Creates a new entry jurytalk.
 	 *
 	 * @param	integer		$contestID
-	 * @param	string		$jurytalk
+	 * @param	string		$message
 	 * @param	integer		$userID
 	 * @param	string		$username
 	 * @param	integer		$time
@@ -35,6 +35,15 @@ class ContestJurytalkEditor extends ContestJurytalk {
 			SET	jurytalks = jurytalks + 1
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
+		
+		// sent event
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__);
+		ContestEventEditor::create($contestID, $userID, $groupID = 0, $eventName, array(
+			'jurytalkID' => $jurytalkID,
+			'owner' => ContestOwner::get($userID, $groupID = 0)->getName()
+		));
 		
 		return new ContestJurytalkEditor($jurytalkID);
 	}

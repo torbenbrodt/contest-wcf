@@ -33,7 +33,7 @@ class ViewableContestComment extends ContestComment {
 	 * 
 	 * @return	string
 	 */
-	public function getFormattedComment() {
+	public function getFormattedMessage() {
 		$enableSmilies = 1; 
 		$enableHtml = 0; 
 		$enableBBCodes = 1;

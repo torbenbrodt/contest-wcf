@@ -154,7 +154,7 @@ class ContestAddForm extends MessageForm {
 		
 		// jurytalk
 		$this->sponsortalk_trigger = isset($_POST['sponsortalk_trigger']);
-		if($this->jurytalk_trigger && isset($_POST['sponsortalkAddText'])) $this->sponsortalk_message = $_POST['sponsortalkAddText'];
+		if($this->sponsortalk_trigger && isset($_POST['sponsortalkAddText'])) $this->sponsortalk_message = $_POST['sponsortalkAddText'];
 		
 		// comment
 		$this->comment_trigger = isset($_POST['comment_trigger']);

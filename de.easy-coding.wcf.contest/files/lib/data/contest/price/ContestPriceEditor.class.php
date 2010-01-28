@@ -37,6 +37,15 @@ class ContestPriceEditor extends ContestPrice {
 			SET	prices = prices + 1
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
+		
+		// sent event
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__);
+		$sponsor = new ContestSponsor($sponsorID);
+		ContestEventEditor::create($contestID, $sponsor->userID, $sponsor->groupID, $eventName, array(
+			'priceID' => $priceID,
+			'owner' => $sponsor->getOwner()->getName()
+		));
 
 		return new ContestPriceEditor($priceID);
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
-<package name="de.easy-coding.wcf.contest.commentNotification">
+<package name="de.easy-coding.wcf.contest.notification">
 	<packageinformation>
 		<packagename>easy-coding "contest" notifications</packagename>
 		<packagedescription>notification for contest solutions, jurytalks.</packagedescription>

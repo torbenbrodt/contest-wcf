@@ -129,6 +129,17 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.user.contest.entry.comment.error.tooLong"><![CDATA[Ihre Nachricht ist zu lang. Es stehen maximal {#$maxTextLength} Zeichen zur Verfügung.]]></item>
 		<item name="wcf.user.contest.entry.comment.permalink"><![CDATA[Permalink zur {#$messageNumber}. Kommentar]]></item>
 		<item name="wcf.user.contest.entry.comments"><![CDATA[Kommentare]]></item>
+		<item name="wcf.user.contest.entry.event"><![CDATA[Event]]></item>
+		<item name="wcf.user.contest.entry.event.subject"><![CDATA[Betreff]]></item>
+		<item name="wcf.user.contest.entry.event.message"><![CDATA[Nachricht]]></item>
+		<item name="wcf.user.contest.entry.event.description"><![CDATA[Schreiben Sie ein Event.]]></item>
+		<item name="wcf.user.contest.entry.event.add"><![CDATA[Event hinzufügen]]></item>
+		<item name="wcf.user.contest.entry.event.by"><![CDATA[Von]]></item>
+		<item name="wcf.user.contest.entry.event.delete"><![CDATA[Event löschen]]></item>
+		<item name="wcf.user.contest.entry.event.delete.sure"><![CDATA[Wollen Sie diese Event wirklich löschen?]]></item>
+		<item name="wcf.user.contest.entry.event.edit"><![CDATA[Event bearbeiten]]></item>
+		<item name="wcf.user.contest.entry.event.permalink"><![CDATA[Permalink zur {#$messageNumber}. Event]]></item>
+		<item name="wcf.user.contest.entry.events"><![CDATA[Evente]]></item>
 		<item name="wcf.user.contest.entry.jurytalk"><![CDATA[Jurytalk]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.message"><![CDATA[Nachricht]]></item>

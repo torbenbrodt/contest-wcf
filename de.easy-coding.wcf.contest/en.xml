@@ -128,6 +128,17 @@
 		<item name="wcf.user.contest.entry.comment.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.user.contest.entry.comment.permalink"><![CDATA[Permalink to comment no. {#$messageNumber}]]></item>
 		<item name="wcf.user.contest.entry.comments"><![CDATA[Comments]]></item>
+		<item name="wcf.user.contest.entry.event"><![CDATA[Event]]></item>
+		<item name="wcf.user.contest.entry.event.subject"><![CDATA[Subject]]></item>
+		<item name="wcf.user.contest.entry.event.message"><![CDATA[Message]]></item>
+		<item name="wcf.user.contest.entry.event.description"><![CDATA[Leave a event.]]></item>
+		<item name="wcf.user.contest.entry.event.add"><![CDATA[Add event]]></item>
+		<item name="wcf.user.contest.entry.event.by"><![CDATA[By]]></item>
+		<item name="wcf.user.contest.entry.event.delete"><![CDATA[Delete event]]></item>
+		<item name="wcf.user.contest.entry.event.delete.sure"><![CDATA[Do you really want to delete this event?]]></item>
+		<item name="wcf.user.contest.entry.event.edit"><![CDATA[Edit event]]></item>
+		<item name="wcf.user.contest.entry.event.permalink"><![CDATA[Permalink to event no. {#$messageNumber}]]></item>
+		<item name="wcf.user.contest.entry.events"><![CDATA[Events]]></item>
 		<item name="wcf.user.contest.entry.jurytalk"><![CDATA[Jurytalk]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.message"><![CDATA[Message]]></item>

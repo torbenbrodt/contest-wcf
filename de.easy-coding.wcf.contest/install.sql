@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS wcf1_contest;
 CREATE TABLE wcf1_contest (
 	contestID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	userID INT(10) NOT NULL,
-	groupID INT(10) NOT NULL,
+	groupID INT(10) NOT NULL DEFAULT 0,
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
@@ -19,9 +19,12 @@ CREATE TABLE wcf1_contest (
 	jurytalks SMALLINT(5) NOT NULL DEFAULT 0,
 	jurys SMALLINT(5) NOT NULL DEFAULT 0,
 	sponsortalks SMALLINT(5) NOT NULL DEFAULT 0,
+	sponsors SMALLINT(5) NOT NULL DEFAULT 0,
+	events SMALLINT(5) NOT NULL DEFAULT 0,
 	state ENUM('private', 'waiting', 'reviewed', 'scheduled') NOT NULL DEFAULT 'private',
 	FULLTEXT KEY (subject, message),
-	KEY (userID)
+	KEY (userID),
+	KEY (groupID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_solution;
@@ -29,12 +32,14 @@ CREATE TABLE wcf1_contest_solution (
 	solutionID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	contestID INT(10) NOT NULL,
 	userID INT(10) NOT NULL DEFAULT 0,
-	groupID INT(10) NOT NULL,
+	groupID INT(10) NOT NULL DEFAULT 0,
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
-	KEY (contestID)
+	KEY (contestID),
+	KEY (userID),
+	KEY (groupID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_comment;
@@ -46,7 +51,22 @@ CREATE TABLE wcf1_contest_comment (
 	comment TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
-	KEY (contestID)
+	KEY (contestID),
+	KEY (userID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_event;
+CREATE TABLE wcf1_contest_event (
+	eventID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	contestID INT(10) NOT NULL,
+	userID INT(10) NOT NULL DEFAULT 0,
+	groupID INT(10) NOT NULL DEFAULT 0,
+	eventName VARCHAR(255) NOT NULL DEFAULT '',
+	placeholders TEXT NOT NULL DEFAULT '',
+	time INT(10) NOT NULL DEFAULT 0,
+	KEY (contestID, time),
+	KEY (userID),
+	KEY (groupID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_jurytalk;
@@ -57,7 +77,8 @@ CREATE TABLE wcf1_contest_jurytalk (
 	username VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
-	KEY (contestID)
+	KEY (contestID),
+	KEY (userID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_sponsortalk;

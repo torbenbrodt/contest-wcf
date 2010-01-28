@@ -45,6 +45,15 @@ class ContestEditor extends Contest {
 		// get id
 		$contestID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest", 'contestID');
 		
+		// sent event
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'contestID' => $contestID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
+		
 		// get new object
 		$entry = new self($contestID);
 		

@@ -37,7 +37,13 @@ class ContestOwner {
 				$this->owner = new UserProfile($userID);
 			}
 		}
-		
+	}
+	
+	/**
+	 * static method to construct
+	 */
+	public static function get($userID, $groupID) {
+		return new self(null, $userID, $groupID);
 	}
 
 	/**

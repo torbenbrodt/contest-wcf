@@ -28,6 +28,22 @@ class ContestSponsorEditor extends ContestSponsor {
 		
 		// get new id
 		$sponsorID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_sponsor", 'sponsorID');
+		
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	sponsors = sponsors + 1
+			WHERE	contestID = ".$contestID;
+		WCF::getDB()->sendQuery($sql);
+		
+		// sent event
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'sponsorID' => $sponsorID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
+		
 		return new ContestSponsorEditor($sponsorID);
 	}
 	
@@ -53,6 +69,12 @@ class ContestSponsorEditor extends ContestSponsor {
 	 * Deletes this sponsor.
 	 */
 	public function delete() {
+		// update entry
+		$sql = "UPDATE	wcf".WCF_N."_contest
+			SET	sponsors = sponsors - 1
+			WHERE	contestID = ".$this->contestID;
+		WCF::getDB()->sendQuery($sql);
+		
 		// delete sponsor
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
 			WHERE		sponsorID = ".$this->sponsorID;

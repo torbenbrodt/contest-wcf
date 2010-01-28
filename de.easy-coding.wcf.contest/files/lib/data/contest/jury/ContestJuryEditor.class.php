@@ -35,6 +35,15 @@ class ContestJuryEditor extends ContestJury {
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
 		
+		// sent event
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'juryID' => $juryID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
+		
 		return new ContestJuryEditor($juryID);
 	}
 	

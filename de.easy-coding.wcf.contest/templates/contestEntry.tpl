@@ -92,6 +92,56 @@
 							</div>
 						</div>
 					
+						{if $events|count > 0}
+							<a id="events"></a>
+							<div class="contentBox">
+								<h4 class="subHeadline">{lang}wcf.user.contest.entry.events{/lang} <span>({#$items})</span></h4>
+								
+								<div class="contentHeader">
+									{pages print=true assign=pagesOutput link="index.php?page=Contest&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
+								</div>
+								
+								<ul class="dataList messages">
+									{assign var='messageNumber' value=$items-$startIndex+1}
+									{foreach from=$events item=eventObj}
+										<li class="{cycle values='container-1,container-2'}">
+											<a id="event{@$eventObj->eventID}"></a>
+											<div class="containerIcon">
+												{if $eventObj->getOwner()->getAvatar()}
+													{assign var=x value=$eventObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+													{if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}" title="{lang username=$eventObj->username}wcf.user.viewProfile{/lang}">{/if}{@$eventObj->getOwner()->getAvatar()}{if $eventObj->userID}</a>{/if}
+												{else}
+													{if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}" title="{lang username=$eventObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $eventObj->userID}</a>{/if}
+												{/if}
+											</div>
+											<div class="containerContent">
+												<div class="buttons">
+													{if $eventObj->isEditable()}<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}&amp;action=edit{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.user.contest.entry.event.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
+													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;eventID={@$eventObj->eventID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.event.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
+													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.user.contest.entry.event.permalink{/lang}">#{#$messageNumber}</a>
+												</div>
+												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.event.by{/lang} {if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}">{$eventObj->username}</a>{else}{$eventObj->username}{/if} ({@$eventObj->time|time})</p>
+												<p>{@$eventObj->getFormattedMessage()}</p>
+											</div>
+										</li>
+										{assign var='messageNumber' value=$messageNumber-1}
+									{/foreach}
+								</ul>
+								
+								<div class="contentFooter">
+									{@$pagesOutput}
+								</div>
+								
+								<div class="buttonBar">
+									<div class="smallButtons">
+										<ul>
+											<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="{lang}wcf.global.scrollUp{/lang}" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						{/if}
+					
 						{if $comments|count > 0}
 							<a id="comments"></a>
 							<div class="contentBox">
@@ -139,7 +189,7 @@
 														<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;commentID={@$commentObj->commentID}{@SID_ARG_2ND}#comment{@$commentObj->commentID}" title="{lang}wcf.user.contest.entry.comment.permalink{/lang}">#{#$messageNumber}</a>
 													</div>
 													<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.comment.by{/lang} {if $commentObj->userID}<a href="index.php?page=User&amp;userID={@$commentObj->userID}{@SID_ARG_2ND}">{$commentObj->username}</a>{else}{$commentObj->username}{/if} ({@$commentObj->time|time})</p>
-													<p>{@$commentObj->getFormattedComment()}</p>
+													<p>{@$commentObj->getFormattedMessage()}</p>
 													
 												{/if}
 											</div>

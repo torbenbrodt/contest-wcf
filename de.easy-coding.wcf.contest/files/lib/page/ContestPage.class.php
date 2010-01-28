@@ -3,7 +3,7 @@
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/comment/ContestCommentList.class.php');
-require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
+require_once(WCF_DIR.'lib/data/contest/event/ContestEventList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
@@ -35,6 +35,13 @@ class ContestPage extends MultipleLinkPage {
 	public $entry = null;
 	
 	/**
+	 * list of events
+	 *
+	 * @var ContestEventList
+	 */
+	public $eventList = null;
+	
+	/**
 	 * list of comments
 	 *
 	 * @var ContestCommentList
@@ -54,27 +61,6 @@ class ContestPage extends MultipleLinkPage {
 	 * @var	ContestComment
 	 */
 	public $comment = null;
-	
-	/**
-	 * list of comments
-	 *
-	 * @var ContestCommentList
-	 */
-	public $priceList = null;
-	
-	/**
-	 * price id
-	 * 
-	 * @var	integer
-	 */
-	public $priceID = 0;
-	
-	/**
-	 * price object
-	 * 
-	 * @var	ContestPrice
-	 */
-	public $price = null;
 	
 	/**
 	 * action
@@ -159,32 +145,10 @@ class ContestPage extends MultipleLinkPage {
 		$this->commentList->sqlConditions .= 'contest_comment.contestID = '.$this->contestID;
 		$this->commentList->sqlOrderBy = 'contest_comment.time DESC';
 		
-		// price
-		if (isset($_REQUEST['priceID'])) $this->priceID = intval($_REQUEST['priceID']);
-		if ($this->priceID != 0) {
-			$this->price = new ContestPrice($this->priceID);
-			if (!$this->price->priceID || $this->price->contestID != $this->contestID) {
-				throw new IllegalLinkException();
-			}
-			
-			// check permissions
-			if ($this->action == 'edit' && !$this->price->isEditable()) {
-				throw new PermissionDeniedException();
-			}
-						
-			// get page number
-			$sql = "SELECT	COUNT(*) AS prices
-				FROM 	wcf".WCF_N."_contest_price
-				WHERE 	contestID = ".$this->contestID."
-					AND time < ".$this->price->time;
-			$result = WCF::getDB()->getFirstRow($sql);
-			$this->pageNo = intval(ceil($result['prices'] / $this->itemsPerPage));
-		}
-		
-		// init price list
-		$this->priceList = new ContestPriceList();
-		$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contestID;
-		$this->priceList->sqlOrderBy = 'contest_price.time DESC';
+		// init event list
+		$this->eventList = new ContestEventList();
+		$this->eventList->sqlConditions .= 'contest_event.contestID = '.$this->contestID;
+		$this->eventList->sqlOrderBy = 'contest_event.time DESC';
 	}
 	
 	/**
@@ -199,9 +163,9 @@ class ContestPage extends MultipleLinkPage {
 		$this->commentList->readObjects();
 		
 		// read objects
-		$this->priceList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->priceList->sqlLimit = $this->itemsPerPage;
-		$this->priceList->readObjects();
+		$this->eventList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
+		$this->eventList->sqlLimit = $this->itemsPerPage;
+		$this->eventList->readObjects();
 
 		// get previous entry
 		$sql = "SELECT		*
@@ -283,15 +247,14 @@ class ContestPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'tags' => (MODULE_TAGGING ? $this->entry->getTags(WCF::getSession()->getVisibleLanguageIDArray()) : array()),
 			'comments' => $this->commentList->getObjects(),
+			'events' => $this->eventList->getObjects(),
 			'classes' => $this->entry->getClasses(),
 			'jurys' => $this->entry->getJurys(),
 			'participants' => $this->entry->getParticipants(),
-			'prices' => $this->priceList->getObjects(),
 			'attachments' => $this->attachments,
 			'location' => $this->entry->location,
 			'action' => $this->action,
 			'commentID' => $this->commentID,
-			'priceID' => $this->priceID,
 			'previousEntry' => $this->previousEntry,
 			'nextEntry' => $this->nextEntry,
 			'templateName' => $this->templateName,

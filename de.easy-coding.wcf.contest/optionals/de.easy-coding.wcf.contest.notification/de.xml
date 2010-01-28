@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+	<category name="wcf.user.notification">
+		<item name="wcf.user.notification.object.type.contestEntry"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.user.contest">
+		<item name="wcf.user.contest.notification.create.title"><![CDATA[Neuer Contest]]></item>
+		<item name="wcf.user.contest.notification.create.description"><![CDATA[Sie erhalten eine Benachrichtigung bei neuen Contest-Einträgen.]]></item>
+
+		<item name="wcf.user.contest.notification.commentcreate.title"><![CDATA[Neuer Contest-Kommentar]]></item>
+		<item name="wcf.user.contest.notification.commentcreate.description"><![CDATA[Sie erhalten eine Benachrichtigung bei neuen Kommentaren zu Ihren Contest-Einträgen.]]></item>
+
+		<item name="wcf.user.contest.notification.jurycreate.title"><![CDATA[Neuer Juror]]></item>
+		<item name="wcf.user.contest.notification.jurycreate.description"><![CDATA[Sie erhalten eine Benachrichtigung wenn ein neuer Juror zu einem ihrer Contests beitritt.]]></item>
+
+		<item name="wcf.user.contest.notification.jurytalkcreate.title"><![CDATA[Neuer Jurortalk-Kommentar]]></item>
+		<item name="wcf.user.contest.notification.jurytalkcreate.description"><![CDATA[Als Juror erhalten Sie eine Benachrichtigung, falls einer der andere Juroren ein Kommentar veröffentlicht.]]></item>
+
+		<item name="wcf.user.contest.notification.participantcreate.title"><![CDATA[Neuer Teilnehmer]]></item>
+		<item name="wcf.user.contest.notification.participantcreate.description"><![CDATA[Sie erhalten eine Benachrichtigung, wenn ein neuer Teilnehmer zu einem ihrer Contests beitritt.]]></item>
+
+		<item name="wcf.user.contest.notification.pricecreate.title"><![CDATA[Neuer Preis]]></item>
+		<item name="wcf.user.contest.notification.pricecreate.description"><![CDATA[Sie erhalten eine Benachrichtigung, wenn ein neuer Preis zu einem ihrer Contests hinzugefügt wird.]]></item>
+
+		<item name="wcf.user.contest.notification.solutioncreate.title"><![CDATA[Neue Lösung]]></item>
+		<item name="wcf.user.contest.notification.solutioncreate.description"><![CDATA[Sie erhalten eine Benachrichtigung, wenn eine neue Lösung zu einem ihrer Contests hinzugefügt wird.]]></item>
+
+		<item name="wcf.user.contest.notification.sponsorcreate.title"><![CDATA[Neuer Sponsor]]></item>
+		<item name="wcf.user.contest.notification.sponsorcreate.description"><![CDATA[Sie erhalten eine Benachrichtigung wenn ein neuer Sponsor zu einem ihrer Contests beitritt.]]></item>
+
+		<item name="wcf.user.contest.notification.sponsortalkcreate.title"><![CDATA[Neuer Sponsortalk-Kommentar]]></item>
+		<item name="wcf.user.contest.notification.sponsortalkcreate.description"><![CDATA[Als Sponsor erhalten Sie eine Benachrichtigung, falls einer der andere Sponsoren ein Kommentar veröffentlicht.]]></item>
+</language>
