@@ -51,6 +51,15 @@ class ViewableContestPrice extends ContestPrice {
 	}
 	
 	/**
+	 * Returns the title of this price.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return $this->subject;
+	}
+	
+	/**
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {

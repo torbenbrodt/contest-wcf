@@ -2,8 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
-require_once(WCF_DIR.'lib/data/contest/comment/ContestCommentList.class.php');
-require_once(WCF_DIR.'lib/data/contest/event/ContestEventList.class.php');
+require_once(WCF_DIR.'lib/data/contest/eventmix/ContestEventMixList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
@@ -35,18 +34,11 @@ class ContestPage extends MultipleLinkPage {
 	public $entry = null;
 	
 	/**
-	 * list of events
+	 * list of eventmixs
 	 *
-	 * @var ContestEventList
+	 * @var ContestEventMixList
 	 */
-	public $eventList = null;
-	
-	/**
-	 * list of comments
-	 *
-	 * @var ContestCommentList
-	 */
-	public $commentList = null;
+	public $eventmixList = null;
 	
 	/**
 	 * comment id
@@ -140,15 +132,10 @@ class ContestPage extends MultipleLinkPage {
 			$this->pageNo = intval(ceil($result['comments'] / $this->itemsPerPage));
 		}
 		
-		// init comment list
-		$this->commentList = new ContestCommentList();
-		$this->commentList->sqlConditions .= 'contest_comment.contestID = '.$this->contestID;
-		$this->commentList->sqlOrderBy = 'contest_comment.time DESC';
-		
-		// init event list
-		$this->eventList = new ContestEventList();
-		$this->eventList->sqlConditions .= 'contest_event.contestID = '.$this->contestID;
-		$this->eventList->sqlOrderBy = 'contest_event.time DESC';
+		// init eventmix list
+		$this->eventmixList = new ContestEventMixList();
+		$this->eventmixList->sqlConditions .= 'contestID = '.$this->contestID;
+		$this->eventmixList->sqlOrderBy = 'contest_eventmix.time DESC';
 	}
 	
 	/**
@@ -158,14 +145,9 @@ class ContestPage extends MultipleLinkPage {
 		parent::readData();
 		
 		// read objects
-		$this->commentList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->commentList->sqlLimit = $this->itemsPerPage;
-		$this->commentList->readObjects();
-		
-		// read objects
-		$this->eventList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->eventList->sqlLimit = $this->itemsPerPage;
-		$this->eventList->readObjects();
+		$this->eventmixList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
+		$this->eventmixList->sqlLimit = $this->itemsPerPage;
+		$this->eventmixList->readObjects();
 
 		// get previous entry
 		$sql = "SELECT		*
@@ -220,7 +202,7 @@ class ContestPage extends MultipleLinkPage {
 	public function countItems() {
 		parent::countItems();
 		
-		return $this->commentList->countObjects();
+		return $this->eventmixList->countObjects();
 	}
 	
 	/**
@@ -246,8 +228,7 @@ class ContestPage extends MultipleLinkPage {
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
 			'tags' => (MODULE_TAGGING ? $this->entry->getTags(WCF::getSession()->getVisibleLanguageIDArray()) : array()),
-			'comments' => $this->commentList->getObjects(),
-			'events' => $this->eventList->getObjects(),
+			'events' => $this->eventmixList->getObjects(),
 			'classes' => $this->entry->getClasses(),
 			'jurys' => $this->entry->getJurys(),
 			'participants' => $this->entry->getParticipants(),

@@ -116,6 +116,11 @@
 		<item name="wcf.user.contest.entry.solution.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.user.contest.entry.solution.permalink"><![CDATA[Permalink to solution no. {#$messageNumber}]]></item>
 		<item name="wcf.user.contest.entry.solutions"><![CDATA[Solutions]]></item>
+		<item name="wcf.user.contest.entry.state"><![CDATA[State]]></item>
+		<item name="wcf.user.contest.entry.state.private"><![CDATA[private]]></item>
+		<item name="wcf.user.contest.entry.state.waiting"><![CDATA[waiting]]></item>
+		<item name="wcf.user.contest.entry.state.reviewed"><![CDATA[reviewed]]></item>
+		<item name="wcf.user.contest.entry.state.scheduled"><![CDATA[scheduled]]></item>
 		<item name="wcf.user.contest.entry.comment"><![CDATA[Comment]]></item>
 		<item name="wcf.user.contest.entry.comment.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.user.contest.entry.comment.message"><![CDATA[Message]]></item>

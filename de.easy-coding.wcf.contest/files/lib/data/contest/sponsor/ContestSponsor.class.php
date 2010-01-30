@@ -60,15 +60,6 @@ class ContestSponsor extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this class.
-	 * 
-	 * @return	string
-	 */
-	public function __toString() {
-		return "".$this->title;
-	}
-	
-	/**
 	 * Returns a list of all sponsors of a contest.
 	 * 
 	 * @param	integer			$contestID

@@ -60,5 +60,14 @@ class ViewableContestParticipant extends ContestParticipant {
 	public function getOwner() {
 		return $this->owner;
 	}
+	
+	/**
+	 * Returns the title of this class.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return "".$this->owner->getName();
+	}
 }
 ?>

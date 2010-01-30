@@ -7,8 +7,10 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
+require_once(WCF_DIR.'lib/data/contest/date/ContestDate.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+require_once(WCF_DIR.'lib/page/util/InlineCalendar.class.php');
 
 /**
  * Shows the form for adding new contest entries.
@@ -30,8 +32,9 @@ class ContestEditForm extends MessageForm {
 	public $userID = 0;
 	public $groupID = 0;
 	public $state = '';
-	public $from = '';
-	public $to = '';
+	public $fromTime = '';
+	public $untilTime = '';
+	public $isFullDay = 0;
 	
 	/**
 	 * attachment list editor
@@ -100,8 +103,9 @@ class ContestEditForm extends MessageForm {
 			$this->userID = $this->entry->userID;
 			$this->groupID = $this->entry->groupID;
 			$this->state = $this->entry->state;
-			$this->from = $this->entry->from;
-			$this->to = $this->entry->to;
+			$this->isFullDay = $this->entry->isFullDay;
+			$this->fromTime = $this->entry->fromTime;
+			$this->untilTime = $this->entry->untilTime;
 			$this->classIDArray = array_keys($this->entry->getClasses());
 			
 			if($this->groupID > 0) {
@@ -113,6 +117,22 @@ class ContestEditForm extends MessageForm {
 				$this->tags = TaggingUtil::buildString($this->entry->getTags(array((count(Language::getAvailableContentLanguages()) > 0 ? WCF::getLanguage()->getLanguageID() : 0))));
 			}
 		}
+
+		$from = $this->fromTime == 0 ? time() : $this->fromTime;
+		$until = $this->untilTime == 0 ? time() : $this->untilTime;
+		$this->eventDate = new ContestDate(array(
+			'isFullDay' => $this->isFullDay,
+			'fromDay' => date('d', $from),
+			'fromMonth' => date('m', $from),
+			'fromYear' => date('Y', $from),
+			'fromHour' => date('h', $from),
+			'fromMinute' => date('i', $from),
+			'untilDay' => date('d', $until),
+			'untilMonth' => date('m', $until),
+			'untilYear' => date('Y', $until),
+			'untilHour' => date('h', $until),
+			'untilMinute' => date('i', $until),
+		);
 		
 		$this->availableClasses = ContestClass::getClasses();
 		$this->states = ContestEditor::getStates();
@@ -191,7 +211,8 @@ class ContestEditForm extends MessageForm {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
-		
+
+		InlineCalendar::assignVariables();		
 		WCF::getTPL()->assign(array(
 			'action' => 'add',
 			'userID' => WCF::getUser()->userID,
@@ -203,9 +224,7 @@ class ContestEditForm extends MessageForm {
 			'classIDArray' => $this->classIDArray,
 			'states' => $this->states,
 			'state' => $this->state,
-			'from' => $this->from,
-			'to' => $this->to,
-			
+			'eventDate' => $this->eventDate,
 		));
 	}
 	

@@ -117,6 +117,11 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.user.contest.entry.solution.error.tooLong"><![CDATA[Ihre Nachricht ist zu lang. Es stehen maximal {#$maxTextLength} Zeichen zur Verfügung.]]></item>
 		<item name="wcf.user.contest.entry.solution.permalink"><![CDATA[Permalink zur {#$messageNumber}. Lösung]]></item>
 		<item name="wcf.user.contest.entry.solutions"><![CDATA[Lösungen]]></item>
+		<item name="wcf.user.contest.entry.state"><![CDATA[Status]]></item>
+		<item name="wcf.user.contest.entry.state.private"><![CDATA[Privat]]></item>
+		<item name="wcf.user.contest.entry.state.waiting"><![CDATA[Wartet auf Freischaltung]]></item>
+		<item name="wcf.user.contest.entry.state.reviewed"><![CDATA[Wurde akzeptiert]]></item>
+		<item name="wcf.user.contest.entry.state.scheduled"><![CDATA[Für Termin geplant]]></item>
 		<item name="wcf.user.contest.entry.comment"><![CDATA[Kommentar]]></item>
 		<item name="wcf.user.contest.entry.comment.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.user.contest.entry.comment.message"><![CDATA[Nachricht]]></item>
@@ -139,7 +144,7 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.user.contest.entry.event.delete.sure"><![CDATA[Wollen Sie diese Event wirklich löschen?]]></item>
 		<item name="wcf.user.contest.entry.event.edit"><![CDATA[Event bearbeiten]]></item>
 		<item name="wcf.user.contest.entry.event.permalink"><![CDATA[Permalink zur {#$messageNumber}. Event]]></item>
-		<item name="wcf.user.contest.entry.events"><![CDATA[Evente]]></item>
+		<item name="wcf.user.contest.entry.events"><![CDATA[Events]]></item>
 		<item name="wcf.user.contest.entry.jurytalk"><![CDATA[Jurytalk]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.user.contest.entry.jurytalk.message"><![CDATA[Nachricht]]></item>
@@ -237,6 +242,15 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.user.contest.sidebar.becomejury.title"><![CDATA[Werde Juror]]></item>
 		<item name="wcf.user.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>
 		<item name="wcf.user.contest.sidebar.becomejury.description"><![CDATA[Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
+	</category>
+	<category name="wcf.user.contest.event.notification">
+		<item name="wcf.user.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.create"><![CDATA[Ein neuer Contest wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.commentcreate"><![CDATA[Ein neuer Kommentar wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.sponsortalkcreate"><![CDATA[Ein neuer Sponsorbeitrag wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.sponsorcreate"><![CDATA[Ein neuer Sponsor wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.jurycreate"><![CDATA[Ein neuer Juror wurde angelegt]]></item>
+		<item name="wcf.user.contest.event.notification.pricecreate"><![CDATA[Ein neuer Preis wurde angelegt]]></item>
 	</category>
 	<category name="wcf.contest.menu">
 		<item name="wcf.contest.menu.link.overview"><![CDATA[Übersicht]]></item>

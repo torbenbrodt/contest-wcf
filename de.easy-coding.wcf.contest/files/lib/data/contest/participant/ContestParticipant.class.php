@@ -37,15 +37,6 @@ class ContestParticipant extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this class.
-	 * 
-	 * @return	string
-	 */
-	public function __toString() {
-		return "".$this->title;
-	}
-	
-	/**
 	 * Returns a list of all participants of a contest.
 	 * 
 	 * @param	integer			$contestID

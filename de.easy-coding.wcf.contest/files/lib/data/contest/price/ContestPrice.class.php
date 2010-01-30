@@ -28,15 +28,6 @@ class ContestPrice extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this price.
-	 * 
-	 * @return	string
-	 */
-	public function __toString() {
-		return $this->subject;
-	}
-	
-	/**
 	 * Returns the formatted description of this price.
 	 * 
 	 * @return	string
