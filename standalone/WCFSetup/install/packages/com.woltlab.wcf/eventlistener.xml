@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
+<data>	
+	<import>
+		<eventlistener>
+			<eventClassName>AbstractPage</eventClassName>
+			<eventName>readParameters</eventName>
+			<environment>admin</environment>
+			<inherit>1</inherit>
+			<listenerClassFile>lib/system/event/listener/SessionAccessLogListener.class.php</listenerClassFile>
+		</eventlistener>
+		<eventlistener>
+			<eventClassName>AbstractForm</eventClassName>
+			<eventName>readParameters</eventName>
+			<environment>admin</environment>
+			<inherit>1</inherit>
+			<listenerClassFile>lib/system/event/listener/SessionAccessLogListener.class.php</listenerClassFile>
+		</eventlistener>
+		<eventlistener>
+			<eventClassName>AbstractAction</eventClassName>
+			<eventName>readParameters</eventName>
+			<environment>admin</environment>
+			<inherit>1</inherit>
+			<listenerClassFile>lib/system/event/listener/SessionAccessLogListener.class.php</listenerClassFile>
+		</eventlistener>
+	</import>
+</data>

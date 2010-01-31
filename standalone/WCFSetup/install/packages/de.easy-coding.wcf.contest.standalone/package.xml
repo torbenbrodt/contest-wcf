@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
+<package name="de.easy-coding.wcf.contest.contest">
+	<packageinformation>
+		<packagename><![CDATA[easy-coding "contest" Contest]]></packagename>
+		<packagedescription><![CDATA[contest contest]]></packagedescription>
+		<isunique>1</isunique>
+		<contest>1</contest>
+		<version>0.2.1 Beta 1</version>
+		<date>2010-01-31</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author><![CDATA[Torben Brodt]]></author>
+		<authorurl><![CDATA[http://trac.easy-coding.de/trac/contest]]></authorurl>
+	</authorinformation>
+
+	<requiredpackages>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.system.style</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.page.headerMenu</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.page</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.help</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.form.user</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.form.user.signature</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.page.user.profile</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.cronjobs</requiredpackage>
+		<requiredpackage minversion="1.1.0">com.woltlab.wcf.acp.display.style</requiredpackage>
+		
+		<requiredpackage file="requirements/de.easy-coding.wcf.contest.tar.gz">de.easy-coding.wcf.contest</requiredpackage>
+	</requiredpackages>
+
+	<instructions type="install">
+		<acptemplates>acptemplates.tar</acptemplates>
+		<options>options.xml</options>
+		<files>files.tar</files>
+		<templates>templates.tar</templates>
+	</instructions>
+</package>

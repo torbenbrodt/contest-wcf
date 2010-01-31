@@ -1,0 +1,61 @@
+
+/* ### -- -- -- -- -- Bugfix-Styles for Microsoft Internet Explorer 8 -- -- -- -- -- ### */
+
+/* 
+
+File: ie8-fix.css 
+Copyright 2009 by WoltLab GmbH. 
+
+For full XHTML & CSS compatibility be sure to include this file only within the so called "Internet Explorer Comment Hack". 
+
+*/
+
+/* ### -- -- -- -- -- Miscellaneous -- -- -- -- -- ### */
+
+/* if this line is missing ie 8 cannot render pages that contain <br /><br /> */
+br, em, strong, u, strike, s, span, i, b {
+	unicode-bidi: normal;
+}
+
+fieldset {
+	margin-top: 25px;
+}
+
+fieldset legend {
+	margin-top: -18px;
+}
+
+.formGroupField > fieldset > legend {
+	margin: 0;
+	padding: 0;
+	display: block !important;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+/* ### -- -- -- -- -- layout.css -- -- -- -- -- ### */
+
+.layout-1, .layout-2, .layout-3, .layout-4 {
+	box-sizing: border-box;	
+}
+
+/* ### -- -- -- -- -- forms.css -- -- -- -- -- ### */
+
+form .disabled {
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);	
+}
+
+/* -- -- -- -- -- calendar.css -- -- -- -- -- */
+
+.otherMonth {
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+}
+
+/* ### -- -- -- -- -- wysiwyg.css -- -- -- -- -- ### */
+
+.mceButtonDisabled a img { /* note: non-standard style-declaration */
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+}
+
+/* ### -- -- -- -- -- EOF -- -- -- -- -- ### */

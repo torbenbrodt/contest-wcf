@@ -28,6 +28,7 @@
 	
 	<optionalpackages>
                 <optionalpackage file="optionals/de.easy-coding.wcf.contest.notification.tar.gz">de.easy-coding.wcf.contest.notification</optionalpackage>
+                <optionalpackage file="optionals/de.easy-coding.wcf.contest.easycoding.tar.gz">de.easy-coding.wcf.contest.easycoding</optionalpackage>
 	</optionalpackages>
 	
 	<instructions type="install">

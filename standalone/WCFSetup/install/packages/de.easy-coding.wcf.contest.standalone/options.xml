@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/options.dtd">
+<data>
+	<import>
+		<categories>
+			<category name="general.offline">
+				<parent>general</parent>
+				<showorder>2</showorder>
+			</category>
+
+			<category name="offline.general">
+				<parent>general.offline</parent>
+				<showorder>1</showorder>
+			</category>
+		</categories>
+		<options>
+			<option name="show_style_chooser">
+				<categoryname>general.page</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue><![CDATA[1]]></defaultvalue>
+				<showorder>12</showorder>
+			</option>
+
+			<option name="offline">
+				<categoryname>offline.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<enableoptions>offline_message,offline_message_allow_html</enableoptions>
+				<showorder>1</showorder>
+			</option>
+			<option name="offline_message">
+				<categoryname>offline.general</categoryname>
+				<optiontype>textarea</optiontype>
+				<showorder>2</showorder>
+			</option>
+			<option name="offline_message_allow_html">
+				<categoryname>offline.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<showorder>3</showorder>
+			</option>
+		</options>
+	</import>
+</data>

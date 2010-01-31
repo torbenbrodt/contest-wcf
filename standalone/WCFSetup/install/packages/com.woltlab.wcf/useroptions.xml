@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/options.dtd">
+<data>	
+	<import>
+		<categories>
+			<category name="hidden"></category>
+		</categories>
+			
+		<options>
+			<option name="inlineHelpStatus">
+				<categoryname>hidden</categoryname>
+				<optiontype>text</optiontype>
+				<visible>4</visible>
+				<editable>4</editable>
+				<defaultvalue>all</defaultvalue>
+			</option>
+		</options>
+	</import>
+</data>

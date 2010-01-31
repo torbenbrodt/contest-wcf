@@ -1,0 +1,410 @@
+
+/* ### -- -- -- -- -- Global Burning Board 3 Styles -- -- -- -- -- ### */
+
+/* 
+
+File: global.css 
+Copyright 2006-2009 by WoltLab GmbH. 
+
+*/
+
+/* ### -- -- -- -- -- Miscellaneous -- -- -- -- -- ### */
+
+* {
+	unicode-bidi: embed;
+	text-overflow: ellipsis;
+}
+
+body, html {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+#main {
+	padding: 10px 0 20px 0;	
+}
+
+#main:after {
+	clear: both;
+	display: block;
+	height: 0;
+	content: "";
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+pre {
+	font-family: "Courier New", Courier, monospace !important;
+}
+
+img {
+	vertical-align: middle;
+	border: 0;
+}
+
+hr {
+	display: none;
+}
+
+.hidden { /* Moves elements out of the viewport in an accessible way and preserves no space for them. Use this class rather than "display: none"! */
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+	left: -9000px;
+	max-width: 8000px;
+}
+
+.new {
+	font-weight: bold;
+}
+
+.buddy {
+	font-size: 1.2em;
+}
+
+.dragable tr, .dragable li {
+	cursor: move;
+}
+
+.loading {
+	background-color: #fff;
+	background-image: url("../images/spinner.gif");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	min-height: 80px;
+	opacity: .5;	
+}
+
+/* ### -- -- -- -- -- Headings -- -- -- -- -- ### */
+
+h1 {
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+
+h1 a {
+	text-decoration: none;
+}
+
+h2, h2 a {
+	text-decoration: none;
+}
+
+h2, h3, h4, h5, h6 {
+	font-size: 1em;
+	font-weight: normal;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+
+#main > h2 {
+	padding-bottom: 7px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+/* ### -- -- -- -- -- Links -- -- -- -- -- ### */
+
+a {
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* ### -- -- -- -- -- External Links -- -- -- -- -- ### */
+
+.externalURL {
+	background-image: url("../icon/externalURL.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+	margin-right: 3px;
+	padding-right: 15px;
+}
+
+.externalURL:hover {
+	background-image: url("../icon/externalURLHover.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+/* ### -- -- -- -- -- Quick Jump -- -- -- -- -- ### */
+
+.quickJump {
+	white-space: nowrap;
+	width: auto;
+}
+
+.quickJump select {
+	width: auto;
+	max-width: 50%;
+}
+
+/* ### -- -- -- -- -- Page Options -- -- -- -- -- ### */
+
+.pageOptions {
+	float: right;
+}
+
+.pageOptions form, .pageOptions div {
+	display: inline;
+}
+
+.pageOptions a, .pageOptions form {
+	text-decoration: none;
+	margin-left: 10px;
+}
+
+.pageOptions a span {
+	text-decoration: underline;
+}
+
+.pageOptions a:hover span {
+	text-decoration: none;
+}
+
+/* ### -- -- -- -- -- Breadcrumb Style Navigation -- -- -- -- -- ### */
+
+.breadCrumbs {
+	font-size: .95em;
+	list-style: none;
+	margin: 5px 0;
+	padding: 0;
+}
+
+.breadCrumbs li {
+	font-style: italic;
+	margin-right: 1px;
+	display: inline;
+}
+
+.breadCrumbs li a, .messageFooter .breadCrumbs li a {
+	text-decoration: none;
+}
+
+.breadCrumbs li a span, .messageFooter .breadCrumbs li a {
+	text-decoration: underline;
+}
+
+.breadCrumbs li a:hover span, .messageFooter .breadCrumbs li a:hover {
+	text-decoration: none;
+}
+
+.containerHead .breadCrumbs {
+	margin: 0;	
+}
+
+/* ### -- -- -- -- -- Content Header & Content Footer -- -- -- -- -- ### */
+
+.contentHeader, .contentFooter {
+	padding-bottom: 7px;
+	width: 100%;
+}
+
+.contentFooter:after, .contentHeader:after {
+	content: "";
+	height: 0;
+	display: block;
+	clear: both;
+}
+
+/* ### -- -- -- -- -- Floated Elements -- -- -- -- -- ### */
+
+.floatContainer {
+	min-height: 0;
+}
+
+.floatContainer:after {
+	content: "";
+	height: 0;
+	display: block;
+	clear: both;
+}
+
+.floatedElement {
+	margin: 0 7px 0 0;
+	padding: 0;
+	display: block;
+	float: left;
+	position: relative;
+}
+
+.floatedElement:after {
+	content: "";
+	height: 0;
+	display: block;
+	clear: both;
+}
+
+.floatedElement label {
+	font-size: .85em;
+	white-space: nowrap;
+	display: block;
+	position: absolute;
+	top: -2px;
+}
+
+.floatedElement input, .floatedElement select, .floatedElement p {
+	margin: 1.25em 0 0 0;
+	width: auto;
+}
+
+.floatedElement a img {
+	margin-top: 12px;
+	display: block;
+}
+
+.floatedElementLabel {
+	min-width: 50px;
+	text-align: right;	
+}
+
+.followsFloatedElement {
+	clear: both;	
+}
+
+.floatedElementContainer {
+	padding: 3px 0;
+}
+
+.floatedElementButtons {
+	float: right;	
+}
+
+.floatedElementButtons input, .floatedElementButtons img {
+	margin: 1.25em 0 0 5px;
+}
+
+/* ### -- -- -- -- -- System Messages (Success, Warning, Error, Info) -- -- -- -- -- ### */
+
+/* Note: Change the colors of system messages with care! Consider that people are used to specific colors for special events (e.g. Red stands for warning). Random colors may not work as intended! */
+
+.success, .warning, .error, .info {
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	margin-bottom: 20px;
+	padding: 7px 10px 7px 45px;
+}
+
+.success {
+	color: #090;
+	background-color: #efe;
+	background-image: url("../icon/successM.png");
+	border-color: #090;
+}
+
+.success a, .success a:hover {
+	color: #333;
+}
+
+.warning {
+	color: #660;
+	background-color: #ffd;
+	background-image: url("../icon/warningM.png");
+	border-color: #660;
+}
+
+.warning a, .warning a:hover {
+	color: #333;
+}
+
+.error {
+	color: #c00;
+	background-color: #fee;
+	background-image: url("../icon/errorM.png");
+	border-color: #c00;
+}
+
+.error a, .error a:hover {
+	color: #333;
+}
+
+.info {
+	color: #06f;
+	background-color: #def;
+	background-image: url("../icon/infoM.png");
+	border-color: #06f;
+}
+
+.info a, .info a:hover {
+	color: #333;
+}
+
+.info .close {
+	float: right;	
+}
+
+/* ### -- -- -- -- -- Inner Errors -- -- -- -- -- ### */
+
+.innerError {
+	background-image: url("../icon/errorS.png");
+	background-position: 1px center;
+	background-repeat: no-repeat;
+	margin-bottom: 5px;
+	padding: 5px 5px 5px 25px;
+}
+
+/* ### -- -- -- -- -- Highlight -- -- -- -- -- ### */
+
+.highlight {
+	color: #00f;
+	background-color: #ff0;
+	padding: 0 2px;
+}
+
+/* ### -- -- -- -- -- ItemList -- -- -- -- -- ### */
+
+.itemList, .itemList ol, .itemList ul {
+	margin: 0 0 0 20px;
+	padding: 2px 0;
+}
+
+.itemList, .itemList ul {
+	padding-left: 23px;
+}
+
+.itemList {
+	margin: 10px 0 7px 0;
+}
+
+.itemList .itemListTitle {
+	border-width: 0 0 1px 0 !important;
+	margin: 0;
+	min-height: 22px;
+	padding: 5px;
+}
+
+.itemList h3.itemListTitle, .itemList h4.itemListTitle, .itemList h5.itemListTitle {
+	font-weight: bold;	
+}
+
+.itemList > li:last-child > .itemListTitle {
+	border: 0
+}
+
+.itemList .buttons {
+	padding: 7px 4px 4px 4px;
+	float: right;
+}
+
+.itemList .buttons * {
+	margin-right: 3px;	
+}
+
+.itemList .inputText {
+	width: auto;	
+}
+
+#invitationContainer .itemList li {
+	list-style-type: square;
+	list-style-image: url("../icon/userS.png");
+}
+
+/* ### -- -- -- -- -- EOF -- -- -- -- -- ### */

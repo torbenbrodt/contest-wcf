@@ -1,0 +1,62 @@
+I. Introduction
+
+1. Foreword
+Easy Coding Contest is a online platform for contests.
+
+----------------------------------------------------------------
+II. Installation
+
+1. System requirements
+Requirements for installing Easy Coding Contest:
+
+	* Web server with PHP 5 support
+	* Apache 2 with PHP 5.2.x module recommended
+	* MySQL database at version 4.1.2 or better
+	* A minimum of 5 MB free hard disk space
+	* An FTP client, for transferring the installer files onto your web space
+
+Note: It's not possible to run Easy Coding Contest using PHP below version 5.0!
+
+2. Foreword
+Before starting the installation, you may spend some time thinking and planning the object of your project, as well as figuring out the structure of your forum and maybe which parts should be public and which not. Make sure that your web space fullfils the system requirements. Decide which folder of your web space your forum should be installed to. What should the forum URL be like, will you use a sub domain? Will you have to transfer any data from your old forum? Which plug-ins or other extensions do you need and are they already existing? 
+
+Find out about plugins for Easy Coding Contest and how to customize it at the "WoltLab Community" at: "http://community.woltlab.com/"
+
+3. Installation preparations
+
+3.1 Unzip the Easy Coding Contest archive
+After downloading the installation archive ("easycodingcontest.zip") to your hard drive, unzip it either with a special application (e.g. "WinZip" or "StuffIt Expander") or simply with the unzipping function built in your operating system. Most modern operating systems, like Windows Vista or XP, Mac OS X and Linux, can handle Zip archives out of the box without any helper application needed.
+
+You'll get these files:
+
+	* test.php
+	* install.php
+	* WCFSetup.tar.gz
+	* Lies mich.txt
+	* Read me.txt
+
+Beware! The file "WCFSetup.tar.gz" is also an archive. Never unzip that archive! 
+This archive contains the "WoltLab Community Framework", which the also contained package "Easy Coding Contest" depends on. The contents of this "tar.gz" archive will be automatically extracted and read by the installation script.
+
+3.2 Upload the installation files
+Simply upload the five files with your FTP program to a subdirectory of your choice on your web space. Consider uploading the files to the directory, where you want your forum to be installed later. The installation assistant will later suggest this very folder as actual installing directory for Easy Coding Contest, but you can of course change it as you like.
+
+3.3 Verify the system requirements
+To ensure your web space fullfils the system requirements, consider testing the PHP support first! All you need to do so is opening the file ("test.php") in your browser and see the results. E.g. "http://www.my-testserver.com/test.php" (replace "www.my-testserver.com" with the name of your server). If your server doesn't meet the system requirements, you may contact your provider to ask for some solution, or switch the provider in the worst case.
+
+4. Installation procedure
+Please note that the progress of the installation script can vary from time to time – do not cancel this process too soon. This behavior is completely normal. The duration of the installation depends on many factors such as your Internet bandwidth, the server speed and load as well as the chosen packages.
+
+Start the installation by loading the installer file ("install.php") in your browser. E.g. "http://www.my-testserver.com/install.php" (replace "www.my-testserver.com" with the name of your own server).
+
+The installation process in basic steps:
+- After starting the installation assistant you can choose the language of the assistant. Your browser's language will be automatically suggested.
+- Before starting the installation process you must accept the WoltLab license agreement.
+- After that a screen will inform you about system requirements and found system components. Note the color code, where Red displays indicate, that an installation is not possible, because a system component is not at the correct version. With Yellow indicators an installation is possible but not recommended. You might contact your system provider and ask for an update of the specific component. Green indications show that the components meet the requirements.
+- Please choose the installation folder of the WoltLab Community Framework. The assistant suggests a default folder, which can be changed to your needs. Please note that this does not equal to the installation folder of Easy Coding Contest. That folder will be asked later, but note, that is dependent from what you have entered here!
+- During the next step you select the desired character encoding and the languages to be installed. Please note that the chosen character encoding cannot be changed later, so please choose it carefully! Some languages are not supported by certain encodings, so you may have to alter your encoding selection. "UTF-8" will support all languages. WoltLab Community Framework automatically converts the encoding, if you choose to import data from other systems in different encodings later!
+- In the next step you need to specify your database access data. Please enter the required information and the password for your (new) installation. Your provider should have told you the required information for database access, if not, ask him to tell you. In certain cases an existing database can be used.
+- During the next step the Administrators account will be created. This user account is required to access the Administration Control Panel (ACP) and to alter the settings. You can change the login details later.
+- Please choose the installation folder for Easy Coding Contest afterwards. The assistant suggests a default folder, located on the same level, as the installation folder of the WoltLab Community Framework. You can change the suggested folder to your needs. If you want to install Easy Coding Contest without a sub folder (e.g. "www.my-testserver.com/contest") directly on a top level domain (e.g. "www.my-testserver.com"), you need to have the files uploaded into the "home directory" of your server and just remove "/contest" from the file path. 
+- With the last major step you can select optional packages to be installed, such as an appropriate Importer plug-in to import data from an older existing or different forum software (read more below).
+

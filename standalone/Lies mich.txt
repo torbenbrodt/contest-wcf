@@ -1,0 +1,62 @@
+I. Einführung
+
+1. Vorwort
+Easy Coding Contest ist eine Online Plattform für Wettbewerbe.
+
+----------------------------------------------------------------
+II. Installation
+
+1. Systemvoraussetzungen
+Für die Installation von Easy Coding Contest müssen folgende Voraussetzungen erfüllt werden:
+
+	* Ein Webserver mit PHP 5-Unterstützung
+	* Apache 2 mit PHP 5.2.x-Modul empfohlen
+	* Eine MySQL-Datenbank in Version 4.1.2 oder höher
+	* Ca. 5 MB Festplattenspeicher
+	* Ein FTP-Programm, um die Programmdateien auf den Webserver/Webspace zu laden
+
+Hinweis: Es ist nicht möglich, Easy Coding Contest mit einer PHP-Version unter 5.0 zu betreiben!
+
+2. Vorwort
+Bevor Sie mit der tatsächlichen Installation beginnen, sollten Sie sich ein paar Gedanken zum geplanten Einsatz der Software und dem Aufbau der Forenstruktur machen. Erfüllt ihr Webspace alle geforderten Systemvoraussetzungen? In welchen Ordner Ihres Webspaces soll das Forum installiert werden? Soll das Forum unter einer Subdomain aufrufbar sein? Möchten Sie die Daten eines alten Forums importieren? Welche Bereiche soll das Forum besitzen und für wen sollen sie zugänglich sein? Welche PlugIns oder sonstigen Erweiterungen benötigen Sie noch.
+
+Erfahren Sie mehr über Plugins und wie sie es an ihre Bedürfnisse anpassen können, indem sie die "WoltLab Community" aufrufen: "http://community.woltlab.com/"
+
+3. Installationsvorbereitungen
+
+3.1 Das Easy Coding Contest Zip-Archiv entpacken.
+Nachdem Sie das Installations-Archiv ("easycodingcontest.zip") auf die Festplatte Ihres Computers heruntergeladen haben, können Sie die darin enthaltenen Dateien mit einem Entpack-Programm (wie z.B. WinZip oder StuffIt Expander) entpacken. Moderne Betriebssysteme wie Windows Vista, Windows XP, Mac OS X und Linux sind auch ohne zusätzliche Hilfsprogramme in der Lage, Zip-Archive zu entpacken.
+
+Sie erhalten folgende Dateien:
+
+	* test.php
+	* install.php
+	* WCFSetup.tar.gz
+	* Lies mich.txt
+	* Read me.txt
+
+Vorsicht! Die Datei "WCFSetup.tar.gz" stellt ebenfalls ein komprimiertes Archiv dar. Entpacken Sie dieses Archiv auf keinen Fall! 
+Dieses Archiv enthält das "WoltLab Community Framework", auf dem - das ebenfalls darin enthaltene Paket - "Easy Coding Contest" aufbaut. Bei der Installation wird das "tar.gz"-Archiv vom Installationsskript automatisch entpackt und ausgelesen.
+
+3.2 Hochladen der Installationsdateien
+Laden Sie einfach aus dem Zip-Archiv die fünf Dateien mit Ihrem FTP-Programm in den gewünschten Unterordner auf Ihren Webspace hoch. Wählen Sie dabei am besten bereits den gewünschten Installationsordner für Ihr Forum. Der Installationsassistent schlägt Ihnen später einen Unterordner dieses Verzeichnisses als Installationsordner für WoltLab Community Framework und Easy Coding Contest vor, Sie können diesen Pfad dann aber immer noch nach Belieben verändern.
+
+3.3 Prüfen der Systemvoraussetzungen
+Wenn Sie nicht ganz sicher sind, ob ihr Webspace die nötigen Systemvoraussetzungen erfüllt, sollten Sie unbedingt zuerst die PHP-Unterstützung prüfen! Dazu rufen Sie die Testdatei ("test.php") in Ihrem Webbrowser auf und warten die Meldung ab. Beispielsweise: "http://www.mein-testserver.de/test.php" (ersetzen Sie: "www.mein-testserver.de" durch ihren eigenen Servernamen). Sollte Ihr Webspace die Anforderungen nicht erfüllen, sollten Sie sich gegebenenfalls mit Ihrem Web-Provider in Verbindung setzen, um zu klären, ob Sie auf ein moderneres Webpaket upgraden können, oder müssen schlimmstenfalls zu einem anderen Anbieter wechseln.
+
+4. Ablauf der Installation
+Bitte beachten Sie, dass das Installationsskript an manchen Stellen schneller vorankommt, als an anderen und brechen Sie den Vorgang nicht voreilig ab! Dieses Verhalten ist völlig normal. Die Dauer der Installation ist abhängig von vielen Faktoren, wie beispielsweise der Bandbreite Ihrer Internetverbindung, der Servergeschwindigkeit/-auslastung und den ausgewählten Paketen.
+
+Starten Sie die Installation, indem Sie die Installationsdatei ("install.php") mit Ihrem Webbrowser aufrufen. Beispielsweise: "http://www.mein-testserver.de/install.php" (ersetzen Sie: "www.mein-testserver.de" durch ihren eigenen Servernamen).
+
+Der Installationsablauf in wesentlichen Schritten:
+- Nachdem Sie den Installationsassistenten gestartet haben, können Sie die Sprache des Assistenten einstellen. Der Assistent schlägt automatisch die vorgefundene Sprache des Browsers vor.
+- Vor Beginn des tatsächlichen Installationsvorgangs müssen Sie den WoltLab-Lizenzbestimmungen zustimmen.
+- Anschließend werden Ihnen erneut die benötigten und tatsächlich vorgefundenen Systemvoraussetzungen präsentiert. Dabei wird ein Farbleitsystem angewandt: Rote Angaben zeigen Fehler an, gelbe Werte zeigen nicht empfohlene Konfigurationen an und grüne Anzeigen sind korrekte Werte. Bei gelben Anzeigen ist eine Installation zwar möglich, wird aber nicht empfohlen. Sie sollten gegebenenfalls ihren Provider kontaktieren und ein Update der betroffenen Serverkomponente erbitten. Bei roten Anzeigen ist eine Installation nicht möglich, da eine Serverkomponente nicht die erforderliche Version aufweist!
+- Wählen Sie danach das WoltLab Community Framework-Installationsverzeichnis. Der Assistent schlägt ihnen bereits ein Standardverzeichnis mit dem Namen "wcf" vor, welches Sie aber natürlich nach ihren Vorstellungen abändern können. Beachten Sie, dass dies noch nicht das Installationsverzeichnis von Easy Coding Contest darstellt. Dieses wird erst in einem späteren Schritt erfragt.
+- Im nächsten Schritt stellen Sie die gewünschte Zeichenkodierung ein und wählen die zu verwendenden Sprachen. Vorsicht, die gewählte Zeichenkodierung kann später nicht mehr rückgängig gemacht werden, wählen Sie die Kodierung mit Bedacht! Beachten Sie bitte auch, dass je nach gewählter Zeichenkodierung bestimmte Sprachen nicht zur Auswahl stehen können. Wählen Sie gegebenenfalls eine andere Zeichenkodierung. Für ein Forum in deutscher Sprache empfiehlt sich die Zeichenkodierung "Westeuropäisch (ISO-8859-1)"! Beachten Sie des Weiteren, dass die gewählte Zeichenkodierung bei einem späteren Datenimport von alten oder fremden Forensystemen keinerlei Rolle spielt, das WoltLab Community Framework konvertiert diese Daten automatisch!
+- Danach werden Sie aufgefordert, Ihren Datenbankzugang anzugeben. Geben Sie die erforderlichen Daten und das Passwort für Ihre (neue) Installation ein. Die benötigten Daten für den Datenbankzugang sollten Sie bereits von Ihrem Provider erhalten haben, gegebenenfalls müssen Sie diese erneut erfragen. In bestimmten Fällen können Sie auch eine bereits existierende Datenbank weiterverwenden.
+- Im nächsten Schritt müssen Sie das Administrator-Konto einrichten. Dieses Benutzerkonto wird benötigt, um die Administrationsoberfläche aufzurufen und Einstellungen verändern zu können. Sie können die hier eingegebenen Daten später jederzeit anpassen.
+- Wählen Sie danach das Easy Coding Contest Installationsverzeichnis. Der Assistent schlägt ihnen als Standardverzeichnis denselben Ordner vor, in dem die Installation gestartet wurde. Beachten Sie, dass dieses standardmäßig eine Ebene über dem Standard-Installationsordner von WoltLab Community Framework liegt. Sie können natürlich auch dieses Verzeichnis nach ihren Vorstellungen abändern. Wenn Sie Easy Coding Contest direkt unter einer Top-Level-Domain (beispielsweise: "www.mein-testserver.de") aufrufbar machen möchten, belassen Sie die Pfadangabe wie sie ist.
+- Im letzten größeren Schritt können Sie optionale Pakete zur Installation auswählen, wie etwa ein passendes Importer-Plugin zur Übernahme von Daten aus einer bestehenden älteren oder fremden Forensoftware (siehe weiter unten).
+

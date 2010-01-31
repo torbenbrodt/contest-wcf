@@ -1,0 +1,6 @@
+for built
+ * build standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.standalone/requirements to tar.gz packages
+ * build package standalone/WCFSetup/install/packages to tar files
+ * make folder WCFSetup to WCFSetup.tar.gz
+
+make easycodingcontest.zip

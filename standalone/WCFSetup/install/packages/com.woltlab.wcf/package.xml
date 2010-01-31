@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
+<package name="com.woltlab.wcf">
+	<packageinformation>
+		<packagename>WoltLab Community Framework</packagename>
+		<isunique>1</isunique>
+		<standalone>1</standalone>
+		<version>1.1.1 pl 1</version> <!-- codename: tempest -->
+		<date>2009-12-01</date>
+	</packageinformation>
+	
+	<authorinformation>
+		<author>WoltLab GmbH</author>
+		<authorurl>http://www.woltlab.com</authorurl>
+	</authorinformation>
+	
+	<instructions type="install">
+		<packageinstallationplugins>pip.tar</packageinstallationplugins>
+		<acpmenu>acpmenu.xml</acpmenu>
+		<groupoptions>groupoptions.xml</groupoptions>
+		<script>acp/install.php</script>
+		<options>options.xml</options>
+		<templates>templates.tar</templates>
+		<useroptions>useroptions.xml</useroptions>
+		<eventlistener>eventlistener.xml</eventlistener>
+		<files>files.tar</files>
+	</instructions>
+	
+	<instructions type="update" fromversion="1.0.11 pl *">
+		<!-- files -->
+		<files>files.tar</files>
+		<acptemplates>acptemplates.tar</acptemplates>
+		<packageinstallationplugins>pip.tar</packageinstallationplugins>
+		<sql>update_1.0.11.sql</sql>
+		<script>acp/update_1.0.11.php</script>
+		
+		<!-- config -->
+		<acpmenu>acpmenu.xml</acpmenu>
+		<eventlistener>eventlistener.xml</eventlistener>
+		<groupoptions>groupoptions.xml</groupoptions>
+		<options>options.xml</options>
+		<useroptions>useroptions.xml</useroptions>
+		
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="de-informal">de-informal.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+		<languages languagecode="it">it.xml</languages>
+		<languages languagecode="tr">tr.xml</languages>
+		<languages languagecode="fr">fr.xml</languages>
+		<languages languagecode="pt-BR">pt-BR.xml</languages>
+		<languages languagecode="zh-CN">zh-CN.xml</languages>
+		<languages languagecode="zh-TW">zh-TW.xml</languages>
+		<languages languagecode="hr">hr.xml</languages>
+		<languages languagecode="da">da.xml</languages>
+		<languages languagecode="sv">sv.xml</languages>
+	</instructions>
+	
+	<instructions type="update" fromversion="1.1.0">
+		<!-- files -->
+		<files>files_update.tar</files>
+		<acptemplates>acptemplates_update.tar</acptemplates>
+		
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="de-informal">de-informal.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+		<languages languagecode="it">it.xml</languages>
+		<languages languagecode="tr">tr.xml</languages>
+		<languages languagecode="fr">fr.xml</languages>
+		<languages languagecode="pt-BR">pt-BR.xml</languages>
+		<languages languagecode="zh-CN">zh-CN.xml</languages>
+		<languages languagecode="zh-TW">zh-TW.xml</languages>
+		<languages languagecode="hr">hr.xml</languages>
+		<languages languagecode="da">da.xml</languages>
+		<languages languagecode="sv">sv.xml</languages>
+	</instructions>
+	
+	<instructions type="update" fromversion="1.1.1">
+		<files>files_update.tar</files>
+	</instructions>
+</package>
