@@ -46,11 +46,11 @@ class ContestSponsorEditForm extends ContestSponsorAddForm {
 		AbstractForm::save();
 		
 		// save entry
-		$this->entry->update($this->contestID, $this->userID, $this->groupID, $this->state);
+		$this->entry->update($this->entry->contestID, $this->entry->userID, $this->entry->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSponsor&sponsorID='.$this->entry->sponsorID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->sponsorID);
+		HeaderUtil::redirect('index.php?page=ContestSponsor&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->sponsorID);
 		exit;
 	}
 	
@@ -62,9 +62,6 @@ class ContestSponsorEditForm extends ContestSponsorAddForm {
 		
 		// default values
 		if (!count($_POST)) {
-			$this->contestID = $this->entry->contestID;
-			$this->userID = $this->entry->userID;
-			$this->groupID = $this->entry->groupID;
 			$this->state =  $this->entry->state;
 		}
 	}

@@ -82,12 +82,13 @@ class ContestParticipantEditor extends ContestParticipant {
 	}
 	
 	public static function getStates() {
-		return array(
+		$arr = array(
 			'invited',
 			'accepted',
 			'declined',
 			'left'
 		);
+		return array_combine($arr, $arr);
 	}
 }
 ?>

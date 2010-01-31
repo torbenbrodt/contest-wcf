@@ -77,11 +77,12 @@ class ContestSolutionEditor extends ContestSolution {
 	}
 	
 	public static function getStates() {
-		return array(
+		$arr = array(
 			'unknown',
 			'accepted',
 			'declined'
 		);
+		return array_combine($arr, $arr);
 	}
 }
 ?>

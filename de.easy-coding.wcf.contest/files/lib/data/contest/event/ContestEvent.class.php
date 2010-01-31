@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry event.
@@ -28,30 +29,6 @@ class ContestEvent extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this event.
-	 * 
-	 * @return	boolean
-	 */
-	public function isEditable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditEvent')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditOwnEvent')) || WCF::getUser()->getPermission('mod.contest.canEditEvent')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns true, if the active user can delete this event.
-	 * 
-	 * @return	boolean
-	 */
-	public function isDeletable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteEvent')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteOwnEvent')) || WCF::getUser()->getPermission('mod.contest.canDeleteEvent')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
 	 * Returns an editor object for this event.
 	 *
 	 * @return	ContestEventEditor
@@ -69,6 +46,33 @@ class ContestEvent extends DatabaseObject {
 	public static function getEventName($string) {
 		$string = explode('Editor::', $string);
 		return substr(strtolower($string[0]).ucfirst($string[1]), 7);
+	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
+	
+	/**
+	 * Returns true, if the active user can edit this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isEditable() {
+		return $this->isMember();
+	}
+	
+	/**
+	 * Returns true, if the active user can delete this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isDeletable() {
+		return $this->isMember();
 	}
 }
 ?>

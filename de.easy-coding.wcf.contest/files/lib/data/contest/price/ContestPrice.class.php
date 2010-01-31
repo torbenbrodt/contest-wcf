@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest price.
@@ -58,23 +59,32 @@ class ContestPrice extends DatabaseObject {
 		
 		return $prices;
 	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
 	
 	/**
-	 * Returns true, if the active user can edit this price.
+	 * Returns true, if the active user can edit this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return false;
+		return $this->isMember();
 	}
 	
 	/**
-	 * Returns true, if the active user can delete this price.
+	 * Returns true, if the active user can delete this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return false;
+		return $this->isMember();
 	}
 }
 ?>

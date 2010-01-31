@@ -1,7 +1,6 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
-require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
 
@@ -78,7 +77,7 @@ class ViewableContestPrice extends ContestPrice {
 		$enableBBCodes = 1;
 	
 		MessageParser::getInstance()->setOutputType('text/html');
-		return MessageParser::getInstance()->parse($this->subject, $enableSmilies, $enableHtml, $enableBBCodes);
+		return MessageParser::getInstance()->parse($this->message, $enableSmilies, $enableHtml, $enableBBCodes);
 	}
 	
 	/**

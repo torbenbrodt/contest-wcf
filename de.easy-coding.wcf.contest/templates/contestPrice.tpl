@@ -37,63 +37,50 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestPrice&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<ul class="dataList messages">
-								{assign var='messageNumber' value=$items-$startIndex+1}
-								{foreach from=$prices item=priceObj}
-									<li class="{cycle values='container-1,container-2'}">
-										<a id="price{@$priceObj->priceID}"></a>
-										<div class="containerIcon">
-											{if $priceObj->getOwner()->getAvatar()}
-												{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-												{if $priceObj->userID}<a href="index.php?page=User&amp;userID={@$priceObj->userID}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{/if}{@$priceObj->getOwner()->getAvatar()}{if $priceObj->userID}</a>{/if}
-											{else}
-												{if $priceObj->userID}<a href="index.php?page=User&amp;userID={@$priceObj->userID}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $priceObj->userID}</a>{/if}
-											{/if}
+							<div class="blogInner">
+							{assign var='messageNumber' value=$items-$startIndex+1}
+							{foreach from=$prices item=priceObj}
+								{assign var="contestID" value=$priceObj->contestID}
+								<div class="message">
+									<div class="messageInner {cycle values='container-1,container-2'}">
+										<a id="priceObj{@$priceObj->contestID}"></a>
+										<div class="messageHeader">
+											<p class="messageCount">
+												<a href="index.php?page=ContestPrice&amp;contestID={@$priceObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+											</p>
+											<div class="containerIcon">
+												{if $priceObj->getOwner()->getAvatar()}
+													{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{@$priceObj->getOwner()->getAvatar()}</a>
+												{else}
+													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+												{/if}
+											</div>
+											<div class="containerContent">
+												<div style="float:right">*{$priceObj->state}*</div>
+												<h4 style="margin: 0; padding: 0">{$priceObj->subject}</h4>
+												<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
+											</div>
 										</div>
-										<div class="containerContent">
-											{if $action == 'edit' && $priceID == $priceObj->priceID}
-												<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
-													<p>{@$priceObj}</p>
-													<div{if $errorField == 'state'} class="formError"{/if}>
-														<select name="state" id="state">
-														{htmloptions options=$states selected=$state}
-														</select>
-														{if $errorField == 'state'}
-															<p class="innerError">
-																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-															</p>
-														{/if}
-													</div>
-													<div{if $errorField == 'message'} class="formError"{/if}>
-														<textarea name="message" id="message" rows="5" cols="40">{$price}</textarea>
-														{if $errorField == 'message'}
-															<p class="innerError">
-																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-																{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.price.error.tooLong{/lang}{/if}
-															</p>
-														{/if}
-													</div>
-													<div class="formSubmit">
-														{@SID_INPUT_TAG}
-														<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
-														<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
-													</div>
-												</form>
-											{else}
-												<div class="buttons">
-													{if $priceObj->isEditable()}<a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.user.contest.entry.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
-													{if $priceObj->isDeletable()}<a href="index.php?action=ContestPriceDelete&amp;priceID={@$priceObj->priceID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.price.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.price.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.user.contest.entry.price.permalink{/lang}">#{#$messageNumber}</a>
-												</div>
-												<p>{@$priceObj->getFormattedMessage()}</p>
-												<p><a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
-												
-											{/if}
+										<div class="messageBody">
+											{@$priceObj->getFormattedMessage()}
 										</div>
-									</li>
-									{assign var='messageNumber' value=$messageNumber-1}
-								{/foreach}
-							</ul>
+								
+										<div class="messageFooter">
+											<div class="smallButtons">
+												<ul>
+													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
+													{if $priceObj->isEditable()}<li><a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.user.contest.entry.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.price.edit{/lang}</span></a></li>{/if}
+													{if $priceObj->isDeletable()}<li><a href="index.php?action=ContestPriceDelete&amp;priceID={@$priceObj->priceID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.price.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.price.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.price.delete{/lang}</span></a></li>{/if}
+												</ul>
+											</div>
+										</div>
+										<hr />
+									</div>
+								</div>
+								{assign var='messageNumber' value=$messageNumber-1}
+							{/foreach}
+						</div>
 							
 							<div class="contentFooter">
 								{@$pagesOutput}

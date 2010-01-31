@@ -46,11 +46,11 @@ class ContestJuryEditForm extends ContestJuryAddForm {
 		AbstractForm::save();
 		
 		// save entry
-		$this->entry->update($this->contestID, $this->userID, $this->groupID, $this->state);
+		$this->entry->update($this->entry->contestID, $this->entry->userID, $this->entry->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestJury&juryID='.$this->entry->juryID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->juryID);
+		HeaderUtil::redirect('index.php?page=ContestJury&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->juryID);
 		exit;
 	}
 	
@@ -62,9 +62,6 @@ class ContestJuryEditForm extends ContestJuryAddForm {
 		
 		// default values
 		if (!count($_POST)) {
-			$this->contestID = $this->entry->contestID;
-			$this->userID = $this->entry->userID;
-			$this->groupID = $this->entry->groupID;
 			$this->state =  $this->entry->state;
 		}
 	}

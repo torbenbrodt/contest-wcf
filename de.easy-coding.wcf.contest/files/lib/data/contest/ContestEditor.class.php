@@ -412,12 +412,13 @@ class ContestEditor extends Contest {
 	}
 	
 	public static function getStates() {
-		return array(
+		$arr = array(
 			'private',
 			'waiting',
 			'reviewed',
 			'scheduled'
 		);
+		return array_combine($arr, $arr);
 	}
 }
 ?>

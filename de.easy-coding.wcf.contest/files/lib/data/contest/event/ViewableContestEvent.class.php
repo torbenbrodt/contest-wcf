@@ -1,7 +1,6 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/event/ContestEvent.class.php');
-require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
 
 /**

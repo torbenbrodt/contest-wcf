@@ -58,6 +58,7 @@
 												{/if}
 											</div>
 											<div class="containerContent">
+												<p style="float:right">*{$entry->state}*</p>
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 												<p class="light smallFont">{@$entry->time|time}</p>
 											</div>
@@ -95,6 +96,7 @@
 						{if $events|count > 0}
 							<a id="events"></a>
 							<div class="contentBox">
+								<div style="float:right"><a href="#"><img src="{icon}contestRssM.png{/icon}" alt="" /></a></div>
 								<h4 class="subHeadline">{lang}wcf.user.contest.entry.events{/lang} <span>({#$items})</span></h4>
 								
 								<div class="contentHeader">

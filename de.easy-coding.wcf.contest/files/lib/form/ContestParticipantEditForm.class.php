@@ -30,7 +30,7 @@ class ContestParticipantEditForm extends ContestParticipantAddForm {
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
-		parent::readParameters();
+		AbstractForm::readParameters();
 		
 		if (isset($_REQUEST['participantID'])) $this->participantID = intval($_REQUEST['participantID']);
 		$this->entry = new ContestParticipantEditor($this->participantID);
@@ -46,11 +46,11 @@ class ContestParticipantEditForm extends ContestParticipantAddForm {
 		AbstractForm::save();
 		
 		// save entry
-		$this->entry->update($this->contestID, $this->userID, $this->groupID, $this->state);
+		$this->entry->update($this->entry->contestID, $this->entry->userID, $this->entry->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestParticipant&participantID='.$this->entry->participantID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->participantID);
+		HeaderUtil::redirect('index.php?page=ContestParticipant&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED.'#entry'.$this->entry->participantID);
 		exit;
 	}
 	
@@ -62,9 +62,6 @@ class ContestParticipantEditForm extends ContestParticipantAddForm {
 		
 		// default values
 		if (!count($_POST)) {
-			$this->contestID = $this->entry->contestID;
-			$this->userID = $this->entry->userID;
-			$this->groupID = $this->entry->groupID;
 			$this->state =  $this->entry->state;
 		}
 	}

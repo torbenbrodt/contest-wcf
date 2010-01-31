@@ -14,6 +14,13 @@ require_once(WCF_DIR.'lib/data/user/group/ContestGroupProfile.class.php');
 class ContestOwner {
 
 	/**
+	 * cache in getGroupids, will become array after first call
+	 * 
+	 * @var null|array
+	 */
+	private static $groupIDs = null;
+
+	/**
 	 * the meaningful instance 
 	 *
 	 * @var UserProfile|ContestGroupProfile
@@ -87,6 +94,22 @@ class ContestOwner {
 		} else {
 			return 'index.php?page=ContestGroup&groupID='.$this->owner->groupID;
 		}
+	}
+	
+	/**
+	 * is the current user member of this?
+	 */
+	public static function isMember($userID, $groupID) {
+		$myuserID = WCF::getUser()->userID;
+		if(empty($userID)) {
+			return false;
+		}
+
+		return $myuserID == $userID || in_array($groupID, self::getGroupIDs());
+	}
+	
+	private static function getGroupIDs($userID) {
+		return self::$groupIDs !== null ? $groupIDs : $groupIDs = WCF::getUser()->getGroupIDs();
 	}
 }
 ?>

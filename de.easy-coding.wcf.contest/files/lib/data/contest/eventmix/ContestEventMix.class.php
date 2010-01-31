@@ -28,30 +28,6 @@ class ContestEventMix extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this event.
-	 * 
-	 * @return	boolean
-	 */
-	public function isEditable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditEventMix')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditOwnEventMix')) || WCF::getUser()->getPermission('mod.contest.canEditEventMix')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns true, if the active user can delete this event.
-	 * 
-	 * @return	boolean
-	 */
-	public function isDeletable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteEventMix')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteOwnEventMix')) || WCF::getUser()->getPermission('mod.contest.canDeleteEventMix')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
 	 * Returns an editor object for this event.
 	 *
 	 * @return	ContestEventMixEditor

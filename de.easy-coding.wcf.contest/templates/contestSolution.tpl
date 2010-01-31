@@ -37,52 +37,49 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestSolution&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<ul class="dataList messages">
-								{assign var='messageNumber' value=$items-$startIndex+1}
-								{foreach from=$solutions item=solutionObj}
-									<li class="{cycle values='container-1,container-2'}">
-										<a id="solution{@$solutionObj->solutionID}"></a>
-										<div class="containerIcon">
-											{if $solutionObj->getOwner()->getAvatar()}
-												{assign var=x value=$solutionObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-												{if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{/if}{@$solutionObj->getOwner()->getAvatar()}{if $solutionObj->userID}</a>{/if}
-											{else}
-												{if $solutionObj->userID}<a href="index.php?page=User&amp;userID={@$solutionObj->userID}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $solutionObj->userID}</a>{/if}
-											{/if}
+							<div class="blogInner">
+							{assign var='messageNumber' value=$items-$startIndex+1}
+							{foreach from=$solutions item=solutionObj}
+								{assign var="contestID" value=$solutionObj->contestID}
+								<div class="message">
+									<div class="messageInner {cycle values='container-1,container-2'}">
+										<a id="solutionObj{@$solutionObj->contestID}"></a>
+										<div class="messageHeader">
+											<p class="messageCount">
+												<a href="index.php?page=ContestSolution&amp;contestID={@$solutionObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+											</p>
+											<div class="containerIcon">
+												{if $solutionObj->getOwner()->getAvatar()}
+													{assign var=x value=$solutionObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
+													<a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}">{@$solutionObj->getOwner()->getAvatar()}</a>
+												{else}
+													<a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+												{/if}
+											</div>
+											<div class="containerContent">
+												<div style="float:right">*{$solutionObj->state}*</div>
+												<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
+											</div>
 										</div>
-										<div class="containerContent">
-											{if $action == 'edit' && $solutionID == $solutionObj->solutionID}
-												<form method="post" action="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit">
-													<div{if $errorField == 'message'} class="formError"{/if}>
-														<textarea name="message" id="message" rows="10" cols="40">{$solution}</textarea>
-														{if $errorField == 'message'}
-															<p class="innerError">
-																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-																{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.solution.error.tooLong{/lang}{/if}
-															</p>
-														{/if}
-													</div>
-													<div class="formSubmit">
-														{@SID_INPUT_TAG}
-														<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
-														<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
-													</div>
-												</form>
-											{else}
-												<div class="buttons">
-													{if $solutionObj->isEditable()}<a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.user.contest.entry.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
-													{if $solutionObj->isDeletable()}<a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.solution.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.user.contest.entry.solution.permalink{/lang}">#{#$messageNumber}</a>
-												</div>
-												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.solution.by{/lang} <a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
-												<p>{@$solutionObj->getFormattedMessage()}</p>
-												
-											{/if}
+										<div class="messageBody">
+											{@$solutionObj->getExcerpt()}
 										</div>
-									</li>
-									{assign var='messageNumber' value=$messageNumber-1}
-								{/foreach}
-							</ul>
+								
+										<div class="messageFooter">
+											<div class="smallButtons">
+												<ul>
+													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
+													{if $solutionObj->isEditable()}<li><a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.user.contest.entry.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.solution.edit{/lang}</span></a></li>{/if}
+													{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.solution.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.solution.delete{/lang}</span></a></li>{/if}
+												</ul>
+											</div>
+										</div>
+										<hr />
+									</div>
+								</div>
+								{assign var='messageNumber' value=$messageNumber-1}
+							{/foreach}
+						</div>
 							
 							<div class="contentFooter">
 								{@$pagesOutput}

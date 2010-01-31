@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest sponsor.
@@ -10,7 +11,7 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSponsor extends DatabaseObject {
+class ContestSponsor extends DatabaseObject {	
 	/**
 	 * Creates a new ContestSponsor object.
 	 *
@@ -82,28 +83,32 @@ class ContestSponsor extends DatabaseObject {
 		
 		return $sponsors;
 	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
 	
 	/**
-	 * Returns true, if the active user can edit this sponsor.
+	 * Returns true, if the active user can edit this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		$userID = WCF::getUser()->userID;
-		if(empty($userID)) {
-			return false;
-		}
-		
-		return $this->userID == $userID || in_array($this->groupID, WCF::getUser()->getGroupIDs());
+		return $this->isMember();
 	}
 	
 	/**
-	 * Returns true, if the active user can delete this sponsor.
+	 * Returns true, if the active user can delete this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isEditable();
+		return $this->isMember();
 	}
 }
 ?>

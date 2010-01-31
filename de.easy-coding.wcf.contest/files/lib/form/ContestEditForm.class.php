@@ -132,7 +132,7 @@ class ContestEditForm extends MessageForm {
 			'untilYear' => date('Y', $until),
 			'untilHour' => date('h', $until),
 			'untilMinute' => date('i', $until),
-		);
+		));
 		
 		$this->availableClasses = ContestClass::getClasses();
 		$this->states = ContestEditor::getStates();

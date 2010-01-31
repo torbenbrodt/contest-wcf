@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry comment.
@@ -28,30 +29,6 @@ class ContestComment extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this comment.
-	 * 
-	 * @return	boolean
-	 */
-	public function isEditable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditComment')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditOwnComment')) || WCF::getUser()->getPermission('mod.contest.canEditComment')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns true, if the active user can delete this comment.
-	 * 
-	 * @return	boolean
-	 */
-	public function isDeletable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteComment')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteOwnComment')) || WCF::getUser()->getPermission('mod.contest.canDeleteComment')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
 	 * Returns an editor object for this comment.
 	 *
 	 * @return	ContestCommentEditor
@@ -59,6 +36,33 @@ class ContestComment extends DatabaseObject {
 	public function getEditor() {
 		require_once(WCF_DIR.'lib/data/contest/comment/ContestCommentEditor.class.php');
 		return new ContestCommentEditor(null, $this->data);
+	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
+	
+	/**
+	 * Returns true, if the active user can edit this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isEditable() {
+		return $this->isMember();
+	}
+	
+	/**
+	 * Returns true, if the active user can delete this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isDeletable() {
+		return $this->isMember();
 	}
 }
 ?>

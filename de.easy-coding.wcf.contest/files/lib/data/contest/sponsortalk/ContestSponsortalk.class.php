@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry sponsortalk.
@@ -28,30 +29,6 @@ class ContestSponsortalk extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this sponsortalk.
-	 * 
-	 * @return	boolean
-	 */
-	public function isEditable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditJury')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canEditOwnJury')) || WCF::getUser()->getPermission('mod.contest.canEditJury')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns true, if the active user can delete this sponsortalk.
-	 * 
-	 * @return	boolean
-	 */
-	public function isDeletable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteJury')) || ($this->userID && $this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canDeleteOwnJury')) || WCF::getUser()->getPermission('mod.contest.canDeleteJury')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
 	 * Returns an editor object for this sponsortalk.
 	 *
 	 * @return	ContestSponsortalkEditor
@@ -59,6 +36,33 @@ class ContestSponsortalk extends DatabaseObject {
 	public function getEditor() {
 		require_once(WCF_DIR.'lib/data/contest/sponsortalk/ContestSponsortalkEditor.class.php');
 		return new ContestSponsortalkEditor(null, $this->data);
+	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
+	
+	/**
+	 * Returns true, if the active user can edit this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isEditable() {
+		return $this->isMember();
+	}
+	
+	/**
+	 * Returns true, if the active user can delete this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isDeletable() {
+		return $this->isMember();
 	}
 }
 ?>

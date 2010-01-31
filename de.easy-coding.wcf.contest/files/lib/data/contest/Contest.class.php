@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
+require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry.
@@ -277,30 +278,6 @@ class Contest extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this entry.
-	 * 
-	 * @return	boolean
-	 */
-	public function isEditable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canUseContest')) || WCF::getUser()->getPermission('mod.contest.canEditEntry')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns true, if the active user can delete this entry.
-	 * 
-	 * @return	boolean
-	 */
-	public function isDeletable() {
-		if (($this->userID == WCF::getUser()->userID && WCF::getUser()->getPermission('user.contest.canUseContest')) || WCF::getUser()->getPermission('mod.contest.canDeleteEntry')) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
 	 * Returns the number of quotes of this entry.
 	 * 
 	 * @return	integer
@@ -324,6 +301,33 @@ class Contest extends DatabaseObject {
 			WHERE	userID = ".$userID;
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['entries'];
+	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	boolean
+	 */
+	public function isMember() {
+		return ContestOwner::isMember($this->userID, $this->groupID);
+	}
+	
+	/**
+	 * Returns true, if the active user can edit this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isEditable() {
+		return $this->isMember();
+	}
+	
+	/**
+	 * Returns true, if the active user can delete this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isDeletable() {
+		return $this->isMember();
 	}
 }
 ?>
