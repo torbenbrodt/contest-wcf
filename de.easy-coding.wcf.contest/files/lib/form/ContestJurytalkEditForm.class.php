@@ -11,22 +11,13 @@ require_once(WCF_DIR.'lib/form/ContestJurytalkAddForm.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestJurytalkEditForm extends ContestJurytalkAddForm {
-	/**
-	 * jurytalk editor
-	 *
-	 * @var ContestJurytalkEditor
-	 */
-	public $jurytalkObj = null;
 	
 	/**
-	 * Creates a new ContestJurytalkEditForm object.
+	 * entry editor object
 	 *
-	 * @param	ContestJurytalk		$jurytalk
+	 * @var ContestJuryEditor
 	 */
-	public function __construct(ContestJurytalk $jurytalk) {
-		$this->jurytalkObj = $jurytalk->getEditor();
-		AbstractForm::__construct();
-	}
+	public $entry = null;
 	
 	/**
 	 * @see Page::readParameters()
@@ -34,9 +25,10 @@ class ContestJurytalkEditForm extends ContestJurytalkAddForm {
 	public function readParameters() {
 		AbstractForm::readParameters();
 		
-		// get jurytalk
-		if (!$this->jurytalkObj->isEditable()) {
-			throw new PermissionDeniedException();
+		if (isset($_REQUEST['jurytalkID'])) $this->jurytalkID = intval($_REQUEST['jurytalkID']);
+		$this->entry = new ContestJurytalkEditor($this->jurytalkID);
+		if (!$this->entry->jurytalkID || !$this->entry->isEditable()) {
+			throw new IllegalLinkException();
 		}
 	}
 	
@@ -47,11 +39,11 @@ class ContestJurytalkEditForm extends ContestJurytalkAddForm {
 		AbstractForm::save();
 		
 		// save jurytalk
-		$this->jurytalkObj->update($this->message);
+		$this->entry->update($this->message);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestJurytalk&contestID='.$this->jurytalkObj->contestID.'&jurytalkID='.$this->jurytalkObj->jurytalkID.SID_ARG_2ND_NOT_ENCODED.'#jurytalk'.$this->jurytalkObj->jurytalkID);
+		HeaderUtil::redirect('index.php?page=ContestJurytalk&contestID='.$this->entry->contestID.'&jurytalkID='.$this->entry->jurytalkID.SID_ARG_2ND_NOT_ENCODED.'#jurytalk'.$this->entry->jurytalkID);
 		exit;
 	}
 	
@@ -62,8 +54,22 @@ class ContestJurytalkEditForm extends ContestJurytalkAddForm {
 		parent::readData();
 		
 		if (!count($_POST)) {
-			$this->jurytalk = $this->jurytalkObj->jurytalk;
+			$this->jurytalk = $this->entry->jurytalk;
+			$this->message = $this->entry->message;
 		}
+	}
+	
+	/**
+	 * @see Page::assignVariables()
+	 */
+	public function assignVariables() {
+		parent::assignVariables();
+		
+		WCF::getTPL()->assign(array(
+			'action' => 'edit',
+			'message' => $this->message,
+			'jurytalkID' => $this->jurytalkID
+		));
 	}
 }
 ?>

@@ -42,6 +42,15 @@ class ViewableContest extends Contest {
 		}
 		DatabaseObject::__construct($row);
 	}
+	
+	/**
+	 * Returns the title of this entry.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return "".$this->title;
+	}
 
 	/**
 	 * @see DatabaseObject::handleData()

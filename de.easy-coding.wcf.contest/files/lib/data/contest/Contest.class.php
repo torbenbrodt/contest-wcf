@@ -35,15 +35,6 @@ class Contest extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this entry.
-	 * 
-	 * @return	string
-	 */
-	public function __toString() {
-		return $this->title;
-	}
-	
-	/**
 	 * Returns the tags of this entry.
 	 * 
 	 * @return	array<Tag>

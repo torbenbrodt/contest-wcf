@@ -11,32 +11,24 @@ require_once(WCF_DIR.'lib/form/ContestSponsortalkAddForm.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestSponsortalkEditForm extends ContestSponsortalkAddForm {
-	/**
-	 * sponsortalk editor
-	 *
-	 * @var ContestSponsortalkEditor
-	 */
-	public $sponsortalkObj = null;
 	
 	/**
-	 * Creates a new ContestSponsortalkEditForm object.
+	 * entry editor object
 	 *
-	 * @param	ContestSponsortalk		$sponsortalk
+	 * @var ContestSponsorEditor
 	 */
-	public function __construct(ContestSponsortalk $sponsortalk) {
-		$this->sponsortalkObj = $sponsortalk->getEditor();
-		CaptchaForm::__construct();
-	}
+	public $entry = null;
 	
 	/**
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
-		CaptchaForm::readParameters();
+		AbstractForm::readParameters();
 		
-		// get sponsortalk
-		if (!$this->sponsortalkObj->isEditable()) {
-			throw new PermissionDeniedException();
+		if (isset($_REQUEST['sponsortalkID'])) $this->sponsortalkID = intval($_REQUEST['sponsortalkID']);
+		$this->entry = new ContestSponsortalkEditor($this->sponsortalkID);
+		if (!$this->entry->sponsortalkID || !$this->entry->isEditable()) {
+			throw new IllegalLinkException();
 		}
 	}
 	
@@ -44,14 +36,14 @@ class ContestSponsortalkEditForm extends ContestSponsortalkAddForm {
 	 * @see Form::save()
 	 */
 	public function save() {
-		CaptchaForm::save();
+		AbstractForm::save();
 		
 		// save sponsortalk
-		$this->sponsortalkObj->update($this->message);
+		$this->entry->update($this->message);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSponsortalk&contestID='.$this->sponsortalkObj->contestID.'&sponsortalkID='.$this->sponsortalkObj->sponsortalkID.SID_ARG_2ND_NOT_ENCODED.'#sponsortalk'.$this->sponsortalkObj->sponsortalkID);
+		HeaderUtil::redirect('index.php?page=ContestSponsortalk&contestID='.$this->entry->contestID.'&sponsortalkID='.$this->entry->sponsortalkID.SID_ARG_2ND_NOT_ENCODED.'#sponsortalk'.$this->entry->sponsortalkID);
 		exit;
 	}
 	
@@ -62,8 +54,22 @@ class ContestSponsortalkEditForm extends ContestSponsortalkAddForm {
 		parent::readData();
 		
 		if (!count($_POST)) {
-			$this->sponsortalk = $this->sponsortalkObj->sponsortalk;
+			$this->sponsortalk = $this->entry->sponsortalk;
+			$this->message = $this->entry->message;
 		}
+	}
+	
+	/**
+	 * @see Page::assignVariables()
+	 */
+	public function assignVariables() {
+		parent::assignVariables();
+		
+		WCF::getTPL()->assign(array(
+			'action' => 'edit',
+			'message' => $this->message,
+			'sponsortalkID' => $this->sponsortalkID
+		));
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
+require_once(WCF_DIR.'lib/form/CaptchaForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php');
 
@@ -12,10 +12,9 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php'
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestJurytalkAddForm extends AbstractForm {
+class ContestJurytalkAddForm extends CaptchaForm {
 	// parameters
 	public $message = '';
-	public $username = '';
 	
 	/**
 	 * entry editor
@@ -54,7 +53,6 @@ class ContestJurytalkAddForm extends AbstractForm {
 		
 		// get parameters
 		if (isset($_POST['message'])) $this->message = StringUtil::trim($_POST['message']);
-		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
 	}
 	
 	/**
@@ -70,33 +68,6 @@ class ContestJurytalkAddForm extends AbstractForm {
 		if (StringUtil::length($this->message) > WCF::getUser()->getPermission('user.contest.maxSolutionLength')) {
 			throw new UserInputException('message', 'tooLong');
 		}
-		
-		// username
-		$this->validateUsername();
-	}
-	
-	/**
-	 * Validates the username.
-	 */
-	protected function validateUsername() {
-		// only for guests
-		if (WCF::getUser()->userID == 0) {
-			// username
-			if (empty($this->username)) {
-				throw new UserInputException('username');
-			}
-			if (!UserUtil::isValidUsername($this->username)) {
-				throw new UserInputException('username', 'notValid');
-			}
-			if (!UserUtil::isAvailableUsername($this->username)) {
-				throw new UserInputException('username', 'notAvailable');
-			}
-			
-			WCF::getSession()->setUsername($this->username);
-		}
-		else {
-			$this->username = WCF::getUser()->username;
-		}
 	}
 	
 	/**
@@ -106,7 +77,7 @@ class ContestJurytalkAddForm extends AbstractForm {
 		parent::save();
 		
 		// save jurytalk
-		$jurytalk = ContestJurytalkEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, $this->username);
+		$jurytalk = ContestJurytalkEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, WCF::getUser()->username);
 		$this->saved();
 		
 		// forward
@@ -122,7 +93,6 @@ class ContestJurytalkAddForm extends AbstractForm {
 		
 		WCF::getTPL()->assign(array(
 			'message' => $this->message,
-			'username' => $this->username,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')
 		));
 	}

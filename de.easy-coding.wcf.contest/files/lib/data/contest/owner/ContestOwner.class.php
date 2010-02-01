@@ -101,14 +101,14 @@ class ContestOwner {
 	 */
 	public static function isMember($userID, $groupID) {
 		$myuserID = WCF::getUser()->userID;
-		if(empty($userID)) {
+		if(empty($myuserID)) {
 			return false;
 		}
 
 		return $myuserID == $userID || in_array($groupID, self::getGroupIDs());
 	}
 	
-	private static function getGroupIDs($userID) {
+	private static function getGroupIDs() {
 		return self::$groupIDs !== null ? $groupIDs : $groupIDs = WCF::getUser()->getGroupIDs();
 	}
 }

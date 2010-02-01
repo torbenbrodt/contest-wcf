@@ -54,7 +54,7 @@
 											{if $action == 'edit' && $jurytalkID == $jurytalkObj->jurytalkID}
 												<form method="post" action="index.php?page=ContestJurytalk&amp;contestID={@$contestID}&amp;jurytalkID={@$jurytalkObj->jurytalkID}&amp;action=edit">
 													<div{if $errorField == 'message'} class="formError"{/if}>
-														<textarea name="message" id="message" rows="10" cols="40">{$jurytalk}</textarea>
+														<textarea name="message" id="message" rows="10" cols="40">{$message}</textarea>
 														{if $errorField == 'message'}
 															<p class="innerError">
 																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}

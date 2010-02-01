@@ -128,24 +128,24 @@ class ContestEditor extends Contest {
 	 * @param	integer				$groupID
 	 * @param	string				$subject
 	 * @param	string				$message
+	 * @param	string				$state
 	 * @param	array				$options 
 	 * @param	integer				$classIDArray
-	 * @param	integer				$participants
-	 * @param	integer				$jurys
-	 * @param	integer				$prices
-	 * @param	integer				$sponsors
 	 * @param	MessageAttachmentListEditor	$attachmentList 
 	 */
-	public function update($userID, $groupID, $subject, $message, $options = array(), $classIDArray = array(), $participants = array(), $jurys = array(), $prices = array(), $sponsors = array(), $attachmentList = null) {
+	public function update($userID, $groupID, $subject, $message, $fromTime, $untilTime, $state, $options = array(), $classIDArray = array(), $attachmentList = null) {
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments($this->contestID)) : 0);
 		
 		// update data
 		$sql = "UPDATE	wcf".WCF_N."_contest
-			SET	userID = '".intval($userID)."',
-				groupID = '".intval($groupID)."',
+			SET	userID = ".intval($userID).",
+				groupID = ".intval($groupID).",
 				subject = '".escapeString($subject)."',
 				message = '".escapeString($message)."',
+				fromTime = ".intval($fromTime).",
+				untilTime = ".intval($untilTime).",
+				state = '".escapeString($state)."',
 				attachments = ".$attachmentsAmount.",
 				enableSmilies = ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 				enableHtml = ".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
@@ -160,26 +160,6 @@ class ContestEditor extends Contest {
 		
 		// update classes
 		$this->setClasses($classIDArray);
-		
-		// update participants
-		$entry->setParticipants($participants);
-		
-		// update jurys
-		$this->setJurys($jurys);
-		
-		// update sponsors
-		if(count($prices)) {
-			$sponsorID = $entry->setSponsors($sponsors, $userID, $groupID);
-		} else {
-			$entry->setSponsors($sponsors);
-			$sponsorID = 0;
-		}
-		
-		if($sponsorID) {
-		
-			// update prices
-			$this->setPrices($prices, $sponsorID);
-		}
 	}
 	
 	/**

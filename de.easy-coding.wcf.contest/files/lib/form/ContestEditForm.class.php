@@ -5,7 +5,6 @@ require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
 require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
-require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
 require_once(WCF_DIR.'lib/data/contest/date/ContestDate.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
@@ -32,8 +31,8 @@ class ContestEditForm extends MessageForm {
 	public $userID = 0;
 	public $groupID = 0;
 	public $state = '';
-	public $fromTime = '';
-	public $untilTime = '';
+	public $fromTime = 0;
+	public $untilTime = 0;
 	public $isFullDay = 0;
 	
 	/**
@@ -68,6 +67,24 @@ class ContestEditForm extends MessageForm {
 	 *
 	 */
 	public $states = array();
+	
+	/**
+	 * start
+	 */
+	public $fromDay = 0;
+	public $fromMonth = 0;
+	public $fromYear = 0;
+	public $fromHour = 0;
+	public $fromMinute = 0;
+	
+	/**
+	 * end
+	 */
+	public $untilDay = 0;
+	public $untilMonth = 0;
+	public $untilYear = 0;
+	public $untilHour = 0;
+	public $untilMinute = 0;
 	
 	/**
 	 * @see Page::readParameters()
@@ -120,6 +137,7 @@ class ContestEditForm extends MessageForm {
 
 		$from = $this->fromTime == 0 ? time() : $this->fromTime;
 		$until = $this->untilTime == 0 ? time() : $this->untilTime;
+		
 		$this->eventDate = new ContestDate(array(
 			'isFullDay' => $this->isFullDay,
 			'fromDay' => date('d', $from),
@@ -147,8 +165,41 @@ class ContestEditForm extends MessageForm {
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
+		if (isset($_POST['state'])) $this->state = StringUtil::trim($_POST['state']);
 		if (isset($_POST['classIDArray']) && is_array($_POST['classIDArray'])) $this->classIDArray = $_POST['classIDArray'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		
+		if (isset($_POST['fromDay'])) $this->fromDay = intval($_POST['fromDay']);
+		if (isset($_POST['fromMonth'])) $this->fromMonth = intval($_POST['fromMonth']);
+		if (isset($_POST['fromYear'])) $this->fromYear = intval($_POST['fromYear']);
+		if (isset($_POST['fromHour'])) $this->fromHour = intval($_POST['fromHour']);
+		if (isset($_POST['fromMinute'])) $this->fromMinute = intval($_POST['fromMinute']);
+		
+		// starttime
+		$this->fromTime = mktime(
+			$this->fromHour, 
+			$this->fromMinute, 
+			0, // second 
+			$this->fromMonth, 
+			$this->fromDay, 
+			$this->fromYear
+		);
+
+		if (isset($_POST['untilDay'])) $this->untilDay = intval($_POST['untilDay']);
+		if (isset($_POST['untilMonth'])) $this->untilMonth = intval($_POST['untilMonth']);
+		if (isset($_POST['untilYear'])) $this->untilYear = intval($_POST['untilYear']);
+		if (isset($_POST['untilHour'])) $this->untilHour = intval($_POST['untilHour']);
+		if (isset($_POST['untilMinute'])) $this->untilMinute = intval($_POST['untilMinute']);
+		
+		// endtime
+		$this->untilTime = mktime(
+			$this->untilHour, 
+			$this->untilMinute, 
+			0, // second
+			$this->untilMonth, 
+			$this->untilDay, 
+			$this->untilYear
+		);
 		
 		if ($this->ownerID == 0) {
 			$this->userID = WCF::getUser()->userID;
@@ -191,18 +242,18 @@ class ContestEditForm extends MessageForm {
 		parent::save();
 		
 		// save entry
-		$this->entry->update($this->userID, $this->groupID, $this->subject, $this->text, $this->getOptions(), 
-			$this->classIDArray, $this->participants, $this->jurys, $this->prices, $this->sponsors, $this->attachmentListEditor);
+		$this->entry->update($this->userID, $this->groupID, $this->subject, $this->text, $this->fromTime, $this->untilTime, $this->state, $this->getOptions(), 
+			$this->classIDArray, $this->attachmentListEditor);
 		$this->saved();
 		
 		// save tags
 		if (MODULE_TAGGING) {
 			$tagArray = TaggingUtil::splitString($this->tags);
-			if (count($tagArray)) $entry->updateTags($tagArray);
+			if (count($tagArray)) $this->entry->updateTags($tagArray);
 		}
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=Contest&contestID='.$entry->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?form=ContestEdit&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED);
 		exit;
 	}
 	
@@ -214,12 +265,13 @@ class ContestEditForm extends MessageForm {
 
 		InlineCalendar::assignVariables();		
 		WCF::getTPL()->assign(array(
-			'action' => 'add',
+			'action' => 'edit',
 			'userID' => WCF::getUser()->userID,
 			'tags' => $this->tags,
 			'insertQuotes' => (!count($_POST) && empty($this->text) ? 1 : 0),
 			'availableClasses' => $this->availableClasses,
 			'availableGroups' => $this->availableGroups,
+			'contestID' => $this->contestID,
 			'ownerID' => $this->ownerID,
 			'classIDArray' => $this->classIDArray,
 			'states' => $this->states,
