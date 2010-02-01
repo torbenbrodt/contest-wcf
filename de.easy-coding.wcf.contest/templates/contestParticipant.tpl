@@ -99,9 +99,7 @@
 							</div>
 						</div>
 						
-						{if $entry->isParticipantable()}{assign var=participantUsername value=$username}{/if}
 						{if $entry->isParticipantable() && $action != 'edit'}
-							{assign var=username value=$participantUsername}
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>
