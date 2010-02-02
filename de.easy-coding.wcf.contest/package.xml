@@ -22,12 +22,11 @@
 		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.form.message</requiredpackage>
 	<!--	<requiredpackage minversion="0.8.2">de.easy-coding.wcf.taggingreloaded</requiredpackage> -->
 		<requiredpackage file="requirements/de.easy-coding.wcf.contest.groupprofile.tar.gz">de.easy-coding.wcf.contest.groupprofile</requiredpackage>
-		<requiredpackage>com.woltlab.wcf.message.multiQuote</requiredpackage>
-		<requiredpackage>com.woltlab.wcf.user.infraction</requiredpackage>
 	</requiredpackages>
 	
 	<optionalpackages>
                 <optionalpackage file="optionals/de.easy-coding.wcf.contest.notification.tar.gz">de.easy-coding.wcf.contest.notification</optionalpackage>
+                <optionalpackage file="optionals/de.easy-coding.wcf.contest.infraction.tar.gz">de.easy-coding.wcf.contest.infraction</optionalpackage>
                 <optionalpackage file="optionals/de.easy-coding.wcf.contest.easycoding.tar.gz">de.easy-coding.wcf.contest.easycoding</optionalpackage>
 	</optionalpackages>
 	
@@ -45,7 +44,6 @@
 		<groupoptions>groupoptions.xml</groupoptions>
 		<pagemenu>pagemenu.xml</pagemenu>
 		<pagelocation>pagelocation.xml</pagelocation>
-		<warningobjecttype>warningobjecttype.xml</warningobjecttype>
 		<help>help.xml</help>
 		<searchablemessagetypes>smt.xml</searchablemessagetypes>
 		<attachmentcontainertype>act.xml</attachmentcontainertype>

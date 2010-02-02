@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
-<package name="de.easy-coding.wcf.contest.contest">
+<package name="de.easy-coding.wcf.contest.standalone">
 	<packageinformation>
-		<packagename><![CDATA[easy-coding "contest" Contest]]></packagename>
-		<packagedescription><![CDATA[contest contest]]></packagedescription>
+		<packagename><![CDATA[easy-coding "contest"]]></packagename>
+		<packagedescription><![CDATA[contest standalone]]></packagedescription>
 		<isunique>1</isunique>
-		<contest>1</contest>
-		<version>0.2.1 Beta 1</version>
-		<date>2010-01-31</date>
+		<standalone>1</standalone>
+		<version>0.2.2 Beta 1</version>
+		<date>DATE</date>
 	</packageinformation>
 
 	<authorinformation>
@@ -16,18 +16,38 @@
 	</authorinformation>
 
 	<requiredpackages>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.system.style</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.page.headerMenu</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.page</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.help</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.form.user</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.form.user.signature</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.page.user.profile</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.data.cronjobs</requiredpackage>
-		<requiredpackage minversion="1.1.0">com.woltlab.wcf.acp.display.style</requiredpackage>
+		<!-- basics -->
+		<requiredpackage minversion="1.1.1 pl 1" file="requirements/com.woltlab.wcf.tar.gz">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.data.cronjobs.tar.gz">com.woltlab.wcf.data.cronjobs</requiredpackage>
+		<requiredpackage minversion="1.0.3" file="requirements/com.woltlab.wcf.data.feed.reader.tar.gz">com.woltlab.wcf.data.feed.reader</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.image.tar.gz">com.woltlab.wcf.data.image</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.image.captcha.tar.gz">com.woltlab.wcf.data.image.captcha</requiredpackage>
+		<requiredpackage minversion="1.0.1" file="requirements/com.woltlab.wcf.imageViewer.tar.gz">com.woltlab.wcf.imageViewer</requiredpackage>
 		
-		<requiredpackage file="requirements/de.easy-coding.wcf.contest.tar.gz">de.easy-coding.wcf.contest</requiredpackage>
+		<!-- page system -->
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.data.page.headerMenu.tar.gz">com.woltlab.wcf.data.page.headerMenu</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.system.style.tar.gz">com.woltlab.wcf.system.style</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.page.tar.gz">com.woltlab.wcf.data.page</requiredpackage>
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.data.help.tar.gz">com.woltlab.wcf.data.help</requiredpackage>
+		
+		<!-- message -->
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.tar.gz">com.woltlab.wcf.data.message</requiredpackage>
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.data.message.attachment.tar.gz">com.woltlab.wcf.data.message.attachment</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.bbcode.tar.gz">com.woltlab.wcf.data.message.bbcode</requiredpackage>
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.form.message.wysiwyg.tar.gz">com.woltlab.wcf.form.message.wysiwyg</requiredpackage>
+		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.tagging.tar.gz">com.woltlab.wcf.tagging</requiredpackage>
+		
+		<!-- user profile -->
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.form.user.tar.gz">com.woltlab.wcf.form.user</requiredpackage>
+		<requiredpackage minversion="1.1.1 pl 1" file="requirements/com.woltlab.wcf.page.user.profile.tar.gz">com.woltlab.wcf.page.user.profile</requiredpackage>
+		
+		<!-- messages -->
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.poll.tar.gz">com.woltlab.wcf.data.message.poll</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.censorship.tar.gz">com.woltlab.wcf.data.message.censorship</requiredpackage>
+		<requiredpackage minversion="1.1.1" file="requirements/com.woltlab.wcf.form.message.tar.gz">com.woltlab.wcf.form.message</requiredpackage>
+		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.search.tar.gz">com.woltlab.wcf.data.message.search</requiredpackage>
+		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.message.sidebar.tar.gz">com.woltlab.wcf.message.sidebar</requiredpackage>
+		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.data.message.search.tagging.tar.gz">com.woltlab.wcf.data.message.search.tagging</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
@@ -35,5 +55,7 @@
 		<options>options.xml</options>
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		
+		<style default="true">woltlab-green-sunrise-lite-style.tar.gz</style>
 	</instructions>
 </package>

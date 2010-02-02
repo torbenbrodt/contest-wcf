@@ -1,5 +1,5 @@
 <div class="copyright">
-	<span>Copyright &copy; 2001-2009 WoltLab&reg; GmbH</span>
+	<span>Copyright &copy; 2010 easy-coding.de</span>
 </div>
 	
 	</div>
