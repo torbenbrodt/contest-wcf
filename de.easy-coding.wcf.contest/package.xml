@@ -2,8 +2,8 @@
 <!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
 <package name="de.easy-coding.wcf.contest">
 	<packageinformation>
-		<packagename>easy-coding "contest"</packagename>
-		<packagedescription>contest portal.</packagedescription>
+		<packagename>easy-coding "contest" app</packagename>
+		<packagedescription>contest application.</packagedescription>
 		<version>0.2.2 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>

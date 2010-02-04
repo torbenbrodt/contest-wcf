@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
-<package name="de.easy-coding.wcf.contest.standalone">
+<package name="de.easy-coding.wcf.standalone.contest">
 	<packageinformation>
-		<packagename><![CDATA[easy-coding "contest"]]></packagename>
+		<packagename><![CDATA[easy-coding "contest" standalone]]></packagename>
 		<packagedescription><![CDATA[contest standalone]]></packagedescription>
 		<isunique>1</isunique>
 		<standalone>1</standalone>
@@ -56,6 +56,6 @@
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
 		
-		<style default="true">woltlab-green-sunrise-lite-style.tar.gz</style>
+	<!--	<style default="true">styles/woltlab-green-sunrise-lite-style.tar.gz</style> -->
 	</instructions>
 </package>

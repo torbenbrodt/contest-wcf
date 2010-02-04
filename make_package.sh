@@ -5,8 +5,13 @@
 #		(2) = version output (optional)
 #
 # by Torben Brodt
+if [ $1 ]; then
+	PARAM=$1
+else
+	PARAM="de.easy-coding.wcf.contest"
+fi
 
-cd $1
+cd $PARAM
 
 # fetch packagename and version
 TITLE=`grep "<package name=" package.xml | cut -d '"' -f2`
@@ -70,6 +75,11 @@ if [ -d "acptemplates" ]; then
 	cd acptemplates
 	tar cvf ../acptemplates.tar * --exclude=*/.svn*
 	cd ..
+fi
+
+# create styles.tar
+if [ -d "styles" ]; then
+	TAR_STRING="$TAR_STRING styles/*"
 fi
 
 # package requirements

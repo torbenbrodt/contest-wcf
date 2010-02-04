@@ -8,21 +8,21 @@ sh make_package.sh standalone/WCFSetup/install/packages/com.woltlab.wcf/
 mv standalone/WCFSetup/install/packages/$original standalone/WCFSetup/install/packages/com.woltlab.wcf.tar.gz
 gunzip -f standalone/WCFSetup/install/packages/com.woltlab.wcf.tar.gz
 
-original=`sh make_package.sh standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.standalone/ -v`
-sh make_package.sh standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.standalone/
-mv standalone/WCFSetup/install/packages/$original standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.standalone.tar.gz
-gunzip -f standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.standalone.tar.gz
+original=`sh make_package.sh standalone/WCFSetup/install/packages/de.easy-coding.wcf.standalone.contest/ -v`
+sh make_package.sh standalone/WCFSetup/install/packages/de.easy-coding.wcf.standalone.contest/
+mv standalone/WCFSetup/install/packages/$original standalone/WCFSetup/install/packages/package1.tar.gz # needs alphabetical ordner
+gunzip -f standalone/WCFSetup/install/packages/package1.tar.gz
 
 original=`sh make_package.sh de.easy-coding.wcf.contest/ -v`
 sh make_package.sh de.easy-coding.wcf.contest/
-mv $original standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.tar.gz
-gunzip -f standalone/WCFSetup/install/packages/de.easy-coding.wcf.contest.tar.gz
+mv $original standalone/WCFSetup/install/packages/package2.tar.gz # needs alphabetical order
+gunzip -f standalone/WCFSetup/install/packages/package2.tar.gz
 
 cd standalone/WCFSetup
-tar cvfz ../WCFSetup.tar.gz * --exclude=*/.svn* --exclude=install/packages/com.woltlab.wcf --exclude=install/packages/de.easy-coding.wcf.contest.standalone
+tar cvfz ../WCFSetup.tar.gz * --exclude=*/.svn* --exclude=install/packages/com.woltlab.wcf --exclude=install/packages/de.easy-coding.wcf.standalone.contest --exclude=install/packages/de.easy-coding.wcf.contest.standalone
 rm -f install/packages/com.woltlab.wcf.tar
-rm -f install/packages/de.easy-coding.wcf.contest.tar
-rm -f install/packages/de.easy-coding.wcf.contest.standalone.tar
+rm -f install/packages/package1.tar
+rm -f install/packages/package2.tar
 cd ..
 
 rm -f easycodingcontest.zip
