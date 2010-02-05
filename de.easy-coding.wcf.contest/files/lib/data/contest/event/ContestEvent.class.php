@@ -58,12 +58,12 @@ class ContestEvent extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns true, if the active user can edit this entry.
+	 * events can be deleted - but not being edited
 	 * 
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isMember();
+		return false;
 	}
 	
 	/**

@@ -132,7 +132,7 @@
 					<input type="text" tabindex="5" id="searchInput" class="inputText" name="{@$searchFieldName}" value="{if !$searchFieldValue|empty}{$searchFieldValue}{else}{@$searchFieldTitle}{/if}" />
 					<input type="image" tabindex="6" id="searchSubmit" class="searchSubmit inputImage" src="{@RELATIVE_WCF_DIR}icon/submitS.png" alt="{lang}wcf.global.button.submit{/lang}" />
 					{@SID_INPUT_TAG}
-					{if $searchHiddenFields|isset}{@$searchHiddenFields}{else}<input type="hidden" name="types[]" value="article" />{/if}
+					{if $searchHiddenFields|isset}{@$searchHiddenFields}{else}<input type="hidden" name="types[]" value="contest" />{/if}
 					
 					<script type="text/javascript">
 						//<![CDATA[

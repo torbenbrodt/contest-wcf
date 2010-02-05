@@ -5,9 +5,6 @@
 <meta name="keywords" content="{META_KEYWORDS}" />
 {if !$allowSpidersToIndexThisPage|isset}<meta name="robots" content="noindex,nofollow" />{/if}
 
-<!-- contest styles -->
-<link rel="stylesheet" type="text/css" media="screen" href="{@RELATIVE_CONTEST_DIR}style/contest.css" />
-
 {if $specialStyles|isset}
 	<!-- special styles -->
 	{@$specialStyles}
@@ -45,6 +42,7 @@
 
 {if $this->getStyle()->getVariable('global.favicon')}<link rel="shortcut icon" href="{@RELATIVE_WCF_DIR}icon/favicon/favicon{$this->getStyle()->getVariable('global.favicon')|ucfirst}.ico" type="image/x-icon" />{/if}
 
+<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/3rdParty/protoaculous.1.8.2.min.js"></script>
 <script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/default.js"></script>
 <script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/PopupMenuList.class.js"></script>
 <script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/AjaxRequest.class.js"></script>

@@ -34,16 +34,3 @@
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>
-
-{if $insertQuotes == 1}
-	<script type="text/javascript">
-		//<![CDATA[
-		document.observe("dom:loaded", function() {
-			window.setTimeout(function() {
-				multiQuoteManagerObj.insertParentQuotes('contestEntry', {@$userID});
-				multiQuoteManagerObj.insertParentQuotes('contestEntrySolution', {@$userID});
-			}, 500);
-		});
-		//]]>
-	</script>
-{/if}

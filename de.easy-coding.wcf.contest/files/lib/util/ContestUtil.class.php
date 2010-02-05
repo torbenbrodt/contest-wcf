@@ -21,10 +21,7 @@ class ContestUtil {
 					) AS members
 			FROM 		wcf".WCF_N."_group usergroup
 			WHERE		groupID IN (
-						SELECT	groupID
-						FROM	wcf".WCF_N."_group_leader
-						WHERE	leaderUserID = ".WCF::getUser()->userID."
-							OR leaderGroupID IN (".implode(',', WCF::getUser()->getGroupIDs()).")
+						".implode(',', WCF::getUser()->getGroupIDs())."
 					)
 			ORDER BY 	groupName";
 		$result = WCF::getDB()->sendQuery($sql);
