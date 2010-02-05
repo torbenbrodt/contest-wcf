@@ -45,7 +45,7 @@
 		<p class="error">{@$errorMessage}</p>
 	{/if}
 	
-	<form method="post" action="index.php?form=WikiSearch">
+	<form method="post" action="index.php?form=Search">
 		<div class="border content">
 			<div class="container-1">
 				<fieldset>

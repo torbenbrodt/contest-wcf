@@ -112,16 +112,16 @@
 	 * $searchShowExtendedLink=set to false to disable extended search link; default=true
 	 *}
 	
-	{if !$searchScript|isset}{assign var='searchScript' value='index.php?form=WikiSearch'}{/if}
+	{if !$searchScript|isset}{assign var='searchScript' value='index.php?form=Search'}{/if}
 	{if !$searchFieldName|isset}{assign var='searchFieldName' value='q'}{/if}
 	{if !$searchFieldValue|isset && $query|isset}{assign var='searchFieldValue' value=$query}{/if}
 	{if !$searchFieldTitle|isset}{assign var='searchFieldTitle' value='{lang}contest.header.search.query{/lang}'}{/if}
 	{if !$searchFieldOptions|isset}
 		{capture assign=searchFieldOptions}
-			{*<li><a href="index.php?form=WikiSearch&amp;action=24h{@SID_ARG_2ND}">{lang}contest.search.threadsOfTheLast24Hours{/lang}</a></li>*}
+			{*<li><a href="index.php?form=Search&amp;action=24h{@SID_ARG_2ND}">{lang}contest.search.threadsOfTheLast24Hours{/lang}</a></li>*}
 		{/capture}
 	{/if}
-	{if !$searchExtendedLink|isset}{assign var='searchExtendedLink' value='index.php?form=WikiSearch'|concat:SID_ARG_2ND}{/if}
+	{if !$searchExtendedLink|isset}{assign var='searchExtendedLink' value='index.php?form=Search'|concat:SID_ARG_2ND}{/if}
 	{if !$searchShowExtendedLink|isset}{assign var='searchShowExtendedLink' value=true}{/if}
 		
 	<div id="header" class="border">
@@ -139,7 +139,7 @@
 						document.getElementById('searchInput').setAttribute('autocomplete', 'off');
 						document.getElementById('searchInput').onfocus = function() { if (this.value == '{@$searchFieldTitle}') this.value=''; };
 						document.getElementById('searchInput').onblur = function() { if (this.value == '') this.value = '{@$searchFieldTitle}'; };
-						document.getElementById('searchSubmit').ondblclick = function() { window.location = 'index.php?form=WikiSearch{@SID_ARG_2ND_NOT_ENCODED}'; };
+						document.getElementById('searchSubmit').ondblclick = function() { window.location = 'index.php?form=Search{@SID_ARG_2ND_NOT_ENCODED}'; };
 						{if $searchFieldOptions || $searchShowExtendedLink}
 							popupMenuList.register("searchInput");
 							document.getElementById('searchInput').className += " searchOptions";
@@ -171,7 +171,7 @@
 			<h1 class="pageTitle"><a href="index.php?page=Index{@SID_ARG_2ND}">{PAGE_TITLE}</a></h1>
 			{if $this->getStyle()->getVariable('page.logo.image')}
 				<a href="index.php?page=Index{@SID_ARG_2ND}" class="pageLogo">
-					<img src="images/wiki-header-logo.png" title="{PAGE_TITLE}" alt="" />
+					<img src="images/contest-header-logo.png" title="{PAGE_TITLE}" alt="" />
 				</a>
 			{/if}
 		</div>

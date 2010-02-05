@@ -5,7 +5,7 @@
 <meta name="keywords" content="{META_KEYWORDS}" />
 {if !$allowSpidersToIndexThisPage|isset}<meta name="robots" content="noindex,nofollow" />{/if}
 
-<!-- wiki styles -->
+<!-- contest styles -->
 <link rel="stylesheet" type="text/css" media="screen" href="{@RELATIVE_CONTEST_DIR}style/contest.css" />
 
 {if $specialStyles|isset}
