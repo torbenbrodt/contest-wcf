@@ -84,18 +84,18 @@
 	//]]>
 </script>
 
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}wcf.user.contest.entry.settings{/lang}</h3>
-<p>{lang}wcf.user.contest.entry.contest.description{/lang}</p>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.settings{/lang}</h3>
+<p>{lang}wcf.contest.contest.description{/lang}</p>
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.settings{/lang}</legend>
+	<legend>{lang}wcf.contest.settings{/lang}</legend>
 	
 	<div class="formElement{if $errorField == 'state'} formError{/if}">
 		<div class="formFieldLabel">
-			<label>{lang}wcf.user.contest.entry.state{/lang}</label>
+			<label>{lang}wcf.contest.state{/lang}</label>
 		</div>
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.state{/lang}</legend>
+				<legend>{lang}wcf.contest.state{/lang}</legend>
 				{foreach from=$states item=availableState}
 					<label><input type="radio" name="state" value="{@$availableState}" {if $state == $availableState}checked="checked" {/if}/> {lang}{$availableState}{/lang}</label>
 				{/foreach}

@@ -6,7 +6,7 @@
 			</div>
 			<div class="containerContent">
 				<p class="light smallFont">{@$item.message->time|time}</p>
-				<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="index.php?page=User&amp;userID={@$item.message->userID}{@SID_ARG_2ND}">{$item.message->username}</a></p>
+				<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="index.php?page=User&amp;userID={@$item.message->userID}{@SID_ARG_2ND}">{$item.message->username}</a></p>
 			</div>
 		</div>
 		

@@ -14,7 +14,7 @@
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -31,7 +31,7 @@
 					<div class="columnInner">
 						
 						<div class="contentBox">
-							<h4 class="subHeadline">{lang}wcf.user.contest.entry.solutions{/lang} <span>({#$items})</span></h4>
+							<h4 class="subHeadline">{lang}wcf.contest.solutions{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestSolution&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -46,7 +46,7 @@
 										<a id="solutionObj{@$solutionObj->contestID}"></a>
 										<div class="messageHeader">
 											<p class="messageCount">
-												<a href="index.php?page=ContestSolution&amp;contestID={@$solutionObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+												<a href="index.php?page=ContestSolution&amp;contestID={@$solutionObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 											</p>
 											<div class="containerIcon">
 												{if $solutionObj->getOwner()->getAvatar()}
@@ -58,7 +58,7 @@
 											</div>
 											<div class="containerContent">
 												<div style="float:right">*{$solutionObj->state}*</div>
-												<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
+												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
 											</div>
 										</div>
 										<div class="messageBody">
@@ -69,8 +69,8 @@
 											<div class="smallButtons">
 												<ul>
 													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-													{if $solutionObj->isEditable()}<li><a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.user.contest.entry.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.solution.edit{/lang}</span></a></li>{/if}
-													{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.solution.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.solution.delete{/lang}</span></a></li>{/if}
+													{if $solutionObj->isEditable()}<li><a href="index.php?page=ContestSolution&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.contest.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.contest.solution.edit{/lang}</span></a></li>{/if}
+													{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.solution.delete.sure{/lang}')" title="{lang}wcf.contest.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.contest.solution.delete{/lang}</span></a></li>{/if}
 												</ul>
 											</div>
 										</div>
@@ -100,32 +100,32 @@
 									<fieldset>
 										<div class="formElement{if $errorField == 'owner'} formError{/if}">
 											<div class="formFieldLabel">
-												<label>{lang}wcf.user.contest.entry.owner{/lang}</label>
+												<label>{lang}wcf.contest.owner{/lang}</label>
 											</div>
 											<div class="formField">
 												<fieldset>
-													<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.user.contest.entry.owner.self{/lang}</label>
+													<legend>{lang}wcf.contest.owner{/lang}</legend>
+														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
 													{foreach from=$availableGroups item=availableGroup}
 														<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
 													{/foreach}
 												</fieldset>
 											</div>
 											<div class="formFieldDesc">
-												{lang}wcf.user.contest.entry.owner.description{/lang}
+												{lang}wcf.contest.solution.description{/lang}
 											</div>
 										</div>
 										
 										<div class="formElement{if $errorField == 'message' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="message">{lang}wcf.user.contest.entry.solution{/lang}</label>
+												<label for="message">{lang}wcf.contest.solution{/lang}</label>
 											</div>
 											<div class="formField">
 												<textarea name="message" id="message" rows="10" cols="40">{$message}</textarea>
 												{if $errorField == 'message' && $action == 'add'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.solution.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.contest.solution.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>

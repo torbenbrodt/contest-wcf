@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{lang}wcf.user.contest.entry.{@$action}{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{lang}wcf.contest.{@$action}{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	
 	{include file='headInclude' sandbox=false}
 	{if $canUseBBCodes}{include file="wysiwyg"}{/if}
@@ -11,13 +11,13 @@
 <div id="main">
 	<ul class="breadCrumbs">
 		<li><a href="index.php?page=Index{@SID_ARG_2ND}"><img src="{icon}indexS.png{/icon}" alt="" /> <span>{lang}{PAGE_TITLE}{/lang}</span></a> &raquo;</li>
-		<li><a href="index.php?page=ContestOverview{@SID_ARG_2ND}"><img src="{icon}contestS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest{/lang}</span></a> &raquo;</li>
+		<li><a href="index.php?page=ContestOverview{@SID_ARG_2ND}"><img src="{icon}contestS.png{/icon}" alt="" /> <span>{lang}wcf.contest{/lang}</span></a> &raquo;</li>
 	</ul>
 	
 	<div class="mainHeadline">
 		<img src="{icon}contestL.png{/icon}" alt="" />
 		<div class="headlineContainer">
-			<h2>{lang}wcf.user.contest.entry.{@$action}{/lang}</h2>
+			<h2>{lang}wcf.contest.{@$action}{/lang}</h2>
 		</div>
 	</div>
 	
@@ -32,7 +32,7 @@
 	<form method="post" action="index.php?form=ContestJury{@$action|ucfirst}{if $action == 'add'}{elseif $action == 'edit'}&amp;entryID={@$entryID}{/if}">
 		<div class="border content">
 			<div class="container-1 blog">
-				<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}</h3>
+				<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}</h3>
 				
 				{if $additionalLargeButtons|isset && $additionalLargeButtons|count}
 				<div class="contentHeader">
@@ -45,11 +45,11 @@
 				{/if}
 				
 				<fieldset>
-					<legend>{lang}wcf.user.contest.entry.information{/lang}</legend>
+					<legend>{lang}wcf.contest.information{/lang}</legend>
 					
 					<div class="formElement{if $errorField == 'subject'} formError{/if}">
 						<div class="formFieldLabel">
-							<label for="subject">{lang}wcf.user.contest.entry.subject{/lang}</label>
+							<label for="subject">{lang}wcf.contest.subject{/lang}</label>
 						</div>
 						<div class="formField">
 							<input type="text" class="inputText" name="subject" id="subject" value="{$subject}" tabindex="{counter name='tabindex'}" />
@@ -65,17 +65,17 @@
 				</fieldset>
 
 				<fieldset>
-					<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-					<p>{lang}wcf.user.contest.entry.owner.description{/lang}</p>
+					<legend>{lang}wcf.contest.owner{/lang}</legend>
+					<p>{lang}wcf.contest.owner.description{/lang}</p>
 	
 					<div class="formElement{if $errorField == 'owner'} formError{/if}">
 						<div class="formFieldLabel">
-							<label>{lang}wcf.user.contest.entry.owner{/lang}</label>
+							<label>{lang}wcf.contest.owner{/lang}</label>
 						</div>
 						<div class="formField">
 							<fieldset>
-								<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-									<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.user.contest.entry.owner.self{/lang}</label>
+								<legend>{lang}wcf.contest.owner{/lang}</legend>
+									<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
 								{foreach from=$availableGroups item=availableGroup}
 									<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
 								{/foreach}

@@ -22,14 +22,14 @@ onloadEvents.push(function() {
 });
 </script>
 
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}wcf.user.contest.participants{/lang}</h3>
-<p>{lang}wcf.user.contest.entry.participant.description{/lang}</p>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.participants{/lang}</h3>
+<p>{lang}wcf.contest.participant.owner.description{/lang}</p>
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.participant{/lang}</legend>
+	<legend>{lang}wcf.contest.participant{/lang}</legend>
 	
 	<div class="formElement">
 		<div class="formFieldLabel" id="participantTitle">
-			{lang}wcf.user.contest.entry.participant.add{/lang}
+			{lang}wcf.contest.participant.add{/lang}
 		</div>
 		<div class="formField"><div id="participant" class="accessRights"></div></div>
 	</div>
@@ -43,7 +43,7 @@ onloadEvents.push(function() {
 				suggestion.init('participantAddInput');
 				//]]>
 			</script>
-			<input id="participantAddButton" type="button" value="{lang}wcf.user.contest.entry.participant.add{/lang}" />
+			<input id="participantAddButton" type="button" value="{lang}wcf.contest.participant.add{/lang}" />
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
 	</div>
@@ -70,10 +70,10 @@ onloadEvents.push(function() {
 	<div class="formElement" id="comment">
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.comment{/lang}</legend>
+				<legend>{lang}wcf.contest.comment{/lang}</legend>
 				<div class="formElement">
 					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.comment.message{/lang}
+						{lang}wcf.contest.comment.message{/lang}
 					</div>
 					<div class="formField">
 						<textarea id="commentAddText" type="text" name="commentAddText" rows="5" cols="40"></textarea>

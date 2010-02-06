@@ -5,6 +5,9 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry.
+ * 
+ * a contest can only be created if the following conditions are true
+ * - user is registered
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -12,6 +15,9 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class Contest extends DatabaseObject {
+	protected $juryList = null;
+	protected $sponsorList = null;
+	protected $participantList = null;
 	
 	/**
 	 * @see getUser
@@ -79,30 +85,16 @@ class Contest extends DatabaseObject {
 	 * @return	array<ContestParticipant>
 	 */
 	public function getParticipants() {
-		
-		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
-		$classes = array();
-		
-		$sql = "SELECT		contest_participant.contestID,
-					contest_participant.participantID, 
-					IF(
-						contest_participant.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
-			FROM		wcf".WCF_N."_contest_participant contest_participant
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_participant.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_participant.groupID)
-			WHERE		contest_participant.contestID IN (".$this->contestID.")
-			ORDER BY	title";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$classes[$row['participantID']] = new ContestParticipant(null, $row);
+		if($this->participantList !== null) {
+			return $this->participantList->getObjects();
 		}
+
+		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');		
+		$this->participantList = new ContestParticipantList();
+		$this->participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contestID;
+		$this->participantList->readObjects();
 		
-		return $classes;
+		return $this->participantList->getObjects();
 	}
 	
 	/**
@@ -111,29 +103,16 @@ class Contest extends DatabaseObject {
 	 * @return	array<ContestJury>
 	 */
 	public function getJurys() {
-		require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
-		$classes = array();
-		
-		$sql = "SELECT		contest_jury.contestID,
-					contest_jury.juryID, 
-					IF(
-						contest_jury.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
-			FROM		wcf".WCF_N."_contest_jury contest_jury
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_jury.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_jury.groupID)
-			WHERE		contest_jury.contestID IN (".$this->contestID.")
-			ORDER BY	title";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$classes[$row['juryID']] = new ContestJury(null, $row);
+		if($this->juryList !== null) {
+			return $this->juryList->getObjects();
 		}
+
+		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');		
+		$this->juryList = new ContestJuryList();
+		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contestID;
+		$this->juryList->readObjects();
 		
-		return $classes;
+		return $this->juryList->getObjects();
 	}
 	
 	/**
@@ -142,29 +121,16 @@ class Contest extends DatabaseObject {
 	 * @return	array<ContestSponsor>
 	 */
 	public function getSponsors() {
-		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
-		$classes = array();
-		
-		$sql = "SELECT		contest_sponsor.contestID,
-					contest_sponsor.sponsorID, 
-					IF(
-						contest_sponsor.groupID > 0, 
-						wcf_group.groupName, 
-						wcf_user.username
-					) AS title
-			FROM		wcf".WCF_N."_contest_sponsor contest_sponsor
-			LEFT JOIN	wcf".WCF_N."_user wcf_user
-			ON		(wcf_user.userID = contest_sponsor.userID)
-			LEFT JOIN	wcf".WCF_N."_group wcf_group
-			ON		(wcf_group.groupID = contest_sponsor.groupID)
-			WHERE		contest_sponsor.contestID IN (".$this->contestID.")
-			ORDER BY	title";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$classes[$row['sponsorID']] = new ContestSponsor(null, $row);
+		if($this->sponsorList !== null) {
+			return $this->sponsorList->getObjects();
 		}
+
+		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');		
+		$this->sponsorList = new ContestSponsorList();
+		$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contestID;
+		$this->sponsorList->readObjects();
 		
-		return $classes;
+		return $this->sponsorList->getObjects();
 	}
 	
 	/**
@@ -211,16 +177,25 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isJurytalkable() {
-		return true; // TODO: isJurytalkable
+		if($this->isOwner()) {
+			return true;
+		}
+		foreach($this->getJurys() as $jury) {
+			if($jury->isOwner()) {
+				return true;
+			}
+		}
+	
+		return false;
 	}
 		
 	/**
-	 * Returns true, if the active user can solution this entry.
+	 * everybody can add comments
 	 * 
 	 * @return	boolean
 	 */
 	public function isCommentable() {
-		return true; // TODO: isCommentable
+		return true;
 	}
 		
 	/**
@@ -238,7 +213,16 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSponsortalkable() {
-		return true; // TODO: isSponsortalkable
+		if($this->isOwner()) {
+			return true;
+		}
+		foreach($this->getSponsors() as $jury) {
+			if($jury->isOwner()) {
+				return true;
+			}
+		}
+	
+		return false;
 	}
 		
 	/**
@@ -269,16 +253,6 @@ class Contest extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the number of quotes of this entry.
-	 * 
-	 * @return	integer
-	 */
-	public function isQuoted() {
-		require_once(WCF_DIR.'lib/data/message/multiQuote/MultiQuoteManager.class.php');
-		return MultiQuoteManager::getQuoteCount($this->contestID, 'contestEntry');
-	}
-	
-	/**
 	 * Counts the entrys of a user.
 	 * 
 	 * @param	integer		$userID
@@ -299,8 +273,8 @@ class Contest extends DatabaseObject {
 	 * 
 	 * @return	boolean
 	 */
-	public function isMember() {
-		return ContestOwner::isMember($this->userID, $this->groupID);
+	public function isOwner() {
+		return ContestOwner::isOwner($this->userID, $this->groupID);
 	}
 	
 	/**
@@ -309,7 +283,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isMember();
+		return in_array($this->state, array('private', 'waiting')) && $this->isOwner();
 	}
 	
 	/**
@@ -318,7 +292,65 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isMember();
+		return in_array($this->state, array('private', 'waiting')) && $this->isOwner();
+	}
+
+	/**
+	 * thats how the states are implemented
+	 * - private
+	 *    only the owner can view and edit the entry
+	 *    invited jurys can view the first entry of jurytalk
+	 *    invited sponsors can view the first entry of sponsortalk
+	 *    invited participants can view the first comment
+	 *    all invited people can view basis data (without the real entry)
+	 *    accepting an invitation enabled the users to reply to the talks
+	 *    the state can be changed by the owner
+	 *
+	 * - waiting
+	 *    owner can view and edit the entry
+	 *    accepted jurys can see the full entry
+	 *    admin team should review the entry and schedule a time
+	 *    the state can be changed by the admin team
+	 *
+	 * - reviewed
+	 *    owner cannot change the entry any more
+	 *    entry can be shown if start_time is over
+	 *    state cannot be changed any longer
+	 *
+	 * - scheduled
+	 *    upcoming	
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+
+		return "(
+			-- owner
+			IF(
+				contest.groupID > 0,
+				contest.groupID IN (".implode(",", $groupIDs)."), 
+				contest.userID > 0 AND contest.userID = ".$userID."
+			)
+		) OR (
+			contest.state = 'scheduled'
+			AND contest.fromTime >= UNIX_TIMESTAMP(NOW())
+		) OR (
+			-- jury, sponsor, participant
+			SELECT 	COUNT(*)
+			FROM (
+				SELECT contestID, userID, groupID FROM wcf".WCF_N."_contest_jury
+				UNION
+				SELECT contestID, userID, groupID FROM wcf".WCF_N."_contest_sponsor
+				UNION
+				SELECT contestID, userID, groupID FROM wcf".WCF_N."_contest_participant
+			) x
+			WHERE x.contestID = contest.contestID
+			AND IF(
+				x.groupID > 0,
+				x.groupID IN (".implode(",", $groupIDs)."), 
+				x.userID > 0 AND x.userID = ".$userID."
+			)
+		) > 0";
 	}
 }
 ?>

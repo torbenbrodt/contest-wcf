@@ -1,12 +1,12 @@
 <ul class="breadCrumbs">
 	<li><a href="index.php?page=Index{@SID_ARG_2ND}"><img src="{icon}indexS.png{/icon}" alt="" /> <span>{lang}{PAGE_TITLE}{/lang}</span></a> &raquo;</li>
-	<li><a href="index.php?page=ContestOverview{@SID_ARG_2ND}"><img src="{icon}contestS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest{/lang}</span></a> &raquo;</li>
+	<li><a href="index.php?page=ContestOverview{@SID_ARG_2ND}"><img src="{icon}contestS.png{/icon}" alt="" /> <span>{lang}wcf.contest{/lang}</span></a> &raquo;</li>
 </ul>
 
 <div class="mainHeadline">
 	<img src="{icon}contestL.png{/icon}" alt="" />
 	<div class="headlineContainer">
-		<h2>{lang}wcf.user.contest{/lang}</h2>
+		<h2>{lang}wcf.contest{/lang}</h2>
 	</div>
 </div>
 

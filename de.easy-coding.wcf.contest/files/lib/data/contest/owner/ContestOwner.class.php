@@ -99,7 +99,7 @@ class ContestOwner {
 	/**
 	 * is the current user member of this?
 	 */
-	public static function isMember($userID, $groupID) {
+	public static function isOwner($userID, $groupID) {
 		$myuserID = WCF::getUser()->userID;
 		if(empty($myuserID)) {
 			return false;

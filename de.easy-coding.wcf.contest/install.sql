@@ -114,7 +114,7 @@ CREATE TABLE wcf1_contest_jury (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	time INT(10) NOT NULL DEFAULT 0,
-	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
+	state ENUM('invited', 'accepted', 'declined', 'applied') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
 	KEY (contestID)
@@ -127,7 +127,7 @@ CREATE TABLE wcf1_contest_participant (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	time INT(10) NOT NULL DEFAULT 0,
-	state ENUM('invited', 'accepted', 'declined', 'left') NOT NULL DEFAULT 'invited',
+	state ENUM('invited', 'accepted', 'declined', 'applied') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
 	KEY (contestID)
@@ -173,8 +173,8 @@ CREATE TABLE wcf1_contest_menu_item (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO wcf1_contest_class (title) VALUES 
-	('wcf.user.contest.entry.classes.beginner'),
-	('wcf.user.contest.entry.classes.expert');
+	('wcf.contest.classes.beginner'),
+	('wcf.contest.classes.expert');
 
 INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIcon, showOrder, permissions, options) VALUES
 	('wcf.contest.menu.link.overview', '', 'index.php?page=Contest&contestID=%s', 'contestM.png', 1, '', ''),

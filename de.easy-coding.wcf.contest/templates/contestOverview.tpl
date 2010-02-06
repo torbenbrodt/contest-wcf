@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{lang}wcf.user.contest.overview{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{lang}wcf.contest.overview{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
@@ -9,13 +9,13 @@
 		var INLINE_IMAGE_MAX_WIDTH = {@INLINE_IMAGE_MAX_WIDTH}; 
 		//]]>
 	</script>
-	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;format=rss2" title="{lang}wcf.user.contest.feed{/lang} (RSS2)" />
-	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;format=atom" title="{lang}wcf.user.contest.feed{/lang} (Atom)" />
+	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
+	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;format=atom" title="{lang}wcf.contest.feed{/lang} (Atom)" />
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -31,7 +31,7 @@
 	<div class="mainHeadline">
 		<img src="{icon}contestL.png{/icon}" alt="" />
 		<div class="headlineContainer">
-			<h2>{lang}wcf.user.contest.overview{/lang}</h2>
+			<h2>{lang}wcf.contest.overview{/lang}</h2>
 		</div>
 	</div>
 	
@@ -45,7 +45,7 @@
 						<div class="contentBox">
 						
 						
-					<h3 class="subHeadline">{if $tagID}{lang}wcf.user.contest.entries.tagged{/lang}{else}{lang}wcf.user.contest.entries.allEntries{/lang}{/if} <span>({#$items})</span></h3>
+					<h3 class="subHeadline">{if $tagID}{lang}wcf.contest.entries.tagged{/lang}{else}{lang}wcf.contest.entries.allEntries{/lang}{/if} <span>({#$items})</span></h3>
 					
 					<div class="contentHeader">
 						{pages print=true assign=pagesOutput link="index.php?page=ContestOverview&tagID=$tagID&juryID=$juryID&classID=$classID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -60,7 +60,7 @@
 									<a id="entry{@$entry->contestID}"></a>
 									<div class="messageHeader">
 										<p class="messageCount">
-											<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+											<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 										</p>
 										<div class="containerIcon">
 											{if $entry->getOwner()->getAvatar()}
@@ -73,7 +73,7 @@
 										<div class="containerContent">
 											<div style="float:right">*{$entry->state}*</div>
 											<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
-											<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
+											<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
 										</div>
 									</div>
 									<div class="messageBody">
@@ -82,8 +82,8 @@
 									
 									{if $tags[$contestID]|isset || $classes[$contestID]|isset}
 										<div class="editNote smallFont light">
-											{if $tags[$contestID]|isset}<p>{lang}wcf.user.contest.entry.tags{/lang}: {implode from=$tags[$contestID] item=entryTag}<a href="index.php?page=ContestOverview&amp;tagID={@$entryTag->getID()}{@SID_ARG_2ND}">{$entryTag->getName()}</a>{/implode}</p>{/if}
-											{if $classes[$contestID]|isset}<p>{lang}wcf.user.contest.entry.classes{/lang}: {implode from=$classes[$contestID] item=entryClass}<a href="index.php?page=ContestOverview&amp;classID={@$entryClass->classID}{@SID_ARG_2ND}">{lang}{$entryClass->title}{/lang}</a>{/implode}</p>{/if}
+											{if $tags[$contestID]|isset}<p>{lang}wcf.contest.tags{/lang}: {implode from=$tags[$contestID] item=entryTag}<a href="index.php?page=ContestOverview&amp;tagID={@$entryTag->getID()}{@SID_ARG_2ND}">{$entryTag->getName()}</a>{/implode}</p>{/if}
+											{if $classes[$contestID]|isset}<p>{lang}wcf.contest.classes{/lang}: {implode from=$classes[$contestID] item=entryClass}<a href="index.php?page=ContestOverview&amp;classID={@$entryClass->classID}{@SID_ARG_2ND}">{lang}{$entryClass->title}{/lang}</a>{/implode}</p>{/if}
 										</div>
 									{/if}
 									
@@ -91,10 +91,10 @@
 										<div class="smallButtons">
 											<ul>
 												<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-												<li><a href="index.php?page=ContestSolution&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.user.contest.entry.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfSolutions{/lang}</span></a></li>
-												<li><a href="index.php?page=ContestParticipant&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.user.contest.entry.numberOfParticipants{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfParticipants{/lang}</span></a></li>
-												<li><a href="index.php?page=ContestJury&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#jurys" title="{lang}wcf.user.contest.entry.numberOfJurys{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfJurys{/lang}</span></a></li>
-												<li><a href="index.php?page=ContestPrice&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#prices" title="{lang}wcf.user.contest.entry.numberOfPrices{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.numberOfPrices{/lang}</span></a></li>
+												<li><a href="index.php?page=ContestSolution&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfSolutions{/lang}</span></a></li>
+												<li><a href="index.php?page=ContestParticipant&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfParticipants{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfParticipants{/lang}</span></a></li>
+												<li><a href="index.php?page=ContestJury&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#jurys" title="{lang}wcf.contest.numberOfJurys{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfJurys{/lang}</span></a></li>
+												<li><a href="index.php?page=ContestPrice&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#prices" title="{lang}wcf.contest.numberOfPrices{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfPrices{/lang}</span></a></li>
 												{if $additionalSmallButtons[$entry->contestID]|isset}{@$additionalSmallButtons[$entry->contestID]}{/if}
 											</ul>
 										</div>

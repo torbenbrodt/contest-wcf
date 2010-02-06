@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="{@CHARSET}"?>
 <rss version="2.0">
 	<channel>
-		<title>{lang}wcf.user.contest.feed.title{/lang}</title>
+		<title>{lang}wcf.contest.feed.title{/lang}</title>
 		<link>{@PAGE_URL}/</link>
-		<description>{lang}wcf.user.contest.feed.description{/lang}</description>
+		<description>{lang}wcf.contest.feed.description{/lang}</description>
 		
 		<pubDate>{@'r'|gmdate:TIME_NOW}</pubDate>
 		<lastBuildDate>{@'r'|gmdate:TIME_NOW}</lastBuildDate>

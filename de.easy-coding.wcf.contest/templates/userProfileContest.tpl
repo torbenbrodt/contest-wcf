@@ -1,5 +1,5 @@
 <div class="contentBox">
-	<h3 class="subHeadline"><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}">{lang}wcf.user.contest{/lang}</a> <span>({#$user->blogEntries})</span></h3>
+	<h3 class="subHeadline"><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}">{lang}wcf.contest{/lang}</a> <span>({#$user->blogEntries})</span></h3>
 	
 	<ul class="dataList">
 		{foreach from=$entries item=entry}
@@ -19,7 +19,7 @@
 		<div class="smallButtons">
 			<ul>
 				<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="{lang}wcf.global.scrollUp{/lang}" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-				<li><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.allEntries{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.allEntries{/lang}</span></a></li>
+				<li><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}" title="{lang}wcf.contest.allEntries{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.allEntries{/lang}</span></a></li>
 			</ul>
 		</div>
 	</div>

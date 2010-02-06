@@ -5,6 +5,10 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry jurytalk.
+ * 
+ * a jurytalk can only be changed if the following conditions are true
+ * - current user is owner
+ *
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -43,8 +47,8 @@ class ContestJurytalk extends DatabaseObject {
 	 * 
 	 * @return	boolean
 	 */
-	public function isMember() {
-		return ContestOwner::isMember($this->userID, $this->groupID);
+	public function isOwner() {
+		return ContestOwner::isOwner($this->userID, $this->groupID);
 	}
 	
 	/**
@@ -53,7 +57,7 @@ class ContestJurytalk extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 	
 	/**
@@ -62,7 +66,7 @@ class ContestJurytalk extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 }
 ?>

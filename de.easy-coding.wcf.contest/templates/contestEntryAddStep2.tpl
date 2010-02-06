@@ -1,11 +1,11 @@
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}Aufgabe{/lang}</h3>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}Aufgabe{/lang}</h3>
 <p>{lang}Geben Sie hier die Aufgabe vor. Seiten Sie dabei möglichst ausführlich und versuchen Sie Mehrdeutigkeiten zu vermeiden.{/lang}</p>
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.message{/lang}</legend>
+	<legend>{lang}wcf.contest.message{/lang}</legend>
 	
 	<div class="editorFrame formElement{if $errorField == 'text'} formError{/if}" id="textDiv">
 		<div class="formFieldLabel">
-			<label for="text">{lang}wcf.user.contest.entry.message{/lang}</label>
+			<label for="text">{lang}wcf.contest.message{/lang}</label>
 		</div>
 		
 		<div class="formField">				

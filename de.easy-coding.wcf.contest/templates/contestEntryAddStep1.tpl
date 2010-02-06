@@ -1,11 +1,11 @@
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}wcf.user.contest.entry.information{/lang}</h3>
-<p>{lang}wcf.user.contest.entry.contest.description{/lang}</p>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.information{/lang}</h3>
+<p>{lang}wcf.contest.contest.description{/lang}</p>
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.information{/lang}</legend>
+	<legend>{lang}wcf.contest.information{/lang}</legend>
 	
 	<div class="formElement{if $errorField == 'subject'} formError{/if}">
 		<div class="formFieldLabel">
-			<label for="subject">{lang}wcf.user.contest.entry.subject{/lang}</label>
+			<label for="subject">{lang}wcf.contest.subject{/lang}</label>
 		</div>
 		<div class="formField">
 			<input type="text" class="inputText" name="subject" id="subject" value="{$subject}" tabindex="{counter name='tabindex'}" />
@@ -15,16 +15,16 @@
 				</p>
 			{/if}
 		</div>
-		<p class="formFieldDesc">{lang}wcf.user.contest.entry.subject.description{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.subject.description{/lang}</p>
 	</div>
 	
 	<div class="formElement{if $errorField == 'classes'} formError{/if}">
 		<div class="formFieldLabel">
-			<label>{lang}wcf.user.contest.entry.classes{/lang}</label>
+			<label>{lang}wcf.contest.classes{/lang}</label>
 		</div>
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.classes{/lang}</legend>
+				<legend>{lang}wcf.contest.classes{/lang}</legend>
 				{foreach from=$availableClasses item=availableClass}
 					<label><input type="checkbox" name="classIDArray[]" value="{@$availableClass->classID}" {if $availableClass->classID|in_array:$classIDArray}checked="checked" {/if}/> {lang}{$availableClass->title}{/lang}</label>
 				{/foreach}
@@ -37,17 +37,17 @@
 
 
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-	<p>{lang}wcf.user.contest.entry.owner.description{/lang}</p>
+	<legend>{lang}wcf.contest.owner{/lang}</legend>
+	<p>{lang}wcf.contest.owner.description{/lang}</p>
 	
 	<div class="formElement{if $errorField == 'owner'} formError{/if}">
 		<div class="formFieldLabel">
-			<label>{lang}wcf.user.contest.entry.owner{/lang}</label>
+			<label>{lang}wcf.contest.owner{/lang}</label>
 		</div>
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-					<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.user.contest.entry.owner.self{/lang}</label>
+				<legend>{lang}wcf.contest.owner{/lang}</legend>
+					<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
 				{foreach from=$availableGroups item=availableGroup}
 					<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
 				{/foreach}

@@ -44,15 +44,15 @@ onloadEvents.push(function() {
 });
 </script>
 
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}wcf.user.contest.prices{/lang}</h3>
-<p>{lang}wcf.user.contest.entry.price.description{/lang}</p>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.prices{/lang}</h3>
+<p>{lang}wcf.contest.price.description{/lang}</p>
 
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.price{/lang}</legend>
+	<legend>{lang}wcf.contest.price{/lang}</legend>
 		
 	<div class="formElement">
 		<div class="formFieldLabel" id="priceTitle">
-			{lang}wcf.user.contest.prices{/lang}
+			{lang}wcf.contest.prices{/lang}
 		</div>
 		<div class="formField"><div id="price" class="accessRights" style="height:80px"></div></div>
 	</div>
@@ -60,11 +60,11 @@ onloadEvents.push(function() {
 	<div class="formElement">
 		<div class="formField">	
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.price.add{/lang}</legend>
+				<legend>{lang}wcf.contest.price.add{/lang}</legend>
 				
 				<div class="formElement">
 					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.price.subject{/lang}
+						{lang}wcf.contest.price.subject{/lang}
 					</div>
 					<div class="formField">
 						<input id="priceAddInput" type="text" name="" value="" class="inputText" />
@@ -72,7 +72,7 @@ onloadEvents.push(function() {
 				</div>
 				<div class="formElement">
 					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.price.message{/lang}
+						{lang}wcf.contest.price.message{/lang}
 					</div>
 					<div class="formField">
 						<textarea id="priceAddText" type="text" name="" rows="3" cols="40"></textarea>
@@ -80,7 +80,7 @@ onloadEvents.push(function() {
 				</div>
 				<div class="formElement">
 					<div class="formField">
-						<input id="priceAddButton" type="button" value="{lang}wcf.user.contest.entry.price.add{/lang}" />
+						<input id="priceAddButton" type="button" value="{lang}wcf.contest.price.add{/lang}" />
 					</div>
 				</div>	
 			</fieldset>
@@ -91,7 +91,7 @@ onloadEvents.push(function() {
 {if $additionalFields1|isset}{@$additionalFields1}{/if}
 	
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.sponsor{/lang}</legend>
+	<legend>{lang}wcf.contest.sponsor{/lang}</legend>
 		
 	<div class="formElement">
 		<div class="formFieldLabel" id="sponsorTitle">
@@ -109,7 +109,7 @@ onloadEvents.push(function() {
 				suggestion.init('sponsorAddInput');
 				//]]>
 			</script>
-			<input id="sponsorAddButton" type="button" value="{lang}wcf.user.contest.entry.sponsor.add{/lang}" />
+			<input id="sponsorAddButton" type="button" value="{lang}wcf.contest.sponsor.add{/lang}" />
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
 	</div>
@@ -136,10 +136,10 @@ onloadEvents.push(function() {
 	<div class="formElement" id="sponsortalk">
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.sponsortalk{/lang}</legend>
+				<legend>{lang}wcf.contest.sponsortalk{/lang}</legend>
 				<div class="formElement">
 					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.sponsortalk.message{/lang}
+						{lang}wcf.contest.sponsortalk.message{/lang}
 					</div>
 					<div class="formField">
 						<textarea id="sponsortalkAddText" type="text" name="sponsortalkAddText" rows="5" cols="40"></textarea>

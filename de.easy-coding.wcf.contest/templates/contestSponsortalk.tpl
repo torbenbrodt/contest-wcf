@@ -14,7 +14,7 @@
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -31,7 +31,7 @@
 					<div class="columnInner">
 						
 						<div class="contentBox">
-							<h4 class="subHeadline">{lang}wcf.user.contest.entry.sponsortalks{/lang} <span>({#$items})</span></h4>
+							<h4 class="subHeadline">{lang}wcf.contest.sponsortalks{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestSponsortalk&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -45,9 +45,9 @@
 										<div class="containerIcon">
 											{if $sponsortalkObj->getUser()->getAvatar()}
 												{assign var=x value=$sponsortalkObj->getUser()->getAvatar()->setMaxSize(24, 24)}
-												{if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}" title="{lang username=$sponsortalkObj->username}wcf.user.viewProfile{/lang}">{/if}{@$sponsortalkObj->getUser()->getAvatar()}{if $sponsortalkObj->userID}</a>{/if}
+												{if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}">{/if}{@$sponsortalkObj->getUser()->getAvatar()}{if $sponsortalkObj->userID}</a>{/if}
 											{else}
-												{if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}" title="{lang username=$sponsortalkObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $sponsortalkObj->userID}</a>{/if}
+												{if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $sponsortalkObj->userID}</a>{/if}
 											{/if}
 										</div>
 										<div class="containerContent">
@@ -58,7 +58,7 @@
 														{if $errorField == 'message'}
 															<p class="innerError">
 																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-																{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.sponsortalk.error.tooLong{/lang}{/if}
+																{if $errorType == 'tooLong'}{lang}wcf.contest.sponsortalk.error.tooLong{/lang}{/if}
 															</p>
 														{/if}
 													</div>
@@ -70,11 +70,11 @@
 												</form>
 											{else}
 												<div class="buttons">
-													{if $sponsortalkObj->isEditable()}<a href="index.php?page=ContestSponsortalk&amp;contestID={@$contestID}&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}&amp;action=edit{@SID_ARG_2ND}#sponsortalk{@$sponsortalkObj->sponsortalkID}" title="{lang}wcf.user.contest.entry.sponsortalk.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
-													{if $sponsortalkObj->isDeletable()}<a href="index.php?action=ContestSponsortalkDelete&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.sponsortalk.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.sponsortalk.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=ContestSponsortalk&amp;contestID={@$contestID}&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}{@SID_ARG_2ND}#sponsortalk{@$sponsortalkObj->sponsortalkID}" title="{lang}wcf.user.contest.entry.sponsortalk.permalink{/lang}">#{#$messageNumber}</a>
+													{if $sponsortalkObj->isEditable()}<a href="index.php?page=ContestSponsortalk&amp;contestID={@$contestID}&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}&amp;action=edit{@SID_ARG_2ND}#sponsortalk{@$sponsortalkObj->sponsortalkID}" title="{lang}wcf.contest.sponsortalk.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
+													{if $sponsortalkObj->isDeletable()}<a href="index.php?action=ContestSponsortalkDelete&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.sponsortalk.delete.sure{/lang}')" title="{lang}wcf.contest.sponsortalk.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
+													<a href="index.php?page=ContestSponsortalk&amp;contestID={@$contestID}&amp;sponsortalkID={@$sponsortalkObj->sponsortalkID}{@SID_ARG_2ND}#sponsortalk{@$sponsortalkObj->sponsortalkID}" title="{lang}wcf.contest.sponsortalk.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.sponsortalk.by{/lang} {if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}">{$sponsortalkObj->username}</a>{else}{$sponsortalkObj->username}{/if} ({@$sponsortalkObj->time|time})</p>
+												<p class="firstPost smallFont light">{lang}wcf.contest.sponsortalk.by{/lang} {if $sponsortalkObj->userID}<a href="index.php?page=User&amp;userID={@$sponsortalkObj->userID}{@SID_ARG_2ND}">{$sponsortalkObj->username}</a>{else}{$sponsortalkObj->username}{/if} ({@$sponsortalkObj->time|time})</p>
 												<p>{@$sponsortalkObj->getFormattedMessage()}</p>
 												
 											{/if}
@@ -97,23 +97,23 @@
 							</div>
 						</div>
 						
-						{if $entry->isSponsortalkable()}{assign var=sponsortalkUsername value=$username}{/if}
 						{if $entry->isSponsortalkable() && $action != 'edit'}
-							{assign var=username value=$sponsortalkUsername}
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestSponsortalk&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>
-										<legend>{lang}wcf.user.contest.entry.sponsortalk.add{/lang}</legend>
+										<legend>{lang}wcf.contest.sponsortalk.add{/lang}</legend>
+										<p>{lang}wcf.contest.sponsortalk.description{/lang}</p>
+
 										<div class="formElement{if $errorField == 'message' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="message">{lang}wcf.user.contest.entry.sponsortalk{/lang}</label>
+												<label for="message">{lang}wcf.contest.sponsortalk{/lang}</label>
 											</div>
 											<div class="formField">
 												<textarea name="message" id="message" rows="10" cols="40">{$message}</textarea>
 												{if $errorField == 'message' && $action == 'add'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.sponsortalk.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.contest.sponsortalk.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>

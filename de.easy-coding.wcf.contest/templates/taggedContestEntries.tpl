@@ -10,7 +10,7 @@
 				
 				<div class="containerContent">
 					<h4><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#profileContent">{$entry->subject}</a></h4>
-					<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
+					<p class="firstPost smallFont light">{lang}wcf.contest.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
 				</div>
 			</li>
 		{/foreach}

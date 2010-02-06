@@ -33,7 +33,9 @@ class ContestList extends DatabaseObjectList {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest contest
 				".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+			
+			WHERE ".Contest::getStateConditions()."
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
@@ -46,7 +48,9 @@ class ContestList extends DatabaseObjectList {
 					contest.*
 			FROM		wcf".WCF_N."_contest contest
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+
+			WHERE ".Contest::getStateConditions()."
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

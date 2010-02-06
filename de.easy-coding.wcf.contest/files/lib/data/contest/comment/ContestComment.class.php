@@ -43,8 +43,8 @@ class ContestComment extends DatabaseObject {
 	 * 
 	 * @return	boolean
 	 */
-	public function isMember() {
-		return ContestOwner::isMember($this->userID, $this->groupID);
+	public function isOwner() {
+		return ContestOwner::isOwner($this->userID, $this->groupID);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class ContestComment extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 	
 	/**
@@ -62,7 +62,7 @@ class ContestComment extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 }
 ?>

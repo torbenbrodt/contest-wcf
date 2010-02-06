@@ -14,7 +14,7 @@
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -31,7 +31,7 @@
 					<div class="columnInner">
 						
 						<div class="contentBox">
-							<h4 class="subHeadline">{lang}wcf.user.contest.entry.participants{/lang} <span>({#$items})</span></h4>
+							<h4 class="subHeadline">{lang}wcf.contest.participants{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestParticipant&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -73,9 +73,9 @@
 												</form>
 											{else}
 												<div class="buttons">
-													{if $participantObj->isEditable()}<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}&amp;action=edit{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.user.contest.entry.participant.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
-													{if $participantObj->isDeletable()}<a href="index.php?action=ContestParticipantDelete&amp;participantID={@$participantObj->participantID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.participant.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.participant.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.user.contest.entry.participant.permalink{/lang}">#{#$messageNumber}</a>
+													{if $participantObj->isEditable()}<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}&amp;action=edit{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.contest.participant.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
+													{if $participantObj->isDeletable()}<a href="index.php?action=ContestParticipantDelete&amp;participantID={@$participantObj->participantID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.participant.delete.sure{/lang}')" title="{lang}wcf.contest.participant.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
+													<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.contest.participant.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
 												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a> <span>*{$participantObj->state}*</span></p>
 												
@@ -103,17 +103,17 @@
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>
-										<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-										<p>{lang}wcf.user.contest.entry.owner.description{/lang}</p>
+										<legend>{lang}wcf.contest.participant{/lang}</legend>
+										<p>{lang}wcf.contest.participant.description{/lang}</p>
 	
-										<div class="formElement{if $errorField == 'owner'} formError{/if}">
+										<div class="formElement{if $errorField == 'participant'} formError{/if}">
 											<div class="formFieldLabel">
-												<label>{lang}wcf.user.contest.entry.owner{/lang}</label>
+												<label>{lang}wcf.contest.participant{/lang}</label>
 											</div>
 											<div class="formField">
 												<fieldset>
-													<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.user.contest.entry.owner.self{/lang}</label>
+													<legend>{lang}wcf.contest.owner{/lang}</legend>
+														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
 													{foreach from=$availableGroups item=availableGroup}
 														<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
 													{/foreach}

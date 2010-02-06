@@ -5,7 +5,7 @@
 			<name>Create</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -15,7 +15,7 @@
 			<name>commentCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -25,7 +25,7 @@
 			<name>juryCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -35,7 +35,7 @@
 			<name>jurytalkCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -45,7 +45,7 @@
 			<name>participantCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -55,7 +55,7 @@
 			<name>priceCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -65,7 +65,7 @@
 			<name>solutionCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -75,7 +75,7 @@
 			<name>sponsorCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
@@ -85,7 +85,7 @@
 			<name>sponsortalkCreate</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
-			<languagecategory>wcf.user.contest.notification</languagecategory>
+			<languagecategory>wcf.contest.notification</languagecategory>
 			<defaultnotificationtype>pm</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>

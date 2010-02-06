@@ -90,7 +90,8 @@ class ViewableContestList extends ContestList {
 		$sql = "SELECT		contest.contestID, contest.attachments
 			FROM		wcf".WCF_N."_contest contest
 				".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+			WHERE ".Contest::getStateConditions()."
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

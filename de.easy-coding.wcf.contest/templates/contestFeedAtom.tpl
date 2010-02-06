@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="{@CHARSET}"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-	<title>{lang}wcf.user.contest.feed.title{/lang}</title>
+	<title>{lang}wcf.contest.feed.title{/lang}</title>
 	<id>{@PAGE_URL}/</id>
 	<updated>{@'c'|gmdate:TIME_NOW}</updated>
 	<link href="{@PAGE_URL}/" />
 	<generator uri="http://www.woltlab.com/" version="{@WCF_VERSION}">
 		WoltLab Community Framework
 	</generator>
-	<subtitle>{lang}wcf.user.contest.feed.description{/lang}</subtitle>
+	<subtitle>{lang}wcf.contest.feed.description{/lang}</subtitle>
 	
 	{foreach from=$entries item=entry}
 		<entry>

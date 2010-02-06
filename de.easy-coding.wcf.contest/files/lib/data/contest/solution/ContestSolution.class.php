@@ -5,6 +5,24 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 
 /**
  * Represents a contest entry solution.
+ * 
+ * a solution can only be created if the following conditions are true
+ * - contest:scheduled AND start_time < x < end_time
+ * - current user is not owner, jury or sponsor
+ * 
+ * thats how the states are implemented
+ * - unknown
+ *    the solution can be viewn by the owner and by the jury
+ *    the solution can still be changed by the owner
+ *    the state can be changed by the jury
+ *
+ * - accepted
+ *    the solution cannot be changed by anybody
+ *    the state can be changed by the jury
+ *
+ * - declined
+ *    the solution cannot be changed by anybody
+ *    the state can be changed by the jury
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -43,8 +61,8 @@ class ContestSolution extends DatabaseObject {
 	 * 
 	 * @return	boolean
 	 */
-	public function isMember() {
-		return ContestOwner::isMember($this->userID, $this->groupID);
+	public function isOwner() {
+		return ContestOwner::isOwner($this->userID, $this->groupID);
 	}
 	
 	/**
@@ -53,7 +71,7 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 	
 	/**
@@ -62,7 +80,7 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isMember();
+		return $this->isOwner();
 	}
 }
 ?>

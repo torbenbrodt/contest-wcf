@@ -14,7 +14,7 @@
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -31,7 +31,7 @@
 					<div class="columnInner">
 						
 						<div class="contentBox">
-							<h4 class="subHeadline">{lang}wcf.user.contest.entry.prices{/lang} <span>({#$items})</span></h4>
+							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestPrice&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -46,7 +46,7 @@
 										<a id="priceObj{@$priceObj->contestID}"></a>
 										<div class="messageHeader">
 											<p class="messageCount">
-												<a href="index.php?page=ContestPrice&amp;contestID={@$priceObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+												<a href="index.php?page=ContestPrice&amp;contestID={@$priceObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 											</p>
 											<div class="containerIcon">
 												{if $priceObj->getOwner()->getAvatar()}
@@ -59,7 +59,7 @@
 											<div class="containerContent">
 												<div style="float:right">*{$priceObj->state}*</div>
 												<h4 style="margin: 0; padding: 0">{$priceObj->subject}</h4>
-												<p class="light smallFont">{lang}wcf.user.contest.entry.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
+												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
 											</div>
 										</div>
 										<div class="messageBody">
@@ -70,8 +70,8 @@
 											<div class="smallButtons">
 												<ul>
 													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-													{if $priceObj->isEditable()}<li><a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.user.contest.entry.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.price.edit{/lang}</span></a></li>{/if}
-													{if $priceObj->isDeletable()}<li><a href="index.php?action=ContestPriceDelete&amp;priceID={@$priceObj->priceID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.price.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.price.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.entry.price.delete{/lang}</span></a></li>{/if}
+													{if $priceObj->isEditable()}<li><a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.contest.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.edit{/lang}</span></a></li>{/if}
+													{if $priceObj->isDeletable()}<li><a href="index.php?action=ContestPriceDelete&amp;priceID={@$priceObj->priceID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.price.delete.sure{/lang}')" title="{lang}wcf.contest.price.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.delete{/lang}</span></a></li>{/if}
 												</ul>
 											</div>
 										</div>
@@ -101,12 +101,12 @@
 									<fieldset>
 										<div class="formElement{if $errorField == 'owner'} formError{/if}">
 											<div class="formFieldLabel">
-												<label>{lang}wcf.user.contest.entry.sponsor{/lang}</label>
+												<label>{lang}wcf.contest.sponsor{/lang}</label>
 											</div>
 											<div class="formField">
 												<fieldset>
-													<legend>{lang}wcf.user.contest.entry.owner{/lang}</legend>
-														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.user.contest.entry.owner.self{/lang}</label>
+													<legend>{lang}wcf.contest.owner{/lang}</legend>
+														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
 													{foreach from=$availableGroups item=availableGroup}
 														<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
 													{/foreach}
@@ -116,14 +116,14 @@
 										
 										<div class="formElement{if $errorField == 'subject' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="subject">{lang}wcf.user.contest.entry.price.subject{/lang}</label>
+												<label for="subject">{lang}wcf.contest.price.subject{/lang}</label>
 											</div>
 											<div class="formField">
 												<input type="text" name="subject" id="subject" value="{$subject}" class="inputText" />
 												{if $errorField == 'subject' && $action == 'add'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.price.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.contest.price.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>
@@ -131,14 +131,14 @@
 										
 										<div class="formElement{if $errorField == 'message' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="message">{lang}wcf.user.contest.entry.price.message{/lang}</label>
+												<label for="message">{lang}wcf.contest.price.message{/lang}</label>
 											</div>
 											<div class="formField">
 												<textarea name="message" id="message" rows="5" cols="40">{$message}</textarea>
 												{if $errorField == 'message' && $action == 'add'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.price.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.contest.price.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>

@@ -22,14 +22,14 @@ onloadEvents.push(function() {
 });
 </script>
 
-<h3 class="subHeadline">{lang}wcf.user.contest.entry.{@$action}{/lang}: {lang}wcf.user.contest.jurys{/lang}</h3>
-<p>{lang}wcf.user.contest.entry.jury.description{/lang}</p>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.jurys{/lang}</h3>
+<p>{lang}wcf.contest.jury.owner.description{/lang}</p>
 <fieldset>
-	<legend>{lang}wcf.user.contest.entry.jury{/lang}</legend>
+	<legend>{lang}wcf.contest.jury{/lang}</legend>
 	
 	<div class="formElement">
 		<div class="formFieldLabel" id="juryTitle">
-			{lang}wcf.user.contest.entry.jury.add{/lang}
+			{lang}wcf.contest.jury.add{/lang}
 		</div>
 		<div class="formField"><div id="jury" class="accessRights" style="height:80px"></div></div>
 	</div>
@@ -43,7 +43,7 @@ onloadEvents.push(function() {
 				suggestion.init('juryAddInput');
 				//]]>
 			</script>
-			<input id="juryAddButton" type="button" value="{lang}wcf.user.contest.entry.jury.add{/lang}" />
+			<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
 	</div>
@@ -66,15 +66,15 @@ onloadEvents.push(function() {
 				</script>
 			</label>
 		</div>
-		<p class="formFieldDesc">{lang}Um Sponsoren zu gewinnen können Sie ihnen eine persönliche Nachricht schicken.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.jurytalk.owner.description{/lang}</p>
 	</div>
 	<div class="formElement" id="jurytalk">
 		<div class="formField">
 			<fieldset>
-				<legend>{lang}wcf.user.contest.entry.jurytalk{/lang}</legend>
+				<legend>{lang}wcf.contest.jurytalk{/lang}</legend>
 				<div class="formElement">
 					<div class="formFieldLabel">
-						{lang}wcf.user.contest.entry.jurytalk.message{/lang}
+						{lang}wcf.contest.jurytalk.message{/lang}
 					</div>
 					<div class="formField">
 						<textarea id="jurytalkAddText" type="text" name="jurytalkAddText" rows="5" cols="40"></textarea>

@@ -66,7 +66,7 @@ class ViewableContestEvent extends ContestEvent {
 	 * @return	string
 	 */
 	public function getFormattedMessage() {
-		$languageItem = 'wcf.user.contest.event.notification.'.strtolower($this->eventName);
+		$languageItem = 'wcf.contest.event.notification.'.strtolower($this->eventName);
 		return WCF::getLanguage()->get($languageItem, $this->placeholders);
 	}
 	

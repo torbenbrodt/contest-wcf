@@ -1,16 +1,37 @@
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
-			<h3>{lang}wcf.user.contest.sidebar.addcontest.title{/lang}</h3>
+			<h3>{lang}wcf.contest.sidebar.addcontest.title{/lang}</h3>
 		</div>
 		<div style="padding:10px">
-		{lang}wcf.user.contest.sidebar.addcontest.description{/lang}
+		{lang}wcf.contest.sidebar.addcontest.description{/lang}
 		
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.addcontest.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.addcontest.submit{/lang}</span></a></li>
+				<li><a href="index.php?form=ContestAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.addcontest.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.addcontest.submit{/lang}</span></a></li>
+				{/if}
+			</ul>
+		</div>
+		
+		</div>
+	</div>
+</div>
+{*
+<div class="contentBox">
+	<div class="border"> 
+		<div class="containerHead">
+			<h3>{lang}wcf.contest.sidebar.becomeparticipant.title{/lang}</h3>
+		</div>
+		<div style="padding:10px">
+		{lang}wcf.contest.sidebar.becomeparticipant.description{/lang}
+		
+		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+			<ul>
+				{if $isRegistered}
+				<li><a href="index.php?form=ContestParticipantAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>
@@ -22,16 +43,16 @@
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
-			<h3>{lang}wcf.user.contest.sidebar.becomeparticipant.title{/lang}</h3>
+			<h3>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</h3>
 		</div>
 		<div style="padding:10px">
-		{lang}wcf.user.contest.sidebar.becomeparticipant.description{/lang}
+		{lang}wcf.contest.sidebar.becomesponsor.description{/lang}
 		
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestParticipantAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				<li><a href="index.php?form=ContestSponsorAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>
@@ -43,16 +64,16 @@
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
-			<h3>{lang}wcf.user.contest.sidebar.becomesponsor.title{/lang}</h3>
+			<h3>{lang}wcf.contest.sidebar.becomejury.title{/lang}</h3>
 		</div>
 		<div style="padding:10px">
-		{lang}wcf.user.contest.sidebar.becomesponsor.description{/lang}
+		{lang}wcf.contest.sidebar.becomejury.description{/lang}
 		
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestSponsorAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+				<li><a href="index.php?form=ContestJuryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>
@@ -60,33 +81,12 @@
 		</div>
 	</div>
 </div>
-
-<div class="contentBox">
-	<div class="border"> 
-		<div class="containerHead">
-			<h3>{lang}wcf.user.contest.sidebar.becomejury.title{/lang}</h3>
-		</div>
-		<div style="padding:10px">
-		{lang}wcf.user.contest.sidebar.becomejury.description{/lang}
-		
-		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
-			<ul>
-				{if $isRegistered}
-				<li><a href="index.php?form=ContestJuryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomejury.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.user.contest.sidebar.becomejury.submit{/lang}</span></a></li>
-				{/if}
-			</ul>
-		</div>
-		
-		</div>
-	</div>
-</div>
-
+*}
 {if $availableClasses|count > 0}
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
-				<h3>{lang}wcf.user.contest.classes{/lang}</h3> 
+				<h3>{lang}wcf.contest.classes{/lang}</h3> 
 			</div> 
 			 
 			<ul class="dataList">
@@ -104,7 +104,7 @@
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
-				<h3>{lang}wcf.user.contest.jurys{/lang}</h3> 
+				<h3>{lang}wcf.contest.jurys{/lang}</h3> 
 			</div> 
 			 
 			<ul class="dataList">
@@ -122,7 +122,7 @@
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
-				<h3>{lang}wcf.user.contest.sponsors{/lang}</h3> 
+				<h3>{lang}wcf.contest.sponsors{/lang}</h3> 
 			</div> 
 			 
 			<ul class="dataList">
@@ -140,7 +140,7 @@
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
-				<h3>{lang}wcf.user.contest.prices{/lang}</h3> 
+				<h3>{lang}wcf.contest.prices{/lang}</h3> 
 			</div> 
 			 
 			<ul class="dataList">
@@ -158,7 +158,7 @@
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
-				<h3>{lang}wcf.user.contest.participants{/lang}</h3> 
+				<h3>{lang}wcf.contest.participants{/lang}</h3> 
 			</div> 
 			 
 			<ul class="dataList">
@@ -189,7 +189,7 @@
 	<div class="contentBox">
 		<div class="border">
 			<div class="containerHead">
-				<h3>{lang}wcf.user.contest.lastestEntries{/lang}</h3>
+				<h3>{lang}wcf.contest.lastestEntries{/lang}</h3>
 			</div>
 			
 			<ul class="dataList">
@@ -213,7 +213,7 @@
 	<div class="contentBox">
 		<div class="border">
 			<div class="containerHead">
-				<h3>{lang}wcf.user.contest.lastestSolutions{/lang}</h3>
+				<h3>{lang}wcf.contest.lastestSolutions{/lang}</h3>
 			</div>
 			
 			<ul class="dataList">
@@ -231,7 +231,7 @@
 						</div>
 						<div class="containerContent">
 							<h4><a href="index.php?page=Contest&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">{$solution->getExcerpt()}</a></h4>
-							<p class="light smallFont">{lang}wcf.user.contest.entry.solution.by{/lang} <a href="{$solution->getOwner()->getLink()}{@SID_ARG_2ND}">{$solution->getOwner()->getName()}</a> ({@$solution->time|shorttime})</p>
+							<p class="light smallFont">{lang}wcf.contest.solution.by{/lang} <a href="{$solution->getOwner()->getLink()}{@SID_ARG_2ND}">{$solution->getOwner()->getName()}</a> ({@$solution->time|shorttime})</p>
 						</div>
 					</li>
 				{/foreach}

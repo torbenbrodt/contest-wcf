@@ -10,11 +10,10 @@
 		//]]>
 	</script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
-	{include file='multiQuote'}
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
-{assign var='searchFieldTitle' value='{lang}wcf.user.contest.search.query{/lang}'}
+{assign var='searchFieldTitle' value='{lang}wcf.contest.search.query{/lang}'}
 {capture assign=searchHiddenFields}
 	<input type="hidden" name="types[]" value="contestEntry" />
 {/capture}
@@ -30,20 +29,10 @@
 				<div class="container-1 column first">
 					<div class="columnInner">
 						<div class="contentBox">
-							<h3 class="subHeadline">{lang}wcf.user.contest{/lang}</h3>
+							<h3 class="subHeadline">{lang}wcf.contest{/lang}</h3>
 							
 							<div class="contentHeader"> </div>
 							<div class="blogInner">
-								<script type="text/javascript">
-									//<![CDATA[
-									quoteData.set('contestEntry-{@$entry->contestID}', {
-										objectID: {@$entry->contestID},
-										objectType: 'contestEntry',
-										quotes: {@$entry->isQuoted()}
-									});
-									//]]>
-								</script>
-								
 								<div class="message">
 									<div class="messageInner container-1">
 										<a id="entry{@$entry->contestID}"></a>
@@ -69,8 +58,8 @@
 										
 										{if $tags|count > 0 || $classes|count > 0}
 											<div class="editNote smallFont light">
-												{if $tags|count > 0}<p>{lang}wcf.user.contest.entry.tags{/lang}: {implode from=$tags item=tag}<a href="index.php?page=ContestOverview&amp;tagID={@$tag->getID()}{@SID_ARG_2ND}">{$tag->getName()}</a>{/implode}</p>{/if}
-												{if $classes|count > 0}<p>{lang}wcf.user.contest.entry.classes{/lang}: {implode from=$classes item=class}<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">{lang}{$class->title}{/lang}</a>{/implode}</p>{/if}
+												{if $tags|count > 0}<p>{lang}wcf.contest.tags{/lang}: {implode from=$tags item=tag}<a href="index.php?page=ContestOverview&amp;tagID={@$tag->getID()}{@SID_ARG_2ND}">{$tag->getName()}</a>{/implode}</p>{/if}
+												{if $classes|count > 0}<p>{lang}wcf.contest.classes{/lang}: {implode from=$classes item=class}<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">{lang}{$class->title}{/lang}</a>{/implode}</p>{/if}
 											</div>
 										{/if}
 										
@@ -78,8 +67,8 @@
 											<div class="smallButtons">
 												<ul id="contestEntryButtons{@$entry->contestID}">
 													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-													{if $entry->isEditable()}<li><a href="index.php?form=ContestEdit&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.contest.entry.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
-													{if $entry->isDeletable()}<li><a href="index.php?action=ContestDelete&amp;contestID={@$entry->contestID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
+													{if $entry->isEditable()}<li><a href="index.php?form=ContestEdit&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
+													{if $entry->isDeletable()}<li><a href="index.php?action=ContestDelete&amp;contestID={@$entry->contestID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.delete.sure{/lang}')" title="{lang}wcf.contest.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
 													{if MODULE_USER_INFRACTION == 1 && $this->user->getPermission('admin.user.infraction.canWarnUser')}
 														<li><a href="index.php?form=UserWarn&amp;userID={@$entry->userID}&amp;objectType=contestEntry&amp;objectID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.infraction.button.warn{/lang}"><img src="{icon}infractionWarningS.png{/icon}" alt="" /> <span>{lang}wcf.user.infraction.button.warn{/lang}</span></a></li>
 													{/if}
@@ -97,7 +86,7 @@
 							<a id="events"></a>
 							<div class="contentBox">
 								<div style="float:right"><a href="#"><img src="{icon}contestRssM.png{/icon}" alt="" /></a></div>
-								<h4 class="subHeadline">{lang}wcf.user.contest.entry.events{/lang} <span>({#$items})</span></h4>
+								<h4 class="subHeadline">{lang}wcf.contest.events{/lang} <span>({#$items})</span></h4>
 								
 								<div class="contentHeader">
 									{pages print=true assign=pagesOutput link="index.php?page=Contest&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -118,11 +107,11 @@
 											</div>
 											<div class="containerContent">
 												<div class="buttons">
-													{if $eventObj->isEditable()}<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}&amp;action=edit{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.user.contest.entry.event.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
-													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;eventID={@$eventObj->eventID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.user.contest.entry.event.delete.sure{/lang}')" title="{lang}wcf.user.contest.entry.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.user.contest.entry.event.permalink{/lang}">#{#$messageNumber}</a>
+													{if $eventObj->isEditable()}<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}&amp;action=edit{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.contest.event.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
+													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;eventID={@$eventObj->eventID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.event.delete.sure{/lang}')" title="{lang}wcf.contest.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
+													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.contest.event.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p class="firstPost smallFont light">{lang}wcf.user.contest.entry.event.by{/lang} {if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}">{$eventObj->username}</a>{else}{$eventObj->username}{/if} ({@$eventObj->time|time})</p>
+												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} {if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}">{$eventObj->username}</a>{else}{$eventObj->username}{/if} ({@$eventObj->time|time})</p>
 												<p>{@$eventObj->getFormattedMessage()}</p>
 											</div>
 										</li>
@@ -150,7 +139,7 @@
 							<div class="contentBox">
 								<form method="post" action="index.php?page=Contest&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>
-										<legend>{lang}wcf.user.contest.entry.comment.add{/lang}</legend>
+										<legend>{lang}wcf.contest.comment.add{/lang}</legend>
 										
 										{if !$this->user->userID}
 											<div class="formElement{if $errorField == 'username'} formError{/if}">
@@ -172,14 +161,14 @@
 										
 										<div class="formElement{if $errorField == 'comment' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="comment">{lang}wcf.user.contest.entry.comment{/lang}</label>
+												<label for="comment">{lang}wcf.contest.comment{/lang}</label>
 											</div>
 											<div class="formField">
 												<textarea name="comment" id="comment" rows="10" cols="40">{$comment}</textarea>
 												{if $errorField == 'comment' && $action == 'add'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.user.contest.entry.comment.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.contest.comment.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>
