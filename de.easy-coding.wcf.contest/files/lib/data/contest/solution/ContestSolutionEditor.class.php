@@ -78,7 +78,8 @@ class ContestSolutionEditor extends ContestSolution {
 	
 	public static function getStates() {
 		$arr = array(
-			'unknown',
+			'private',
+			'waiting',
 			'accepted',
 			'declined'
 		);

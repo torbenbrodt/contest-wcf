@@ -191,7 +191,7 @@ class ContestPage extends MultipleLinkPage {
 				MessageAttachmentList::removeEmbeddedAttachments($this->attachments);
 			}
 		}
-		
+
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
 	}
@@ -253,7 +253,7 @@ class ContestPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.overview');
 		
 		// check permission

@@ -150,7 +150,7 @@ class ContestPricePage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.price');
 		
 		// check permission

@@ -2,15 +2,25 @@
 <head>
 	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
-	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript">
-		//<![CDATA[
-		var INLINE_IMAGE_MAX_WIDTH = {@INLINE_IMAGE_MAX_WIDTH}; 
-		//]]>
+	var jurys = new Array();
+
+	onloadEvents.push(function() {
+		// jurys
+		var list1 = new ContestPermissionList('jury', jurys, 'index.php?page=ContestJuryObjects');
+	
+		// add onsubmit event
+		document.getElementById('JuryInviteForm').onsubmit = function() {
+			if (suggestion.selectedIndex != -1) return false;
+			if (list1.inputHasFocus) return false;
+			list1.submit(this);
+		};
+	});
 	</script>
-	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
-	{include file='multiQuote'}
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -99,7 +109,47 @@
 							</div>
 						</div>
 						
+						{if $entry->isOwner() && $action != 'edit'}
+							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang}</h4>
+							<div class="contentBox">
+								<form method="post" id="JuryInviteForm" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">
+									<fieldset>
+										<legend>{lang}wcf.contest.jury{/lang}</legend>
+										<p>{lang}wcf.contest.jury.owner.description{/lang}</p>
+	
+										<div class="formElement">
+											<div class="formFieldLabel" id="juryTitle">
+												{lang}wcf.contest.jury.add{/lang}
+											</div>
+											<div class="formField"><div id="jury" class="accessRights" style="height:80px"></div></div>
+										</div>
+										<div class="formElement">
+											<div class="formField">	
+												<input id="juryAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
+												<script type="text/javascript">
+													//<![CDATA[
+													suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
+													suggestion.enableIcon(true);
+													suggestion.init('juryAddInput');
+													//]]>
+												</script>
+												<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
+											</div>
+											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+										</div>
+									</fieldset>
+									
+									<div class="formSubmit">
+										{@SID_INPUT_TAG}
+										<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+										<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
+									</div>
+								</form>
+							</div>
+						{/if}
+						
 						{if $entry->isJuryable() && $action != 'edit'}
+							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

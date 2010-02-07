@@ -106,6 +106,11 @@ class ContestJuryPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		if($this->entry->isOwner()) {
+			require_once(WCF_DIR.'lib/form/ContestJuryInviteForm.class.php');
+			new ContestJuryInviteForm($this->entry);
+		}
+		
 		// init form
 		if ($this->entry->isJuryable()) {
 			if ($this->action == 'edit') {
@@ -139,7 +144,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.jury');
 		
 		// check permission

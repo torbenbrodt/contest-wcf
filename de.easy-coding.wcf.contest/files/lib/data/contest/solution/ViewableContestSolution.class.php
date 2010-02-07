@@ -22,10 +22,10 @@ class ViewableContestSolution extends ContestSolution {
 	/**
 	 * Creates a new ViewableContest object.
 	 *
-	 * @param	integer		$contestID
+	 * @param	integer		$solutionID
 	 * @param 	array<mixed>	$row
 	 */
-	public function __construct($contestID, $row = null) {
+	public function __construct($solutionID, $row = null) {
 		if ($contestID !== null) {
 			$sql = "SELECT		user_table.username, 
 						group_table.groupName,
@@ -38,7 +38,8 @@ class ViewableContestSolution extends ContestSolution {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_solution.groupID)
-				WHERE 		contest.contestID = ".$contestID;
+				WHERE 		contest_solution.solutionID = ".intval($solutionID)."
+				AND		".ContestSolution::getStateConditions();
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);

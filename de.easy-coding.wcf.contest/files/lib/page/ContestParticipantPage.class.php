@@ -19,6 +19,9 @@ class ContestParticipantPage extends MultipleLinkPage {
 	// system
 	public $templateName = 'contestParticipant';
 	
+	// form
+	public $ownerID = 0;
+	
 	/**
 	 * entry id
 	 *
@@ -103,6 +106,11 @@ class ContestParticipantPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		if($this->entry->isOwner()) {
+			require_once(WCF_DIR.'lib/form/ContestParticipantInviteForm.class.php');
+			new ContestParticipantInviteForm($this->entry);
+		}
+		
 		// init form
 		if ($this->entry->isParticipantable()) {
 			if ($this->action == 'edit') {
@@ -119,6 +127,7 @@ class ContestParticipantPage extends MultipleLinkPage {
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
+			'userID' => $this->entry->userID,
 			'participants' => $this->participantList->getObjects(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
@@ -135,7 +144,7 @@ class ContestParticipantPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.participant');
 		
 		// check permission

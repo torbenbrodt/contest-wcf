@@ -100,9 +100,9 @@
 											<div class="containerIcon">
 												{if $eventObj->getOwner()->getAvatar()}
 													{assign var=x value=$eventObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-													{if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}" title="{lang username=$eventObj->username}wcf.user.viewProfile{/lang}">{/if}{@$eventObj->getOwner()->getAvatar()}{if $eventObj->userID}</a>{/if}
+													<a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}">{@$eventObj->getOwner()->getAvatar()}</a>
 												{else}
-													{if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}" title="{lang username=$eventObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $eventObj->userID}</a>{/if}
+													<a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
 											<div class="containerContent">
@@ -111,7 +111,7 @@
 													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;eventID={@$eventObj->eventID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.event.delete.sure{/lang}')" title="{lang}wcf.contest.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.contest.event.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} {if $eventObj->userID}<a href="index.php?page=User&amp;userID={@$eventObj->userID}{@SID_ARG_2ND}">{$eventObj->username}</a>{else}{$eventObj->username}{/if} ({@$eventObj->time|time})</p>
+												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} <a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$eventObj->getOwner()->getName()}</a> ({@$eventObj->time|time})</p>
 												<p>{@$eventObj->getFormattedMessage()}</p>
 											</div>
 										</li>

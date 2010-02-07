@@ -17,7 +17,7 @@
 		onloadEvents.push(function() {
 			steppedTabMenu.showSubTabMenu('step1');
 			
-			document.getElementById('ContestAddForm').onsubmit = function() { 
+			document.getElementById('ContestAddForm').onsubmit = function() {
 				for(var i=0; i<onsubmitEvents.length; i++) {
 					onsubmitEvents[i](this);
 				}

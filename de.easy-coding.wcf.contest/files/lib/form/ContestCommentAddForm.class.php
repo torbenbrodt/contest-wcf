@@ -41,7 +41,7 @@ class ContestCommentAddForm extends CaptchaForm {
 		parent::readParameters();
 		
 		// get entry
-		if (!$this->entry->isSolutionable()) {
+		if (!$this->entry->isCommentable()) {
 			throw new PermissionDeniedException();
 		}
 	}

@@ -106,6 +106,11 @@ class ContestSponsorPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		if($this->entry->isOwner()) {
+			require_once(WCF_DIR.'lib/form/ContestSponsorInviteForm.class.php');
+			new ContestSponsorInviteForm($this->entry);
+		}
+		
 		// init form
 		if ($this->entry->isSponsorable()) {
 			if ($this->action == 'edit') {
@@ -139,7 +144,7 @@ class ContestSponsorPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.sponsor');
 		
 		// check permission

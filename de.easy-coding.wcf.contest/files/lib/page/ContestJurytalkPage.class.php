@@ -77,7 +77,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
 		$this->entry = new ViewableContest($this->contestID);
-		if (!$this->entry->contestID) {
+		if (!$this->entry->contestID || !$this->entry->isJurytalkable()) {
 			throw new IllegalLinkException();
 		}
 		
@@ -150,7 +150,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		// set active menu item
-		ContestMenu::getInstance()->contestID = $this->contestID;
+		ContestMenu::getInstance()->setContest($this->entry);
 		ContestMenu::getInstance()->setActiveMenuItem('wcf.contest.menu.link.jurytalk');
 		
 		// check permission

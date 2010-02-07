@@ -2,15 +2,25 @@
 <head>
 	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
-	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript">
-		//<![CDATA[
-		var INLINE_IMAGE_MAX_WIDTH = {@INLINE_IMAGE_MAX_WIDTH}; 
-		//]]>
+	var participants = new Array();
+
+	onloadEvents.push(function() {
+		// participants
+		var list1 = new ContestPermissionList('participant', participants, 'index.php?page=ContestParticipantObjects');
+	
+		// add onsubmit event
+		document.getElementById('ParticipantInviteForm').onsubmit = function() {
+			if (suggestion.selectedIndex != -1) return false;
+			if (list1.inputHasFocus) return false;
+			list1.submit(this);
+		};
+	});
 	</script>
-	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
-	{include file='multiQuote'}
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -45,9 +55,9 @@
 										<div class="containerIcon">
 											{if $participantObj->getOwner()->getAvatar()}
 												{assign var=x value=$participantObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}" title="{lang username=$participantObj->username}wcf.user.viewProfile{/lang}">{/if}{@$participantObj->getOwner()->getAvatar()}{if $participantObj->userID}</a>{/if}
+												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}">{/if}{@$participantObj->getOwner()->getAvatar()}{if $participantObj->userID}</a>{/if}
 											{else}
-												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}" title="{lang username=$participantObj->username}wcf.user.viewProfile{/lang}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $participantObj->userID}</a>{/if}
+												{if $participantObj->userID}<a href="index.php?page=User&amp;userID={@$participantObj->userID}{@SID_ARG_2ND}">{/if}<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />{if $participantObj->userID}</a>{/if}
 											{/if}
 										</div>
 										<div class="containerContent">
@@ -99,7 +109,47 @@
 							</div>
 						</div>
 						
+						{if $entry->isOwner() && $action != 'edit'}
+							<h4 class="subHeadline">{lang}wcf.contest.participants{/lang}</h4>
+							<div class="contentBox">
+								<form method="post" id="ParticipantInviteForm" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
+									<fieldset>
+										<legend>{lang}wcf.contest.participant{/lang}</legend>
+										<p>{lang}wcf.contest.participant.owner.description{/lang}</p>
+	
+										<div class="formElement">
+											<div class="formFieldLabel" id="participantTitle">
+												{lang}wcf.contest.participant.add{/lang}
+											</div>
+											<div class="formField"><div id="participant" class="accessRights" style="height:80px"></div></div>
+										</div>
+										<div class="formElement">
+											<div class="formField">	
+												<input id="participantAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
+												<script type="text/javascript">
+													//<![CDATA[
+													suggestion.setSource('index.php?page=ContestParticipantSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+													suggestion.enableIcon(true);
+													suggestion.init('participantAddInput');
+													//]]>
+												</script>
+												<input id="participantAddButton" type="button" value="{lang}wcf.contest.participant.add{/lang}" />
+											</div>
+											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+										</div>
+									</fieldset>
+									
+									<div class="formSubmit">
+										{@SID_INPUT_TAG}
+										<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+										<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
+									</div>
+								</form>
+							</div>
+						{/if}
+						
 						{if $entry->isParticipantable() && $action != 'edit'}
+							<h4 class="subHeadline">{lang}wcf.contest.participants{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

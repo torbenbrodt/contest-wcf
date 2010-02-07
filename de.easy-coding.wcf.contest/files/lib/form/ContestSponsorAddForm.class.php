@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
- * Shows the form for adding contest entry sponsors.
+ * Shows the form for adding contest contest sponsors.
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -20,14 +20,14 @@ class ContestSponsorAddForm extends AbstractForm {
 	public $groupID = 0;
 	
 	public $states = array();
-	public $state = '';
+	public $state = 'applied';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * available groups
@@ -39,10 +39,10 @@ class ContestSponsorAddForm extends AbstractForm {
 	/**
 	 * Creates a new ContestSponsorAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
@@ -52,8 +52,8 @@ class ContestSponsorAddForm extends AbstractForm {
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isSponsorable()) {
+		// get contest
+		if (!$this->contest->isSponsorable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -110,11 +110,11 @@ class ContestSponsorAddForm extends AbstractForm {
 		parent::save();
 		
 		// save sponsor
-		$sponsor = ContestSponsorEditor::create($this->entry->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
+		$sponsor = ContestSponsorEditor::create($this->contest->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSponsor&contestID='.$this->entry->contestID.'&sponsorID='.$sponsor->sponsorID.SID_ARG_2ND_NOT_ENCODED.'#sponsor'.$sponsor->sponsorID);
+		HeaderUtil::redirect('index.php?page=ContestSponsor&contestID='.$this->contest->contestID.'&sponsorID='.$sponsor->sponsorID.SID_ARG_2ND_NOT_ENCODED.'#sponsor'.$sponsor->sponsorID);
 		exit;
 	}
 	

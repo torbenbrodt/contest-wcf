@@ -18,11 +18,6 @@ class Contest extends DatabaseObject {
 	protected $juryList = null;
 	protected $sponsorList = null;
 	protected $participantList = null;
-	
-	/**
-	 * @see getUser
-	 */
-	protected $user = null;
 
 	/**
 	 * Creates a new Contest object.
@@ -134,40 +129,14 @@ class Contest extends DatabaseObject {
 	}
 	
 	/**
-	 * return the creator
-	 */
-	public function getUser() {
-		return $this->user !== null ? $this->user : $this->user = new User($this->userID);
-	}
-	
-	/**
-	 * Gets the prices of this entry.
-	 * 
-	 * @return	array<ContestPrice>
-	 * @deprecated
-	 */
-/*
-	public function getPrices() {
-		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
-		$classes = array();
-		$sql = "SELECT		contest_price.*
-			FROM		wcf".WCF_N."_contest_price contest_price
-			WHERE		contestID = ".$this->contestID."
-			ORDER BY	contest_price.position";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$classes[$row['priceID']] = new ContestPrice(null, $row);
-		}
-		
-		return $classes;
-	}
-*/	
-	/**
 	 * Returns true, if the active user can solution this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
+		if($this->isParticipantable() == false) {
+			return false;
+		}
 		return WCF::getUser()->getPermission('user.contest.canSolution');
 	}
 		
@@ -204,7 +173,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSponsorable() {
-		return true; // TODO: isSponsorable
+		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
 	}
 		
 	/**
@@ -231,7 +200,17 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isParticipantable() {
-		return true; // TODO: isParticipantable
+		if(WCF::getUser()->userID == 0 || $this->isOwner()
+		  || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+			return false;
+		}
+		foreach($this->getJurys() as $jury) {
+			if($jury->isOwner()) {
+				return false;
+			}
+		}
+	
+		return true;
 	}
 		
 	/**
@@ -240,7 +219,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isJuryable() {
-		return true; // TODO: isJuryable
+		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
 	}
 		
 	/**
@@ -249,7 +228,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isPriceable() {
-		return true; // TODO: isPriceable
+		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
 	}
 	
 	/**
@@ -294,6 +273,22 @@ class Contest extends DatabaseObject {
 	public function isDeletable() {
 		return in_array($this->state, array('private', 'waiting')) && $this->isOwner();
 	}
+	
+	public function isViewable() {
+		return $this->isOwner() || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
+	}
+
+	/**
+	 * @see DatabaseObject::handleData()
+	 */
+	protected function handleData($data) {
+		parent::handleData($data);
+
+		if($this->isViewable() == false) {
+			$this->subject = '*hidden*';
+			$this->message = '*hidden*';
+		}
+	}
 
 	/**
 	 * thats how the states are implemented
@@ -333,7 +328,7 @@ class Contest extends DatabaseObject {
 			)
 		) OR (
 			contest.state = 'scheduled'
-			AND contest.fromTime >= UNIX_TIMESTAMP(NOW())
+			AND contest.fromTime <= UNIX_TIMESTAMP(NOW())
 		) OR (
 			-- jury, sponsor, participant
 			SELECT 	COUNT(*)

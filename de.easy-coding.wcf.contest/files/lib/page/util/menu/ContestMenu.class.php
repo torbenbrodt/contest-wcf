@@ -12,7 +12,15 @@ require_once(WCF_DIR.'lib/page/util/menu/TreeMenu.class.php');
  */
 class ContestMenu extends TreeMenu {
 	protected static $instance = null;
-	public $contestID = 0;
+	protected $contest = null;
+	
+	/**
+	 * validations
+	 */
+	protected $validations = array(
+		'wcf.contest.menu.link.jurytalk' => 'isJurytalkable',
+		'wcf.contest.menu.link.sponsortalk' => 'isSponsortalkable'
+	);
 	
 	/**
 	 * Returns an instance of the ContestMenu class.
@@ -25,6 +33,43 @@ class ContestMenu extends TreeMenu {
 		}
 		
 		return self::$instance;
+	}
+	
+	/**
+	 * sets contest
+	 */
+	public function setContest(Contest $contest = null) {
+		$this->contest = $contest;
+	}
+	
+	/**
+	 * Checks the permissions of the menu items.
+	 * Removes item without permission.
+	 * 
+	 * @param	string		$parentMenuItem
+	 */
+	protected function checkPermissions($parentMenuItem = '') {
+		parent::checkPermissions($parentMenuItem);
+		
+		if(isset($this->validations[$parentMenuItem])) {
+			$validation = $this->validations[$parentMenuItem];
+			if($this->contest->$validation() == false) {
+				$this->removeByMenuItem($parentMenuItem);
+			}
+		}
+	}
+	
+	/**
+	 *
+	 */
+	protected function removeByMenuItem($parentMenuItem) {
+		foreach ($this->menuItems[''] as $key => $val) {
+			if($val['menuItem'] == $parentMenuItem) {
+				unset($this->menuItems[''][$key]);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -49,7 +94,7 @@ class ContestMenu extends TreeMenu {
 		}
 		
 		// insert user id
-		$link = str_replace('%s', $this->contestID, $link);
+		$link = str_replace('%s', $this->contest->contestID, $link);
 		
 		return $link;
 	}

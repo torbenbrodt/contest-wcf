@@ -61,7 +61,7 @@ class ContestEventMixList extends DatabaseObjectList {
 					user_table.username,
 					avatar_table.*,
 					contest_event.*,
-					contest_comment.*
+					contest_comment.comment
 			FROM (
 				SELECT 	eventID AS id, 
 					userID, 

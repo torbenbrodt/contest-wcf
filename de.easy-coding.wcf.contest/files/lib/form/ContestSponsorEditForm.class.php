@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/form/ContestSponsorAddForm.class.php');
  * maybe user just got an invitation, we have to display sponsortalk
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -64,6 +64,8 @@ class ContestSponsorEditForm extends ContestSponsorAddForm {
 		if (!count($_POST)) {
 			$this->state =  $this->entry->state;
 		}
+		
+		$this->states = ContestSponsorEditor::getStates($this->state, $this->entry->isOwner());
 	}
 	
 	/**

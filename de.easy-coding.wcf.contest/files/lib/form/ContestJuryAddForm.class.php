@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
- * Shows the form for adding contest entry jurys.
+ * Shows the form for adding contest contest jurys.
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -20,14 +20,14 @@ class ContestJuryAddForm extends AbstractForm {
 	public $groupID = 0;
 	
 	public $states = array();
-	public $state = '';
+	public $state = 'applied';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * available groups
@@ -39,10 +39,10 @@ class ContestJuryAddForm extends AbstractForm {
 	/**
 	 * Creates a new ContestJuryAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
@@ -52,8 +52,8 @@ class ContestJuryAddForm extends AbstractForm {
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isJuryable()) {
+		// get contest
+		if (!$this->contest->isJuryable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -110,11 +110,11 @@ class ContestJuryAddForm extends AbstractForm {
 		parent::save();
 		
 		// save jury
-		$jury = ContestJuryEditor::create($this->entry->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
+		$jury = ContestJuryEditor::create($this->contest->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestJury&contestID='.$this->entry->contestID.'&juryID='.$jury->juryID.SID_ARG_2ND_NOT_ENCODED.'#jury'.$jury->juryID);
+		HeaderUtil::redirect('index.php?page=ContestJury&contestID='.$this->contest->contestID.'&juryID='.$jury->juryID.SID_ARG_2ND_NOT_ENCODED.'#jury'.$jury->juryID);
 		exit;
 	}
 	

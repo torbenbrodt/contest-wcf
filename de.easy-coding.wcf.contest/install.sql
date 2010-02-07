@@ -36,7 +36,7 @@ CREATE TABLE wcf1_contest_solution (
 	groupID INT(10) NOT NULL DEFAULT 0,
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
-	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
+	state ENUM('private', 'waiting', 'accepted', 'declined') NOT NULL DEFAULT 'private',
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
 	KEY (userID),

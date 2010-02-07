@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.clas
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
- * Shows the form for adding contest entry participants.
+ * Shows the form for adding contest contest participants.
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -20,14 +20,14 @@ class ContestParticipantAddForm extends AbstractForm {
 	public $groupID = 0;
 	
 	public $states = array();
-	public $state = '';
+	public $state = 'applied';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * available groups
@@ -39,10 +39,10 @@ class ContestParticipantAddForm extends AbstractForm {
 	/**
 	 * Creates a new ContestParticipantAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
@@ -52,8 +52,8 @@ class ContestParticipantAddForm extends AbstractForm {
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isParticipantable()) {
+		// get contest
+		if (!$this->contest->isParticipantable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -110,11 +110,11 @@ class ContestParticipantAddForm extends AbstractForm {
 		parent::save();
 		
 		// save participant
-		$participant = ContestParticipantEditor::create($this->entry->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
+		$participant = ContestParticipantEditor::create($this->contest->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestParticipant&contestID='.$this->entry->contestID.'&participantID='.$participant->participantID.SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID);
+		HeaderUtil::redirect('index.php?page=ContestParticipant&contestID='.$this->contest->contestID.'&participantID='.$participant->participantID.SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID);
 		exit;
 	}
 	

@@ -148,11 +148,11 @@ class ContestAddForm extends MessageForm {
 		if (isset($_POST['price']) && is_array($_POST['price'])) $this->prices = $_POST['price'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
 		
-		// sponsortalk
+		// jurytalk
 		$this->jurytalk_trigger = isset($_POST['jurytalk_trigger']);
 		if($this->jurytalk_trigger && isset($_POST['jurytalkAddText'])) $this->jurytalk_message = $_POST['jurytalkAddText'];
 		
-		// jurytalk
+		// sponsortalk
 		$this->sponsortalk_trigger = isset($_POST['sponsortalk_trigger']);
 		if($this->sponsortalk_trigger && isset($_POST['sponsortalkAddText'])) $this->sponsortalk_message = $_POST['sponsortalkAddText'];
 		
