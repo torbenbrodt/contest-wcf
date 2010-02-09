@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php'
  * Represents a viewable contest entry participant.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -21,11 +21,11 @@ class ViewableContestParticipant extends ContestParticipant {
 	/**
 	 * Creates a new ViewableContest object.
 	 *
-	 * @param	integer		$contestID
+	 * @param	integer		$participantID
 	 * @param 	array<mixed>	$row
 	 */
-	public function __construct($contestID, $row = null) {
-		if ($contestID !== null) {
+	public function __construct($participantID, $row = null) {
+		if ($participantID !== null) {
 			$sql = "SELECT		user_table.username, 
 						group_table.groupName,
 						avatar_table.*, 
@@ -37,7 +37,8 @@ class ViewableContestParticipant extends ContestParticipant {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_participant.groupID)
-				WHERE 		contest.contestID = ".$contestID;
+				WHERE 		contest.participantID = ".intval($participantID)."
+				AND		".ContestParticipant::getStateConditions();
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);

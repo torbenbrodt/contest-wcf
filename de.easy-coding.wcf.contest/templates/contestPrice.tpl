@@ -25,7 +25,7 @@
 	{include file="contestEntryHeader"}
 	
 	<div class="border tabMenuContent">
-		<div class="layout-2 blog">
+		<div class="layout-2">
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
@@ -37,7 +37,6 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestPrice&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<div class="blogInner">
 							{assign var='messageNumber' value=$items-$startIndex+1}
 							{foreach from=$prices item=priceObj}
 								{assign var="contestID" value=$priceObj->contestID}
@@ -80,7 +79,6 @@
 								</div>
 								{assign var='messageNumber' value=$messageNumber-1}
 							{/foreach}
-						</div>
 							
 							<div class="contentFooter">
 								{@$pagesOutput}

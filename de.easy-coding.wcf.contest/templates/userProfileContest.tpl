@@ -1,5 +1,5 @@
 <div class="contentBox">
-	<h3 class="subHeadline"><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}">{lang}wcf.contest{/lang}</a> <span>({#$user->blogEntries})</span></h3>
+	<h3 class="subHeadline"><a href="index.php?page=Contest&amp;userID={@$user->userID}{@SID_ARG_2ND}">{lang}wcf.contest{/lang}</a></h3>
 	
 	<ul class="dataList">
 		{foreach from=$entries item=entry}

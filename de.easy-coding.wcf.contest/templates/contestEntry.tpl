@@ -24,7 +24,7 @@
 	{include file="contestEntryHeader"}
 	
 	<div class="border tabMenuContent">
-		<div class="layout-2 blog">
+		<div class="layout-2">
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
@@ -32,52 +32,47 @@
 							<h3 class="subHeadline">{lang}wcf.contest{/lang}</h3>
 							
 							<div class="contentHeader"> </div>
-							<div class="blogInner">
-								<div class="message">
-									<div class="messageInner container-1">
-										<a id="entry{@$entry->contestID}"></a>
-										<div class="messageHeader">
-											<div class="containerIcon">
-												
-												{if $entry->getOwner()->getAvatar()}
-													{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
-													<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{@$entry->getOwner()->getAvatar()}</a>
-												{else}
-													<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
-												{/if}
-											</div>
-											<div class="containerContent">
-												<p style="float:right">*{$entry->state}*</p>
-												<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
-												<p class="light smallFont">{@$entry->time|time}</p>
-											</div>
+							<div class="message content">
+								<div class="messageInner container-1">
+									<a id="entry{@$entry->contestID}"></a>
+									<div class="messageHeader">
+										<div class="containerIcon">
+											
+											{if $entry->getOwner()->getAvatar()}
+												{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
+												<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{@$entry->getOwner()->getAvatar()}</a>
+											{else}
+												<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+											{/if}
 										</div>
-										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
-											{@$entry->getFormattedMessage()}
+										<div class="containerContent">
+											<p style="float:right">*{$entry->state}*</p>
+											<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
+											<p class="light smallFont">{@$entry->time|time}</p>
 										</div>
-										
-										{if $tags|count > 0 || $classes|count > 0}
-											<div class="editNote smallFont light">
-												{if $tags|count > 0}<p>{lang}wcf.contest.tags{/lang}: {implode from=$tags item=tag}<a href="index.php?page=ContestOverview&amp;tagID={@$tag->getID()}{@SID_ARG_2ND}">{$tag->getName()}</a>{/implode}</p>{/if}
-												{if $classes|count > 0}<p>{lang}wcf.contest.classes{/lang}: {implode from=$classes item=class}<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">{lang}{$class->title}{/lang}</a>{/implode}</p>{/if}
-											</div>
-										{/if}
-										
-										<div class="messageFooter">
-											<div class="smallButtons">
-												<ul id="contestEntryButtons{@$entry->contestID}">
-													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-													{if $entry->isEditable()}<li><a href="index.php?form=ContestEdit&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
-													{if $entry->isDeletable()}<li><a href="index.php?action=ContestDelete&amp;contestID={@$entry->contestID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.delete.sure{/lang}')" title="{lang}wcf.contest.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
-													{if MODULE_USER_INFRACTION == 1 && $this->user->getPermission('admin.user.infraction.canWarnUser')}
-														<li><a href="index.php?form=UserWarn&amp;userID={@$entry->userID}&amp;objectType=contestEntry&amp;objectID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.user.infraction.button.warn{/lang}"><img src="{icon}infractionWarningS.png{/icon}" alt="" /> <span>{lang}wcf.user.infraction.button.warn{/lang}</span></a></li>
-													{/if}
-													{if $additionalSmallButtons|isset}{@$additionalSmallButtons}{/if}
-												</ul>
-											</div>
-										</div>
-										<hr />
 									</div>
+									<div class="messageBody" id="contestEntryText{@$entry->contestID}">
+										{@$entry->getFormattedMessage()}
+									</div>
+									
+									{if $tags|count > 0 || $classes|count > 0}
+										<div class="editNote smallFont light">
+											{if $tags|count > 0}<p>{lang}wcf.contest.tags{/lang}: {implode from=$tags item=tag}<a href="index.php?page=ContestOverview&amp;tagID={@$tag->getID()}{@SID_ARG_2ND}">{$tag->getName()}</a>{/implode}</p>{/if}
+											{if $classes|count > 0}<p>{lang}wcf.contest.classes{/lang}: {implode from=$classes item=class}<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">{lang}{$class->title}{/lang}</a>{/implode}</p>{/if}
+										</div>
+									{/if}
+									
+									<div class="messageFooter">
+										<div class="smallButtons">
+											<ul id="contestEntryButtons{@$entry->contestID}">
+												<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
+												{if $entry->isEditable()}<li><a href="index.php?form=ContestEdit&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
+												{if $entry->isDeletable()}<li><a href="index.php?action=ContestDelete&amp;contestID={@$entry->contestID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.delete.sure{/lang}')" title="{lang}wcf.contest.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
+												{if $additionalSmallButtons|isset}{@$additionalSmallButtons}{/if}
+											</ul>
+										</div>
+									</div>
+									<hr />
 								</div>
 							</div>
 						</div>

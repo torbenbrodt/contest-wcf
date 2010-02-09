@@ -5,6 +5,8 @@
 		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.mod.contest.isSuperMod"><![CDATA[Is super moderator]]></item>
+		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Super moderators have special permissions.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Can delete solutions]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution.description"><![CDATA[Members of this usergroup can delete solutions.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteEntry"><![CDATA[Can delete contests]]></item>
@@ -118,8 +120,8 @@
 		<item name="wcf.contest.solutions"><![CDATA[Solutions]]></item>
 		<item name="wcf.contest.state"><![CDATA[State]]></item>
 		<item name="wcf.contest.state.private"><![CDATA[private]]></item>
-		<item name="wcf.contest.state.waiting"><![CDATA[waiting]]></item>
-		<item name="wcf.contest.state.reviewed"><![CDATA[reviewed]]></item>
+		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>
+		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
 		<item name="wcf.contest.state.scheduled"><![CDATA[scheduled]]></item>
 		<item name="wcf.contest.comment"><![CDATA[Comment]]></item>
 		<item name="wcf.contest.comment.subject"><![CDATA[Subject]]></item>
@@ -239,6 +241,17 @@
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Become a judge]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Become judge]]></item>
 		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[As a judge you can decide who wins the tournament.]]></item>
+	</category>
+	<category name="wcf.contest.event.notification">
+		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>
+		<item name="wcf.contest.event.notification.create"><![CDATA[A new contest was created.]]></item>
+		<item name="wcf.contest.event.notification.commentcreate"><![CDATA[A new comment was created.]]></item>
+		<item name="wcf.contest.event.notification.sponsortalkcreate"><![CDATA[A new sponsortalk was created.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.invited"><![CDATA[A new sponsor was invited.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.applied"><![CDATA[A new sponsor applied.]]></item>
+		<item name="wcf.contest.event.notification.jurycreate.invited"><![CDATA[A new jury was invited.]]></item>
+		<item name="wcf.contest.event.notification.jurycreate.applied"><![CDATA[A new jury applied.]]></item>
+		<item name="wcf.contest.event.notification.pricecreate"><![CDATA[A new price was added.]]></item>
 	</category>
 	<category name="wcf.contest.menu">
 		<item name="wcf.contest.menu.link.overview"><![CDATA[Overview]]></item>

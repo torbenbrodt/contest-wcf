@@ -83,11 +83,45 @@
 	});
 	//]]>
 </script>
+<script type="text/javascript">
+	//<![CDATA[
+	function state_handler() {
+		// wanna toggle by this.value ?
+	}
+	onloadEvents.push(function() {
+		var coll = $('ContestAddForm').getElementsByTagName('input');
+		for(var i=0; i<coll.length; i++) {
+			if(coll[i].name == 'state') {
+				coll[i].onchange = state_handler;
+			}
+		}
+	});
+	//]]>
+</script>
 
 <h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.settings{/lang}</h3>
 <p>{lang}wcf.contest.contest.description{/lang}</p>
 <fieldset>
 	<legend>{lang}wcf.contest.settings{/lang}</legend>
+	
+	<div class="formElement{if $errorField == 'state'} formError{/if}">
+		<div class="formFieldLabel">
+			<label>{lang}wcf.contest.options{/lang}</label>
+		</div>
+		<div class="formField">
+			<fieldset>
+				<legend>{lang}wcf.contest.state{/lang}</legend>
+				<label>
+					<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
+					{lang}wcf.contest.enableParticipantCheck{/lang}
+				</label>
+				<label>
+					<input type="checkbox" name="enableSponsorCheck" value="1" {if $enableSponsorCheck}checked="checked" {/if}/>
+					{lang}wcf.contest.enableSponsorCheck{/lang}
+				</label>
+			</fieldset>
+		</div>
+	</div>
 	
 	<div class="formElement{if $errorField == 'state'} formError{/if}">
 		<div class="formFieldLabel">
@@ -103,7 +137,7 @@
 		</div>
 	</div>
 	
-	<div class="formGroup">
+	<div class="formGroup" id="stateScheduled">
 		<div class="formGroupLabel">
 			<label>{lang}wcf.search.period{/lang}</label>
 		</div>

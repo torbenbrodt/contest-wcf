@@ -35,11 +35,14 @@ class ContestEditor extends Contest {
 		
 		// save entry
 		$sql = "INSERT INTO	wcf".WCF_N."_contest
-					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml, enableBBCodes)
+					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml, 
+					enableBBCodes, enableParticipantCheck, enableSponsorCheck)
 			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', ".TIME_NOW.", ".$attachmentsAmount.",
 					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 					".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
-					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1).")";
+					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).",
+					".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
+					".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0).")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id
@@ -149,7 +152,9 @@ class ContestEditor extends Contest {
 				attachments = ".$attachmentsAmount.",
 				enableSmilies = ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 				enableHtml = ".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
-				enableBBCodes = ".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1)."
+				enableBBCodes = ".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1).",
+				enableParticipantCheck = ".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
+				enableSponsorCheck = ".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0)."
 			WHERE	contestID = ".$this->contestID;
 		WCF::getDB()->sendQuery($sql);
 		
@@ -391,14 +396,55 @@ class ContestEditor extends Contest {
 		}
 	}
 	
-	public static function getStates() {
-		$arr = array(
-			'private',
-			'waiting',
-			'reviewed',
-			'scheduled'
-		);
-		return array_combine($arr, $arr);
+	/**
+	 *
+	 */
+	public static function getStates($current = '', $isUser = false) {
+		switch($current) {
+			case 'private':
+				if($isUser) {
+					$arr = array(
+						$current,
+						'applied'
+					);
+				} else {
+					$arr = array(
+						$current
+					);
+				}
+			break;
+			case 'accepted':
+			case 'declined':
+			case 'applied':
+				if($isUser) {
+					$arr = array(
+						$current
+					);
+				} else {
+					$arr = array(
+						$current,
+						'accepted',
+						'declined',
+					);
+				}
+			case 'scheduled':
+				if($isUser) {
+					$arr = array(
+						$current
+					);
+				} else {
+					$arr = array(
+						$current,
+						'accepted',
+						'declined'
+					);
+				}
+			break;
+			default:
+				$arr = array();
+			break;
+		}
+		return count($arr) ? array_combine($arr, $arr) : $arr;
 	}
 }
 ?>

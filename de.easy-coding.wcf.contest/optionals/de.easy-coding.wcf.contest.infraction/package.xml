@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" infraction</packagename>
 		<packagedescription>Infraction system for the contest module.</packagedescription>
-		<version>0.1.0 Beta 1</version>
+		<version>0.3.0 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -24,6 +24,7 @@
 	<instructions type="install">
 		<!-- files -->
 		<files>files.tar</files>
+		<templates>files.tar</templates>
 		<sql>install.sql</sql>
 		
 		<!-- config -->

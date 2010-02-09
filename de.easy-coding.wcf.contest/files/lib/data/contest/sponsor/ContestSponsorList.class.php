@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/sponsor/ViewableContestSponsor.class.php'
  * Represents a list of contest sponsors.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -32,7 +32,9 @@ class ContestSponsorList extends DatabaseObjectList {
 	public function countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest_sponsor contest_sponsor
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+
+			WHERE (".ContestSponsor::getStateConditions().")
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
@@ -54,7 +56,9 @@ class ContestSponsorList extends DatabaseObjectList {
 			LEFT JOIN	wcf".WCF_N."_group group_table
 			ON		(group_table.groupID = contest_sponsor.groupID)
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+
+			WHERE (".ContestSponsor::getStateConditions().")
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

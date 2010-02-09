@@ -134,12 +134,37 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
+		if(WCF::getUser()->getPermission('user.contest.canSolution') == false) {
+			return false;
+		}
 		if($this->isParticipantable() == false) {
 			return false;
 		}
-		return WCF::getUser()->getPermission('user.contest.canSolution');
+		if($this->enableParticipantCheck) {
+			foreach($this->getParticipants() as $participant) {
+				if($jury->state == 'accepted' && $participant->isOwner()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
-		
+	
+	/**
+	 * Returns true, if the active user is member of the jury
+	 * 
+	 * @return	boolean
+	 */
+	public function isJury() {
+		foreach($this->getJurys() as $jury) {
+			if($jury->state == 'accepted' && $jury->isOwner()) {
+				return true;
+			}
+		}
+	
+		return false;
+	}
+	
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 * 
@@ -149,12 +174,9 @@ class Contest extends DatabaseObject {
 		if($this->isOwner()) {
 			return true;
 		}
-		foreach($this->getJurys() as $jury) {
-			if($jury->isOwner()) {
-				return true;
-			}
+		if($this->isJury()) {
+			return true;
 		}
-	
 		return false;
 	}
 		
@@ -228,7 +250,17 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isPriceable() {
-		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
+		if(WCF::getUser()->userID == 0 || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+			return false;
+		}
+		if($this->enableSponsorCheck) {
+			foreach($this->getSponsors() as $sponsor) {
+				if($jury->state == 'accepted' && $sponsor->isOwner()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -262,7 +294,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return in_array($this->state, array('private', 'waiting')) && $this->isOwner();
+		return WCF::getUser()->getPermission('mod.contest.isSuperMod') || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
 	
 	/**
@@ -271,7 +303,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return in_array($this->state, array('private', 'waiting')) && $this->isOwner();
+		return WCF::getUser()->getPermission('mod.contest.isSuperMod') || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
 	
 	public function isViewable() {
@@ -301,13 +333,13 @@ class Contest extends DatabaseObject {
 	 *    accepting an invitation enabled the users to reply to the talks
 	 *    the state can be changed by the owner
 	 *
-	 * - waiting
+	 * - applied
 	 *    owner can view and edit the entry
 	 *    accepted jurys can see the full entry
 	 *    admin team should review the entry and schedule a time
 	 *    the state can be changed by the admin team
 	 *
-	 * - reviewed
+	 * - accepted
 	 *    owner cannot change the entry any more
 	 *    entry can be shown if start_time is over
 	 *    state cannot be changed any longer
@@ -318,6 +350,7 @@ class Contest extends DatabaseObject {
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;
 		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
 
 		return "(
 			-- owner

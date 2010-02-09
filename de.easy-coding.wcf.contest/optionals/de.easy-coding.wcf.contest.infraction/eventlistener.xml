@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
+<data>	
+	<import>
+		<eventlistener>
+			<eventclassname>ContestPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestInfractionPageListener.class.php</listenerclassfile>
+		</eventlistener>
+	</import>
+</data>

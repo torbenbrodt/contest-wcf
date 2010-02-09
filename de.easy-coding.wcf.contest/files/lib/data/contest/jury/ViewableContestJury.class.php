@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
  * Represents a viewable contest entry jury.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -21,11 +21,11 @@ class ViewableContestJury extends ContestJury {
 	/**
 	 * Creates a new ViewableContest object.
 	 *
-	 * @param	integer		$contestID
+	 * @param	integer		$juryID
 	 * @param 	array<mixed>	$row
 	 */
-	public function __construct($contestID, $row = null) {
-		if ($contestID !== null) {
+	public function __construct($juryID, $row = null) {
+		if ($juryID !== null) {
 			$sql = "SELECT		user_table.username, 
 						group_table.groupName,
 						avatar_table.*, 
@@ -37,7 +37,8 @@ class ViewableContestJury extends ContestJury {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_jury.groupID)
-				WHERE 		contest.contestID = ".$contestID;
+				WHERE 		contest.juryID = ".intval($juryID)."
+				AND		".ContestJury::getStateConditions();
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);

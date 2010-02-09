@@ -35,6 +35,10 @@ class ContestEditForm extends MessageForm {
 	public $untilTime = 0;
 	public $isFullDay = 0;
 	
+	// options
+	public $enableParticipantCheck = 0;
+	public $enableSponsorCheck = 0;
+	
 	/**
 	 * attachment list editor
 	 * 
@@ -117,6 +121,8 @@ class ContestEditForm extends MessageForm {
 			$this->enableSmilies =  $this->entry->enableSmilies;
 			$this->enableHtml = $this->entry->enableHtml;
 			$this->enableBBCodes = $this->entry->enableBBCodes;
+			$this->enableParticipantCheck = $this->entry->enableParticipantCheck;
+			$this->enableSponsorCheck = $this->entry->enableSponsorCheck;
 			$this->userID = $this->entry->userID;
 			$this->groupID = $this->entry->groupID;
 			$this->state = $this->entry->state;
@@ -153,7 +159,7 @@ class ContestEditForm extends MessageForm {
 		));
 		
 		$this->availableClasses = ContestClass::getClasses();
-		$this->states = ContestEditor::getStates();
+		$this->states = ContestEditor::getStates($this->state, $this->entry->isOwner());
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 	}
 	
@@ -162,6 +168,9 @@ class ContestEditForm extends MessageForm {
 	 */
 	public function readFormParameters() {
 		parent::readFormParameters();
+		
+		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
+		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
@@ -236,6 +245,16 @@ class ContestEditForm extends MessageForm {
 	}
 	
 	/**
+	 * return the options
+	 */
+	protected function getOptions() {
+		$options = parent::getOptions();
+		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
+		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
+		return $options;
+	}
+	
+	/**
 	 * @see Form::save()
 	 */
 	public function save() {
@@ -277,6 +296,8 @@ class ContestEditForm extends MessageForm {
 			'states' => $this->states,
 			'state' => $this->state,
 			'eventDate' => $this->eventDate,
+			'enableParticipantCheck' => $this->enableParticipantCheck,
+			'enableSponsorCheck' => $this->enableSponsorCheck,
 		));
 	}
 	

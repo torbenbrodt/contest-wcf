@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
  * Represents a contest jury.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -36,30 +36,6 @@ class ContestJury extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
-	
-	/**
-	 * Returns a list of all jurys of a contest.
-	 * 
-	 * @param	integer			$contestID
-	 * @param	string			$state
-	 * @return	array<ContestJury>
-	 */
-	public static function getJurys($contestID, $state = null) {
-		$jurys = array();
-		$sql = "SELECT		*
-			FROM 		wcf".WCF_N."_contest_jury
-			WHERE		contestID = ".intval($contestID)."
-			
-			".($state === null ? "" : "state = '".escapeString($state)."'")."
-			
-			ORDER BY	juryID";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$jurys[$row['juryID']] = new self(null, $row);
-		}
-		
-		return $jurys;
-	}
 
 	/**
 	 * Returns true, if the active user is member
@@ -76,7 +52,17 @@ class ContestJury extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isOwner();
+		if($this->isOwner()) {
+			return true;
+		}
+		$contest = new Contest($this->contestID);
+		if($contest->isOwner()) {
+			return true;
+		}
+		if($contest->isJury()) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -85,7 +71,55 @@ class ContestJury extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isOwner();
+		$contest = new Contest($this->contestID);
+		if($contest->isOwner()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * thats how the states are implemented
+	 *
+	 * - invited
+	 * - declined
+	 * - applied
+	 *    contest owner, the rest of the jury and the user/group itself can view entry
+	 *
+	 * - accepted
+	 *    everybody can see the entry
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+
+		return "(
+			-- entry is accepted
+			contest_jury.state = 'accepted'
+		) OR (
+			-- entry owner
+			IF(
+				contest_jury.groupID > 0,
+				contest_jury.groupID IN (".implode(",", $groupIDs)."), 
+				contest_jury.userID > 0 AND contest_jury.userID = ".$userID."
+			)
+		) OR (
+			-- contest owner
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest contest
+			WHERE	contest.contestID = contest.contestID
+			AND	contest.groupID IN (".implode(",", $groupIDs).")
+			AND	contest.userID > 0 AND contest.userID = ".$userID."
+		) > 0
+		OR (
+			-- in the jury
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest_jury contest_jury
+			WHERE	contest_jury.contestID = contest_jury.contestID
+			AND	contest_jury.groupID IN (".implode(",", $groupIDs).")
+			AND	contest_jury.userID > 0 AND contest_jury.userID = ".$userID."
+		) > 0";
 	}
 }
 ?>

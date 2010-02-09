@@ -25,7 +25,7 @@
 	{include file="contestEntryHeader"}
 	
 	<div class="border tabMenuContent">
-		<div class="layout-2 blog">
+		<div class="layout-2">
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">

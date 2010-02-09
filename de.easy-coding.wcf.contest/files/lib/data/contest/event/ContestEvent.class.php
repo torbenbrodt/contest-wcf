@@ -72,7 +72,11 @@ class ContestEvent extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isOwner();
+		$contest = new Contest($this->contestID);
+		if($contest->isOwner()) {
+			return true;
+		}
+		return false;
 	}
 }
 ?>

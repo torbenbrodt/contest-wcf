@@ -67,18 +67,16 @@ class ContestJuryInviteForm extends AbstractForm {
 		// save jury
 		$inserts = '';
 		foreach ($this->jurys as $jury) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contest->contestID.',
-					'.($jury['type'] == 'user' ? intval($jury['id']) : 0).',
-					'.($jury['type'] == 'group' ? intval($jury['id']) : 0).')';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT IGNORE INTO
-						wcf".WCF_N."_contest_jury
-						(contestID, userID, groupID)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			$userID = $groupID = 0;
+			switch($jury['type']) {
+				case 'user':
+					$userID = intval($jury['id']);
+				break;
+				case 'user':
+					$groupID = intval($jury['id']);
+				break;
+			}
+			ContestJury::create($this->contest->contestID, $userID, $groupID, 'invited');
 		}
 		
 		$this->saved();

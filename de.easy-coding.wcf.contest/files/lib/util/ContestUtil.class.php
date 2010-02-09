@@ -14,6 +14,7 @@ class ContestUtil {
 	 * returns the groups for which the current user is admin
 	 */
 	public static function readAvailableGroups() {
+		$blacklisted = array(Group::GUESTS, Group::EVERYONE, Group::USERS);
 		$sql = "SELECT		usergroup.*, (
 						SELECT	COUNT(*)
 						FROM	wcf".WCF_N."_user_to_groups
@@ -23,6 +24,7 @@ class ContestUtil {
 			WHERE		groupID IN (
 						".implode(',', WCF::getUser()->getGroupIDs())."
 					)
+			AND		groupID NOT IN (".implode(',', $blacklisted).")
 			ORDER BY 	groupName";
 		$result = WCF::getDB()->sendQuery($sql);
 		$availableGroups = array();

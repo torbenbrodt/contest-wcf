@@ -7,11 +7,11 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
  * Represents a contest sponsor.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSponsor extends DatabaseObject {	
+class ContestSponsor extends DatabaseObject {
 	/**
 	 * Creates a new ContestSponsor object.
 	 *
@@ -36,53 +36,6 @@ class ContestSponsor extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
-	
-	/**
-	 * finds existing sponsor by foreign key combination
-	 * 
-	 * @param	integer		$contestID
-	 * @param	integer		$userID
-	 * @param	integer		$groupID
-	 * @return	ContestSponsor
-	 */
-	public static function find($contestID, $userID, $groupID) {
-		$sql = "SELECT		*
-			FROM		wcf".WCF_N."_contest_sponsor
-			WHERE		contestID = ".intval($contestID)."
-			AND		userID = ".intval($contestID)."
-			AND		groupID = ".intval($contestID);
-		$row = WCF::getDB()->getFirstRow($sql);
-		
-		if($row) {
-			return new self(null, $row);
-		} else {
-			return null;
-		}
-	}
-	
-	/**
-	 * Returns a list of all sponsors of a contest.
-	 * 
-	 * @param	integer			$contestID
-	 * @param	string			$state
-	 * @return	array<ContestSponsor>
-	 */
-	public static function getSponsors($contestID, $state = null) {
-		$sponsors = array();
-		$sql = "SELECT		*
-			FROM 		wcf".WCF_N."_contest_sponsor
-			WHERE		contestID = ".intval($contestID)."
-			
-			".($state === null ? "" : "state = '".escapeString($state)."'")."
-			
-			ORDER BY	sponsorID";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$sponsors[$row['sponsorID']] = new self(null, $row);
-		}
-		
-		return $sponsors;
-	}
 
 	/**
 	 * Returns true, if the active user is member
@@ -99,7 +52,14 @@ class ContestSponsor extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isOwner();
+		if($this->isOwner()) {
+			return true;
+		}
+		$contest = new Contest($this->contestID);
+		if($contest->isOwner()) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -108,7 +68,55 @@ class ContestSponsor extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isOwner();
+		$contest = new Contest($this->contestID);
+		if($contest->isOwner()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * thats how the states are implemented
+	 *
+	 * - invited
+	 * - declined
+	 * - applied
+	 *    contest owner, the rest of the sponsor and the user/group itself can view entry
+	 *
+	 * - accepted
+	 *    everybody can see the entry
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+
+		return "(
+			-- entry is accepted
+			contest_sponsor.state = 'accepted'
+		) OR (
+			-- entry owner
+			IF(
+				contest_sponsor.groupID > 0,
+				contest_sponsor.groupID IN (".implode(",", $groupIDs)."), 
+				contest_sponsor.userID > 0 AND contest_sponsor.userID = ".$userID."
+			)
+		) OR (
+			-- contest owner
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest contest
+			WHERE	contest.contestID = contest.contestID
+			AND	contest.groupID IN (".implode(",", $groupIDs).")
+			AND	contest.userID > 0 AND contest.userID = ".$userID."
+		) > 0
+		OR (
+			-- in the sponsor
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest_sponsor contest_sponsor
+			WHERE	contest_sponsor.contestID = contest_sponsor.contestID
+			AND	contest_sponsor.groupID IN (".implode(",", $groupIDs).")
+			AND	contest_sponsor.userID > 0 AND contest_sponsor.userID = ".$userID."
+		) > 0";
 	}
 }
 ?>

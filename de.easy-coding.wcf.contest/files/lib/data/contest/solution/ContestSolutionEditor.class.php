@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
  * Provides functions to manage entry solutions.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -76,14 +76,42 @@ class ContestSolutionEditor extends ContestSolution {
 		WCF::getDB()->sendQuery($sql);
 	}
 	
-	public static function getStates() {
-		$arr = array(
-			'private',
-			'waiting',
-			'accepted',
-			'declined'
-		);
-		return array_combine($arr, $arr);
+	/**
+	 *
+	 */
+	public static function getStates($current = '', $isUser = false) {
+		switch($current) {
+			case 'invited':
+				if($isUser) {
+					$arr = array(
+						'accepted',
+						'declined'
+					);
+				} else {
+					$arr = array(
+						$current
+					);
+				}
+			break;
+			case 'accepted':
+			case 'declined':
+			case 'applied':
+				if($isUser) {
+					$arr = array(
+						$current
+					);
+				} else {
+					$arr = array(
+						'accepted',
+						'declined'
+					);
+				}
+			break;
+			default:
+				$arr = array();
+			break;
+		}
+		return count($arr) ? array_combine($arr, $arr) : $arr;
 	}
 }
 ?>

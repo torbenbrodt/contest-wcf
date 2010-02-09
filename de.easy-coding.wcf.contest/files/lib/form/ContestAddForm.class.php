@@ -30,6 +30,10 @@ class ContestAddForm extends MessageForm {
 	public $userID = 0;
 	public $groupID = 0;
 	
+	// options
+	public $enableParticipantCheck = 0;
+	public $enableSponsorCheck = 0;
+	
 	/**
 	 * attachment list editor
 	 * 
@@ -138,6 +142,9 @@ class ContestAddForm extends MessageForm {
 	 */
 	public function readFormParameters() {
 		parent::readFormParameters();
+		
+		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
+		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
@@ -192,6 +199,16 @@ class ContestAddForm extends MessageForm {
 				throw new UserInputException('ownerID'); 
 			}
 		}
+	}
+	
+	/**
+	 * return the options
+	 */
+	protected function getOptions() {
+		$options = parent::getOptions();
+		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
+		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
+		return $options;
 	}
 	
 	/**
@@ -258,6 +275,8 @@ class ContestAddForm extends MessageForm {
 			'jurytalk_trigger' => $this->jurytalk_trigger,
 			'sponsortalk_trigger' => $this->sponsortalk_trigger,
 			'comment_trigger' => $this->comment_trigger,
+			'enableParticipantCheck' => $this->enableParticipantCheck,
+			'enableSponsorCheck' => $this->enableSponsorCheck,
 			
 		));
 	}

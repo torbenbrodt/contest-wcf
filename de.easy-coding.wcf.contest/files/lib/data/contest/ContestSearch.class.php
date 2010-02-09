@@ -29,7 +29,9 @@ class ContestSearch extends AbstractSearchableMessageType {
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$entry = new ContestSearchResult(null, $row);
-			$this->messageCache[$row['contestID']] = array('type' => 'contestEntry', 'message' => $entry);
+			if($entry->isViewable()) {
+				$this->messageCache[$row['contestID']] = array('type' => 'contestEntry', 'message' => $entry);
+			}
 		}
 	}
 	

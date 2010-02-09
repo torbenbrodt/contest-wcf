@@ -31,7 +31,7 @@
 	
 	<form method="post" action="index.php?form=ContestJury{@$action|ucfirst}{if $action == 'add'}{elseif $action == 'edit'}&amp;entryID={@$entryID}{/if}">
 		<div class="border content">
-			<div class="container-1 blog">
+			<div class="container-1">
 				<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}</h3>
 				
 				{if $additionalLargeButtons|isset && $additionalLargeButtons|count}

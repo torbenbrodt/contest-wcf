@@ -94,7 +94,7 @@ class ContestSolution extends DatabaseObject {
 	 * - private
 	 *    the solution can be viewn by the owner
 	 *
-	 * - waiting
+	 * - applied
 	 *    jury has to accept or decline answer
 	 *
 	 * - accepted
@@ -108,6 +108,7 @@ class ContestSolution extends DatabaseObject {
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;
 		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
 
 		return "(
 			-- owner
@@ -118,18 +119,18 @@ class ContestSolution extends DatabaseObject {
 			)
 		) OR (
 			-- solution has been submitted, and user is jury
-			contest_solution.state IN ('waiting', 'accepted', 'declined')
+			contest_solution.state IN ('applied', 'accepted', 'declined')
 			
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest_jury contest_jury
 				WHERE	contest_jury.contestID = contest_solution.contestID
 				AND	contest_jury.groupID IN (".implode(",", $groupIDs).")
-				AND	contest_jury.userID > 0 AND contest_solution.userID = ".$userID."
+				AND	contest_jury.userID > 0 AND contest_jury.userID = ".$userID."
 			) > 0
 			
 		) OR (
 			-- solution has been submitted, and contest is finished
-			contest_solution.state IN ('waiting', 'accepted', 'declined')
+			contest_solution.state IN ('applied', 'accepted', 'declined')
 			
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest contest
