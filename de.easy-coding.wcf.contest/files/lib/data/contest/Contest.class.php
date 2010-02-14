@@ -134,6 +134,9 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
+		if(WCF::getUser()->getPermission('mod.contest.isSuperMod')) {
+			return true;
+		}
 		if(WCF::getUser()->getPermission('user.contest.canSolution') == false) {
 			return false;
 		}
@@ -146,8 +149,9 @@ class Contest extends DatabaseObject {
 					return true;
 				}
 			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**
@@ -259,8 +263,9 @@ class Contest extends DatabaseObject {
 					return true;
 				}
 			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**

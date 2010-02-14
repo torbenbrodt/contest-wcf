@@ -2,15 +2,17 @@
 <head>
 	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
-	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
-	<script type="text/javascript">
-		//<![CDATA[
-		var INLINE_IMAGE_MAX_WIDTH = {@INLINE_IMAGE_MAX_WIDTH}; 
-		//]]>
+	
+	{if $entry->isOwner()}
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ItemListEditor.class.js"></script>
+	<script type="text/javascript"> 
+	//<![CDATA[
+	document.observe("dom:loaded", function() {
+		new ItemListEditor('pricePosition');
+	});
 	</script>
-	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
-	{include file='multiQuote'}
+	{/if}
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -29,7 +31,7 @@
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
-						
+						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">{/if}
 						<div class="contentBox">
 							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
 							
@@ -38,15 +40,58 @@
 							</div>
 							
 							{assign var='messageNumber' value=$items-$startIndex+1}
+							<ol class="itemList" id="pricePosition">
 							{foreach from=$prices item=priceObj}
+								<li id="item_{$priceObj->priceID}" class="deletable">
 								{assign var="contestID" value=$priceObj->contestID}
-								<div class="message">
+								<div class="message content">
 									<div class="messageInner {cycle values='container-1,container-2'}">
 										<a id="priceObj{@$priceObj->contestID}"></a>
+										{if $action == 'edit' && $priceID == $priceObj->priceID}
+											<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
+												<div class="formElement{if $errorField == 'subject'} formError{/if}">
+													<div class="formFieldLabel">
+														<label for="subject">{lang}wcf.contest.price.subject{/lang}</label>
+													</div>
+													<div class="formField">
+														<input type="text" class="inputText" name="subject" id="subject" value="{$subject}" tabindex="{counter name='tabindex'}" />
+														{if $errorField == 'subject'}
+															<p class="innerError">
+																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
+															</p>
+														{/if}
+													</div>
+												</div>
+												<div class="formElement{if $errorField == 'message'} formError{/if}">
+													<div class="formFieldLabel">
+														<label for="message">{lang}wcf.contest.price.message{/lang}</label>
+													</div>
+													<div class="formField">
+														<textarea name="message" id="message" rows="3" cols="40">{$message}</textarea>
+														{if $errorField == 'message'}
+															<p class="innerError">
+																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
+															</p>
+														{/if}
+													</div>
+												</div>
+												<div class="formSubmit">
+													{@SID_INPUT_TAG}
+													<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+													<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
+												</div>
+											</form>
+										{else}
 										<div class="messageHeader">
+											{if $entry->isOwner()}
 											<p class="messageCount">
-												<a href="index.php?page=ContestPrice&amp;contestID={@$priceObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
+												<select name="pricePositionPositions[{$contestID}][{$priceObj->priceID}]">
+													{section name='positions' loop=$prices|count}
+														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>
+													{/section}
+												</select>
 											</p>
+											{/if}
 											<div class="containerIcon">
 												{if $priceObj->getOwner()->getAvatar()}
 													{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
@@ -74,11 +119,22 @@
 												</ul>
 											</div>
 										</div>
+										{/if}
 										<hr />
 									</div>
 								</div>
 								{assign var='messageNumber' value=$messageNumber-1}
+								</li>
 							{/foreach}
+							</ol>
+							
+							{if $entry->isOwner()}		
+							<div class="formSubmit">
+								{@SID_INPUT_TAG}
+								<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+								<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
+							</div>
+							{/if}
 							
 							<div class="contentFooter">
 								{@$pagesOutput}
@@ -92,8 +148,10 @@
 								</div>
 							</div>
 						</div>
+						{if $action != 'edit'}</form>{/if}
 						
 						{if $entry->isPriceable() && $action != 'edit'}
+							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

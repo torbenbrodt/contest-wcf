@@ -118,15 +118,13 @@ class ContestJurytalkPage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// init form
-		if ($this->entry->isJurytalkable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestJurytalkEditForm.class.php');
-				new ContestJurytalkEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestJurytalkAddForm.class.php');
-				new ContestJurytalkAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestJurytalkEditForm.class.php');
+			new ContestJurytalkEditForm($this->entry);
+		}
+		else if($this->entry->isJurytalkable()) {
+			require_once(WCF_DIR.'lib/form/ContestJurytalkAddForm.class.php');
+			new ContestJurytalkAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

@@ -37,7 +37,7 @@ class ViewableContestSponsor extends ContestSponsor {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_sponsor.groupID)
-				WHERE 		contest.sponsorID = ".intval($sponsorID)."
+				WHERE 		contest_sponsor.sponsorID = ".intval($sponsorID)."
 				AND		".ContestSponsor::getStateConditions();
 			$row = WCF::getDB()->getFirstRow($sql);
 		}

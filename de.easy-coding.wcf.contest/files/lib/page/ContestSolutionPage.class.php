@@ -118,15 +118,13 @@ class ContestSolutionPage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// init form
-		if ($this->entry->isSolutionable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestSolutionEditForm.class.php');
-				new ContestSolutionEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestSolutionAddForm.class.php');
-				new ContestSolutionAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestSolutionEditForm.class.php');
+			new ContestSolutionEditForm($this->entry);
+		}
+		else if($this->entry->isSolutionable()) {
+			require_once(WCF_DIR.'lib/form/ContestSolutionAddForm.class.php');
+			new ContestSolutionAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

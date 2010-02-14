@@ -5,7 +5,7 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/comment/ContestCommentEditor.class.php');
 
 /**
- * Shows the form for adding contest entry comments.
+ * Shows the form for adding contest contest comments.
  *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
@@ -18,30 +18,30 @@ class ContestCommentAddForm extends CaptchaForm {
 	public $username = '';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * Creates a new ContestCommentAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isCommentable()) {
+		// get contest
+		if (!$this->contest->isCommentable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -106,11 +106,11 @@ class ContestCommentAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save comment
-		$comment = ContestCommentEditor::create($this->entry->contestID, $this->comment, WCF::getUser()->userID, $this->username);
+		$comment = ContestCommentEditor::create($this->contest->contestID, $this->comment, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->entry->contestID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
+		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->contest->contestID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
 		exit;
 	}
 	

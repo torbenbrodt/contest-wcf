@@ -5,10 +5,10 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsortalk/ContestSponsortalkEditor.class.php');
 
 /**
- * Shows the form for adding contest entry sponsortalks.
+ * Shows the form for adding contest contest sponsortalks.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -17,30 +17,30 @@ class ContestSponsortalkAddForm extends CaptchaForm {
 	public $message = '';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * Creates a new ContestSponsortalkAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isSponsortalkable()) {
+		// get contest
+		if (!$this->contest->isSponsortalkable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -77,11 +77,11 @@ class ContestSponsortalkAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save sponsortalk
-		$sponsortalk = ContestSponsortalkEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, WCF::getUser()->username);
+		$sponsortalk = ContestSponsortalkEditor::create($this->contest->contestID, $this->message, WCF::getUser()->userID, WCF::getUser()->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSponsortalk&contestID='.$this->entry->contestID.'&sponsortalkID='.$sponsortalk->sponsortalkID.SID_ARG_2ND_NOT_ENCODED.'#sponsortalk'.$sponsortalk->sponsortalkID);
+		HeaderUtil::redirect('index.php?page=ContestSponsortalk&contestID='.$this->contest->contestID.'&sponsortalkID='.$sponsortalk->sponsortalkID.SID_ARG_2ND_NOT_ENCODED.'#sponsortalk'.$sponsortalk->sponsortalkID);
 		exit;
 	}
 	

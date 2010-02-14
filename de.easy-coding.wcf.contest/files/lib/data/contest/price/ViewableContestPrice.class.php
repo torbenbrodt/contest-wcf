@@ -23,11 +23,11 @@ class ViewableContestPrice extends ContestPrice {
 	/**
 	 * Creates a new ViewableContest object.
 	 *
-	 * @param	integer		$contestID
+	 * @param	integer		$priceID
 	 * @param 	array<mixed>	$row
 	 */
-	public function __construct($contestID, $row = null) {
-		if ($contestID !== null) {
+	public function __construct($priceID, $row = null) {
+		if ($priceID !== null) {
 			$sql = "SELECT		user_table.username, 
 						contest_sponsor.userID, 
 						contest_sponsor.groupID, 
@@ -43,7 +43,7 @@ class ViewableContestPrice extends ContestPrice {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_sponsor.groupID)
-				WHERE 		contest.contestID = ".$contestID;
+				WHERE 		contest_price.priceID = ".intval($priceID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);

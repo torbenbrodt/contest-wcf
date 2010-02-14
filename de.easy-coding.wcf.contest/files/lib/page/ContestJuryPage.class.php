@@ -106,21 +106,20 @@ class ContestJuryPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// save invitations
 		if($this->entry->isOwner()) {
 			require_once(WCF_DIR.'lib/form/ContestJuryInviteForm.class.php');
 			new ContestJuryInviteForm($this->entry);
 		}
 		
 		// init form
-		if ($this->entry->isJuryable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestJuryEditForm.class.php');
-				new ContestJuryEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestJuryAddForm.class.php');
-				new ContestJuryAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestJuryEditForm.class.php');
+			new ContestJuryEditForm($this->entry);
+		}
+		else if($this->entry->isJuryable()) {
+			require_once(WCF_DIR.'lib/form/ContestJuryAddForm.class.php');
+			new ContestJuryAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

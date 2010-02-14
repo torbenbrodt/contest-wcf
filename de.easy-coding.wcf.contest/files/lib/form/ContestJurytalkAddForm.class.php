@@ -5,10 +5,10 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php');
 
 /**
- * Shows the form for adding contest entry jurytalks.
+ * Shows the form for adding contest contest jurytalks.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -17,30 +17,30 @@ class ContestJurytalkAddForm extends CaptchaForm {
 	public $message = '';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * Creates a new ContestJurytalkAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isJurytalkable()) {
+		// get contest
+		if (!$this->contest->isJurytalkable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -77,11 +77,11 @@ class ContestJurytalkAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save jurytalk
-		$jurytalk = ContestJurytalkEditor::create($this->entry->contestID, $this->message, WCF::getUser()->userID, WCF::getUser()->username);
+		$jurytalk = ContestJurytalkEditor::create($this->contest->contestID, $this->message, WCF::getUser()->userID, WCF::getUser()->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestJurytalk&contestID='.$this->entry->contestID.'&jurytalkID='.$jurytalk->jurytalkID.SID_ARG_2ND_NOT_ENCODED.'#jurytalk'.$jurytalk->jurytalkID);
+		HeaderUtil::redirect('index.php?page=ContestJurytalk&contestID='.$this->contest->contestID.'&jurytalkID='.$jurytalk->jurytalkID.SID_ARG_2ND_NOT_ENCODED.'#jurytalk'.$jurytalk->jurytalkID);
 		exit;
 	}
 	

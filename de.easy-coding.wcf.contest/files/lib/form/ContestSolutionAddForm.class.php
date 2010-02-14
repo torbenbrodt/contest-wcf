@@ -6,10 +6,10 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php'
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
- * Shows the form for adding contest entry solutions.
+ * Shows the form for adding contest contest solutions.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -24,11 +24,11 @@ class ContestSolutionAddForm extends AbstractForm {
 	public $state = '';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * available groups
@@ -40,21 +40,21 @@ class ContestSolutionAddForm extends AbstractForm {
 	/**
 	 * Creates a new ContestSolutionAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isSolutionable()) {
+		// get contest
+		if (!$this->contest->isSolutionable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -119,11 +119,11 @@ class ContestSolutionAddForm extends AbstractForm {
 		parent::save();
 		
 		// save solution
-		$solution = ContestSolutionEditor::create($this->entry->contestID, $this->message, $this->userID, $this->groupID);
+		$solution = ContestSolutionEditor::create($this->contest->contestID, $this->message, $this->userID, $this->groupID);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSolution&contestID='.$this->entry->contestID.'&solutionID='.$solution->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$solution->solutionID);
+		HeaderUtil::redirect('index.php?page=ContestSolution&contestID='.$this->contest->contestID.'&solutionID='.$solution->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$solution->solutionID);
 		exit;
 	}
 	

@@ -112,15 +112,13 @@ class ContestParticipantPage extends MultipleLinkPage {
 		}
 		
 		// init form
-		if ($this->entry->isParticipantable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestParticipantEditForm.class.php');
-				new ContestParticipantEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestParticipantAddForm.class.php');
-				new ContestParticipantAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestParticipantEditForm.class.php');
+			new ContestParticipantEditForm($this->entry);
+		}
+		else if($this->entry->isParticipantable()) {
+			require_once(WCF_DIR.'lib/form/ContestParticipantAddForm.class.php');
+			new ContestParticipantAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

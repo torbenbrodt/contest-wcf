@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');
  * Shows the form for editing contest entry solutions.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -16,7 +16,7 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 	 *
 	 * @var ContestCommentEditor
 	 */
-	public $solutionObj = null;
+	public $entry = null;
 	
 	/**
 	 * Creates a new ContestCommentEditForm object.
@@ -24,7 +24,7 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 	 * @param	ContestComment		$solution
 	 */
 	public function __construct(ContestComment $solution) {
-		$this->solutionObj = $solution->getEditor();
+		$this->entry = $solution->getEditor();
 		CaptchaForm::__construct();
 	}
 	
@@ -35,7 +35,7 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 		CaptchaForm::readParameters();
 		
 		// get solution
-		if (!$this->solutionObj->isEditable()) {
+		if (!$this->entry->isEditable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -47,11 +47,11 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 		CaptchaForm::save();
 		
 		// save solution
-		$this->solutionObj->update($this->solution);
+		$this->entry->update($this->solution);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->solutionObj->solutionID);
+		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->entry->contestID.'&solutionID='.$this->entry->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->entry->solutionID);
 		exit;
 	}
 	
@@ -62,7 +62,7 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 		parent::readData();
 		
 		if (!count($_POST)) {
-			$this->solution = $this->solutionObj->solution;
+			$this->solution = $this->entry->solution;
 		}
 	}
 }

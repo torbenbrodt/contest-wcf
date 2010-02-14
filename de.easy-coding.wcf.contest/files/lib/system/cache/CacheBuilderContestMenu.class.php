@@ -28,8 +28,7 @@ class CacheBuilderContestMenu implements CacheBuilder {
 		
 		if (count($itemIDs) > 0) {
 			// get needed menu items and build item tree
-			$sql = "SELECT		menuItem, parentMenuItem, menuItemLink,
-						menuItemIcon, permissions, options
+			$sql = "SELECT		*
 				FROM		wcf".WCF_N."_contest_menu_item menu_item
 				WHERE		menuItemID IN (".implode(',', $itemIDs).")
 				ORDER BY	showOrder";

@@ -2,6 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 
 /**
  * Represents a contest sponsor.
@@ -35,6 +36,29 @@ class ContestSponsor extends DatabaseObject {
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
+	}
+        
+	/**
+	 * finds existing sponsor by foreign key combination
+	 * 
+	 * @param       integer         $contestID
+	 * @param       integer         $userID
+	 * @param       integer         $groupID
+	 * @return      ContestSponsor
+	 */
+	public static function find($contestID, $userID, $groupID) {
+		$sql = "SELECT          *
+			FROM            wcf".WCF_N."_contest_sponsor
+			WHERE           contestID = ".intval($contestID)."
+			AND             userID = ".intval($contestID)."
+			AND             groupID = ".intval($contestID);
+		$row = WCF::getDB()->getFirstRow($sql);
+
+		if($row) {
+			return new self(null, $row);
+		} else {
+			return null;
+		}
 	}
 
 	/**

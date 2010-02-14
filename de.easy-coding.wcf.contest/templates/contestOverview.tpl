@@ -90,10 +90,10 @@
 									<div class="smallButtons">
 										<ul>
 											<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-											<li><a href="index.php?page=ContestSolution&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfSolutions{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfSolutions{/lang}</span></a></li>
-											<li><a href="index.php?page=ContestParticipant&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfParticipants{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfParticipants{/lang}</span></a></li>
-											<li><a href="index.php?page=ContestJury&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#jurys" title="{lang}wcf.contest.numberOfJurys{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfJurys{/lang}</span></a></li>
-											<li><a href="index.php?page=ContestPrice&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#prices" title="{lang}wcf.contest.numberOfPrices{/lang}"><img src="{icon}messageS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfPrices{/lang}</span></a></li>
+											<li><a href="index.php?page=ContestSolution&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfSolutions{/lang}"><img src="{icon}contestSolutionS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfSolutions{/lang}</span></a></li>
+											<li><a href="index.php?page=ContestParticipant&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#solutions" title="{lang}wcf.contest.numberOfParticipants{/lang}"><img src="{icon}contestParticipantS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfParticipants{/lang}</span></a></li>
+											<li><a href="index.php?page=ContestJury&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#jurys" title="{lang}wcf.contest.numberOfJurys{/lang}"><img src="{icon}contestJuryS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfJurys{/lang}</span></a></li>
+											<li><a href="index.php?page=ContestPrice&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}#prices" title="{lang}wcf.contest.numberOfPrices{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.numberOfPrices{/lang}</span></a></li>
 											{if $additionalSmallButtons[$entry->contestID]|isset}{@$additionalSmallButtons[$entry->contestID]}{/if}
 										</ul>
 									</div>

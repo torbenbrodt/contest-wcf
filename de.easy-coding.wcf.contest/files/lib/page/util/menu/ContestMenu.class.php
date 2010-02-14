@@ -62,6 +62,19 @@ class ContestMenu extends TreeMenu {
 	/**
 	 *
 	 */
+	public function getIcon($size = 'L') {
+		$parentMenuItem = $this->getActiveMenuItem();
+		foreach ($this->menuItems[''] as $key => $val) {
+			if($val['menuItem'] == $parentMenuItem) {
+				return $val['menuItemIcon'.$size];
+			}
+		}
+		return '';
+	}
+	
+	/**
+	 *
+	 */
 	protected function removeByMenuItem($parentMenuItem) {
 		foreach ($this->menuItems[''] as $key => $val) {
 			if($val['menuItem'] == $parentMenuItem) {

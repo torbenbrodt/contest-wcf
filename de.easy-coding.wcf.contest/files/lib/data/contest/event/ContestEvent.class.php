@@ -2,6 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 
 /**
  * Represents a contest entry event.

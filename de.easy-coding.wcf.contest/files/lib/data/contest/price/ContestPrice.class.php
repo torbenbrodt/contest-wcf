@@ -2,6 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 
 /**
  * Represents a contest price.
@@ -20,8 +21,12 @@ class ContestPrice extends DatabaseObject {
 	 */
 	public function __construct($priceID, $row = null) {
 		if ($priceID !== null) {
-			$sql = "SELECT		contest_price.*
+			$sql = "SELECT		contest_sponsor.userID, 
+						contest_sponsor.groupID,
+						contest_price.*
 				FROM 		wcf".WCF_N."_contest_price contest_price
+				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
+				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
 				WHERE 		contest_price.priceID = ".intval($priceID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}

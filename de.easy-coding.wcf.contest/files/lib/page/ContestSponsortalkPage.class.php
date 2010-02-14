@@ -118,15 +118,13 @@ class ContestSponsortalkPage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// init form
-		if ($this->entry->isSponsortalkable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestSponsortalkEditForm.class.php');
-				new ContestSponsortalkEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestSponsortalkAddForm.class.php');
-				new ContestSponsortalkAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestSponsortalkEditForm.class.php');
+			new ContestSponsortalkEditForm($this->entry);
+		}
+		else if($this->entry->isSponsortalkable()) {
+			require_once(WCF_DIR.'lib/form/ContestSponsortalkAddForm.class.php');
+			new ContestSponsortalkAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

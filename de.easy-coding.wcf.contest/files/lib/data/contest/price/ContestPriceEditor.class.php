@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
  * Provides functions to manage contest prices.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -41,7 +41,7 @@ class ContestPriceEditor extends ContestPrice {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		$eventName = ContestEvent::getEventName(__METHOD__);
-		$sponsor = new ContestSponsor($sponsorID);
+		$sponsor = new ViewableContestSponsor($sponsorID);
 		ContestEventEditor::create($contestID, $sponsor->userID, $sponsor->groupID, $eventName, array(
 			'priceID' => $priceID,
 			'owner' => $sponsor->getOwner()->getName()
@@ -53,22 +53,36 @@ class ContestPriceEditor extends ContestPrice {
 	/**
 	 * Updates this price.
 	 *
-	 * @param	integer		$contestID
-	 * @param	integer		$sponsorID
 	 * @param	string		$subject
 	 * @param	string		$message
-	 * @param	integer		$time
-	 * @param	integer		$position
 	 */
-	public function update($contestID, $sponsorID, $subject, $message, $time, $position) {
+	public function update($subject, $message) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_price
-			SET	contestID = ".intval($contestID).",
-				sponsorID = ".intval($sponsorID).",
-				subject = '".escapeString($subject)."',
-				message = '".escapeString($message)."',
-				time = ".intval($time).",
-				position = ".intval($position)."
+			SET	subject = '".escapeString($subject)."',
+				message = '".escapeString($message)."'
 			WHERE	priceID = ".$this->priceID;
+		WCF::getDB()->sendQuery($sql);
+	}
+	
+	/**
+	 * updates positions
+	 * @param	array		$data
+	 */
+	public static function updatePositions($data) {
+		if(count($data) == 0) {
+			return;
+		}
+		
+		$positionData = 1;
+		$keys = array();
+		foreach($data as $priceID => $position) {
+			$positionData = "IF(priceID=".intval($priceID).", ".intval($position).", $positionData)";
+			$keys[] = intval($priceID);
+		}
+		
+		$sql = "UPDATE	wcf".WCF_N."_contest_price
+			SET	position = $positionData
+			WHERE	priceID IN (".implode(",", $keys).")";
 		WCF::getDB()->sendQuery($sql);
 	}
 	

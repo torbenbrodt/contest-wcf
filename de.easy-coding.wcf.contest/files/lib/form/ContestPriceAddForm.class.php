@@ -6,10 +6,10 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
 /**
- * Shows the form for adding contest entry prices.
+ * Shows the form for adding contest contest prices.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -25,11 +25,11 @@ class ContestPriceAddForm extends AbstractForm {
 	public $state = '';
 	
 	/**
-	 * entry editor
+	 * contest editor
 	 *
 	 * @var Contest
 	 */
-	public $entry = null;
+	public $contest = null;
 	
 	/**
 	 * available groups
@@ -41,21 +41,21 @@ class ContestPriceAddForm extends AbstractForm {
 	/**
 	 * Creates a new ContestPriceAddForm object.
 	 *
-	 * @param	Contest	$entry
+	 * @param	Contest	$contest
 	 */
-	public function __construct(Contest $entry) {
-		$this->entry = $entry;
+	public function __construct(Contest $contest) {
+		$this->contest = $contest;
 		parent::__construct();
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();
 		
-		// get entry
-		if (!$this->entry->isPriceable()) {
+		// get contest
+		if (!$this->contest->isPriceable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -125,20 +125,20 @@ class ContestPriceAddForm extends AbstractForm {
 	public function save() {
 		parent::save();
 		
-		$sponsor = ContestSponsor::find($this->entry->contestID, $this->userID, $this->groupID);
+		$sponsor = ContestSponsor::find($this->contest->contestID, $this->userID, $this->groupID);
 		$state = 'invited';
 		if($sponsor === null) {
-			require_once(WCF_DIR.'lib/data/contest/price/ContestSponsorEditor.class.php');
-			$sponsor = ContestSponsorEditor::create($this->entry->contestID, $this->userID, $this->groupID, $state);
+			require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
+			$sponsor = ContestSponsorEditor::create($this->contest->contestID, $this->userID, $this->groupID, $state);
 		}
 		$position = 0; // TODO: price, allow position
 		
 		// save price
-		$price = ContestPriceEditor::create($this->entry->contestID, $sponsor->sponsorID, $this->subject, $this->message, $position);
+		$price = ContestPriceEditor::create($this->contest->contestID, $sponsor->sponsorID, $this->subject, $this->message, $position);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestPrice&contestID='.$this->entry->contestID.'&priceID='.$price->priceID.SID_ARG_2ND_NOT_ENCODED.'#price'.$price->priceID);
+		HeaderUtil::redirect('index.php?page=ContestPrice&contestID='.$this->contest->contestID.'&priceID='.$price->priceID.SID_ARG_2ND_NOT_ENCODED.'#price'.$price->priceID);
 		exit;
 	}
 	

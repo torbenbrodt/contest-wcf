@@ -76,11 +76,10 @@
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.contest.allEntries"><![CDATA[Show all contests]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Add]]></item>
+		<item name="wcf.contest.contest.description"><![CDATA[]]></item>
 		<item name="wcf.contest.classes"><![CDATA[Classes]]></item>
-		<item name="wcf.contest.jurys"><![CDATA[Jurys]]></item>
-		<item name="wcf.contest.participants"><![CDATA[Participants]]></item>
-		<item name="wcf.contest.sponsors"><![CDATA[Sponsors]]></item>
-		<item name="wcf.contest.prices"><![CDATA[Prices]]></item>
+		<item name="wcf.contest.classes.beginner"><![CDATA[Beginner]]></item>
+		<item name="wcf.contest.classes.export"><![CDATA[Expert]]></item>
 		<item name="wcf.contest.class.add"><![CDATA[Add]]></item>
 		<item name="wcf.contest.class.delete"><![CDATA[Delete class]]></item>
 		<item name="wcf.contest.class.delete.sure"><![CDATA[Do you really want to delete this class?]]></item>
@@ -92,10 +91,6 @@
 		<item name="wcf.contest.contests.tagged"><![CDATA[Entries with the tag &quot;{$tag->getName()}&quot;]]></item>
 		<item name="wcf.contest.add"><![CDATA[Write entry]]></item>
 		<item name="wcf.contest.by"><![CDATA[By]]></item>
-		<item name="wcf.contest.contest.description"><![CDATA[]]></item>
-		<item name="wcf.contest.classes"><![CDATA[Classes]]></item>
-		<item name="wcf.contest.classes.beginner"><![CDATA[Beginner]]></item>
-		<item name="wcf.contest.classes.export"><![CDATA[Expert]]></item>
 		<item name="wcf.contest.owner"><![CDATA[Owner]]></item>
 		<item name="wcf.contest.owner.self"><![CDATA[Myself]]></item>
 		<item name="wcf.contest.owner.description"><![CDATA[Whom should this contest belongs to.]]></item>
@@ -213,6 +208,8 @@
 		<item name="wcf.contest.prices"><![CDATA[Prices]]></item>
 		<item name="wcf.contest.price.description"><![CDATA[]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Add price]]></item>
+		<item name="wcf.contest.price.delete"><![CDATA[Delete price]]></item>
+		<item name="wcf.contest.price.edit"><![CDATA[Edit price]]></item>
 		<item name="wcf.contest.price.subject"><![CDATA[Name]]></item>
 		<item name="wcf.contest.price.message"><![CDATA[Description]]></item>
 		

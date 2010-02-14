@@ -54,7 +54,6 @@ class ContestSponsortalkEditForm extends ContestSponsortalkAddForm {
 		parent::readData();
 		
 		if (!count($_POST)) {
-			$this->sponsortalk = $this->entry->sponsortalk;
 			$this->message = $this->entry->message;
 		}
 	}

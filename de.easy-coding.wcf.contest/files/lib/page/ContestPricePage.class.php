@@ -117,16 +117,20 @@ class ContestPricePage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// save price position
+		if(empty($this->action) && $this->entry->isOwner()) {
+			require_once(WCF_DIR.'lib/form/ContestPricePositionForm.class.php');
+			new ContestPricePositionForm($this->entry);
+		}
+		
 		// init form
-		if ($this->entry->isPriceable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestPriceEditForm.class.php');
-				new ContestPriceEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestPriceAddForm.class.php');
-				new ContestPriceAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestPriceEditForm.class.php');
+			new ContestPriceEditForm($this->entry);
+		}
+		else if($this->entry->isPriceable()) {
+			require_once(WCF_DIR.'lib/form/ContestPriceAddForm.class.php');
+			new ContestPriceAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

@@ -167,7 +167,8 @@ CREATE TABLE wcf1_contest_menu_item (
 	menuItem varchar(255) NOT NULL DEFAULT '',
 	parentMenuItem varchar(255) NOT NULL DEFAULT '',
 	menuItemLink varchar(255) NOT NULL DEFAULT '',
-	menuItemIcon varchar(255) NOT NULL DEFAULT '',
+	menuItemIconM varchar(255) NOT NULL DEFAULT '',
+	menuItemIconL varchar(255) NOT NULL DEFAULT '',
 	showOrder int(10) NOT NULL DEFAULT '0',
 	permissions text,
 	options text,
@@ -178,12 +179,12 @@ INSERT INTO wcf1_contest_class (title) VALUES
 	('wcf.contest.classes.beginner'),
 	('wcf.contest.classes.expert');
 
-INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIcon, showOrder, permissions, options) VALUES
-	('wcf.contest.menu.link.overview', '', 'index.php?page=Contest&contestID=%s', 'contestM.png', 1, '', ''),
-	('wcf.contest.menu.link.jury', '', 'index.php?page=ContestJury&contestID=%s', 'contestM.png', 2, '', ''),
-	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestM.png', 3, '', ''),
-	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestM.png', 4, '', ''),
-	('wcf.contest.menu.link.participant', '', 'index.php?page=ContestParticipant&contestID=%s', 'contestM.png', 5, '', ''),
-	('wcf.contest.menu.link.sponsor', '', 'index.php?page=ContestSponsor&contestID=%s', 'contestM.png', 6, '', ''),
-	('wcf.contest.menu.link.solution', '', 'index.php?page=ContestSolution&contestID=%s', 'contestM.png', 7, '', ''),
-	('wcf.contest.menu.link.price', '', 'index.php?page=ContestPrice&contestID=%s', 'contestM.png', 7, '', '');
+INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIconM, menuItemIconL, showOrder, permissions, options) VALUES
+	('wcf.contest.menu.link.overview', '', 'index.php?page=Contest&contestID=%s', 'contestM.png', 'contestL.png', 1, '', ''),
+	('wcf.contest.menu.link.solution', '', 'index.php?page=ContestSolution&contestID=%s', 'contestSolutionM.png', 'contestSolutionL.png', 2, '', ''),
+	('wcf.contest.menu.link.participant', '', 'index.php?page=ContestParticipant&contestID=%s', 'contestParticipantM.png', 'contestParticipantL.png', 3, '', ''),
+	('wcf.contest.menu.link.price', '', 'index.php?page=ContestPrice&contestID=%s', 'contestPriceM.png', 'contestPriceL.png', 4, '', ''),
+	('wcf.contest.menu.link.jury', '', 'index.php?page=ContestJury&contestID=%s', 'contestJuryM.png', 'contestJuryL.png', 5, '', ''),
+	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestJurytalkM.png', 'contestJurytalkL.png', 6, '', ''),
+	('wcf.contest.menu.link.sponsor', '', 'index.php?page=ContestSponsor&contestID=%s', 'contestSponsorM.png', 'contestSponsorL.png', 7, '', ''),
+	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestSponsortalkM.png', 'contestSponsortalkL.png', 8, '', '');

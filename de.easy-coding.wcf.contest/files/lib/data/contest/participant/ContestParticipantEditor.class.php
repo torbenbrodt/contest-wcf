@@ -62,13 +62,7 @@ class ContestParticipantEditor extends ContestParticipant {
 		WCF::getDB()->sendQuery($sql);
 		
 		// sent event
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__);
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
-			'participantID' => $participantID,
-			'owner' => ContestOwner::get($userID, $groupID)->getName()
-		));
+		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
 		
 		return new ContestParticipantEditor($participantID);
 	}
@@ -89,6 +83,9 @@ class ContestParticipantEditor extends ContestParticipant {
 				state = '".escapeString($state)."'
 			WHERE	participantID = ".$this->participantID;
 		WCF::getDB()->sendQuery($sql);
+		
+		// sent event
+		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
 	}
 	
 	/**
@@ -105,6 +102,18 @@ class ContestParticipantEditor extends ContestParticipant {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
 			WHERE		participantID = ".$this->participantID;
 		WCF::getDB()->sendQuery($sql);
+	}
+	
+	/**
+	 * send event
+	 */
+	protected static function sendEvent($contestID, $userID, $groupID, $eventName) {
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'participantID' => $participantID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
 	}
 	
 	/**

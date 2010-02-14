@@ -112,15 +112,13 @@ class ContestSponsorPage extends MultipleLinkPage {
 		}
 		
 		// init form
-		if ($this->entry->isSponsorable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestSponsorEditForm.class.php');
-				new ContestSponsorEditForm($this->entry);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestSponsorAddForm.class.php');
-				new ContestSponsorAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestSponsorEditForm.class.php');
+			new ContestSponsorEditForm($this->entry);
+		}
+		else if($this->entry->isSponsorable()) {
+			require_once(WCF_DIR.'lib/form/ContestSponsorAddForm.class.php');
+			new ContestSponsorAddForm($this->entry);
 		}
 
 		$this->sidebar->assignVariables();		

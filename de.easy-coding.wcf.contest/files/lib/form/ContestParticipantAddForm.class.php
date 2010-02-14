@@ -47,7 +47,7 @@ class ContestParticipantAddForm extends AbstractForm {
 	}
 	
 	/**
-	 * @see Page::readParameters()
+	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
 		parent::readParameters();

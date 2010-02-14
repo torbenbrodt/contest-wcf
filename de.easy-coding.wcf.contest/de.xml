@@ -84,10 +84,8 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.allEntries"><![CDATA[Alle Contests anzeigen]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Eintragen]]></item>
 		<item name="wcf.contest.classes"><![CDATA[Kategorien]]></item>
-		<item name="wcf.contest.jurys"><![CDATA[Jurys]]></item>
-		<item name="wcf.contest.participants"><![CDATA[Teilnehmer]]></item>
-		<item name="wcf.contest.sponsors"><![CDATA[Sponsoren]]></item>
-		<item name="wcf.contest.prices"><![CDATA[Preise]]></item>
+		<item name="wcf.contest.classes.beginner"><![CDATA[Anfänger]]></item>
+		<item name="wcf.contest.classes.expert"><![CDATA[Fortgeschritten]]></item>
 		<item name="wcf.contest.class.add"><![CDATA[Hinzufügen]]></item>
 		<item name="wcf.contest.class.delete"><![CDATA[Kategorie löschen]]></item>
 		<item name="wcf.contest.class.delete.sure"><![CDATA[Wollen Sie die Kategorie wirklich löschen?]]></item>
@@ -100,9 +98,6 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.add"><![CDATA[Eigenen Contest starten]]></item>
 		<item name="wcf.contest.by"><![CDATA[Von]]></item>
 		<item name="wcf.contest.contest.description"><![CDATA[Sie haben sich bereits eine passende Aufgabe überlegt. Starten Sie jetzt ihren eigenen Contest.]]></item>
-		<item name="wcf.contest.classes"><![CDATA[Kategorien]]></item>
-		<item name="wcf.contest.classes.beginner"><![CDATA[Anfänger]]></item>
-		<item name="wcf.contest.classes.expert"><![CDATA[Fortgeschritten]]></item>
 		<item name="wcf.contest.owner"><![CDATA[Besitzer]]></item>
 		<item name="wcf.contest.owner.self"><![CDATA[Ich selbst]]></item>
 		<item name="wcf.contest.owner.description"><![CDATA[Unter wem soll der Wettbewerb gestartet werden? Sie können selbst der Besitzer sein oder aber eine ihrer Gruppen, für die Sie die notwendigen Berechtigungen haben.]]></item>
@@ -217,6 +212,8 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.prices"><![CDATA[Preise]]></item>
 		<item name="wcf.contest.price.description"><![CDATA[Hier können Sie selbst Preise beisteuern. Während des Wettbewerbs können aber von Sponsoren auch weitere Preise hinzugefügt werden um den Anreiz zu erhöhen.]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Preis hinzufügen]]></item>
+		<item name="wcf.contest.price.delete"><![CDATA[Preis löschen]]></item>
+		<item name="wcf.contest.price.edit"><![CDATA[Preis bearbeiten]]></item>
 		<item name="wcf.contest.price.subject"><![CDATA[Name]]></item>
 		<item name="wcf.contest.price.message"><![CDATA[Beschreibung]]></item>
 
