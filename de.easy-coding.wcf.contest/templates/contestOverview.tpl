@@ -2,16 +2,9 @@
 <head>
 	<title>{lang}wcf.contest.overview{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
-	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
-	<script type="text/javascript">
-		//<![CDATA[
-		var INLINE_IMAGE_MAX_WIDTH = {@INLINE_IMAGE_MAX_WIDTH}; 
-		//]]>
-	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
 	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;format=atom" title="{lang}wcf.contest.feed{/lang} (Atom)" />
-	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
