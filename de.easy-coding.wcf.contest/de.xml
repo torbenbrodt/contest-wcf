@@ -265,10 +265,16 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.menu.link.sponsor"><![CDATA[Sponsoren]]></item>
 	</category>
 	<category name="wcf.usersOnline">
-		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest von &raquo;{$user}&laquo;]]></item>
-		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Lösung in Contest schreiben]]></item>
-		<item name="wcf.usersOnline.location.contestEntry"><![CDATA[Eintrag &raquo;{$entry}&laquo; im Contest von &raquo;{$user}&laquo;]]></item>
-		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Contest verwalten]]></item>
 		<item name="wcf.usersOnline.location.contestOverview"><![CDATA[<a href="index.php?page=ContestOverview{SID_ARG_2ND}">Contest</a>]]></item>
+		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Contest verwalten]]></item>
+
+		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Lösungen des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestParticipant"><![CDATA[Teilnehmerliste des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestPrice"><![CDATA[Preise des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestJury"><![CDATA[Jury des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestJurytalk"><![CDATA[Jurytalk des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSponsor"><![CDATA[Sponsoren des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSponsortalk"><![CDATA[Sponsortalk des Contests &raquo;{$entry}&laquo;]]></item>
 	</category>
 </language>

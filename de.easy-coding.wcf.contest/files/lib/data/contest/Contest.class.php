@@ -178,8 +178,10 @@ class Contest extends DatabaseObject {
 		if($this->isOwner()) {
 			return true;
 		}
-		if($this->isJury()) {
-			return true;
+		foreach($this->getJurys() as $jury) {
+			if(in_array($jury->state, array('accepted', 'invited')) && $jury->isOwner()) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -211,8 +213,8 @@ class Contest extends DatabaseObject {
 		if($this->isOwner()) {
 			return true;
 		}
-		foreach($this->getSponsors() as $jury) {
-			if($jury->isOwner()) {
+		foreach($this->getSponsors() as $sponsor) {
+			if(in_array($sponsor->state, array('accepted', 'invited')) && $sponsor->isOwner()) {
 				return true;
 			}
 		}
@@ -354,6 +356,7 @@ class Contest extends DatabaseObject {
 	 */
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
 		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
 		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
 
@@ -377,11 +380,9 @@ class Contest extends DatabaseObject {
 				UNION
 				SELECT contestID, userID, groupID FROM wcf".WCF_N."_contest_participant
 			) x
-			WHERE x.contestID = contest.contestID
-			AND IF(
-				x.groupID > 0,
-				x.groupID IN (".implode(",", $groupIDs)."), 
-				x.userID > 0 AND x.userID = ".$userID."
+			WHERE	x.contestID = contest.contestID
+			AND (	x.groupID IN (".implode(",", $groupIDs).")
+			  OR	x.userID = ".$userID."
 			)
 		) > 0";
 	}

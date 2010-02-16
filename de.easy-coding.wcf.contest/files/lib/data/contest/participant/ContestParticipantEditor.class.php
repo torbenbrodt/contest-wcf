@@ -61,8 +61,14 @@ class ContestParticipantEditor extends ContestParticipant {
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
 		
-		// sent event
-		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
+		// send event
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__.'.'.$state);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'participantID' => $participantID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
 		
 		return new ContestParticipantEditor($participantID);
 	}
@@ -84,8 +90,14 @@ class ContestParticipantEditor extends ContestParticipant {
 			WHERE	participantID = ".$this->participantID;
 		WCF::getDB()->sendQuery($sql);
 		
-		// sent event
-		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
+		// send event
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__.'.'.$state);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'participantID' => $this->participantID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
 	}
 	
 	/**
@@ -107,13 +119,11 @@ class ContestParticipantEditor extends ContestParticipant {
 	/**
 	 * send event
 	 */
-	protected static function sendEvent($contestID, $userID, $groupID, $eventName) {
+	protected static function sendEvent($contestID, $userID, $groupID, $eventName, array $data = array()) {
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
-			'participantID' => $participantID,
-			'owner' => ContestOwner::get($userID, $groupID)->getName()
-		));
+		$eventName = ContestEvent::getEventName($eventName);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, $data);
 	}
 	
 	/**

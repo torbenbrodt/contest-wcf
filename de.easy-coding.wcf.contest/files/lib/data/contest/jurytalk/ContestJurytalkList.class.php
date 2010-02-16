@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ViewableContestJurytalk.class.ph
  * Represents a list of contest entry jurytalks.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -32,7 +32,9 @@ class ContestJurytalkList extends DatabaseObjectList {
 	public function countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest_jurytalk contest_jurytalk
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+			WHERE	(".ContestJurytalk::getStateConditions().")
+			
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
@@ -49,7 +51,9 @@ class ContestJurytalkList extends DatabaseObjectList {
 			LEFT JOIN	wcf".WCF_N."_avatar avatar
 			ON		(avatar.avatarID = user_table.avatarID)
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+			WHERE	(".ContestJurytalk::getStateConditions().")
+			
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

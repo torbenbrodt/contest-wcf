@@ -261,10 +261,16 @@
 		<item name="wcf.contest.menu.link.sponsor"><![CDATA[Sponsors]]></item>
 	</category>
 	<category name="wcf.usersOnline">
-		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest of &quot;{$user}&quot;]]></item>
-		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Writing a contest solution]]></item>
-		<item name="wcf.usersOnline.location.contestEntry"><![CDATA[Contest entry &quot;{$entry}&quot; of &quot;{$user}&quot;]]></item>
-		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Managing a contest]]></item>
 		<item name="wcf.usersOnline.location.contestOverview"><![CDATA[<a href="index.php?page=ContestOverview{SID_ARG_2ND}">Contest</a>]]></item>
+		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Managing a contest]]></item>
+
+		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Solutions of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestParticipant"><![CDATA[Participants of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestPrice"><![CDATA[Prices of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestJury"><![CDATA[Jurys of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestJurytalk"><![CDATA[Jurytalks of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSponsor"><![CDATA[Sponsors of the contest &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSponsortalk"><![CDATA[Sponsortalks of the contest &raquo;{$entry}&laquo;]]></item>
 	</category>
 </language>

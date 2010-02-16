@@ -67,18 +67,16 @@ class ContestParticipantInviteForm extends AbstractForm {
 		// save participant
 		$inserts = '';
 		foreach ($this->participants as $participant) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contest->contestID.',
-					'.($participant['type'] == 'user' ? intval($participant['id']) : 0).',
-					'.($participant['type'] == 'group' ? intval($participant['id']) : 0).')';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT IGNORE INTO
-						wcf".WCF_N."_contest_participant
-						(contestID, userID, groupID)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			$userID = $groupID = 0;
+			switch($participant['type']) {
+				case 'user':
+					$userID = intval($participant['id']);
+				break;
+				case 'group':
+					$groupID = intval($participant['id']);
+				break;
+			}
+			ContestParticipantEditor::create($this->contest->contestID, $userID, $groupID, 'invited');
 		}
 		
 		$this->saved();

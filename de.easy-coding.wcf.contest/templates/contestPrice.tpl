@@ -11,6 +11,7 @@
 	document.observe("dom:loaded", function() {
 		new ItemListEditor('pricePosition');
 	});
+	//]]>
 	</script>
 	{/if}
 </head>
@@ -40,7 +41,7 @@
 							</div>
 							
 							{assign var='messageNumber' value=$items-$startIndex+1}
-							<ol class="itemList" id="pricePosition">
+							<ol class="itemList" id="pricePosition" style="list-style-type:none;padding:0px">
 							{foreach from=$prices item=priceObj}
 								<li id="item_{$priceObj->priceID}" class="deletable">
 								{assign var="contestID" value=$priceObj->contestID}

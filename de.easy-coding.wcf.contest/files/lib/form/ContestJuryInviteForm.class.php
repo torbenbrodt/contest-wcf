@@ -72,11 +72,11 @@ class ContestJuryInviteForm extends AbstractForm {
 				case 'user':
 					$userID = intval($jury['id']);
 				break;
-				case 'user':
+				case 'group':
 					$groupID = intval($jury['id']);
 				break;
 			}
-			ContestJury::create($this->contest->contestID, $userID, $groupID, 'invited');
+			ContestJuryEditor::create($this->contest->contestID, $userID, $groupID, 'invited');
 		}
 		
 		$this->saved();

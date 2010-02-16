@@ -69,5 +69,57 @@ class ContestJurytalk extends DatabaseObject {
 	public function isDeletable() {
 		return $this->isOwner();
 	}
+
+	/**
+	 * thats how the states are implemented
+	 *
+	 * - invited
+	 *    first jurytalk entry can be viewn
+	 *
+	 * - accepted
+	 *    all jurytalk entries can be viewn
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+
+		return "(
+			-- accepted jury
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest_jury contest_jury
+			WHERE	contest_jury.contestID = contest_jurytalk.contestID
+			AND (	contest_jury.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest_jury.userID = ".$userID."
+			)
+			AND	contest_jury.state = 'accepted'
+		) OR (
+			-- contest owner
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest contest
+			WHERE	contest.contestID = contest.contestID
+			AND (	contest.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest.userID = ".$userID."
+			)
+		) > 0
+		OR (
+			(
+				-- invited jury and current entry is first entry
+				SELECT  COUNT(contestID) 
+				FROM 	wcf".WCF_N."_contest_jury contest_jury
+				WHERE	contest_jury.contestID = contest_jurytalk.contestID
+				AND (	contest_jury.groupID IN (".implode(",", $groupIDs).")
+				  OR	contest_jury.userID = ".$userID."
+				)
+				AND	contest_jury.state = 'invited'
+			) AND (
+				-- invited and currenty entry is first entry
+				SELECT  MIN(jurytalkID)
+				FROM 	wcf".WCF_N."_contest_jurytalk x
+				WHERE	x.contestID = contest_jurytalk.contestID
+			) = contest_jurytalk.jurytalkID
+		)";
+	}
 }
 ?>

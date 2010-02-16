@@ -2,21 +2,45 @@
 <!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/pageLocations.dtd">
 <data>	
 	<import>
-		<pagelocation name="wcf.usersOnline.location.contestSolution">
-			<pattern><![CDATA[index\.php\?form=ContestSolution]]></pattern>
-		</pagelocation>
-		<pagelocation name="wcf.usersOnline.location.contestManage">
-			<pattern><![CDATA[index\.php\?(?:form|action)=Contest]]></pattern>
-		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestOverview">
 			<pattern><![CDATA[index\.php\?page=ContestOverview]]></pattern>
 		</pagelocation>
-		<pagelocation name="wcf.usersOnline.location.contestEntry">
+		<pagelocation name="wcf.usersOnline.location.contestManage">
+			<pattern><![CDATA[index\.php\?(?:form|action)=Contest]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+
+		<pagelocation name="wcf.usersOnline.location.contest">
 			<pattern><![CDATA[index\.php\?page=Contest&.*contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
-		<pagelocation name="wcf.usersOnline.location.contest">
-			<pattern><![CDATA[index\.php\?page=Contest&.*userID=(\d+)]]></pattern>
+		
+		<pagelocation name="wcf.usersOnline.location.contestSolution">
+			<pattern><![CDATA[index\.php\?page=ContestSolution]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestParticipant">
+			<pattern><![CDATA[index\.php\?page=ContestParticipant]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestPrice">
+			<pattern><![CDATA[index\.php\?page=ContestParticipant]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestJury">
+			<pattern><![CDATA[index\.php\?page=ContestJury]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestJurytalk">
+			<pattern><![CDATA[index\.php\?page=ContestJurytalk]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestSponsor">
+			<pattern><![CDATA[index\.php\?page=ContestSponsor]]></pattern>
+			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
+		</pagelocation>
+		<pagelocation name="wcf.usersOnline.location.contestSponsortalk">
+			<pattern><![CDATA[index\.php\?page=ContestSponsortalk]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 	</import>

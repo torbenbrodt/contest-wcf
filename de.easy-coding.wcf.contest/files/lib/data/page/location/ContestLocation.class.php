@@ -47,8 +47,7 @@ class ContestLocation implements Location {
 		}
 		
 		return WCF::getLanguage()->get($location['locationName'], array(
-			'$entry' => '<a href="index.php?page=Contest&amp;contestID='.$contestID.SID_ARG_2ND.'">'.StringUtil::encodeHTML($this->entries[$contestID]->subject).'</a>',
-			'$user' => '<a href="index.php?page=Contest&amp;userID='.$this->entries[$contestID]->userID.SID_ARG_2ND.'">'.StringUtil::encodeHTML($this->entries[$contestID]->username).'</a>'
+			'$entry' => '<a href="index.php?page=Contest&amp;contestID='.$contestID.SID_ARG_2ND.'">'.StringUtil::encodeHTML($this->entries[$contestID]->subject).'</a>'
 		));
 	}
 	
@@ -62,10 +61,8 @@ class ContestLocation implements Location {
 			return;
 		}
 		
-		$sql = "SELECT		contest.*, user_table.username
+		$sql = "SELECT		contest.*
 			FROM		wcf".WCF_N."_contest contest
-			LEFT JOIn	wcf".WCF_N."_user user_table
-			ON		(user_table.userID = contest.userID)
 			WHERE		contest.contestID IN (".implode(',', $this->cachedEntryIDArray).")";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {

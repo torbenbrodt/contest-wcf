@@ -8,7 +8,7 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  * Represents a contest entry sponsortalk.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -64,6 +64,58 @@ class ContestSponsortalk extends DatabaseObject {
 	 */
 	public function isDeletable() {
 		return $this->isOwner();
+	}
+
+	/**
+	 * thats how the states are implemented
+	 *
+	 * - invited
+	 *    first sponsortalk entry can be viewn
+	 *
+	 * - accepted
+	 *    all sponsortalk entries can be viewn
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+
+		return "(
+			-- accepted sponsor
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest_sponsor contest_sponsor
+			WHERE	contest_sponsor.contestID = contest_sponsortalk.contestID
+			AND (	contest_sponsor.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest_sponsor.userID = ".$userID."
+			)
+			AND	contest_sponsor.state = 'accepted'
+		) OR (
+			-- contest owner
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest contest
+			WHERE	contest.contestID = contest.contestID
+			AND (	contest.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest.userID = ".$userID."
+			)
+		) > 0
+		OR (
+			(
+				-- invited sponsor and current entry is first entry
+				SELECT  COUNT(contestID) 
+				FROM 	wcf".WCF_N."_contest_sponsor contest_sponsor
+				WHERE	contest_sponsor.contestID = contest_sponsortalk.contestID
+				AND (	contest_sponsor.groupID IN (".implode(",", $groupIDs).")
+				  OR	contest_sponsor.userID = ".$userID."
+				)
+				AND	contest_sponsor.state = 'invited'
+			) AND (
+				-- invited and currenty entry is first entry
+				SELECT  MIN(sponsortalkID)
+				FROM 	wcf".WCF_N."_contest_sponsortalk x
+				WHERE	x.contestID = contest_sponsortalk.contestID
+			) = contest_sponsortalk.sponsortalkID
+		)";
 	}
 }
 ?>

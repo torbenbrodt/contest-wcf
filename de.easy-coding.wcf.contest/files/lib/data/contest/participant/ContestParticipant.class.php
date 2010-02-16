@@ -112,6 +112,7 @@ class ContestParticipant extends DatabaseObject {
 	 */
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
 		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
 		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
 
@@ -130,16 +131,19 @@ class ContestParticipant extends DatabaseObject {
 			SELECT  COUNT(contestID) 
 			FROM 	wcf".WCF_N."_contest contest
 			WHERE	contest.contestID = contest.contestID
-			AND	contest.groupID IN (".implode(",", $groupIDs).")
-			AND	contest.userID > 0 AND contest.userID = ".$userID."
+			AND (	contest.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest.userID = ".$userID."
+			)
 		) > 0
 		OR (
 			-- in the participant
 			SELECT  COUNT(contestID) 
-			FROM 	wcf".WCF_N."_contest_participant contest_participant
-			WHERE	contest_participant.contestID = contest_participant.contestID
-			AND	contest_participant.groupID IN (".implode(",", $groupIDs).")
-			AND	contest_participant.userID > 0 AND contest_participant.userID = ".$userID."
+			FROM 	wcf".WCF_N."_contest_participant x
+			WHERE	x.contestID = contest_participant.contestID
+			AND (	x.groupID IN (".implode(",", $groupIDs).")
+			  OR	x.userID = ".$userID."
+			)
+			AND	x.state = 'accepted'
 		) > 0";
 	}
 }

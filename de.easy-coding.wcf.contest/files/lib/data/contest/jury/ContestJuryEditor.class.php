@@ -36,7 +36,7 @@ class ContestJuryEditor extends ContestJury {
 			  || ($row['state'] == 'applied' && $state == 'invited')) {
 				$state = 'accepted';
 				$update = true;
-			} else if ($state != $row['state']){
+			} else if ($state != $row['state']) {
 				$update = true;
 			}
 			
@@ -61,8 +61,14 @@ class ContestJuryEditor extends ContestJury {
 			WHERE	contestID = ".$contestID;
 		WCF::getDB()->sendQuery($sql);
 		
-		// sent event
-		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
+		// send event
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__.'.'.$state);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'juryID' => $juryID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
 		
 		return new ContestJuryEditor($juryID);
 	}
@@ -84,8 +90,14 @@ class ContestJuryEditor extends ContestJury {
 			WHERE	juryID = ".$this->juryID;
 		WCF::getDB()->sendQuery($sql);
 		
-		// sent event
-		self::sendEvent($contestID, $userID, $groupID, ContestEvent::getEventName(__METHOD__.'.'.$state));
+		// send event
+		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		$eventName = ContestEvent::getEventName(__METHOD__.'.'.$state);
+		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+			'juryID' => $this->juryID,
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
+		));
 	}
 	
 	/**
@@ -102,18 +114,6 @@ class ContestJuryEditor extends ContestJury {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_jury
 			WHERE		juryID = ".$this->juryID;
 		WCF::getDB()->sendQuery($sql);
-	}
-	
-	/**
-	 * send event
-	 */
-	protected static function sendEvent($contestID, $userID, $groupID, $eventName) {
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
-			'participantID' => $participantID,
-			'owner' => ContestOwner::get($userID, $groupID)->getName()
-		));
 	}
 	
 	/**

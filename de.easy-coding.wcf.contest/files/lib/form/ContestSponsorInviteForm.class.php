@@ -67,18 +67,16 @@ class ContestSponsorInviteForm extends AbstractForm {
 		// save sponsor
 		$inserts = '';
 		foreach ($this->sponsors as $sponsor) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contest->contestID.',
-					'.($sponsor['type'] == 'user' ? intval($sponsor['id']) : 0).',
-					'.($sponsor['type'] == 'group' ? intval($sponsor['id']) : 0).')';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT IGNORE INTO
-						wcf".WCF_N."_contest_sponsor
-						(contestID, userID, groupID)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			$userID = $groupID = 0;
+			switch($sponsor['type']) {
+				case 'user':
+					$userID = intval($sponsor['id']);
+				break;
+				case 'group':
+					$groupID = intval($sponsor['id']);
+				break;
+			}
+			ContestSponsorEditor::create($this->contest->contestID, $userID, $groupID, 'invited');
 		}
 		
 		$this->saved();
