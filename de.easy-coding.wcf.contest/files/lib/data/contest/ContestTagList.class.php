@@ -6,27 +6,27 @@ require_once(WCF_DIR.'lib/data/tag/TagList.class.php');
  * Represents a list of tags.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
 class ContestTagList extends TagList {
 	/**
-	 * user id
+	 * contest
 	 *
-	 * @var	integer
+	 * @var	contest
 	 */
-	public $userID = 0;
+	public $contest = 0;
 	
 	/**
 	 * Creates a new ContestTagList object.
 	 *
-	 * @param	integer		$userID
+	 * @param	Contest		$contest
 	 * @param	array<integer>	$languageIDArray
 	 */
-	public function __construct($userID, $languageIDArray = array()) {
+	public function __construct(Contest $contest = null, $languageIDArray = array()) {
 		parent::__construct(array('de.easy-coding.wcf.contest.entry'), $languageIDArray);
-		$this->userID = $userID;
+		$this->contest = $contest;
 	}
 	
 	/**
@@ -34,10 +34,12 @@ class ContestTagList extends TagList {
 	 */
 	public function getTagsIDArray() {
 		$tagIDArray = array();
+		$contestID = $this->contest !== null ? $this->contest->contestID : 0;
+
 		$sql = "SELECT		COUNT(*) AS counter, object.tagID
 			FROM 		wcf".WCF_N."_contest contest,
 					wcf".WCF_N."_tag_to_object object
-			WHERE 		contest.userID = ".$this->userID."
+			WHERE 		".($contestID ? "contest.contestID = ".$contestID : 1)."
 					AND object.taggableID IN (".implode(',', $this->taggableIDArray).")
 					AND object.languageID IN (".implode(',', $this->languageIDArray).")
 					AND object.objectID = contest.contestID

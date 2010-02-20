@@ -84,7 +84,6 @@ class ContestPricePage extends MultipleLinkPage {
 		// init price list
 		$this->priceList = new ContestPriceList();
 		$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contestID;
-		$this->priceList->sqlOrderBy = 'contest_price.time DESC';
 	}
 	
 	/**
@@ -99,7 +98,7 @@ class ContestPricePage extends MultipleLinkPage {
 		$this->priceList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
+		$this->sidebar = new ContestSidebar($this, $this->entry);
 	}
 	
 	/**
@@ -118,7 +117,7 @@ class ContestPricePage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// save price position
-		if(empty($this->action) && $this->entry->isOwner()) {
+		if($this->entry->isOwner()) {
 			require_once(WCF_DIR.'lib/form/ContestPricePositionForm.class.php');
 			new ContestPricePositionForm($this->entry);
 		}

@@ -88,7 +88,7 @@ class ContestSponsorPage extends MultipleLinkPage {
 		$this->sponsorList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
+		$this->sidebar = new ContestSidebar($this, $this->entry);
 	}
 	
 	/**
@@ -106,6 +106,7 @@ class ContestSponsorPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// save invitations
 		if($this->entry->isOwner()) {
 			require_once(WCF_DIR.'lib/form/ContestSponsorInviteForm.class.php');
 			new ContestSponsorInviteForm($this->entry);

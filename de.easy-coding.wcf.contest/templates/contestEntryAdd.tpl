@@ -57,28 +57,28 @@
 			<ul>
 				<li id="step1">
 					<a onclick="steppedTabMenu.showSubTabMenu('step1');">
-					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Information{/lang}</span></a>
+					<img src="{@RELATIVE_WCF_DIR}icon/contestM.png" alt="" />
+					<span>{lang}wcf.contest.information{/lang}</span></a>
 				</li>
 				<li id="step2">
 					<a onclick="steppedTabMenu.showSubTabMenu('step2');">
-					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Aufgabe{/lang}</span></a>
+					<img src="{@RELATIVE_WCF_DIR}icon/contestCommentM.png" alt="" />
+					<span>{lang}wcf.contest.message{/lang}</span></a>
 				</li>
 				<li id="step3">
 					<a onclick="steppedTabMenu.showSubTabMenu('step3');">
-					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Preise{/lang}</span></a>
+					<img src="{@RELATIVE_WCF_DIR}icon/contestPriceM.png" alt="" />
+					<span>{lang}wcf.contest.prices{/lang}</span></a>
 				</li>
 				<li id="step4">
 					<a onclick="steppedTabMenu.showSubTabMenu('step4');">
-					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Jury{/lang}</span></a>
+					<img src="{@RELATIVE_WCF_DIR}icon/contestJuryM.png" alt="" />
+					<span>{lang}wcf.contest.jury{/lang}</span></a>
 				</li>
 				<li id="step5">
 					<a onclick="steppedTabMenu.showSubTabMenu('step5');">
-					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Teilnehmer{/lang}</span></a>
+					<img src="{@RELATIVE_WCF_DIR}icon/contestParticipantM.png" alt="" />
+					<span>{lang}wcf.contest.participant{/lang}</span></a>
 				</li>
 			</ul>
 		</div>

@@ -14,6 +14,8 @@
 	//]]>
 	</script>
 	{/if}
+	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.entry.feed{/lang} (RSS2)" />
+	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=atom" title="{lang}wcf.contest.entry.feed{/lang} (Atom)" />
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -32,7 +34,8 @@
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
-						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">{/if}
+						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">
+						<input type="hidden" name="ContestPricePositionForm" value="1" />{/if}
 						<div class="contentBox">
 							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
 							
@@ -47,9 +50,24 @@
 								{assign var="contestID" value=$priceObj->contestID}
 								<div class="message content">
 									<div class="messageInner {cycle values='container-1,container-2'}">
-										<a id="priceObj{@$priceObj->contestID}"></a>
+										<a name="priceObj{@$priceObj->contestID}"></a>
 										{if $action == 'edit' && $priceID == $priceObj->priceID}
 											<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
+												<div class="formElement{if $errorField == 'state'} formError{/if}">
+													<div class="formFieldLabel">
+														<label for="state">{lang}wcf.contest.state{/lang}</label>
+													</div>
+													<div class="formField">
+														<select name="state" id="state">
+														{htmloptions options=$states selected=$state}
+														</select>
+														{if $errorField == 'state'}
+															<p class="innerError">
+																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
+															</p>
+														{/if}
+													</div>
+												</div>
 												<div class="formElement{if $errorField == 'subject'} formError{/if}">
 													<div class="formFieldLabel">
 														<label for="subject">{lang}wcf.contest.price.subject{/lang}</label>

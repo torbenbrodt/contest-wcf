@@ -90,7 +90,7 @@ class ContestOwner {
 	 */
 	public function getLink() {
 		if($this->owner instanceof UserProfile) {
-			return 'index.php?page=User&userID='.$this->owner->userID;
+			return $this->owner->userID > 0 ? 'index.php?page=User&userID='.$this->owner->userID : '';
 		} else {
 			return 'index.php?page=ContestGroup&groupID='.$this->owner->groupID;
 		}

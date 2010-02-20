@@ -21,6 +21,8 @@
 		};
 	});
 	</script>
+	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.entry.feed{/lang} (RSS2)" />
+	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=atom" title="{lang}wcf.contest.entry.feed{/lang} (Atom)" />
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -113,6 +115,7 @@
 							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" id="JuryInviteForm" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">
+								<input type="hidden" name="ContestJuryInviteForm" value="1" />
 									<fieldset>
 										<legend>{lang}wcf.contest.jury{/lang}</legend>
 										<p>{lang}wcf.contest.jury.owner.description{/lang}</p>

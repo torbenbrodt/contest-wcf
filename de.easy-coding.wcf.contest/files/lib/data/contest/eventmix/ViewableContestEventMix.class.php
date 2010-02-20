@@ -69,16 +69,5 @@ class ViewableContestEventMix extends ContestEventMix {
 	public function __get($name) {
 		return $this->mix->$name;
 	}
-	
-	/**
-	 * getOwner can also return getUser, if the mix object does not have a owner method
-	 */
-	public function getOwner() {
-		if(method_exists($this->mix, 'getOwner')) {
-			return $this->mix->getOwner();
-		} else {
-			return $this->mix->getUser();
-		}
-	}
 }
 ?>

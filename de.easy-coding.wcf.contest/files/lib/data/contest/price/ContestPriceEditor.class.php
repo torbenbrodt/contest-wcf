@@ -55,11 +55,13 @@ class ContestPriceEditor extends ContestPrice {
 	 *
 	 * @param	string		$subject
 	 * @param	string		$message
+	 * @param	string		$state
 	 */
-	public function update($subject, $message) {
+	public function update($subject, $message, $state) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_price
 			SET	subject = '".escapeString($subject)."',
-				message = '".escapeString($message)."'
+				message = '".escapeString($message)."',
+				state = '".escapeString($state)."',
 			WHERE	priceID = ".$this->priceID;
 		WCF::getDB()->sendQuery($sql);
 	}
@@ -102,13 +104,31 @@ class ContestPriceEditor extends ContestPrice {
 		WCF::getDB()->sendQuery($sql);
 	}
 	
-	public static function getStates() {
-		$arr = array(
-			'unknown',
-			'accepted',
-			'declined'
-		);
-		return array_combine($arr, $arr);
+	/**
+	 *
+	 */
+	public static function getStates($current = '', $isUser = false) {
+		switch($current) {
+			case 'unknown':
+			case 'accepted':
+			case 'declined':
+				if($isUser) {
+					$arr = array(
+						$current
+					);
+				} else {
+					$arr = array(
+						'unknown',
+						'accepted',
+						'declined'
+					);
+				}
+			break;
+			default:
+				$arr = array();
+			break;
+		}
+		return count($arr) ? array_combine($arr, $arr) : $arr;
 	}
 }
 ?>

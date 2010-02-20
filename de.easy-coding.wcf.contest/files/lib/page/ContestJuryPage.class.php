@@ -88,7 +88,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		$this->juryList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
+		$this->sidebar = new ContestSidebar($this, $this->entry);
 	}
 	
 	/**

@@ -3,8 +3,8 @@
 	<title>{lang}wcf.contest.overview{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
-	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
-	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;format=atom" title="{lang}wcf.contest.feed{/lang} (Atom)" />
+	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestOverviewFeed&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
+	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestOverviewFeed&amp;format=atom" title="{lang}wcf.contest.feed{/lang} (Atom)" />
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -50,7 +50,7 @@
 						<div class="message content">
 							<div class="messageInner {cycle values='container-1,container-2'}">
 								<a id="entry{@$entry->contestID}"></a>
-								<div class="messageHeader">
+								<div class="messageHeader"{if $entry->fromTime > 0 || $entry->untilTime > 0} style="border-style:dashed"{/if}>
 									<p class="messageCount">
 										<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 									</p>
@@ -68,6 +68,17 @@
 										<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
 									</div>
 								</div>
+								{if $entry->fromTime > 0 || $entry->untilTime > 0}
+								<div class="messageHeader">
+									<div class="containerIcon">
+										<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+									</div>
+									<div class="containerContent">
+										<p class="light smallFont">{lang}wcf.contest.fromTime{/lang}: {@$entry->fromTime|time}</p>
+										<p class="light smallFont">{lang}wcf.contest.untilTime{/lang}: {@$entry->untilTime|time}</p>
+									</div>
+								</div>
+								{/if}
 								<div class="messageBody">
 									{@$entry->getExcerpt()}
 								</div>

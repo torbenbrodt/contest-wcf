@@ -82,6 +82,7 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.contest.allEntries"><![CDATA[Alle Contests anzeigen]]></item>
+		<item name="wcf.contest.latestEntries"><![CDATA[Letzte Contests]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Eintragen]]></item>
 		<item name="wcf.contest.classes"><![CDATA[Kategorien]]></item>
 		<item name="wcf.contest.classes.beginner"><![CDATA[Anfänger]]></item>
@@ -120,6 +121,8 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.state.applied"><![CDATA[Wartet auf Freischaltung]]></item>
 		<item name="wcf.contest.state.accepted"><![CDATA[Wurde akzeptiert]]></item>
 		<item name="wcf.contest.state.scheduled"><![CDATA[Für Termin geplant]]></item>
+		<item name="wcf.contest.state.fromTime"><![CDATA[Starttermin]]></item>
+		<item name="wcf.contest.state.untilTime"><![CDATA[Endtermin]]></item>
 		<item name="wcf.contest.comment"><![CDATA[Kommentar]]></item>
 		<item name="wcf.contest.comment.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.contest.comment.message"><![CDATA[Nachricht]]></item>

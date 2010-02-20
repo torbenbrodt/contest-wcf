@@ -1,24 +1,40 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/AbstractFeedPage.class.php');
-require_once(WCF_DIR.'lib/data/contest/ContestFeedEntryList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
+require_once(WCF_DIR.'lib/data/contest/eventmix/ContestEventMixList.class.php');
 require_once(WCF_DIR.'lib/system/session/UserSession.class.php');
 
 /**
  * Prints a list of contest entries as a rss or an atom feed.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
 class ContestFeedPage extends AbstractFeedPage {
+	
 	/**
-	 * list of contest entries
+	 * entry id
 	 *
-	 * @var ContestList
+	 * @var	integer
 	 */
-	public $entryList = null;
+	public $contestID = 0;
+	
+	/**
+	 * entry object
+	 * 
+	 * @var	Contest
+	 */
+	public $entry = null;
+	
+	/**
+	 * list of eventmix entries
+	 *
+	 * @var ContestEventMixList
+	 */
+	public $eventmixList = null;
 	
 	/**
 	 * @see Page::readParameters()
@@ -26,11 +42,19 @@ class ContestFeedPage extends AbstractFeedPage {
 	public function readParameters() {
 		parent::readParameters();
 		
+		// get entry
+		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
+		$this->entry = new ViewableContest($this->contestID);
+		if (!$this->entry->contestID) {
+			throw new IllegalLinkException();
+		}
+		
 		// get entries
-		$this->entryList = new ContestFeedEntryList();
+		$this->eventmixList = new ContestEventMixList();
 		
 		// fetch data
-		$this->entryList->sqlConditions .= ' AND contest.time > '.($this->hours ? (TIME_NOW - $this->hours * 3600) : (TIME_NOW - 30 * 86400));
+		$this->eventmixList->sqlConditions .= 'contestID = '.$this->contestID;
+		$this->eventmixList->sqlOrderBy = 'contest_eventmix.time DESC';
 	}
 	
 	/**
@@ -39,8 +63,8 @@ class ContestFeedPage extends AbstractFeedPage {
 	public function readData() {
 		parent::readData();
 		
-		$this->entryList->sqlLimit = $this->limit;
-		$this->entryList->readObjects();
+		$this->eventmixList->sqlLimit = $this->limit;
+		$this->eventmixList->readObjects();
 	}
 	
 	/**
@@ -50,7 +74,7 @@ class ContestFeedPage extends AbstractFeedPage {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'entries' => $this->entryList->getObjects()
+			'entries' => $this->eventmixList->getObjects()
 		));
 	}
 	

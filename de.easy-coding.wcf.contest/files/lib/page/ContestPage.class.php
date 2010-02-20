@@ -3,6 +3,7 @@
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/eventmix/ContestEventMixList.class.php');
+require_once(WCF_DIR.'lib/data/contest/comment/ContestComment.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
@@ -193,7 +194,7 @@ class ContestPage extends MultipleLinkPage {
 		}
 
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry->userID);
+		$this->sidebar = new ContestSidebar($this, $this->entry);
 	}
 	
 	/**
@@ -212,15 +213,13 @@ class ContestPage extends MultipleLinkPage {
 		parent::assignVariables();
 		
 		// init form
-		if ($this->entry->isCommentable()) {
-			if ($this->action == 'edit') {
-				require_once(WCF_DIR.'lib/form/ContestCommentEditForm.class.php');
-				new ContestCommentEditForm($this->comment);
-			}
-			else {
-				require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');
-				new ContestCommentAddForm($this->entry);
-			}
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestCommentEditForm.class.php');
+			new ContestCommentEditForm($this->comment);
+		}
+		else if ($this->entry->isCommentable()) {
+			require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');
+			new ContestCommentAddForm($this->entry);
 		}
 		
 		$this->sidebar->assignVariables();

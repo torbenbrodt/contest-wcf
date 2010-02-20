@@ -110,7 +110,7 @@
 			<ul class="dataList">
 				{foreach from=$availableJurys item=jury}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;juryID={@$jury->juryID}{@SID_ARG_2ND}"><span>{lang}{$jury->getOwner()->getName()}{/lang}</span></a>
+						<a href="{$jury->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{$jury->getOwner()->getName()}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -128,7 +128,7 @@
 			<ul class="dataList">
 				{foreach from=$availableSponsors item=sponsor}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;sponsorID={@$sponsor->sponsorID}{@SID_ARG_2ND}"><span>{lang}{$sponsor->getOwner()->getName()}{/lang}</span></a>
+						<a href="{$sponsor->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{$sponsor->getOwner()->getName()}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -146,7 +146,7 @@
 			<ul class="dataList">
 				{foreach from=$availablePrices item=price}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;priceID={@$price->priceID}{@SID_ARG_2ND}"><span>{lang}{$price}{/lang}</span></a>
+						<a href="index.php?page=ContestPrice&amp;contestID={@$price->contestID}#priceObj{@$price->priceID}{@SID_ARG_2ND}"><span>{lang}{$price}{/lang}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -164,7 +164,7 @@
 			<ul class="dataList">
 				{foreach from=$availableParticipants item=participant}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;participantID={@$participant->participantID}{@SID_ARG_2ND}"><span>{lang}{$participant->getOwner()->getName()}{/lang}</span></a>
+						<a href="{@$participant->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{lang}{$participant->getOwner()->getName()}{/lang}</span></a>
 					</li>
 				{/foreach}
 			</ul>
@@ -185,15 +185,15 @@
 	</div>
 {/if}
 
-{if $lastestEntries|count > 0}
+{if $latestEntries|count > 0}
 	<div class="contentBox">
 		<div class="border">
 			<div class="containerHead">
-				<h3>{lang}wcf.contest.lastestEntries{/lang}</h3>
+				<h3>{lang}wcf.contest.latestEntries{/lang}</h3>
 			</div>
 			
 			<ul class="dataList">
-				{foreach from=$lastestEntries item=entry}
+				{foreach from=$latestEntries item=entry}
 					<li class="{cycle values='container-1,container-2'}">
 						<div class="containerIcon">
 							<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}"><img src="{icon}contestM.png{/icon}" alt="" /></a>
@@ -209,15 +209,15 @@
 	</div>
 {/if}
 
-{if $lastestSolutions|count > 0}
+{if $latestSolutions|count > 0}
 	<div class="contentBox">
 		<div class="border">
 			<div class="containerHead">
-				<h3>{lang}wcf.contest.lastestSolutions{/lang}</h3>
+				<h3>{lang}wcf.contest.latestSolutions{/lang}</h3>
 			</div>
 			
 			<ul class="dataList">
-				{foreach from=$lastestSolutions item=solution}
+				{foreach from=$latestSolutions item=solution}
 					<li class="{cycle values='container-1,container-2'}">
 						<div class="containerIcon">
 							<a href="index.php?page=Contest&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">

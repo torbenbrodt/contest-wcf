@@ -14,18 +14,18 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  */
 class ViewableContestComment extends ContestComment {
 	/**
-	 * user object
+	 * owner object
 	 *
-	 * @var UserProfile
+	 * @var ContestOwner
 	 */
-	protected $user = null;
+	protected $owner = null;
 	
 	/**
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {
 		parent::handleData($data);
-		$this->user = new UserProfile(null, $data);
+		$this->owner = new ContestOwner($data, $this->userID, $groupID = 0);
 	}
 	
 	/**
@@ -64,12 +64,12 @@ class ViewableContestComment extends ContestComment {
 	}
 	
 	/**
-	 * Returns the user object.
+	 * Returns the owner object.
 	 * 
-	 * @return	UserProfile
+	 * @return	ContestOwner
 	 */
-	public function getUser() {
-		return $this->user;
+	public function getOwner() {
+		return $this->owner;
 	}
 }
 ?>

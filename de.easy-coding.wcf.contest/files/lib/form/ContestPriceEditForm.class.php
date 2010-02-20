@@ -38,7 +38,7 @@ class ContestPriceEditForm extends ContestPriceAddForm {
 		AbstractForm::save();
 		
 		// save price
-		$this->entry->update($this->subject, $this->message);
+		$this->entry->update($this->subject, $this->message, $this->state);
 		$this->saved();
 		
 		// forward
@@ -55,7 +55,10 @@ class ContestPriceEditForm extends ContestPriceAddForm {
 		if (!count($_POST)) {
 			$this->subject = $this->entry->subject;
 			$this->message = $this->entry->message;
+			$this->state = $this->entry->state;
 		}
+		
+		$this->states = ContestPriceEditor::getStates($this->state, $this->entry->isOwner());
 	}
 	
 	/**

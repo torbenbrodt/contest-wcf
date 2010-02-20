@@ -13,7 +13,7 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
  * Manages the user contest sidebar.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -26,11 +26,11 @@ class ContestSidebar {
 	public $container = null;
 	
 	/**
-	 * user id
+	 * contest
 	 *
-	 * @var integer
+	 * @var ContestJury
 	 */
-	public $userID = 0;
+	public $contest = null;
 	
 	/**
 	 * list of contest classes
@@ -75,28 +75,28 @@ class ContestSidebar {
 	public $tagList = null;
 	
 	/**
-	 * list of lastest solutions
+	 * list of latest solutions
 	 * 
 	 * @var	ContestSolutionList
 	 */	
-	public $lastestSolutionList = array();
+	public $latestSolutionList = array();
 	
 	/**
-	 * list of lastest entries
+	 * list of latest entries
 	 * 
 	 * @var	ContestList
 	 */
-	public $lastestEntryList = array();
+	public $latestEntryList = array();
 	
 	/**
 	 * Creates a new ContestSidebar.
 	 *
 	 * @param	object		$container
-	 * @param	integer		$userID
+	 * @param	ContestJury	$contest
 	 */
-	public function __construct($container = null, $userID = 0) {
+	public function __construct($container = null, Contest $contest = null) {
 		$this->container = $container;
-		$this->userID = $userID;
+		$this->contest = $contest;
 		
 		// init sidebar
 		$this->init();
@@ -119,35 +119,48 @@ class ContestSidebar {
 		
 		// get participants
 		$this->participantList = new ContestParticipantList();
+		if($this->contest !== null) {
+			$this->participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID;
+		}
+		$this->participantList->sqlOrderBy = 'participantID DESC';
 		$this->participantList->readObjects();
 		
 		// get sponsors
 		$this->sponsorList = new ContestSponsorList();
+		if($this->contest !== null) {
+			$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID;
+		}
+		$this->sponsorList->sqlOrderBy = 'sponsorID DESC';
 		$this->sponsorList->readObjects();
 		
 		// get prices
 		$this->priceList = new ContestPriceList();
+		if($this->contest !== null) {
+			$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID;
+		}
+		$this->priceList->sqlOrderBy = 'priceID DESC';
 		$this->priceList->readObjects();
 		
 		// get tag cloud
 		if (MODULE_TAGGING) {
 			require_once(WCF_DIR.'lib/data/contest/ContestTagList.class.php');
-			$this->tagList = new ContestTagList($this->userID, WCF::getSession()->getVisibleLanguageIDArray());
+			$this->tagList = new ContestTagList($this->contest, WCF::getSession()->getVisibleLanguageIDArray());
 			$this->tagList->readObjects();
 		}
 
-		// get lastest entries
-		$this->lastestEntryList = new ContestList();
-		$this->lastestEntryList->sqlConditions .= 'contest.userID = '.$this->userID;
-		$this->lastestEntryList->sqlLimit = 10;
-		$this->lastestEntryList->readObjects();
+		// get latest entries
+		$this->latestEntryList = new ContestList();
+		$this->latestEntryList->sqlLimit = 10;
+		$this->latestEntryList->readObjects();
 
-		// get lastest solutions
-		$this->lastestSolutionList = new ContestSolutionList();
-		$this->lastestSolutionList->sqlConditions .= 'contest_solution.userID = '.$this->userID;
-		$this->lastestSolutionList->sqlOrderBy = 'time DESC';
-		$this->lastestSolutionList->sqlLimit = 5;
-		$this->lastestSolutionList->readObjects();
+		// get latest solutions
+		$this->latestSolutionList = new ContestSolutionList();
+		if($this->contest !== null) {
+			$this->latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;
+		}
+		$this->latestSolutionList->sqlOrderBy = 'solutionID DESC';
+		$this->latestSolutionList->sqlLimit = 5;
+		$this->latestSolutionList->readObjects();
 	}
 	
 	/**
@@ -166,8 +179,8 @@ class ContestSidebar {
 			'availableSponsors' => $this->sponsorList->getObjects(),
 			'availablePrices' => $this->priceList->getObjects(),
 			'availableTags' => (MODULE_TAGGING ? $this->tagList->getObjects() : array()),
-			'lastestEntries' => $this->lastestEntryList->getObjects(),
-			'lastestSolutions' => $this->lastestSolutionList->getObjects()
+			'latestEntries' => $this->latestEntryList->getObjects(),
+			'latestSolutions' => $this->latestSolutionList->getObjects()
 		));
 	}
 }

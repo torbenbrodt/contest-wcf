@@ -57,16 +57,21 @@ class ContestEventMixList extends DatabaseObjectList {
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					contest_eventmix.className,
+					group_table.groupID, 
 					group_table.groupName, 
-					user_table.username,
+					user_table.userID,
+					IF(ISNULL(contest_eventmix.username), user_table.username, contest_eventmix.username) AS username,
+					contest_eventmix.time,
+					contest_event.eventName,
+					contest_event.placeholders,
 					avatar_table.*,
-					contest_event.*,
 					contest_comment.comment
 			FROM (
 				SELECT 	eventID AS id, 
 					userID, 
-					groupID, 
+					groupID,
 					time,
+					NULL AS username,
 					'ViewableContestEvent' AS className 
 				FROM wcf".WCF_N."_contest_event contest_event
 					WHERE eventName NOT IN ('".implode("','", $this->excludeEvents)."')
@@ -77,6 +82,7 @@ class ContestEventMixList extends DatabaseObjectList {
 					userID, 
 					0 AS groupID, 
 					time,
+					username,
 					'ViewableContestComment' AS className 
 				FROM wcf".WCF_N."_contest_comment contest_comment
 					".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."

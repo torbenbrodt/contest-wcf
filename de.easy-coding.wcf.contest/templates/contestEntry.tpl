@@ -10,6 +10,8 @@
 		//]]>
 	</script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ImageResizer.class.js"></script>
+	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.entry.feed{/lang} (RSS2)" />
+	<link rel="alternate" type="application/atom+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=atom" title="{lang}wcf.contest.entry.feed{/lang} (Atom)" />
 </head>
 <body{if $templateName|isset} id="tpl{$templateName|ucfirst}"{/if}>
 {* --- quick search controls --- *}
@@ -35,7 +37,7 @@
 							<div class="message content">
 								<div class="messageInner container-1">
 									<a id="entry{@$entry->contestID}"></a>
-									<div class="messageHeader">
+									<div class="messageHeader"{if $entry->fromTime > 0 || $entry->untilTime > 0} style="border-style:dashed"{/if}>
 										<div class="containerIcon">
 											
 											{if $entry->getOwner()->getAvatar()}
@@ -51,6 +53,17 @@
 											<p class="light smallFont">{@$entry->time|time}</p>
 										</div>
 									</div>
+									{if $entry->fromTime > 0 || $entry->untilTime > 0}
+									<div class="messageHeader">
+										<div class="containerIcon">
+											<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+										</div>
+										<div class="containerContent">
+											<p class="light smallFont">{lang}wcf.contest.fromTime{/lang}: {@$entry->fromTime|time}</p>
+											<p class="light smallFont">{lang}wcf.contest.untilTime{/lang}: {@$entry->untilTime|time}</p>
+										</div>
+									</div>
+									{/if}
 									<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 										{@$entry->getFormattedMessage()}
 									</div>
@@ -80,7 +93,7 @@
 						{if $events|count > 0}
 							<a id="events"></a>
 							<div class="contentBox">
-								<div style="float:right"><a href="#"><img src="{icon}contestRssM.png{/icon}" alt="" /></a></div>
+								<div style="float:right"><a href="index.php?page=ContestFeed&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}"><img src="{icon}contestRssM.png{/icon}" alt="" /></a></div>
 								<h4 class="subHeadline">{lang}wcf.contest.events{/lang} <span>({#$items})</span></h4>
 								
 								<div class="contentHeader">
@@ -96,8 +109,10 @@
 												{if $eventObj->getOwner()->getAvatar()}
 													{assign var=x value=$eventObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
 													<a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}">{@$eventObj->getOwner()->getAvatar()}</a>
-												{else}
+												{else if $eventObj->getOwner()->getLink() != ''}
 													<a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+												{else}
+													<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
 												{/if}
 											</div>
 											<div class="containerContent">
@@ -106,7 +121,13 @@
 													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;eventID={@$eventObj->eventID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.event.delete.sure{/lang}')" title="{lang}wcf.contest.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;eventID={@$eventObj->eventID}{@SID_ARG_2ND}#event{@$eventObj->eventID}" title="{lang}wcf.contest.event.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} <a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$eventObj->getOwner()->getName()}</a> ({@$eventObj->time|time})</p>
+												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} 
+												{if $eventObj->getOwner()->getLink() != ''}
+												<a href="{$eventObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$eventObj->getOwner()->getName()}</a>
+												{else}
+												{$eventObj->getOwner()->getName()}
+												{/if}
+												({@$eventObj->time|time})</p>
 												<p>{@$eventObj->getFormattedMessage()}</p>
 											</div>
 										</li>
