@@ -58,17 +58,17 @@
 				<li id="step1">
 					<a onclick="steppedTabMenu.showSubTabMenu('step1');">
 					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Information{/lang}</span></a>
+					<span>{lang}wcf.contest.information{/lang}</span></a>
 				</li>
 				<li id="step2">
 					<a onclick="steppedTabMenu.showSubTabMenu('step2');">
 					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Aufgabe{/lang}</span></a>
+					<span>{lang}wcf.contest.message{/lang}</span></a>
 				</li>
 				<li id="step3">
 					<a onclick="steppedTabMenu.showSubTabMenu('step3');">
 					<img src="{@RELATIVE_WCF_DIR}icon/contestS.png" alt="" />
-					<span>{lang}Einstellungen{/lang}</span></a>
+					<span>{lang}wcf.contest.settings{/lang}</span></a>
 				</li>
 			</ul>
 		</div>

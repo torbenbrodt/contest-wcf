@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  * Represents a viewable contest entry solution.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -26,11 +26,11 @@ class ViewableContestSolution extends ContestSolution {
 	 * @param 	array<mixed>	$row
 	 */
 	public function __construct($solutionID, $row = null) {
-		if ($contestID !== null) {
-			$sql = "SELECT		user_table.username, 
-						group_table.groupName,
-						avatar_table.*, 
-						contest_solution.*
+		if ($solutionID !== null) {
+			$sql = "SELECT		avatar_table.*, 
+						contest_solution.*,
+						user_table.username, 
+						group_table.groupName
 				FROM 		wcf".WCF_N."_contest_solution contest_solution
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest_solution.userID)

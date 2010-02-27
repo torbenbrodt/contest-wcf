@@ -131,10 +131,9 @@ class ContestPriceAddForm extends AbstractForm {
 			require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
 			$sponsor = ContestSponsorEditor::create($this->contest->contestID, $this->userID, $this->groupID, $state);
 		}
-		$position = 0; // TODO: price, allow position
 		
 		// save price
-		$price = ContestPriceEditor::create($this->contest->contestID, $sponsor->sponsorID, $this->subject, $this->message, $position);
+		$price = ContestPriceEditor::create($this->contest->contestID, $sponsor->sponsorID, $this->subject, $this->message);
 		$this->saved();
 		
 		// forward

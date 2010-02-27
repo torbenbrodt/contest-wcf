@@ -18,11 +18,23 @@ class ContestPriceEditor extends ContestPrice {
 	 * @param	integer		$sponsorID
 	 * @param	string		$subject
 	 * @param	string		$message
-	 * @param	integer		$position
+	 * @param	integer		$position	if zero, position will automatically be determined
 	 * @param	integer		$time
 	 * @return	ContestPriceEditor
 	 */
-	public static function create($contestID, $sponsorID, $subject, $message, $position, $time = TIME_NOW) {
+	public static function create($contestID, $sponsorID, $subject, $message, $position = 0, $time = TIME_NOW) {
+		if($position === 0) {
+			// check maximum position
+			$sql = "SELECT		MAX(position)+1 AS next_position
+				FROM		wcf".WCF_N."_contest_price
+				WHERE		contestID = ".intval($contestID);
+			$row = WCF::getDB()->getFirstRow($sql);
+		
+			if($row) {
+				$position = $row['next_position'];
+			}
+		}
+		
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_price
 					(contestID, sponsorID, subject, message, time, position)
 			VALUES		(".intval($contestID).", ".intval($sponsorID).", '".escapeString($subject)."', 

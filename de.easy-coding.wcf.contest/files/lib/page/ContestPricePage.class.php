@@ -131,6 +131,10 @@ class ContestPricePage extends MultipleLinkPage {
 			require_once(WCF_DIR.'lib/form/ContestPriceAddForm.class.php');
 			new ContestPriceAddForm($this->entry);
 		}
+		
+		if($this->entry->enableSponsorCheck) {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
+		}
 
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(

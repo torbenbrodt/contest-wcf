@@ -8,7 +8,7 @@ require_once(WCF_DIR.'lib/data/message/bbcode/MessageParser.class.php');
  * Represents a viewable contest entry price.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -28,12 +28,13 @@ class ViewableContestPrice extends ContestPrice {
 	 */
 	public function __construct($priceID, $row = null) {
 		if ($priceID !== null) {
-			$sql = "SELECT		user_table.username, 
+			$sql = "SELECT		
+						avatar_table.*, 
+						contest_price.*,
+						user_table.username, 
 						contest_sponsor.userID, 
 						contest_sponsor.groupID, 
-						group_table.groupName,
-						avatar_table.*, 
-						contest_price.*
+						group_table.groupName
 				FROM 		wcf".WCF_N."_contest_price contest_price
 				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)

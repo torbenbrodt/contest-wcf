@@ -5,7 +5,7 @@ require_once(WCF_DIR.'lib/data/contest/eventmix/ViewableContestEventMix.class.ph
 
 /**
  * Represents a mixture of contest events and contest comments.
- * 
+ *
  * @author	Torben Brodt
  * @copyright 2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
@@ -14,7 +14,7 @@ require_once(WCF_DIR.'lib/data/contest/eventmix/ViewableContestEventMix.class.ph
 class ContestEventMixList extends DatabaseObjectList {
 	/**
 	 * list of events
-	 * 
+	 *
 	 * @var array<ContestEventMix>
 	 */
 	public $events = array();
@@ -42,7 +42,7 @@ class ContestEventMixList extends DatabaseObjectList {
 				SELECT contestID FROM wcf".WCF_N."_contest_event contest_event
 					WHERE eventName NOT IN ('".implode("','", $this->excludeEvents)."')
 					".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
-				UNION
+				UNION ALL
 				
 				SELECT contestID FROM wcf".WCF_N."_contest_comment contest_comment
 					".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
@@ -56,34 +56,38 @@ class ContestEventMixList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
+					avatar_table.*,
+					contest_eventmix.id,
+					contest_eventmix.contestID,
 					contest_eventmix.className,
-					group_table.groupID, 
-					group_table.groupName, 
+					group_table.groupID,
+					group_table.groupName,
 					user_table.userID,
 					IF(ISNULL(contest_eventmix.username), user_table.username, contest_eventmix.username) AS username,
 					contest_eventmix.time,
 					contest_event.eventName,
 					contest_event.placeholders,
-					avatar_table.*,
 					contest_comment.comment
 			FROM (
-				SELECT 	eventID AS id, 
-					userID, 
+				SELECT 	eventID AS id,
+					contestID,
+					userID,
 					groupID,
 					time,
 					NULL AS username,
-					'ViewableContestEvent' AS className 
+					'ViewableContestEvent' AS className
 				FROM wcf".WCF_N."_contest_event contest_event
 					WHERE eventName NOT IN ('".implode("','", $this->excludeEvents)."')
 					".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 				UNION
 				
-				SELECT 	commentID AS id, 
-					userID, 
-					0 AS groupID, 
+				SELECT 	commentID AS id,
+					contestID,
+					userID,
+					0 AS groupID,
 					time,
 					username,
-					'ViewableContestComment' AS className 
+					'ViewableContestComment' AS className
 				FROM wcf".WCF_N."_contest_comment contest_comment
 					".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			) contest_eventmix

@@ -74,9 +74,17 @@
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.contest.contest.subject.hidden"><![CDATA[The contest is not visible for you.]]></item>
+		<item name="wcf.contest.contest.message.hidden"><![CDATA[The contest is not visible for you.]]></item>
+		<item name="wcf.contest.settings"><![CDATA[Settings]]></item>
+		<item name="wcf.contest.options"><![CDATA[Options]]></item>
 		<item name="wcf.contest.allEntries"><![CDATA[Show all contests]]></item>
 		<item name="wcf.contest.latestEntries"><![CDATA[Latest Contests]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Add]]></item>
+		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Participant have to apply before they are allowed to create solutions.]]></item>
+		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[For being able to create solutions for this contest, participants first have to apply.]]></item>
+		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren have to apply before they are allowed to create prices.]]></item>
+		<item name="wcf.contest.enableSponsorCheck.info"><![CDATA[For being able to create prices for this contest, sponsors first have to apply.]]></item>
 		<item name="wcf.contest.contest.description"><![CDATA[]]></item>
 		<item name="wcf.contest.classes"><![CDATA[Classes]]></item>
 		<item name="wcf.contest.classes.beginner"><![CDATA[Beginner]]></item>
@@ -106,6 +114,12 @@
 		<item name="wcf.contest.sponsor"><![CDATA[Sponsor]]></item>
 		<item name="wcf.contest.sponsor.add"><![CDATA[Add sponsor]]></item>
 		<item name="wcf.contest.solution"><![CDATA[Solution]]></item>
+		<item name="wcf.contest.solution.message.hidden"><![CDATA[The solution is not visible for you.]]></item>
+		<item name="wcf.contest.solution.number"><![CDATA[Solution #{$solutionID}]]></item>
+		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$entry->comments} comment{if $entry->comments != 1}s{/if}]]></item>
+		<item name="wcf.contest.solution.description"><![CDATA[The solution can only be viewn by you, the creator of this contest and the jury.]]></item>
+		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br/>
+Before Termination of the contest, the solutions can only be viewed by the contest owner itself or the jury.]]></item>
 		<item name="wcf.contest.solution.add"><![CDATA[Add solution]]></item>
 		<item name="wcf.contest.solution.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.solution.delete"><![CDATA[Delete solution]]></item>
@@ -119,8 +133,8 @@
 		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>
 		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
 		<item name="wcf.contest.state.scheduled"><![CDATA[scheduled]]></item>
-		<item name="wcf.contest.state.fromTime"><![CDATA[Startdate]]></item>
-		<item name="wcf.contest.state.untilTime"><![CDATA[Enddate]]></item>
+		<item name="wcf.contest.fromTime"><![CDATA[Startdate]]></item>
+		<item name="wcf.contest.untilTime"><![CDATA[Enddate]]></item>
 		<item name="wcf.contest.comment"><![CDATA[Comment]]></item>
 		<item name="wcf.contest.comment.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.contest.comment.message"><![CDATA[Message]]></item>
@@ -212,6 +226,7 @@
 		<item name="wcf.contest.price.description"><![CDATA[]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Add price]]></item>
 		<item name="wcf.contest.price.delete"><![CDATA[Delete price]]></item>
+		<item name="wcf.contest.price.delete.sure"><![CDATA[Do you really want to delete this price?]]></item>
 		<item name="wcf.contest.price.edit"><![CDATA[Edit price]]></item>
 		<item name="wcf.contest.price.subject"><![CDATA[Name]]></item>
 		<item name="wcf.contest.price.message"><![CDATA[Description]]></item>

@@ -135,6 +135,11 @@ class ContestAddForm extends MessageForm {
 		
 		$this->availableClasses = ContestClass::getClasses();
 		$this->availableGroups = ContestUtil::readAvailableGroups();
+		
+		// default values
+		if (!count($_POST)) {
+			$this->classIDArray = array_keys($this->availableClasses);
+		}
 	}
 	
 	/**

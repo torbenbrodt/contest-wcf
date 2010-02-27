@@ -11,7 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * show/edit participant entries
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -119,6 +119,10 @@ class ContestParticipantPage extends MultipleLinkPage {
 		else if($this->entry->isParticipantable()) {
 			require_once(WCF_DIR.'lib/form/ContestParticipantAddForm.class.php');
 			new ContestParticipantAddForm($this->entry);
+		}
+		
+		if($this->entry->enableParticipantCheck) {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableParticipantCheck.info').'</p>');
 		}
 
 		$this->sidebar->assignVariables();		

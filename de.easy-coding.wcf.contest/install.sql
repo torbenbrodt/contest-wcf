@@ -40,9 +40,26 @@ CREATE TABLE wcf1_contest_solution (
 	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('private', 'applied', 'accepted', 'declined') NOT NULL DEFAULT 'private',
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
+	enableSmilies TINYINT(1) NOT NULL DEFAULT 1,
+	enableHtml TINYINT(1) NOT NULL DEFAULT 0,
+	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
+	comments SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
 	KEY (userID),
 	KEY (groupID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_solution_comment;
+CREATE TABLE wcf1_contest_solution_comment (
+	commentID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	solutionID INT(10) NOT NULL,
+	userID INT(10) NOT NULL DEFAULT 0,
+	username VARCHAR(255) NOT NULL DEFAULT '',
+	comment TEXT NULL,
+	time INT(10) NOT NULL DEFAULT 0,
+	attachments SMALLINT(5) NOT NULL DEFAULT 0,
+	KEY (solutionID),
+	KEY (userID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_comment;
@@ -142,7 +159,7 @@ CREATE TABLE wcf1_contest_sponsor (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	time INT(10) NOT NULL DEFAULT 0,
-	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
+	state ENUM('invited', 'accepted', 'declined', 'applied') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
 	KEY (contestID)

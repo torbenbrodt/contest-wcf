@@ -26,10 +26,10 @@ class ViewableContestParticipant extends ContestParticipant {
 	 */
 	public function __construct($participantID, $row = null) {
 		if ($participantID !== null) {
-			$sql = "SELECT		user_table.username, 
-						group_table.groupName,
-						avatar_table.*, 
-						contest_participant.*
+			$sql = "SELECT		avatar_table.*, 
+						contest_participant.*,
+						user_table.username, 
+						group_table.groupName
 				FROM 		wcf".WCF_N."_contest_participant contest_participant
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest_participant.userID)

@@ -44,10 +44,10 @@ class ContestJuryList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					group_table.groupName, 
-					user_table.username,
 					avatar_table.*,
-					contest_jury.*
+					contest_jury.*,
+					group_table.groupName, 
+					user_table.username
 			FROM		wcf".WCF_N."_contest_jury contest_jury
 			LEFT JOIN	wcf".WCF_N."_user user_table
 			ON		(user_table.userID = contest_jury.userID)

@@ -12,7 +12,7 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  * - current user is not owner, jury or sponsor
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -40,16 +40,21 @@ class ContestSolution extends DatabaseObject {
 		parent::handleData($data);
 
 		if($this->isViewable() == false) {
-			$this->subject = '*hidden*';
-			$this->message = '*hidden*';
+			$this->message = WCF::getLanguage()->get('wcf.contest.solution.message.hidden');
+			$this->attachments = 0;
 		}
+		
+		$this->subject = WCF::getLanguage()->get('wcf.contest.solution.number', array(
+			'$solutionID' => $this->solutionID,
+			'$time' => $this->time,
+		));
 	}
 	
 	/**
 	 * solution can be viewed by owner, by jury or if the contest is over
 	 */
 	public function isViewable() {
-		return $this->isOwner() || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
+		return $this->messagePreview || $this->isOwner() || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
 	}
 	
 	/**
@@ -87,6 +92,15 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function isDeletable() {
 		return $this->isOwner();
+	}
+		
+	/**
+	 * before contest end - just jury and owner can add comments - after that, everybody can do so
+	 * 
+	 * @return	boolean
+	 */
+	public function isCommentable() {
+		return true; //TODO: solution commentable
 	}
 
 	/**

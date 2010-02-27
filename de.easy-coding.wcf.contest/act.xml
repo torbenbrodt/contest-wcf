@@ -5,7 +5,7 @@
 			<url><![CDATA[index.php?page=Contest&contestID=%s]]></url>
 		</act>
 		<act name="contestSolutionEntry">
-			<url><![CDATA[index.php?page=Contest&solutionID=%s]]></url>
+			<url><![CDATA[index.php?page=ContestSolutionEntry&solutionID=%s]]></url>
 		</act>
 	</import>
 </data>

@@ -37,6 +37,7 @@
 						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">
 						<input type="hidden" name="ContestPricePositionForm" value="1" />{/if}
 						<div class="contentBox">
+							{if $userMessages|isset}{@$userMessages}{/if}
 							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
@@ -114,9 +115,9 @@
 											<div class="containerIcon">
 												{if $priceObj->getOwner()->getAvatar()}
 													{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}">{@$priceObj->getOwner()->getAvatar()}</a>
+													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{@$priceObj->getOwner()->getAvatar()}</a>
 												{else}
-													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$priceObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
 											<div class="containerContent">

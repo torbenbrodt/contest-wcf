@@ -32,7 +32,7 @@ class ContestJuryPage extends MultipleLinkPage {
 	/**
 	 * entry object
 	 * 
-	 * @var	ContestJury
+	 * @var	ViewableContest
 	 */
 	public $entry = null;
 	

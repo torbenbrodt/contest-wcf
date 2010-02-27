@@ -12,7 +12,7 @@
 		
 		{foreach from=$entries item=entry}
 			<item>
-				<title>{$entry->subject}</title>
+				<title>{$entry->getFormattedMessage()}</title>
 				<author>{$entry->username}</author>
 				<link>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</link>
 				<guid>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</guid>

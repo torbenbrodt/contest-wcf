@@ -19,24 +19,15 @@ class ContestCommentEditForm extends ContestCommentAddForm {
 	public $entry = null;
 	
 	/**
-	 * Creates a new ContestCommentEditForm object.
-	 *
-	 * @param	ContestComment		$solution
-	 */
-	public function __construct(ContestComment $solution) {
-		$this->entry = $solution->getEditor();
-		CaptchaForm::__construct();
-	}
-	
-	/**
 	 * @see Page::readParameters()
 	 */
 	public function readParameters() {
 		CaptchaForm::readParameters();
 		
-		// get solution
-		if (!$this->entry->isEditable()) {
-			throw new PermissionDeniedException();
+		if (isset($_REQUEST['id'])) $this->commentID = intval($_REQUEST['id']);
+		$this->entry = new ContestCommentEditor($this->commentID);
+		if (!$this->entry->commentID || !$this->entry->isEditable()) {
+			throw new IllegalLinkException();
 		}
 	}
 	

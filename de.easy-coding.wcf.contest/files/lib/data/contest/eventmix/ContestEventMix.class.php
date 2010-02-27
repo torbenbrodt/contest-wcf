@@ -7,35 +7,81 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  * Represents a contest entry event.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
 class ContestEventMix extends DatabaseObject {
+
 	/**
-	 * Creates a new ContestEventMix object.
+	 * protected instance
 	 *
-	 * @param	integer		$eventID
+	 * @var ViewableContestEvent|ViewableContestComment
+	 */
+	protected $mix = null;
+
+	/**
+	 * Creates a new ViewableContest object.
+	 *
 	 * @param 	array<mixed>	$row
 	 */
-	public function __construct($eventID, $row = null) {
-		if ($eventID !== null) {
-			$sql = "SELECT	*
-				FROM 	wcf".WCF_N."_contest_event
-				WHERE 	eventID = ".intval($eventID);
-			$row = WCF::getDB()->getFirstRow($sql);
+	public function __construct(array $row = array()) {
+		if(!isset($row['className'])) {
+			throw new SystemException('missing className');
 		}
-		parent::__construct($row);
+		$className = StringUtil::getClassName($row['className']);
+		$dir = StringUtil::toLowercase(StringUtil::substring($className, StringUtil::length('ViewableContest')));
+		
+		if(empty($dir)) {
+			throw new SystemException('wrong dir: '.$dir);
+		}
+		
+		$file = WCF_DIR.'lib/data/contest/'.$dir.'/'.$className.'.class.php';
+		if(!is_file($file)) {
+			throw new SystemException('wrong file: '.$file);
+		}
+		require_once($file);
+		
+		if(!class_exists($className)) {
+			throw new SystemException('class does not exist: '.$className);
+		}
+		
+		$this->mix = new $className(null, $row);
+	}
+
+	/**
+	 * pass magic method to owner object
+	 */
+	public function __set($name, $value) {
+		$this->mix->$name = $value;
 	}
 	
 	/**
-	 * Returns an editor object for this event.
-	 *
-	 * @return	ContestEventMixEditor
+	 * pass magic method to owner object
 	 */
-	public function getEditor() {
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventMixEditor.class.php');
-		return new ContestEventMixEditor(null, $this->data);
+	public function __call($method, $args) {
+		return call_user_func_array(array($this->mix, $method), $args);
+	}
+
+	/**
+	 * pass magic method to owner object
+	 */
+	public function __get($name) {
+		return $this->mix->$name;
+	}
+	
+	/**
+	 * never allow to edit the entry
+	 */
+	public function isEditable() {
+		return false;
+	}
+	
+	/**
+	 * never allow to edit the entry
+	 */
+	public function isDeletable() {
+		return false;
 	}
 	
 	/**

@@ -12,13 +12,15 @@ require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
  * Shows a detailed view of a user contest entry.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
 class ContestPage extends MultipleLinkPage {
 	// system
 	public $templateName = 'contestEntry';
+	
+	public $itemsOnLandingpage = 5;
 	
 	/**
 	 * entry id
@@ -123,14 +125,14 @@ class ContestPage extends MultipleLinkPage {
 			if ($this->action == 'edit' && !$this->comment->isEditable()) {
 				throw new PermissionDeniedException();
 			}
-						
+			
 			// get page number
-			$sql = "SELECT	COUNT(*) AS comments
-				FROM 	wcf".WCF_N."_contest_comment
-				WHERE 	contestID = ".$this->contestID."
-					AND time < ".$this->comment->time;
-			$result = WCF::getDB()->getFirstRow($sql);
-			$this->pageNo = intval(ceil($result['comments'] / $this->itemsPerPage));
+			$pagennumber = new ContestEventMixList();
+			$pagennumber->sqlConditions .= 'contestID = '.$this->contestID;
+			$pagennumber->sqlConditions .= ' AND time < '.$this->comment->time;
+			$count = $pagennumber->countObjects();
+			$this->pageNo = $count > $this->itemsOnLandingpage ? 1 : 0;
+			$this->pageNo += ceil(($count - $this->itemsOnLandingpage) / $this->itemsPerPage);
 		}
 		
 		// init eventmix list
@@ -139,15 +141,37 @@ class ContestPage extends MultipleLinkPage {
 		$this->eventmixList->sqlOrderBy = 'contest_eventmix.time DESC';
 	}
 	
+	public function calculateNumberOfPages() {
+		// call calculateNumberOfPages event
+		EventHandler::fireAction($this, 'calculateNumberOfPages');
+		
+		// calculate number of pages
+		$this->items = $this->countItems();
+		$this->pages = $this->items > $this->itemsOnLandingpage ? 1 : 0;
+		$this->pages += ceil(($this->items - $this->itemsOnLandingpage) / $this->itemsPerPage);
+		
+		// correct active page number
+		if ($this->pageNo > $this->pages) $this->pageNo = $this->pages;
+		if ($this->pageNo < 1) $this->pageNo = 1;
+		
+		// calculate start and end index
+		$this->startIndex = ($this->pageNo - 1) * $this->itemsPerPage;
+		$this->endIndex = $this->startIndex + $this->itemsPerPage;
+		$this->startIndex++;
+		if ($this->endIndex > $this->items) $this->endIndex = $this->items;
+	}
+	
 	/**
 	 * @see Page::readData()
 	 */
 	public function readData() {
 		parent::readData();
 		
-		// read objects
-		$this->eventmixList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->eventmixList->sqlLimit = $this->itemsPerPage;
+		// show 5 entries on first page, but 20 on the following pages
+		$this->eventmixList->sqlLimit = $this->pageNo <= 1 ? $this->itemsOnLandingpage : $this->itemsPerPage;
+		$this->eventmixList->sqlOffset = $this->pageNo <= 1 ? 0 : (($this->pageNo - 2) * $this->itemsPerPage) + $this->itemsOnLandingpage;
+		
+		// fire sql query
 		$this->eventmixList->readObjects();
 
 		// get previous entry
@@ -202,7 +226,6 @@ class ContestPage extends MultipleLinkPage {
 	 */
 	public function countItems() {
 		parent::countItems();
-		
 		return $this->eventmixList->countObjects();
 	}
 	
@@ -215,7 +238,7 @@ class ContestPage extends MultipleLinkPage {
 		// init form
 		if ($this->action == 'edit') {
 			require_once(WCF_DIR.'lib/form/ContestCommentEditForm.class.php');
-			new ContestCommentEditForm($this->comment);
+			new ContestCommentEditForm($this->entry);
 		}
 		else if ($this->entry->isCommentable()) {
 			require_once(WCF_DIR.'lib/form/ContestCommentAddForm.class.php');

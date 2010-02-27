@@ -41,6 +41,10 @@ class Contest extends DatabaseObject {
 	 * @return	array<Tag>
 	 */
 	public function getTags($languageIDArray) {
+		if($this->isViewable() == false) {
+			return array();
+		}
+	
 		// include files
 		require_once(WCF_DIR.'lib/data/tag/TagEngine.class.php');
 		require_once(WCF_DIR.'lib/data/contest/TaggedContest.class.php');
@@ -314,7 +318,7 @@ class Contest extends DatabaseObject {
 	}
 	
 	public function isViewable() {
-		return $this->isOwner() || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
+		return $this->messagePreview || $this->isOwner() || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
 	}
 
 	/**
@@ -324,8 +328,9 @@ class Contest extends DatabaseObject {
 		parent::handleData($data);
 
 		if($this->isViewable() == false) {
-			$this->subject = '*hidden*';
-			$this->message = '*hidden*';
+			$this->subject = WCF::getLanguage()->get('wcf.contest.subject.hidden');
+			$this->message = WCF::getLanguage()->get('wcf.contest.message.hidden');
+			$this->attachments = 0;
 		}
 	}
 

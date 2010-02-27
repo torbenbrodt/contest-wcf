@@ -20,7 +20,7 @@ class ContestSponsorAddForm extends AbstractForm {
 	public $groupID = 0;
 	
 	public $states = array();
-	public $state = 'applied';
+	public $state = '';
 	
 	/**
 	 * contest editor
@@ -56,6 +56,9 @@ class ContestSponsorAddForm extends AbstractForm {
 		if (!$this->contest->isSponsorable()) {
 			throw new PermissionDeniedException();
 		}
+		
+		// set state default
+		$this->state = $this->contest->enableSponsorCheck ? 'applied' : 'accepted';
 	}
 	
 	/**

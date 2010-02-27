@@ -26,10 +26,10 @@ class ViewableContestSponsor extends ContestSponsor {
 	 */
 	public function __construct($sponsorID, $row = null) {
 		if ($sponsorID !== null) {
-			$sql = "SELECT		user_table.username, 
-						group_table.groupName,
-						avatar_table.*, 
-						contest_sponsor.*
+			$sql = "SELECT		avatar_table.*, 
+						contest_sponsor.*,
+						user_table.username, 
+						group_table.groupName
 				FROM 		wcf".WCF_N."_contest_sponsor contest_sponsor
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest_sponsor.userID)

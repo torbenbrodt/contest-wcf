@@ -11,7 +11,7 @@
 	
 	{foreach from=$entries item=entry}
 		<entry>
-			<title>{$entry->subject}</title>
+			<title>{$entry->getFormattedMessage()}</title>
 			<id>{@PAGE_URL}/index.php?page=Contest&amp;contestID={@$entry->contestID}</id>
 			<updated>{@'c'|gmdate:$entry->time}</updated>
 			<author>

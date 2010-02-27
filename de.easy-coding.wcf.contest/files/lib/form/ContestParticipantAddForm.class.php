@@ -20,7 +20,7 @@ class ContestParticipantAddForm extends AbstractForm {
 	public $groupID = 0;
 	
 	public $states = array();
-	public $state = 'applied';
+	public $state = '';
 	
 	/**
 	 * contest editor
@@ -56,6 +56,9 @@ class ContestParticipantAddForm extends AbstractForm {
 		if (!$this->contest->isParticipantable()) {
 			throw new PermissionDeniedException();
 		}
+		
+		// set state default
+		$this->state = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
 	}
 	
 	/**

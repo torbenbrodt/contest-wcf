@@ -1,5 +1,19 @@
-<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}Aufgabe{/lang}</h3>
+<h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.message{/lang}</h3>
 <p>{lang}Geben Sie hier die Aufgabe vor. Seiten Sie dabei möglichst ausführlich und versuchen Sie Mehrdeutigkeiten zu vermeiden.{/lang}</p>
+				
+{if $preview|isset}
+	<div class="message content">
+		<div class="messageInner container-1">
+			<div class="messageHeader">
+				<h4>{lang}wcf.message.preview{/lang}</h4>
+			</div>
+			<div class="messageBody">
+				<div>{@$preview}</div>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <fieldset>
 	<legend>{lang}wcf.contest.message{/lang}</legend>
 	
@@ -29,8 +43,8 @@
 {if $additionalFields1|isset}{@$additionalFields1}{/if}
 
 <div class="formSubmit">
-	<input type="submit" name="next" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.back()"{/if} />
-	<input type="submit" name="next" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.next()"{/if} />
+	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.back()"{/if} />
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.next()"{/if} />
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

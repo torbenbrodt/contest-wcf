@@ -2,7 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/comment/ContestSolutionCommentList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
@@ -15,9 +15,9 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSolutionPage extends MultipleLinkPage {
+class ContestSolutionEntryPage extends MultipleLinkPage {
 	// system
-	public $templateName = 'contestSolution';
+	public $templateName = 'contestSolutionEntry';
 	
 	/**
 	 * entry id
@@ -29,16 +29,16 @@ class ContestSolutionPage extends MultipleLinkPage {
 	/**
 	 * entry object
 	 * 
-	 * @var	ContestSolution
+	 * @var	Contest
 	 */
 	public $entry = null;
 	
 	/**
-	 * list of solutions
-	 *
-	 * @var ContestSolutionList
+	 * entry object
+	 * 
+	 * @var	ContestSolution
 	 */
-	public $solutionList = null;
+	public $solutionObj = null;
 	
 	/**
 	 * solution id
@@ -55,11 +55,32 @@ class ContestSolutionPage extends MultipleLinkPage {
 	public $solution = null;
 	
 	/**
+	 * list of comments
+	 *
+	 * @var ContestSolutionCommentList
+	 */
+	public $commentList = null;
+	
+	/**
 	 * action
 	 * 
 	 * @var	string
 	 */
 	public $action = '';
+	
+	/**
+	 * attachment list object
+	 * 
+	 * @var	MessageAttachmentList
+	 */
+	public $attachmentList = null;
+	
+	/**
+	 * list of attachments
+	 * 
+	 * @var	array<Attachment>
+	 */
+	public $attachments = array();
 	
 	/**
 	 * contest sidebar
@@ -81,10 +102,17 @@ class ContestSolutionPage extends MultipleLinkPage {
 			throw new IllegalLinkException();
 		}
 		
-		// init solution list
-		$this->solutionList = new ContestSolutionList();
-		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
-		$this->solutionList->sqlOrderBy = 'contest_solution.time DESC';
+		// get entry
+		if (isset($_REQUEST['solutionID'])) $this->solutionID = intval($_REQUEST['solutionID']);
+		$this->solutionObj = new ViewableContestSolution($this->solutionID);
+		if (!$this->solutionObj->solutionID) {
+			throw new IllegalLinkException();
+		}
+		
+		// init comment list
+		$this->commentList = new ContestSolutionCommentList();
+		$this->commentList->sqlConditions .= 'contest_solution_comment.solutionID = '.$this->solutionID;
+		$this->commentList->sqlOrderBy = 'contest_solution_comment.time DESC';
 	}
 	
 	/**
@@ -94,9 +122,28 @@ class ContestSolutionPage extends MultipleLinkPage {
 		parent::readData();
 		
 		// read objects
-		$this->solutionList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
-		$this->solutionList->sqlLimit = $this->itemsPerPage;
-		$this->solutionList->readObjects();
+		$this->commentList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
+		$this->commentList->sqlLimit = $this->itemsPerPage;
+		$this->commentList->readObjects();
+		
+		// read attachments
+		if (MODULE_ATTACHMENT == 1 && $this->solutionObj->attachments > 0) {
+			require_once(WCF_DIR.'lib/data/attachment/MessageAttachmentList.class.php');
+			$this->attachmentList = new MessageAttachmentList($this->solutionObj->solutionID, 'contestSolutionEntry', '', WCF::getPackageID('de.easy-coding.wcf.contest'));
+			$this->attachmentList->readObjects();
+			$this->attachments = $this->attachmentList->getSortedAttachments(WCF::getUser()->getPermission('user.blog.canViewAttachmentPreview'));
+			
+			// set embedded attachments
+			if (WCF::getUser()->getPermission('user.blog.canViewAttachmentPreview')) {
+				require_once(WCF_DIR.'lib/data/message/bbcode/AttachmentBBCode.class.php');
+				AttachmentBBCode::setAttachments($this->attachments);
+			}
+			
+			// remove embedded attachments from list
+			if (count($this->attachments) > 0) {
+				MessageAttachmentList::removeEmbeddedAttachments($this->attachments);
+			}
+		}
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry);
@@ -108,7 +155,7 @@ class ContestSolutionPage extends MultipleLinkPage {
 	public function countItems() {
 		parent::countItems();
 		
-		return $this->solutionList->countObjects();
+		return $this->commentList->countObjects();
 	}
 	
 	/**
@@ -116,6 +163,17 @@ class ContestSolutionPage extends MultipleLinkPage {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
+		
+		// init form
+		if ($this->action == 'edit') {
+			require_once(WCF_DIR.'lib/form/ContestSolutionCommentEditForm.class.php');
+			new ContestSolutionCommentEditForm($this->solutionObj);
+		}
+		else if ($this->entry->isCommentable()) {
+			require_once(WCF_DIR.'lib/form/ContestSolutionCommentAddForm.class.php');
+			new ContestSolutionCommentAddForm($this->solutionObj);
+		}
+		
 		if($this->entry->state != 'scheduled' || !($this->entry->fromTime < TIME_NOW && TIME_NOW < $this->entry->untilTime)) {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.solution.private.info').'</p>');
 		}
@@ -127,11 +185,14 @@ class ContestSolutionPage extends MultipleLinkPage {
 		$this->sidebar->assignVariables();
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
+			'solutionObj' => $this->solutionObj,
 			'contestID' => $this->contestID,
+			'solutionID' => $this->solutionID,
 			'userID' => $this->entry->userID,
-			'solutions' => $this->solutionList->getObjects(),
+			'comments' => $this->commentList->getObjects(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
+			'attachments' => $this->attachments,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

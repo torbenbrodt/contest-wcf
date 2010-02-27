@@ -25,6 +25,7 @@ class ContestEditForm extends MessageForm {
 	public $showPoll = false;
 	public $showSignatureSetting = false;
 	public $tags = '';
+	public $preview, $send;
 	
 	// form parameters
 	public $ownerID = 0;
@@ -173,6 +174,7 @@ class ContestEditForm extends MessageForm {
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
+		if (isset($_POST['preview'])) $this->preview = (boolean) $_POST['preview'];
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
 		if (isset($_POST['state'])) $this->state = StringUtil::trim($_POST['state']);
 		if (isset($_POST['classIDArray']) && is_array($_POST['classIDArray'])) $this->classIDArray = $_POST['classIDArray'];
@@ -255,6 +257,42 @@ class ContestEditForm extends MessageForm {
 	}
 	
 	/**
+	 * @see Form::submit()
+	 */
+	public function submit() {
+		// call submit event
+		EventHandler::fireAction($this, 'submit');
+		
+		$this->readFormParameters();
+		
+		try {
+			// attachment handling
+			if ($this->showAttachments) {
+				$this->attachmentListEditor->handleRequest();
+			}
+
+			// preview
+			if ($this->preview) {
+				require_once(WCF_DIR.'lib/data/message/bbcode/AttachmentBBCode.class.php');
+				AttachmentBBCode::setAttachments($this->attachmentListEditor->getSortedAttachments());
+				WCF::getTPL()->assign('preview', ContestSolutionEditor::createPreview($this->subject, $this->text, $this->enableSmilies, $this->enableHtml, $this->enableBBCodes));
+			}
+
+			// send message or save as draft
+			if ($this->send) {
+				$this->validate();
+				
+				// no errors
+				$this->save();
+			}
+		}
+		catch (UserInputException $e) {
+			$this->errorField = $e->getField();
+			$this->errorType = $e->getType();
+		}
+	}
+	
+	/**
 	 * @see Form::save()
 	 */
 	public function save() {
@@ -272,7 +310,7 @@ class ContestEditForm extends MessageForm {
 		}
 		
 		// forward
-		HeaderUtil::redirect('index.php?form=ContestEdit&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?page=Contest&contestID='.$this->entry->contestID.SID_ARG_2ND_NOT_ENCODED);
 		exit;
 	}
 	
@@ -321,9 +359,9 @@ class ContestEditForm extends MessageForm {
 		}
 		
 		// get attachments editor
-		if ($this->attachmentListEditor == null) {
+		if ($this->attachmentListEditor === null) {
 			require_once(WCF_DIR.'lib/data/attachment/MessageAttachmentListEditor.class.php');
-			$this->attachmentListEditor = new MessageAttachmentListEditor(array(), 'contestEntry', WCF::getPackageID('de.easy-coding.wcf.contest'), WCF::getUser()->getPermission('user.contest.maxAttachmentSize'), WCF::getUser()->getPermission('user.contest.allowedAttachmentExtensions'), WCF::getUser()->getPermission('user.contest.maxAttachmentCount'));
+			$this->attachmentListEditor = new MessageAttachmentListEditor(array($this->contestID), 'contestEntry', WCF::getPackageID('de.easy-coding.wcf.contest'), WCF::getUser()->getPermission('user.contest.maxAttachmentSize'), WCF::getUser()->getPermission('user.contest.allowedAttachmentExtensions'), WCF::getUser()->getPermission('user.contest.maxAttachmentCount'));
 		}
 		
 		parent::show();

@@ -1,6 +1,8 @@
 /**
+ * search via suggestion and adds to list
+ *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  */
 function ContestPermissionList(key, data, url) {
@@ -25,7 +27,9 @@ function ContestPermissionList(key, data, url) {
 		var button = document.getElementById(this.key + 'AddButton');
 		if (button) {
 			button.list = this;
-			button.onclick = function() { this.list.add(); };
+			button.onclick = function() {
+				this.list.add();
+			};
 		}
 		
 		// add input listener
@@ -34,9 +38,15 @@ function ContestPermissionList(key, data, url) {
 			input.list = this;
 			
 			this.onfocusEvent = input.onfocus;
-			input.onfocus = function(e) { this.list.inputHasFocus = true; this.list.onfocusEvent(e); };
+			input.onfocus = function(e) {
+				this.list.inputHasFocus = true;
+				this.list.onfocusEvent(e);
+			};
 			this.onblurEvent = input.onblur;
-			input.onblur = function(e) { this.list.inputHasFocus = false; this.list.onblurEvent(e); };
+			input.onblur = function(e) {
+				this.list.inputHasFocus = false;
+				this.list.onblurEvent(e);
+			};
 			this.onkeyupEvent = input.onkeyup;
 			input.onkeyup = function(event) {
 				var result = this.list.onkeyupEvent(event);
@@ -134,8 +144,8 @@ function ContestPermissionList(key, data, url) {
 			var activePermissionList = this;
 			this.ajaxRequest = new AjaxRequest();
 			
-			this.ajaxRequest.openPost(url+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() { 
-				activePermissionList.receiveResponseJson(); 
+			this.ajaxRequest.openPost(url+SID_ARG_2ND, 'query='+encodeURIComponent(query), function() {
+				activePermissionList.receiveResponseJson();
 			});
 		}
 	}

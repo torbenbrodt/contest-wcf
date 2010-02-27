@@ -100,9 +100,6 @@ class ContestOwner {
 	 * is the current user member of this?
 	 */
 	public static function isOwner($userID, $groupID) {
-		if(WCF::getUser()->getPermission('mod.contest.isSuperMod')) {
-			return true;
-		}
 		$myuserID = WCF::getUser()->userID;
 		if(empty($myuserID)) {
 			return false;

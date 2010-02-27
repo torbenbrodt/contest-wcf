@@ -92,7 +92,14 @@
 			<ul class="dataList">
 				{foreach from=$availableClasses item=class}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}"><span>{lang}{$class}{/lang}</span></a>
+						<div class="containerIcon">
+							<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">
+								<img src="{icon}contestM.png{/icon}" alt="" />
+							</a>
+						</div>
+						<div class="containerContent">
+							<h4><a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}"><span>{lang}{$class}{/lang}</span></a></h4>
+						</div>
 					</li>
 				{/foreach}
 			</ul>
@@ -110,7 +117,20 @@
 			<ul class="dataList">
 				{foreach from=$availableJurys item=jury}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="{$jury->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{$jury->getOwner()->getName()}</span></a>
+						<div class="containerIcon">
+							<a href="{$jury->getOwner()->getLink()}{@SID_ARG_2ND}">
+								{if $jury->getOwner()->getAvatar()}
+									{assign var=x value=$jury->getOwner()->getAvatar()->setMaxSize(24, 24)}
+									{@$jury->getOwner()->getAvatar()}
+								{else}
+									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
+								{/if}
+							</a>
+						</div>
+						<div class="containerContent">
+							<h4><a href="{$jury->getOwner()->getLink()}{@SID_ARG_2ND}">{$jury->getOwner()->getName()}</a></h4>
+							<p class="light smallFont">({@$jury->time|shorttime})</p>
+						</div>
 					</li>
 				{/foreach}
 			</ul>
@@ -128,25 +148,20 @@
 			<ul class="dataList">
 				{foreach from=$availableSponsors item=sponsor}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="{$sponsor->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{$sponsor->getOwner()->getName()}</span></a>
-					</li>
-				{/foreach}
-			</ul>
-		</div>
-	</div>
-{/if}
-
-{if $availablePrices|count > 0}
-	<div class="contentBox">
-		<div class="border"> 
-			<div class="containerHead"> 
-				<h3>{lang}wcf.contest.prices{/lang}</h3> 
-			</div> 
-			 
-			<ul class="dataList">
-				{foreach from=$availablePrices item=price}
-					<li class="{cycle values='container-1,container-2'}">
-						<a href="index.php?page=ContestPrice&amp;contestID={@$price->contestID}#priceObj{@$price->priceID}{@SID_ARG_2ND}"><span>{lang}{$price}{/lang}</span></a>
+						<div class="containerIcon">
+							<a href="{$sponsor->getOwner()->getLink()}{@SID_ARG_2ND}">
+								{if $sponsor->getOwner()->getAvatar()}
+									{assign var=x value=$sponsor->getOwner()->getAvatar()->setMaxSize(24, 24)}
+									{@$sponsor->getOwner()->getAvatar()}
+								{else}
+									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
+								{/if}
+							</a>
+						</div>
+						<div class="containerContent">
+							<h4><a href="{$sponsor->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsor->getOwner()->getName()}</a></h4>
+							<p class="light smallFont">({@$sponsor->time|shorttime})</p>
+						</div>
 					</li>
 				{/foreach}
 			</ul>
@@ -164,7 +179,51 @@
 			<ul class="dataList">
 				{foreach from=$availableParticipants item=participant}
 					<li class="{cycle values='container-1,container-2'}">
-						<a href="{@$participant->getOwner()->getLink()}{@SID_ARG_2ND}"><span>{lang}{$participant->getOwner()->getName()}{/lang}</span></a>
+						<div class="containerIcon">
+							<a href="{$participant->getOwner()->getLink()}{@SID_ARG_2ND}">
+								{if $participant->getOwner()->getAvatar()}
+									{assign var=x value=$participant->getOwner()->getAvatar()->setMaxSize(24, 24)}
+									{@$participant->getOwner()->getAvatar()}
+								{else}
+									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
+								{/if}
+							</a>
+						</div>
+						<div class="containerContent">
+							<h4><a href="{$participant->getOwner()->getLink()}{@SID_ARG_2ND}">{$participant->getOwner()->getName()}</a></h4>
+							<p class="light smallFont">({@$participant->time|shorttime})</p>
+						</div>
+					</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+{/if}
+
+{if $availablePrices|count > 0}
+	<div class="contentBox">
+		<div class="border"> 
+			<div class="containerHead"> 
+				<h3>{lang}wcf.contest.prices{/lang}</h3> 
+			</div> 
+			 
+			<ul class="dataList">
+				{foreach from=$availablePrices item=price}
+					<li class="{cycle values='container-1,container-2'}">
+						<div class="containerIcon">
+							<a href="{$price->getOwner()->getLink()}{@SID_ARG_2ND}">
+								{if $price->getOwner()->getAvatar()}
+									{assign var=x value=$price->getOwner()->getAvatar()->setMaxSize(24, 24)}
+									{@$price->getOwner()->getAvatar()}
+								{else}
+									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
+								{/if}
+							</a>
+						</div>
+						<div class="containerContent">
+							<h4><a href="index.php?page=ContestPrice&amp;contestID={@$price->contestID}#priceObj{@$price->priceID}{@SID_ARG_2ND}"><span>{lang}{$price}{/lang}</span></a></h4>
+							<p class="light smallFont">{lang}wcf.contest.price.by{/lang} <a href="{$price->getOwner()->getLink()}{@SID_ARG_2ND}">{$price->getOwner()->getName()}</a>({@$price->time|shorttime})</p>
+						</div>
 					</li>
 				{/foreach}
 			</ul>
@@ -230,7 +289,7 @@
 							</a>
 						</div>
 						<div class="containerContent">
-							<h4><a href="index.php?page=Contest&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">{$solution->getExcerpt()}</a></h4>
+							<h4><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$solution->contestID}&amp;solutionID={@$solution->solutionID}{@SID_ARG_2ND}#solution{@$solution->solutionID}">{$solution->getExcerpt()}</a></h4>
 							<p class="light smallFont">{lang}wcf.contest.solution.by{/lang} <a href="{$solution->getOwner()->getLink()}{@SID_ARG_2ND}">{$solution->getOwner()->getName()}</a> ({@$solution->time|shorttime})</p>
 						</div>
 					</li>
