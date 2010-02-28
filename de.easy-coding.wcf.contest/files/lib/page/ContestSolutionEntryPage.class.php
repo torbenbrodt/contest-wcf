@@ -3,6 +3,7 @@
 require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/comment/ContestSolutionCommentList.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/rating/ContestSolutionRatingSummaryList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
@@ -62,6 +63,13 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	public $commentList = null;
 	
 	/**
+	 * list of ratings
+	 *
+	 * @var ContestSolutionRatingSummaryList
+	 */
+	public $ratingList = null;
+	
+	/**
 	 * action
 	 * 
 	 * @var	string
@@ -113,6 +121,10 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 		$this->commentList = new ContestSolutionCommentList();
 		$this->commentList->sqlConditions .= 'contest_solution_comment.solutionID = '.$this->solutionID;
 		$this->commentList->sqlOrderBy = 'contest_solution_comment.time DESC';
+		
+		// init rating list
+		$this->ratingList = new ContestSolutionRatingSummaryList();
+		$this->ratingList->sqlConditions .= 'contest_solution_rating.solutionID = '.$this->solutionID;
 	}
 	
 	/**
@@ -121,10 +133,13 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	public function readData() {
 		parent::readData();
 		
-		// read objects
+		// read comments
 		$this->commentList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->commentList->sqlLimit = $this->itemsPerPage;
 		$this->commentList->readObjects();
+		
+		// read ratings
+		$this->ratingList->readObjects();
 		
 		// read attachments
 		if (MODULE_ATTACHMENT == 1 && $this->solutionObj->attachments > 0) {
@@ -190,6 +205,7 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			'solutionID' => $this->solutionID,
 			'userID' => $this->entry->userID,
 			'comments' => $this->commentList->getObjects(),
+			'ratings' => $this->ratingList->getObjects(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			'attachments' => $this->attachments,

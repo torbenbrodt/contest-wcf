@@ -78,7 +78,44 @@
 									<hr />
 								</div>
 							</div>
-						</div>
+						</div>			
+						
+						{if $solutionObj->ratings > 0 || $entry->isJury()}
+							<a id="ratings"></a>
+							<div class="contentBox">
+								<h4 class="subHeadline">{lang}wcf.contest.ratings{/lang} <span>({$solutionObj->ratings})</span></h4>
+								<ul class="dataList messages">
+									{foreach from=$ratings item=ratingObj}
+										<li class="{cycle values='container-1,container-2'}">
+											<a id="rating{@$ratingObj->ratingID}"></a>
+											<div class="formElement{if $errorField == 'username'} formError{/if}">
+												<div class="formFieldLabel">
+													jury: {@$ratingObj->getJuryRatingOutput()}<br/>
+													total: {@$ratingObj->getRatingOutput()}
+												</div>
+												<div class="formField">
+													<b>{lang}{@$ratingObj->title}{/lang}</b>
+												</div>
+												<div class="formFieldDesc">
+													{if $entry->isJury()}
+														make your own rating:
+														{@$ratingObj->getMyRatingOutput()}
+													{/if}
+												</div>
+											</div>
+										</li>
+									{/foreach}
+								</ul>
+								
+								<div class="buttonBar">
+									<div class="smallButtons">
+										<ul>
+											<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="{lang}wcf.global.scrollUp{/lang}" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						{/if}
 					
 						{if $comments|count > 0}
 							<a id="comments"></a>

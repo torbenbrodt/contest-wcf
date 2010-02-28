@@ -10,7 +10,7 @@ require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
  * - user is registered
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -94,6 +94,24 @@ class Contest extends DatabaseObject {
 		$this->participantList->readObjects();
 		
 		return $this->participantList->getObjects();
+	}
+	
+	/**
+	 * Gets the solutions of this entry.
+	 * 
+	 * @return	array<ContestSolution>
+	 */
+	public function getSolutions() {
+		if($this->solutionList !== null) {
+			return $this->solutionList->getObjects();
+		}
+
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');		
+		$this->solutionList = new ContestSolutionList();
+		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
+		$this->solutionList->readObjects();
+		
+		return $this->solutionList->getObjects();
 	}
 	
 	/**

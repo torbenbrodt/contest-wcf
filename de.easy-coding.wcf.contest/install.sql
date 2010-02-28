@@ -44,6 +44,7 @@ CREATE TABLE wcf1_contest_solution (
 	enableHtml TINYINT(1) NOT NULL DEFAULT 0,
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
 	comments SMALLINT(5) NOT NULL DEFAULT 0,
+	ratings SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
 	KEY (userID),
 	KEY (groupID)
@@ -191,6 +192,27 @@ CREATE TABLE wcf1_contest_menu_item (
 	options text,
 	UNIQUE KEY menuItem (menuItem)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_ratingoption;
+CREATE TABLE wcf1_contest_ratingoption (
+	optionID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(128) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS wcf1_contest_solution_rating;
+CREATE TABLE wcf1_contest_solution_rating (
+	ratingID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	solutionID INT(10) NOT NULL,
+	userID INT(10) NOT NULL DEFAULT 0,
+	optionID INT(10) NOT NULL DEFAULT 0,
+	score INT(1) NOT NULL DEFAULT 0,
+	time INT(10) NOT NULL DEFAULT 0,
+	UNIQUE KEY (solutionID, userID, optionID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO wcf1_contest_ratingoption (title) VALUES 
+	('wcf.contest.ratingoption.basic'),
+	('wcf.contest.ratingoption.basic.format');
 
 INSERT INTO wcf1_contest_class (title) VALUES 
 	('wcf.contest.classes.beginner'),
