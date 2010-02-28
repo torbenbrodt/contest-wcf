@@ -5,9 +5,10 @@
  * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  */
-function ContestRating(elementName, currentRating) {
-	this.element = null;
+function ContestRating(elementName, optionID, currentRating) {
+	this.spanelement = this.inputelement = null;
 	this.elementName = elementName;
+	this.optionID = optionID;
 	this.currentRating = currentRating;
 
 	/**
@@ -16,27 +17,32 @@ function ContestRating(elementName, currentRating) {
 	 */
 	this.init = function() {
 		var img = document.getElementById(this.elementName);
-		var span = this.element = document.createElement('span');
+		var span = this.spanelement = document.createElement('span');
+		var input = this.inputelement = document.createElement('input');
+		input.name = 'optionIDs[' + this.optionID + ']';
+		input.type = 'hidden';
+		input.value = this.currentRating;
 		
 		// add stars
 		for (var i = 1; i <= 5; i++) {
 			var star = document.createElement('img');
-			star.src = RELATIVE_WCF_DIR+'icon/contestRatingS.png';
-			star.alt = '';
-			star.name = i;
+			star.alt = i;
 			star.onmouseover = function(x) {
 				return function() {
 					this.style.cursor = 'pointer';
-					x.showRating(parseInt(this.name));
+					x.showRating(parseInt(this.alt));
 				};
 			}(this);
 			star.onclick = function(x) {
 				return function() {
-					x.submitRating(parseInt(this.name));
+					x.submitRating(parseInt(this.alt));
 				};
 			}(this);
 			span.appendChild(star);
 		}
+		
+		// add hidden input field
+		span.appendChild(input);
 		
 		// replace img through span
 		img.parentNode.replaceChild(span, img);
@@ -63,7 +69,7 @@ function ContestRating(elementName, currentRating) {
 	 */
 	this.showRating = function(rating) {
 		for (var i = 1; i <= 5; i++) {
-			this.element.childNodes[i - 1].src = RELATIVE_WCF_DIR + 'icon/contestRating' + (rating >= i ? 'S.png' : 'NoS.png');
+			this.spanelement.childNodes[i - 1].src = RELATIVE_WCF_DIR + 'icon/contestRating' + (rating >= i ? 'S.png' : 'NoS.png');
 		}
 	}
 	
@@ -71,8 +77,7 @@ function ContestRating(elementName, currentRating) {
 	 * Submits a selected rating.
 	 */
 	this.submitRating = function(rating) {
-		this.currentRating = rating;
-		// TODO: save using ajax
+		this.currentRating = this.inputelement.value = rating;
 	}
 	
 	this.init();

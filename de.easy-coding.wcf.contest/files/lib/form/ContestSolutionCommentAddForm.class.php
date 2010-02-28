@@ -18,11 +18,11 @@ class ContestSolutionCommentAddForm extends CaptchaForm {
 	public $username = '';
 	
 	/**
-	 * contest editor
+	 * contest solution editor
 	 *
-	 * @var Contest
+	 * @var ContestSolution
 	 */
-	public $contest = null;
+	public $solutionObj = null;
 	
 	/**
 	 * Creates a new ContestSolutionCommentAddForm object.
@@ -30,7 +30,7 @@ class ContestSolutionCommentAddForm extends CaptchaForm {
 	 * @param	ContestSolution	$contest
 	 */
 	public function __construct(ContestSolution $contest) {
-		$this->contest = $contest;
+		$this->solutionObj = $contest;
 		parent::__construct();
 	}
 	
@@ -41,7 +41,7 @@ class ContestSolutionCommentAddForm extends CaptchaForm {
 		parent::readParameters();
 		
 		// get contest
-		if (!$this->contest->isCommentable()) {
+		if (!$this->solutionObj->isCommentable()) {
 			throw new PermissionDeniedException();
 		}
 	}
@@ -106,11 +106,11 @@ class ContestSolutionCommentAddForm extends CaptchaForm {
 		parent::save();
 		
 		// save comment
-		$comment = ContestSolutionCommentEditor::create($this->contest->solutionID, $this->comment, WCF::getUser()->userID, $this->username);
+		$comment = ContestSolutionCommentEditor::create($this->solutionObj->solutionID, $this->comment, WCF::getUser()->userID, $this->username);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&solutionID='.$this->contest->solutionID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
+		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
 		exit;
 	}
 	

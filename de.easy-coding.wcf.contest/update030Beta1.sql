@@ -20,4 +20,7 @@ INSERT INTO wcf1_contest_ratingoption (title) VALUES
 	('wcf.contest.ratingoption.basic.format');
 
 ALTER TABLE wcf1_contest_solution ADD ratings SMALLINT( 5 ) NOT NULL AFTER comments;
+ALTER TABLE wcf1_contest CHANGE state state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled', 'closed') NOT NULL DEFAULT 'private';
+ALTER TABLE wcf1_contest_price ADD solutionID INT UNSIGNED NOT NULL AFTER sponsorID;
+ALTER TABLE wcf1_contest_price ADD INDEX ( solutionID );
 

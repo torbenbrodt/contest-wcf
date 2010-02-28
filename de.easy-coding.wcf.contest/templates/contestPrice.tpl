@@ -44,12 +44,32 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestPrice&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							{assign var='messageNumber' value=$items-$startIndex+1}
+							{assign var='messageNumber' value=$startIndex}
 							<ol class="itemList" id="pricePosition" style="list-style-type:none;padding:0px">
 							{foreach from=$prices item=priceObj}
 								<li id="item_{$priceObj->priceID}" class="deletable">
 								{assign var="contestID" value=$priceObj->contestID}
-								<div class="message content">
+								<div class="message">
+								<div class="columnContainer" style="padding:0px">
+									<div class="container-3 column content">
+										<div style="width:110px; padding:12px">
+											<div class="messageHeader" style="float:left;width:100%;">
+												<span style="font-size:32px">
+													{$messageNumber}.
+												</span>
+											</div>
+											<br style="clear:both"/>
+											<div class="smallButtons">
+												{if $priceObj->isPickable()}
+													<ul>
+														<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>
+													</ul>
+												{/if}
+											</div>
+											
+										</div>
+									</div>
+									<div class="container-1 column content" style="width:100%;">
 									<div class="messageInner {cycle values='container-1,container-2'}">
 										<a name="priceObj{@$priceObj->contestID}"></a>
 										{if $action == 'edit' && $priceID == $priceObj->priceID}
@@ -141,9 +161,11 @@
 										</div>
 										{/if}
 										<hr />
+										</div>
+									</div>
 									</div>
 								</div>
-								{assign var='messageNumber' value=$messageNumber-1}
+								{assign var='messageNumber' value=$messageNumber+1}
 								</li>
 							{/foreach}
 							</ol>

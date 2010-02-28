@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/user/group/ContestGroupProfile.class.php');
  * Represents a list of contest entries.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -32,13 +32,13 @@ class ContestOwner {
 	 */
 	public function __construct($data, $userID, $groupID) {
 		if($groupID) {
-			if($data !== null) {
+			if(isset($data['groupID'], $data['groupName'])) {
 				$this->owner = new ContestGroupProfile(null, $data);
 			} else {
 				$this->owner = new ContestGroupProfile($groupID);
 			}
 		} else {
-			if($data !== null) {
+			if(isset($data['userID'], $data['username'])) {
 				$this->owner = new UserProfile(null, $data);
 			} else {
 				$this->owner = new UserProfile($userID);

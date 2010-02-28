@@ -39,11 +39,27 @@
 								</div>
 							</div>
 							
-							{assign var='messageNumber' value=$items-$startIndex+1}
+							{assign var='messageNumber' value=$startIndex}
 							{foreach from=$solutions item=solutionObj}
 								{assign var="contestID" value=$solutionObj->contestID}
-								<div class="message content">
-									<div class="messageInner {cycle values='container-1,container-2'}">
+								<div class="message">
+								<div class="columnContainer" style="padding:0px">
+									<div class="container-3 column content">
+										<div style="width:110px; padding:12px">
+											<div class="messageHeader" style="float:left;width:100%;">
+												<span style="font-size:32px">
+													{$messageNumber}.
+												</span>
+											</div>
+											<br style="clear:both"/>
+											<div style="padding:5px">
+												jury: {@$solutionObj->getJuryRatingOutput()}<br/>
+												total: {@$solutionObj->getRatingOutput()}
+											</div>
+										</div>
+									</div>
+									<div class="container-1 column content" style="width:100%;">
+										<div class="messageInner {cycle values='container-1,container-2'}">
 										<a id="solutionObj{@$solutionObj->contestID}"></a>
 										<div class="messageHeader">
 											<p class="messageCount">
@@ -70,7 +86,6 @@
 										<div class="messageFooter">
 											<div class="smallButtons">
 												<ul>
-													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
 													{if $solutionObj->isEditable()}<li><a href="index.php?form=ContestSolutionEdit&amp;contestID={@$contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;action=edit{@SID_ARG_2ND}#solution{@$solutionObj->solutionID}" title="{lang}wcf.contest.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.contest.solution.edit{/lang}</span></a></li>{/if}
 													{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.solution.delete.sure{/lang}')" title="{lang}wcf.contest.solution.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.contest.solution.delete{/lang}</span></a></li>{/if}
 													<li><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$entry->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}#comments" title="{lang}wcf.contest.solution.numberOfComments{/lang}"><img src="{icon}contestSolutionCommentS.png{/icon}" alt="" /> <span>{lang}wcf.contest.solution.numberOfComments{/lang}</span></a></li>
@@ -78,9 +93,11 @@
 											</div>
 										</div>
 										<hr />
+										</div>
 									</div>
 								</div>
-								{assign var='messageNumber' value=$messageNumber-1}
+								</div>
+								{assign var='messageNumber' value=$messageNumber+1}
 							{/foreach}
 							
 							<div class="contentFooter">

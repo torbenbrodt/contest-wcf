@@ -278,7 +278,8 @@ class ViewableContestList extends ContestList {
 				FROM		wcf".WCF_N."_contest contest
 				".$this->sqlJoins."
 				WHERE 		contest.contestID IN (".implode(',', $this->objectIDArray).")
-				".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
+				GROUP BY 	contestID
+				".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '')."";
 			$result = WCF::getDB()->sendQuery($sql);
 			while ($row = WCF::getDB()->fetchArray($result)) {
 				$this->entries[] = new ViewableContest(null, $row);

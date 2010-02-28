@@ -64,6 +64,22 @@ class ContestPrice extends DatabaseObject {
 		
 		return $prices;
 	}
+	
+	/**
+	 * is pickable?
+	 */
+	public function isPickable() {
+		return true; // TODO : is pickable
+		if(WCF::getUser()->userID == 0) {
+			return false;
+		}
+		$contest = new Contest($this->contestID);
+		if($contest->state != 'closed') {
+			return false;
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Returns true, if the active user is member

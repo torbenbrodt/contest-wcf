@@ -77,7 +77,7 @@ class ViewableContestSolutionRating extends ContestSolutionRating {
 		<script type="text/javascript" src="'.RELATIVE_WCF_DIR.'js/ContestRating.class.js"></script>
 		<script type="text/javascript">
 		//<![CDATA[
-		new ContestRating(\''.$identifier.'\', '.$roundedScore.');
+		new ContestRating(\''.$identifier.'\', '.intval($this->optionID).', '.$roundedScore.');
 		//]]>
 		</script>';
 	}

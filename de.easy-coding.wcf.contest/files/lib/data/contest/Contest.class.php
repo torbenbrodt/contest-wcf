@@ -162,6 +162,7 @@ class Contest extends DatabaseObject {
 		if(WCF::getUser()->getPermission('user.contest.canSolution') == false) {
 			return false;
 		}
+		if($this->state )
 		if($this->isParticipantable() == false) {
 			return false;
 		}
@@ -223,7 +224,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSponsorable() {
-		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
+		return WCF::getUser()->userID && $this->state != 'closed';
 	}
 		
 	/**
@@ -250,8 +251,8 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isParticipantable() {
-		if(WCF::getUser()->userID == 0 || $this->isOwner()
-		  || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+		if(WCF::getUser()->userID == 0 || $this->isOwner() || $this->state == 'closed'
+		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
 			return false;
 		}
 		foreach($this->getJurys() as $jury) {
@@ -264,21 +265,21 @@ class Contest extends DatabaseObject {
 	}
 		
 	/**
-	 * Returns true, if the active user can solution this entry.
+	 * Returns true, if the active user can join the jury.
 	 * 
 	 * @return	boolean
 	 */
 	public function isJuryable() {
-		return WCF::getUser()->userID && !($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
+		return WCF::getUser()->userID && $this->state != 'closed';
 	}
 		
 	/**
-	 * Returns true, if the active user can solution this entry.
+	 * Returns true, if the active user can add prices to this entry.
 	 * 
 	 * @return	boolean
 	 */
 	public function isPriceable() {
-		if(WCF::getUser()->userID == 0 || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+		if(WCF::getUser()->userID == 0 || $this->state == 'closed') {
 			return false;
 		}
 		if($this->enableSponsorCheck) {
@@ -336,7 +337,7 @@ class Contest extends DatabaseObject {
 	}
 	
 	public function isViewable() {
-		return $this->messagePreview || $this->isOwner() || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
+		return $this->messagePreview || $this->isOwner() || $this->state == 'closed' || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
 	}
 
 	/**
@@ -376,6 +377,9 @@ class Contest extends DatabaseObject {
 	 *
 	 * - scheduled
 	 *    upcoming	
+	 *
+	 * - closed
+	 *    no ratings can be given, no jurys can be added	
 	 */
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;
@@ -393,6 +397,8 @@ class Contest extends DatabaseObject {
 		) OR (
 			contest.state = 'scheduled'
 			AND contest.fromTime <= UNIX_TIMESTAMP(NOW())
+		) OR (
+			contest.state = 'closed'
 		) OR (
 			-- jury, sponsor, participant
 			SELECT 	COUNT(*)

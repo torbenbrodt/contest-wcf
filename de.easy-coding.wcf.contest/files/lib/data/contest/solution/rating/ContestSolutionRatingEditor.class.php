@@ -15,16 +15,16 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 	 * Creates a new entry rating.
 	 *
 	 * @param	integer		$solutionID
-	 * @param	string		$rating
-	 * @param	integer		$juryID
-	 * @param	string		$username
+	 * @param	integer		$optionID
+	 * @param	integer		$score
+	 * @param	integer		$userID
 	 * @param	integer		$time
 	 * @return	ContestSolutionRatingEditor
 	 */
-	public static function create($solutionID, $rating, $juryID, $username, $time = TIME_NOW) {
+	public static function create($solutionID, $optionID, $score, $userID, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_solution_rating
-					(solutionID, juryID, username, rating, time)
-			VALUES		(".intval($solutionID).", ".intval($juryID).", '".escapeString($username)."', '".escapeString($rating)."', ".$time.")";
+					(solutionID, userID, optionID, score, time)
+			VALUES		(".intval($solutionID).", ".intval($userID).", ".intval($optionID).", ".intval($score).", ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get id
@@ -40,9 +40,9 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 		$eventName = ContestEvent::getEventName(__METHOD__);
-		ContestEventEditor::create($solutionID, $juryID, $groupID = 0, $eventName, array(
+		ContestEventEditor::create($solutionID, $userID, $groupID = 0, $eventName, array(
 			'ratingID' => $ratingID,
-			'owner' => ContestOwner::get($juryID, $groupID)->getName()
+			'owner' => ContestOwner::get($userID, $groupID)->getName()
 		));
 		
 		return new ContestSolutionRatingEditor($ratingID);
@@ -55,7 +55,7 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 	 */
 	public function update($rating) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution_rating
-			SET	rating = '".escapeString($rating)."'
+			SET	rating = ".intval($rating)."
 			WHERE	ratingID = ".$this->ratingID;
 		WCF::getDB()->sendQuery($sql);
 	}
@@ -74,6 +74,22 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_solution_rating
 			WHERE		ratingID = ".$this->ratingID;
 		WCF::getDB()->sendQuery($sql);
+	}
+	
+	/**
+	 * updates scores
+	 * @param	array		$data
+	 */
+	public static function updateRatings($solutionID, $userID, $data) {
+		foreach($data as $optionID => $score) {
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_solution_rating
+						(solutionID, userID, optionID, score, time)
+				VALUES		(".intval($solutionID).", ".intval($userID).", ".intval($optionID).", ".intval($score).", ".TIME_NOW.")
+				ON DUPLICATE KEY UPDATE
+						score = ".intval($score).",
+						time = ".TIME_NOW;
+			WCF::getDB()->sendQuery($sql);
+		}
 	}
 }
 ?>

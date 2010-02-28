@@ -54,7 +54,30 @@ class ContestSolution extends DatabaseObject {
 	 * solution can be viewed by owner, by jury or if the contest is over
 	 */
 	public function isViewable() {
-		return $this->messagePreview || $this->isOwner() || ($this->state == 'scheduled' && $this->untilTime < TIME_NOW);
+		if($this->messagePreview || $this->isOwner()) {
+			return true;
+		}
+		$contest = new Contest($this->contestID);
+		if($contest->state == 'closed' || ($contest->state == 'scheduled' && $contest->untilTime < TIME_NOW)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * solution can be rated by any registered user if solution is viewable, 
+	 * the contest is not closed and the current user is not the owner
+	 */
+	public function isRateable() {
+		if(WCF::getUser()->userID == 0 || $this->isOwner()) {
+			return false;
+		}
+		$contest = new Contest($this->contestID);
+		if($contest->state == 'closed') {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**

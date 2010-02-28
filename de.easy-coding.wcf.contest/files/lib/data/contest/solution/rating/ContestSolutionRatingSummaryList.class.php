@@ -44,20 +44,21 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 	
 		$userID = WCF::getUser()->userID;
 		$userID = $userID ? $userID : -1;
-		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
-		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
 	
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					contest_solution_rating.optionID,
 					title,
 					score,
+					count,
 					juryscore,
+					jurycount,
 					myscore
 			FROM (
 				-- total score
 				SELECT		a.optionID,
 						a.title,
-						AVG(score) AS score
+						AVG(score) AS score,
+						COUNT(score) AS count
 				FROM		wcf".WCF_N."_contest_ratingoption a
 				LEFT JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				ON		a.optionID = contest_solution_rating.optionID
@@ -68,12 +69,14 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 			LEFT JOIN (
 				-- jury score
 				SELECT		optionID,
-						AVG(score) AS juryscore
+						AVG(score) AS juryscore,
+						COUNT(score) AS jurycount
 				FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				INNER JOIN	wcf".WCF_N."_contest_jury contest_jury
 				ON		contest_jury.userID = contest_solution_rating.userID
 				WHERE 		contest_jury.state = 'accepted'
 				".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
+				GROUP BY	optionID
 				HAVING		NOT ISNULL(optionID)
 			) x  ON contest_solution_rating.optionID = x.optionID
 			LEFT JOIN (
@@ -83,6 +86,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 				FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				WHERE 		contest_solution_rating.userID = ".$userID."
 				".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
+				GROUP BY	optionID
 				HAVING		NOT ISNULL(optionID)
 			) y ON contest_solution_rating.optionID = y.optionID
 			

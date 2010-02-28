@@ -84,7 +84,6 @@ class ContestSolutionPage extends MultipleLinkPage {
 		// init solution list
 		$this->solutionList = new ContestSolutionList();
 		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
-		$this->solutionList->sqlOrderBy = 'contest_solution.time DESC';
 	}
 	
 	/**

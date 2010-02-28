@@ -121,6 +121,16 @@ class ContestJuryPage extends MultipleLinkPage {
 			require_once(WCF_DIR.'lib/form/ContestJuryAddForm.class.php');
 			new ContestJuryAddForm($this->entry);
 		}
+		
+		if($this->entry->state != 'closed') {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.jury.closed.info').'</p>');
+
+			// init todo list
+			require_once(WCF_DIR.'lib/data/contest/jury/todo/ContestJuryTodoList.class.php');
+			$this->todoList = new ContestJuryTodoList();
+			$this->todoList->sqlConditions .= 'contest_jury.contestID = '.$this->contestID;
+			$this->todoList->readObjects();
+		}
 
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
@@ -128,6 +138,7 @@ class ContestJuryPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'jurys' => $this->juryList->getObjects(),
+			'todos' => $this->todoList->getObjects(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			

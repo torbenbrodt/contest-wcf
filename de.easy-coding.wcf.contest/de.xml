@@ -88,6 +88,8 @@ Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen b
 		<item name="wcf.contest.allEntries"><![CDATA[Alle Contests anzeigen]]></item>
 		<item name="wcf.contest.latestEntries"><![CDATA[Letzte Contests]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Eintragen]]></item>
+		<item name="wcf.contest.price.closed.info"><![CDATA[Die Preise werden erst verschickt, nachdem alle Lösungen von allen Jury Mitgliedern gecheckt wurden und die glücklichen Gewinner fest stehen.]]></item>
+		<item name="wcf.contest.price.pick.info"><![CDATA[Nach Beendigung des Contests dürfen Sich die Gewinner der Reihe nach die Preise aussuchen.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Teilnehmer müssen sich bewerben, bevor Sie Lösungen beitragen können.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[Um an diesem Contest teilnehmen zu können, müssen sich Teilnehmer zuerst bewerben.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren müssen sich bewerben, bevor Sie Preise beitragen können.]]></item>
@@ -229,6 +231,7 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.prices"><![CDATA[Preise]]></item>
 		<item name="wcf.contest.price.description"><![CDATA[Hier können Sie selbst Preise beisteuern. Während des Wettbewerbs können aber von Sponsoren auch weitere Preise hinzugefügt werden um den Anreiz zu erhöhen.]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Preis hinzufügen]]></item>
+		<item name="wcf.contest.price.pick"><![CDATA[Annehmen]]></item>
 		<item name="wcf.contest.price.delete"><![CDATA[Preis löschen]]></item>
 		<item name="wcf.contest.price.delete.sure"><![CDATA[Wollen Sie den Preis wirklich löschen?]]></item>
 		<item name="wcf.contest.price.edit"><![CDATA[Preis bearbeiten]]></item>
@@ -260,6 +263,9 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Werde Juror]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>
 		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
+		
+		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
+		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[Es fehlt noch eine Bewertung zur Lösung.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>

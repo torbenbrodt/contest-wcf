@@ -8,7 +8,7 @@
 <div class="mainHeadline">
 	<img src="{icon}{$contestmenu->getIcon()}{/icon}" alt="" />
 	<div class="headlineContainer">
-		<h2>{$entry->subject}</h2>
+		<h2><a href="index.php?page=Contest&amp;contestID={$contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h2>
 		<p>{lang}wcf.contest{/lang}</p>
 	</div>
 </div>

@@ -24,7 +24,7 @@ CREATE TABLE wcf1_contest (
 	sponsortalks SMALLINT(5) NOT NULL DEFAULT 0,
 	sponsors SMALLINT(5) NOT NULL DEFAULT 0,
 	events SMALLINT(5) NOT NULL DEFAULT 0,
-	state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled') NOT NULL DEFAULT 'private',
+	state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled', 'closed') NOT NULL DEFAULT 'private',
 	FULLTEXT KEY (subject, message),
 	KEY (userID),
 	KEY (groupID)
@@ -171,12 +171,14 @@ CREATE TABLE wcf1_contest_price (
 	priceID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	contestID INT(10) NOT NULL,
 	sponsorID INT(10) NOT NULL DEFAULT 0,
+	solutionID INT(10) NOT NULL DEFAULT 0, -- winner
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
 	position SMALLINT(5) NOT NULL DEFAULT 0,
-	KEY (contestID)
+	KEY (contestID),
+	KEY (solutionID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_menu_item;

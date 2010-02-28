@@ -27,7 +27,7 @@
 					<div class="columnInner">
 						<div class="contentBox">
 							{if $userMessages|isset}{@$userMessages}{/if}
-							<h4 class="subHeadline">{lang}wcf.contest.solutions{/lang} <span>({#$items})</span> &raquo; {$solutionObj->subject}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.solutions{/lang} &raquo; {$solutionObj->subject}</h4>
 							
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestSolution&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
@@ -43,7 +43,7 @@
 							<div class="message content">
 								<div class="messageInner container-1">
 									<a id="entry{@$solutionObj->solutionID}"></a>
-									<div class="messageHeader"{if $solutionObj->fromTime > 0 || $solutionObj->untilTime > 0} style="border-style:dashed"{/if}>
+									<div class="messageHeader">
 										<div class="containerIcon">
 											
 											{if $solutionObj->getOwner()->getAvatar()}
@@ -59,6 +59,25 @@
 											<p class="light smallFont">{@$solutionObj->time|time}</p>
 										</div>
 									</div>
+									
+									<div class="messageHeader">
+										<div class="containerContent" style="padding:10px 0px">
+											<div style="float:right;">
+												<span style="font-size:22px">
+													{$solutionObj->jurycount}
+												</span>
+												<span style="font-size:14px">
+													({$solutionObj->count})
+												</span>
+											</div>
+											<div style="float:left;">
+												jury: {@$solutionObj->getJuryRatingOutput()}<br/>
+												total: {@$solutionObj->getRatingOutput()}
+											</div>
+											<br style="clear:both"/>
+										</div>
+									</div>
+									
 									<div class="messageBody" id="contestEntryText{@$solutionObj->solutionID}">
 										{@$solutionObj->getFormattedMessage()}
 									</div>
@@ -80,24 +99,34 @@
 							</div>
 						</div>			
 						
-						{if $solutionObj->ratings > 0 || $entry->isJury()}
+						<form method="post" id="SolutionEntryRatingForm" action="index.php?page=ContestSolutionEntry&amp;contestID={@$contestID}&amp;solutionID={@$solutionID}">
+							<input type="hidden" name="ContestSolutionRatingUpdateForm" value="1" />
 							<a id="ratings"></a>
 							<div class="contentBox">
-								<h4 class="subHeadline">{lang}wcf.contest.ratings{/lang} <span>({$solutionObj->ratings})</span></h4>
+								<h4 class="subHeadline">{lang}wcf.contest.rating.ratings{/lang} <span>({$solutionObj->ratings})</span></h4>
 								<ul class="dataList messages">
 									{foreach from=$ratings item=ratingObj}
 										<li class="{cycle values='container-1,container-2'}">
 											<a id="rating{@$ratingObj->ratingID}"></a>
 											<div class="formElement{if $errorField == 'username'} formError{/if}">
 												<div class="formFieldLabel">
+													<div style="float:left;margin-left:60px">
+														<span style="font-size:22px">
+															{$ratingObj->jurycount}
+														</span>
+														<span style="font-size:14px">
+															({$ratingObj->count})
+														</span>
+													</div>
 													jury: {@$ratingObj->getJuryRatingOutput()}<br/>
 													total: {@$ratingObj->getRatingOutput()}
+													<br style="clear:both"/>
 												</div>
 												<div class="formField">
 													<b>{lang}{@$ratingObj->title}{/lang}</b>
 												</div>
 												<div class="formFieldDesc">
-													{if $entry->isJury()}
+													{if $solutionObj->isRateable()}
 														make your own rating:
 														{@$ratingObj->getMyRatingOutput()}
 													{/if}
@@ -105,8 +134,20 @@
 											</div>
 										</li>
 									{/foreach}
+									{if $solutionObj->isRateable()}
+									<li class="container-3" id="SolutionEntryRatingFormSubmit">
+										<div class="formElement">
+											<div class="formField">
+												<input type="submit" value="{lang}wcf.contest.rating.submit{/lang}" />
+											</div>
+											<div class="formFieldDesc">
+												{lang}wcf.contest.rating.submit.description{/lang}
+											</div>
+										</div>
+									</li>
+									{/if}
 								</ul>
-								
+							
 								<div class="buttonBar">
 									<div class="smallButtons">
 										<ul>
@@ -115,7 +156,7 @@
 									</div>
 								</div>
 							</div>
-						{/if}
+						</form>
 					
 						{if $comments|count > 0}
 							<a id="comments"></a>
