@@ -11,7 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * show/edit price entries
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -39,6 +39,12 @@ class ContestPricePage extends MultipleLinkPage {
 	 * @var ContestPriceList
 	 */
 	public $priceList = null;
+	
+	/**
+	 * 
+	 * @var ContestJuryTodoList
+	 */
+	public $todoList = null;
 	
 	/**
 	 * price id
@@ -141,6 +147,32 @@ class ContestPricePage extends MultipleLinkPage {
 		} else {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
 		}
+		
+		if($this->entry->state != 'closed') { // TODO: change to == closed
+			// need winners
+			require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+			$solutionList = new ContestSolutionList();
+			$solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
+			$solutionList->sqlLimit = $this->countItems();
+			$solutionList->readObjects();
+
+			$winners = array();
+			foreach($solutionList->getObjects() as $solution) {
+				$winners[] = $solution->participantID;
+			}
+			
+			if(count($winners)) {
+				// init todo list
+				require_once(WCF_DIR.'lib/data/contest/price/todo/ContestPriceTodoList.class.php');
+				$this->todoList = new ContestPriceTodoList();
+				$this->todoList->sqlConditions .= '
+					contest_solution.participantID IN ('.implode(',', $winners).')
+					AND contest_solution.contestID = '.$this->contestID;
+				$this->todoList->sqlOrderBy = 'FIND_IN_SET(contest_solution.participantID, \''.implode(',', $winners).'\')';
+				$this->todoList->sqlLimit = $this->countItems();
+				$this->todoList->readObjects();
+			}
+		}
 
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
@@ -148,6 +180,7 @@ class ContestPricePage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'prices' => $this->priceList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			

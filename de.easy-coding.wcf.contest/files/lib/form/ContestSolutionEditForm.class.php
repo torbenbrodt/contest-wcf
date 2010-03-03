@@ -59,7 +59,7 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		MessageForm::save();
 		
 		// save solution
-		$this->solutionObj->update($this->userID, $this->groupID, $this->text, $this->state, $this->getOptions(), $this->attachmentListEditor);
+		$this->solutionObj->update($this->text, $this->state, $this->getOptions(), $this->attachmentListEditor);
 		$this->saved();
 		
 		// forward

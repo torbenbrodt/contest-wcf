@@ -16,24 +16,22 @@ class ContestSolutionEditor extends ContestSolution {
 	 * Creates a new entry solution.
 	 *
 	 * @param	integer				$contestID
+	 * @param	integer				$participantID
 	 * @param	string				$message
-	 * @param	integer				$userID
-	 * @param	integer				$groupID
 	 * @param	string				$state
-	 * @param	integer				$time
 	 * @param	array				$options
 	 * @param	MessageAttachmentListEditor	$attachmentList
 	 * @return	ContestSolutionEditor
 	 */
-	public static function create($contestID, $message, $userID, $groupID, $state = '', $time = TIME_NOW, $options = array(), $attachmentList = null) {
+	public static function create($contestID, $participantID, $message, $state = '', $options = array(), $attachmentList = null) {
 	
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
 		
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_solution
-					(contestID, userID, groupID, message, time,
+					(contestID, participantID, message, time,
 					attachments, enableSmilies, enableHtml, enableBBCodes)
-			VALUES		(".intval($contestID).", ".intval($userID).", ".intval($groupID).", '".escapeString($message)."', ".$time.",
+			VALUES		(".intval($contestID).", ".intval($participantID).", '".escapeString($message)."', ".TIME_NOW.",
 					".$attachmentsAmount.", ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 					".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).")";
@@ -55,12 +53,11 @@ class ContestSolutionEditor extends ContestSolution {
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 		$eventName = ContestEvent::getEventName(__METHOD__);
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+		$participant = new ViewableContestParticipant($participantID);
+		ContestEventEditor::create($contestID, $participant->userID, $participant->groupID, $eventName, array(
 			'solutionID' => $solutionID,
-			'owner' => ContestOwner::get($userID, $groupID)->getName()
+			'owner' => $participant->getOwner()->getName()
 		));
-		
-		$entry = new ContestSolutionEditor($solutionID);
 		
 		// update attachments
 		if ($attachmentList !== null) {
@@ -68,7 +65,7 @@ class ContestSolutionEditor extends ContestSolution {
 			$attachmentList->findEmbeddedAttachments($message);
 		}
 		
-		return $entry;
+		return new ContestSolutionEditor($solutionID);
 	}
 	
 	/**
@@ -98,21 +95,17 @@ class ContestSolutionEditor extends ContestSolution {
 	/**
 	 * Updates this entry solution.
 	 *
-	 * @param	integer				$userID
-	 * @param	integer				$groupID
 	 * @param	string				$message
 	 * @param	string				$state
 	 * @param	array				$options
 	 * @param	MessageAttachmentListEditor	$attachmentList
 	 */
-	public function update($userID, $groupID, $message, $state, $options = array(), $attachmentList = null) {
+	public function update($message, $state, $options = array(), $attachmentList = null) {
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments($this->solutionID)) : 0);
 		
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
-			SET	userID = ".intval($userID).",
-				groupID = ".intval($groupID).",
-				message = '".escapeString($message)."',
+			SET	message = '".escapeString($message)."',
 				state = '".escapeString($state)."',
 				attachments = ".$attachmentsAmount.",
 				enableSmilies = ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",

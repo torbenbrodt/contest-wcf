@@ -2,6 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/action/AbstractSecureAction.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 
 /**
  * Picks a contest entry price.
@@ -18,6 +19,13 @@ class ContestPricePickAction extends AbstractSecureAction {
 	 * @var integer
 	 */
 	public $priceID = 0;
+
+	/**
+	 * solution id
+	 *
+	 * @var integer
+	 */
+	public $solutionID = 0;
 	
 	/**
 	 * price editor object
@@ -25,6 +33,13 @@ class ContestPricePickAction extends AbstractSecureAction {
 	 * @var ContestPriceEditor
 	 */
 	public $price = null;
+	
+	/**
+	 * solution editor object
+	 *
+	 * @var ContestSolutionEditor
+	 */
+	public $solution = null;
 	
 	/**
 	 * @see Action::readParameters()
@@ -40,6 +55,15 @@ class ContestPricePickAction extends AbstractSecureAction {
 		if (!$this->price->isPickable()) {
 			throw new PermissionDeniedException();
 		}
+		
+		if (isset($_REQUEST['solutionID'])) $this->solutionID = intval($_REQUEST['solutionID']);
+		$this->solution = new ContestSolutionEditor($this->solutionID);
+		if (!$this->solution->solutionID) {
+			throw new IllegalLinkException();
+		}
+		if (!$this->solution->isOwner()) {
+			throw new PermissionDeniedException();
+		}
 	}
 	
 	/**
@@ -48,8 +72,12 @@ class ContestPricePickAction extends AbstractSecureAction {
 	public function execute() {
 		parent::execute();
 		
+		// TODO: get rank of solution
+		// $position = $solution->getRank();
+		$position = 1;
+		
 		// pick price
-		$this->price->pick();
+		$this->price->pick($this->solutionID, $position);
 		$this->executed();
 		
 		// forward

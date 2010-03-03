@@ -34,8 +34,7 @@ DROP TABLE IF EXISTS wcf1_contest_solution;
 CREATE TABLE wcf1_contest_solution (
 	solutionID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	contestID INT(10) NOT NULL,
-	userID INT(10) NOT NULL DEFAULT 0,
-	groupID INT(10) NOT NULL DEFAULT 0,
+	participantID INT(10) NOT NULL DEFAULT 0,
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('private', 'applied', 'accepted', 'declined') NOT NULL DEFAULT 'private',
@@ -46,8 +45,7 @@ CREATE TABLE wcf1_contest_solution (
 	comments SMALLINT(5) NOT NULL DEFAULT 0,
 	ratings SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
-	KEY (userID),
-	KEY (groupID)
+	KEY (participantID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_solution_comment;
@@ -175,7 +173,7 @@ CREATE TABLE wcf1_contest_price (
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
-	state ENUM('unknown', 'accepted', 'declined') NOT NULL DEFAULT 'unknown',
+	state ENUM('unknown', 'accepted', 'declined', 'sent', 'received') NOT NULL DEFAULT 'unknown',
 	position SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
 	KEY (solutionID)

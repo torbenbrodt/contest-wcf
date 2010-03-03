@@ -34,7 +34,11 @@ class ViewableContestPrice extends ContestPrice {
 						user_table.username, 
 						contest_sponsor.userID, 
 						contest_sponsor.groupID, 
-						group_table.groupName
+						group_table.groupName,
+						user_table_winner.userID AS winner_userID,
+						user_table_winner.username AS winner_username,
+						group_table_winner.groupID AS winner_groupID,
+						group_table_winner.groupName AS group_groupName
 				FROM 		wcf".WCF_N."_contest_price contest_price
 				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
@@ -44,19 +48,22 @@ class ViewableContestPrice extends ContestPrice {
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_sponsor.groupID)
+				
+				LEFT JOIN	wcf".WCF_N."_contest_solution contest_solution
+				ON		(contest_solution.solutionID = contest_price.solutionID)
+				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
+				ON		(contest_participant.participantID = contest_solution.participantID)
+				LEFT JOIN	wcf".WCF_N."_user user_table_winner
+				ON		(user_table_winner.userID = contest_participant.userID)
+				LEFT JOIN	wcf".WCF_N."_avatar avatar_table_winner
+				ON		(avatar_table_winner.avatarID = user_table_winner.avatarID)
+				LEFT JOIN	wcf".WCF_N."_group group_table_winner
+				ON		(group_table_winner.groupID = contest_participant.groupID)
+				
 				WHERE 		contest_price.priceID = ".intval($priceID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);
-	}
-	
-	/**
-	 * Returns the title of this price.
-	 * 
-	 * @return	string
-	 */
-	public function __toString() {
-		return $this->subject;
 	}
 	
 	/**
@@ -65,6 +72,21 @@ class ViewableContestPrice extends ContestPrice {
 	protected function handleData($data) {
 		parent::handleData($data);
 		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
+		$this->winner = new ContestOwner(array(
+			'username' => $this->winner_username,
+			'groupName' => $this->winner_groupName,
+			'userID' => $this->winner_userID,
+			'groupID' => $this->winner_groupID
+		), $this->winner_userID, $this->winner_groupID);
+	}
+	
+	/**
+	 * Returns the title of this price.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return "".$this->subject;
 	}
 	
 	/**
@@ -88,6 +110,15 @@ class ViewableContestPrice extends ContestPrice {
 	 */
 	public function getOwner() {
 		return $this->owner;
+	}
+	
+	/**
+	 * Returns the winner/participant object.
+	 * 
+	 * @return	ContestOwner
+	 */
+	public function getWinner() {
+		return $this->winner;
 	}
 }
 ?>

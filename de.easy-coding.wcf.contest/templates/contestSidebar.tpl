@@ -252,7 +252,7 @@
 						</div>
 						<div class="containerContent">
 							<h4><a href="index.php?page=ContestPrice&amp;contestID={@$price->contestID}#priceObj{@$price->priceID}{@SID_ARG_2ND}"><span>{lang}{$price}{/lang}</span></a></h4>
-							<p class="light smallFont">{lang}wcf.contest.price.by{/lang} <a href="{$price->getOwner()->getLink()}{@SID_ARG_2ND}">{$price->getOwner()->getName()}</a>({@$price->time|shorttime})</p>
+							<p class="light smallFont">{lang}wcf.contest.price.by{/lang} <a href="{$price->getOwner()->getLink()}{@SID_ARG_2ND}">{$price->getOwner()->getName()}</a> ({@$price->time|shorttime})</p>
 						</div>
 					</li>
 				{/foreach}

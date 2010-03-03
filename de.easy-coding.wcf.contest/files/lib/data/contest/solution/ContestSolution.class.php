@@ -9,7 +9,7 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  * 
  * a solution can only be created if the following conditions are true
  * - contest:scheduled AND start_time < x < end_time
- * - current user is not owner, jury or sponsor
+ * - current user is not owner, jury or participant
  *
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
@@ -25,9 +25,13 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function __construct($solutionID, $row = null) {
 		if ($solutionID !== null) {
-			$sql = "SELECT	*
-				FROM 	wcf".WCF_N."_contest_solution contest_solution
-				WHERE 	solutionID = ".intval($solutionID);
+			$sql = "SELECT		*,
+						contest_participant.userID, 
+						contest_participant.groupID
+				FROM 		wcf".WCF_N."_contest_solution contest_solution
+				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
+				ON		(contest_participant.participantID = contest_solution.participantID)
+				WHERE 		solutionID = ".intval($solutionID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -152,9 +156,9 @@ class ContestSolution extends DatabaseObject {
 		return "(
 			-- owner
 			IF(
-				contest_solution.groupID > 0,
-				contest_solution.groupID IN (".implode(",", $groupIDs)."), 
-				contest_solution.userID > 0 AND contest_solution.userID = ".$userID."
+				contest_participant.groupID > 0,
+				contest_participant.groupID IN (".implode(",", $groupIDs)."), 
+				contest_participant.userID > 0 AND contest_participant.userID = ".$userID."
 			)
 		) OR (
 			-- solution has been submitted, and user is jury

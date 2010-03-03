@@ -62,7 +62,6 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 				FROM		wcf".WCF_N."_contest_ratingoption a
 				LEFT JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				ON		a.optionID = contest_solution_rating.optionID
-				WHERE 		ISNULL(contest_solution_rating.optionID)
 				".(!empty($this->sqlConditions) ? "OR (".$this->sqlConditions.')' : '')."
 				GROUP BY	a.optionID
 			) contest_solution_rating

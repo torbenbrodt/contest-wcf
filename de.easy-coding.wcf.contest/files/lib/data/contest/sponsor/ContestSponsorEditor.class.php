@@ -22,29 +22,23 @@ class ContestSponsorEditor extends ContestSponsor {
 	 */
 	public static function create($contestID, $userID, $groupID, $state) {
 		// check primary keys
-		$sql = "SELECT		*
-			FROM		wcf".WCF_N."_contest_sponsor
-			WHERE		contestID = ".intval($contestID)."
-			AND		userID = ".intval($userID)."
-			AND		groupID = ".intval($groupID);
-		$row = WCF::getDB()->getFirstRow($sql);
+		$existing = self::find($contestID, $userID, $groupID);
 		
-		if($row) {
+		if($existing) {
 			$update = false;
 
-			if(($row['state'] == 'invited' && $state == 'applied')
-			  || ($row['state'] == 'applied' && $state == 'invited')) {
+			if(($existing->state == 'invited' && $state == 'applied')
+			  || ($existing->state == 'applied' && $state == 'invited')) {
 				$state = 'accepted';
 				$update = true;
-			} else if ($state != $row['state']){
+			} else if ($state != $existing->state){
 				$update = true;
 			}
 			
-			$entry = new self($row);
 			if($update) {
-				$entry->update($contestID, $userID, $groupID, $state);
+				$existing->update($contestID, $userID, $groupID, $state);
 			}
-			return $entry;
+			return $existing;
 		}
 	
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_sponsor

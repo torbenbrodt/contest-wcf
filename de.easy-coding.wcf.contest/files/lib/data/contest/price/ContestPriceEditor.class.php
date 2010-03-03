@@ -83,13 +83,11 @@ class ContestPriceEditor extends ContestPrice {
 	 *
 	 * @param	integer		$solutionID
 	 */
-	public function pick($solutionID) {
-		$position = 0; // TODO: get rank of solution
-	
+	public function pick($solutionID, $position) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_price
 			SET	solutionID = ".intval($solutionID).",
 				position = ".intval($position)."
-			WHERE	priceID = ".$this->priceID;
+			WHERE	priceID = ".intval($this->priceID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

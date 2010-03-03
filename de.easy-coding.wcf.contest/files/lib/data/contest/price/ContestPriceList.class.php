@@ -50,7 +50,11 @@ class ContestPriceList extends DatabaseObjectList {
 					user_table.gravatar,
 					group_table.groupName,
 					contest_sponsor.userID,
-					contest_sponsor.groupID
+					contest_sponsor.groupID,
+					user_table_winner.userID AS winner_userID,
+					user_table_winner.username AS winner_username,
+					group_table_winner.groupID AS winner_groupID,
+					group_table_winner.groupName AS group_groupName
 			FROM 		wcf".WCF_N."_contest_price contest_price
 			LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 			ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
@@ -60,6 +64,18 @@ class ContestPriceList extends DatabaseObjectList {
 			ON		(group_table.groupID = contest_sponsor.groupID)
 			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
 			ON		(avatar_table.avatarID = user_table.avatarID)
+				
+			LEFT JOIN	wcf".WCF_N."_contest_solution contest_solution
+			ON		(contest_solution.solutionID = contest_price.solutionID)
+			LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
+			ON		(contest_participant.participantID = contest_solution.participantID)
+			LEFT JOIN	wcf".WCF_N."_user user_table_winner
+			ON		(user_table_winner.userID = contest_participant.userID)
+			LEFT JOIN	wcf".WCF_N."_avatar avatar_table_winner
+			ON		(avatar_table_winner.avatarID = user_table_winner.avatarID)
+			LEFT JOIN	wcf".WCF_N."_group group_table_winner
+			ON		(group_table_winner.groupID = contest_participant.groupID)
+			
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');

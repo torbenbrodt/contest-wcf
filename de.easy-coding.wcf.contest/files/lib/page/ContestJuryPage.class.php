@@ -44,6 +44,12 @@ class ContestJuryPage extends MultipleLinkPage {
 	public $juryList = null;
 	
 	/**
+	 * 
+	 * @var ContestJuryTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * action
 	 * 
 	 * @var	string
@@ -138,7 +144,7 @@ class ContestJuryPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'jurys' => $this->juryList->getObjects(),
-			'todos' => $this->todoList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			

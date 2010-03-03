@@ -23,10 +23,18 @@ class ContestPrice extends DatabaseObject {
 		if ($priceID !== null) {
 			$sql = "SELECT		contest_sponsor.userID, 
 						contest_sponsor.groupID,
+						contest_participant.userID AS winner_userID,
+						contest_participant.groupID AS winner_groupID,
 						contest_price.*
 				FROM 		wcf".WCF_N."_contest_price contest_price
 				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
+				
+				LEFT JOIN	wcf".WCF_N."_contest_solution contest_solution
+				ON		(contest_solution.solutionID = contest_price.solutionID)
+				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
+				ON		(contest_participant.participantID = contest_solution.participantID)
+				
 				WHERE 		contest_price.priceID = ".intval($priceID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
@@ -47,26 +55,9 @@ class ContestPrice extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns a list of all prices of a user.
-	 * 
-	 * @param	integer			$userID
-	 * @return	array<ContestPrice>
-	 */
-	public static function getPrices() {
-		$prices = array();
-		$sql = "SELECT		*
-			FROM 		wcf".WCF_N."_contest_price
-			ORDER BY	title";
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$prices[$row['priceID']] = new ContestPrice(null, $row);
-		}
-		
-		return $prices;
-	}
-	
-	/**
 	 * is pickable?
+	 * TODO: return solutionid by which this price is pickable!!!
+	 * currently... 1st price taken, then just the 2nd one is possible...
 	 */
 	public function isPickable() {
 		return true; // TODO : is pickable
@@ -88,6 +79,15 @@ class ContestPrice extends DatabaseObject {
 	 */
 	public function isOwner() {
 		return ContestOwner::isOwner($this->userID, $this->groupID);
+	}
+
+	/**
+	 * Returns true, if the active user is winner/participant
+	 * 
+	 * @return	boolean
+	 */
+	public function isWinner() {
+		return ContestOwner::isOwner($this->winner_userID, $this->winner_groupID);
 	}
 	
 	/**

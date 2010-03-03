@@ -44,6 +44,12 @@ class ContestSponsorPage extends MultipleLinkPage {
 	public $sponsorList = null;
 	
 	/**
+	 * 
+	 * @var ContestJuryTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * action
 	 * 
 	 * @var	string
@@ -125,6 +131,16 @@ class ContestSponsorPage extends MultipleLinkPage {
 		if($this->entry->enableSponsorCheck) {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}
+		
+		if($this->entry->state == 'closed') {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.jury.closed.info').'</p>');
+
+			// init todo list
+			require_once(WCF_DIR.'lib/data/contest/sponsor/todo/ContestSponsorTodoList.class.php');
+			$this->todoList = new ContestSponsorTodoList();
+			$this->todoList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contestID;
+			$this->todoList->readObjects();
+		}
 
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
@@ -132,6 +148,7 @@ class ContestSponsorPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'sponsors' => $this->sponsorList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			

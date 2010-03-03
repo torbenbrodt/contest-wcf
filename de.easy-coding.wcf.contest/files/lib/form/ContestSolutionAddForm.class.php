@@ -186,8 +186,16 @@ class ContestSolutionAddForm extends MessageForm {
 	public function save() {
 		parent::save();
 		
+		$participant = ContestParticipant::find($this->contest->contestID, $this->userID, $this->groupID);
+		$state = 'invited';
+		if($participant === null) {
+			require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
+			$participant = ContestParticipantEditor::create($this->contest->contestID, $this->userID, $this->groupID, $state);
+		}
+		
 		// save solution
-		$solution = ContestSolutionEditor::create($this->contest->contestID, $this->text, $this->userID, $this->groupID);
+		$state = 'private';
+		$solution = ContestSolutionEditor::create($this->contest->contestID, $participant->participantID, $this->text, $state, $this->getOptions(), $this->attachmentListEditor);
 		$this->saved();
 		
 		// forward

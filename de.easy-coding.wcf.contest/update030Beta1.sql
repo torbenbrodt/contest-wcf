@@ -23,4 +23,10 @@ ALTER TABLE wcf1_contest_solution ADD ratings SMALLINT( 5 ) NOT NULL AFTER comme
 ALTER TABLE wcf1_contest CHANGE state state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled', 'closed') NOT NULL DEFAULT 'private';
 ALTER TABLE wcf1_contest_price ADD solutionID INT UNSIGNED NOT NULL AFTER sponsorID;
 ALTER TABLE wcf1_contest_price ADD INDEX ( solutionID );
+ALTER TABLE wcf1_contest_solution ADD participantID INT UNSIGNED NOT NULL AFTER contestID;
+INSERT IGNORE INTO wcf1_contest_participant (contestID, userID, groupID) SELECT contestID, userID, groupID FROM wcf1_contest_solution;
+UPDATE wcf1_contest_solution x SET participantID = (SELECT participantID FROM wcf1_contest_participant y WHERE x.contestID = y.contestID AND x.userID = y.userID AND x.groupID = y.groupID);
+ALTER TABLE wcf1_contest_solution DROP userID , DROP groupID;
+ALTER TABLE wcf1_contest_price CHANGE state state ENUM('unknown', 'accepted', 'declined', 'sent', 'received') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'unknown';
+ALTER TABLE wcf1_contest_solution ADD INDEX ( participantID );
 

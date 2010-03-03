@@ -62,7 +62,7 @@
 											<div class="smallButtons">
 												{if $priceObj->isPickable()}
 													<ul>
-														<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>
+														<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$priceObj->isPickable()}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>
 													</ul>
 												{/if}
 											</div>
@@ -125,7 +125,7 @@
 										<div class="messageHeader">
 											{if $entry->isOwner()}
 											<p class="messageCount">
-												<select name="pricePositionPositions[{$contestID}][{$priceObj->priceID}]">
+												<select style="display:none" name="pricePositionPositions[{$contestID}][{$priceObj->priceID}]">
 													{section name='positions' loop=$prices|count}
 														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>
 													{/section}
@@ -133,17 +133,17 @@
 											</p>
 											{/if}
 											<div class="containerIcon">
-												{if $priceObj->getOwner()->getAvatar()}
-													{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(24, 24)}
-													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{@$priceObj->getOwner()->getAvatar()}</a>
+												{if $priceObj->getWinner()->getAvatar()}
+													{assign var=x value=$priceObj->getWinner()->getAvatar()->setMaxSize(24, 24)}
+													<a href="{@$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}">{@$priceObj->getWinner()->getAvatar()}</a>
 												{else}
-													<a href="{@$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+													<span style="font-size:28px">??</span>
 												{/if}
 											</div>
 											<div class="containerContent">
 												<div style="float:right">*{$priceObj->state}*</div>
 												<h4 style="margin: 0; padding: 0">{$priceObj->subject}</h4>
-												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a></p>
+												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a>{if $priceObj->participantID > 0}, {lang}wcf.contest.winner.by{/lang} <a href="{$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getWinner()->getName()}</a>{/if}</p>
 											</div>
 										</div>
 										<div class="messageBody">

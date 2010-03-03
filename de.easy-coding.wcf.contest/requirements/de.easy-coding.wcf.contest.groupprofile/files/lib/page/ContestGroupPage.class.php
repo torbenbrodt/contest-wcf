@@ -1,5 +1,6 @@
 <?php
 require_once(WCF_DIR.'lib/page/AbstractPage.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
 
 /**
  * Group Page
@@ -18,6 +19,13 @@ class ContestGroupPage extends AbstractPage {
 	public $categories = array();
 	public $userlist = array();
 	public $templateName = 'contestGroupProfile';
+	
+	/**
+	 * contest sidebar
+	 * 
+	 * @var	ContestSidebar
+	 */
+	public $sidebar = null;
 	
 	/**
 	 * @see Page::readParameters()
@@ -54,6 +62,9 @@ class ContestGroupPage extends AbstractPage {
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$this->userlist[] = new UserProfile(null, $row);
 		}
+		
+		// init sidebar
+		$this->sidebar = new ContestSidebar($this);
 	}
 	
 	/**
@@ -61,6 +72,8 @@ class ContestGroupPage extends AbstractPage {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
+		
+		$this->sidebar->assignVariables();
 		
 		WCF::getTPL()->assign(array(
 			'group' => $this->group,

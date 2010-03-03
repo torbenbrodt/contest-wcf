@@ -56,7 +56,7 @@
 										<div class="containerContent">
 											<p style="float:right">*{$solutionObj->state}*</p>
 											<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
-											<p class="light smallFont">{@$solutionObj->time|time}</p>
+											<p class="light smallFont">{lang}wcf.contest.solution.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> {@$solutionObj->time|time}</p>
 										</div>
 									</div>
 									
@@ -158,6 +158,8 @@
 							</div>
 						</form>
 					
+						
+						{assign var='messageNumber' value=0}
 						{if $comments|count > 0}
 							<a id="comments"></a>
 							<div class="contentBox">

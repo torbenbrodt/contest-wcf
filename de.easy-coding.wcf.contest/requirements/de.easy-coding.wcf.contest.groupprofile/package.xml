@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "group profile"</packagename>
 		<packagedescription>Hopefully there will be a wcf grouppage some time. Up to then make my own grouppage.</packagedescription>
-		<version>0.1.0 Beta 1</version>
+		<version>0.4.0 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -25,7 +25,8 @@
 		<templates>templates.tar</templates>
 	</instructions>
 	
-	<instructions type="update" fromversion="1.0.0">
+	<instructions type="update" fromversion="0.1.0 Beta 1">
 		<files>files.tar</files>
+		<templates>templates.tar</templates>
 	</instructions>
 </package>
