@@ -42,8 +42,8 @@ class ContestSponsorEditor extends ContestSponsor {
 		}
 	
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_sponsor
-					(contestID, userID, groupID, state)
-			VALUES		(".intval($contestID).", ".intval($userID).", ".intval($groupID).", '".escapeString($state)."')";
+					(contestID, userID, groupID, state, time)
+			VALUES		(".intval($contestID).", ".intval($userID).", ".intval($groupID).", '".escapeString($state)."', ".TIME_NOW.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get new id

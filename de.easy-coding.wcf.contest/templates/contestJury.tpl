@@ -113,7 +113,7 @@
 						</div>
 						
 						{if $entry->isOwner() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.jury.invite{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" id="JuryInviteForm" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">
 								<input type="hidden" name="ContestJuryInviteForm" value="1" />
@@ -153,7 +153,7 @@
 						{/if}
 						
 						{if $entry->isJuryable() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.jury.add{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

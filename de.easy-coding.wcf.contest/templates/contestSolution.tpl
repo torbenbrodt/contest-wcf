@@ -53,8 +53,8 @@
 											</div>
 											<br style="clear:both"/>
 											<div style="padding:5px">
-												jury: {@$solutionObj->getJuryRatingOutput()}<br/>
-												total: {@$solutionObj->getRatingOutput()}
+												{lang}wcf.contest.rating.avg.jury{/lang}: {@$solutionObj->getJuryRatingOutput()}<br/>
+												{lang}wcf.contest.rating.avg.total{/lang}: {@$solutionObj->getRatingOutput()}
 											</div>
 										</div>
 									</div>

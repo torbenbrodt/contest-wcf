@@ -28,7 +28,7 @@
 					<div class="columnInner">
 						<div class="contentBox">
 							{if $userMessages|isset}{@$userMessages}{/if}
-							<h4 class="subHeadline">{lang}wcf.contest.solutions{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.solution.{$action}{/lang}</h4>
 							<form enctype="multipart/form-data" method="post" action="index.php?form=ContestSolution{$action|ucfirst}&amp;contestID={@$contestID}&amp;action={$action}{if $action == 'edit'}&amp;solutionID={$solutionID}{/if}">
 				
 								{if $preview|isset}
@@ -93,7 +93,7 @@
 											</fieldset>
 										</div>
 										<div class="formFieldDesc">
-											{lang}wcf.contest.solution.description{/lang}
+											{lang}wcf.contest.solution.{$action}.description{/lang}
 										</div>
 									</div>
 								</fieldset>

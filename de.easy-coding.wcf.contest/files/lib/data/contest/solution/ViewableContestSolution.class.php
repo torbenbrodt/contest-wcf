@@ -45,6 +45,10 @@ class ViewableContestSolution extends ContestSolution {
 				FROM 		wcf".WCF_N."_contest_solution contest_solution
 				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
 				ON		(contest_participant.participantID = contest_solution.participantID)
+			
+				LEFT JOIN	wcf".WCF_N."_contest_price contest_price
+				ON		contest_price.contestID = contest_solution.contestID
+				AND		contest_price.solutionID = contest_solution.solutionID
 				
 				LEFT JOIN (
 					-- total score
@@ -54,7 +58,7 @@ class ViewableContestSolution extends ContestSolution {
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 					ON		contest_solution.solutionID = contest_solution_rating.solutionID
-					".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+					WHERE 		contest_solution.solutionID = ".intval($solutionID)."
 					GROUP BY	contest_solution.solutionID
 					HAVING		NOT ISNULL(contest_solution.solutionID)
 				) x ON contest_solution.solutionID = x.solutionID
@@ -69,8 +73,8 @@ class ViewableContestSolution extends ContestSolution {
 					ON		contest_solution.solutionID = contest_solution_rating.solutionID
 					INNER JOIN	wcf".WCF_N."_contest_jury contest_jury
 					ON		contest_jury.userID = contest_solution_rating.userID
-					WHERE 		contest_jury.state = 'accepted'
-					".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
+					WHERE 		contest_solution.solutionID = ".intval($solutionID)."
+					AND 		contest_jury.state = 'accepted'
 					GROUP BY	contest_solution.solutionID
 					HAVING		NOT ISNULL(contest_solution.solutionID)
 				) y ON contest_solution.solutionID = y.solutionID
@@ -82,8 +86,8 @@ class ViewableContestSolution extends ContestSolution {
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 					ON		contest_solution.solutionID = contest_solution_rating.solutionID
-					WHERE 		contest_solution_rating.userID = ".$userID."
-					".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
+					WHERE 		contest_solution.solutionID = ".intval($solutionID)."
+					AND 		contest_solution_rating.userID = ".$userID."
 					GROUP BY	contest_solution.solutionID
 					HAVING		NOT ISNULL(contest_solution.solutionID)
 				) z ON contest_solution.solutionID = z.solutionID

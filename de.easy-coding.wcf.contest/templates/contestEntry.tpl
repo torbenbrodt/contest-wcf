@@ -25,6 +25,7 @@
 				<div class="container-1 column first">
 					<div class="columnInner">
 						<div class="contentBox">
+							{if $userMessages|isset}{@$userMessages}{/if}
 							<h3 class="subHeadline">{lang}wcf.contest{/lang}</h3>
 							
 							<div class="contentHeader">

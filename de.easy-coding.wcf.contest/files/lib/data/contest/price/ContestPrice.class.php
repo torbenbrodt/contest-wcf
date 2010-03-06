@@ -14,6 +14,13 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  */
 class ContestPrice extends DatabaseObject {
 	/**
+	 * cache for winner solutions
+	 *
+	 * @var Array key: contestID, val: [ContestSolution, ContestSolution, ...]
+	 */
+	protected static $winners = array();
+
+	/**
 	 * Creates a new ContestPrice object.
 	 *
 	 * @param	integer		$priceID
@@ -55,21 +62,70 @@ class ContestPrice extends DatabaseObject {
 	}
 	
 	/**
-	 * is pickable?
-	 * TODO: return solutionid by which this price is pickable!!!
-	 * currently... 1st price taken, then just the 2nd one is possible...
+	 * maximum position number
+	 *
+	 * @return integer	position
 	 */
-	public function isPickable() {
-		return true; // TODO : is pickable
-		if(WCF::getUser()->userID == 0) {
-			return false;
+	public static function getMaxPosition($contestID) {
+		$sql = "SELECT		MAX(position) AS pos
+			FROM		wcf".WCF_N."_contest_price
+			WHERE		contestID = ".intval($contestID);
+		$row = WCF::getDB()->getFirstRow($sql);
+	
+		return $row ? $row['pos'] : 0;
+	}
+	
+	/**
+	 * fills cache
+	 *
+	 * @param	integer		$contestID
+	 */
+	protected static function readWinners($contestID) {
+		// get ordered list of winners
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+		$solutionList = new ContestSolutionList();
+		$solutionList->debug = true;
+		$solutionList->sqlConditions .= 'contest_solution.contestID = '.$contestID;
+		$solutionList->sqlLimit = self::getMaxPosition($contestID);
+		$solutionList->readObjects();
+
+		self::$winners[$contestID] = array();
+		foreach($solutionList->getObjects() as $solution) {
+			self::$winners[$contestID][] = $solution;
+		}
+	}
+	
+	/**
+	 * by which solution/winner is this price pickable
+	 *
+	 * @return 	ContestSolution|null		$solution
+	 */
+	public function pickableByWinner() {
+		if(WCF::getUser()->userID == 0 || $this->hasWinner()) {
+			return null;
 		}
 		$contest = new Contest($this->contestID);
 		if($contest->state != 'closed') {
-			return false;
+			#return null;
 		}
+		self::readWinners($this->contestID);
 		
-		return true;
+		foreach(self::$winners[$this->contestID] as $solution) {
+			if($solution->hasPrice() == false) {
+				return $solution->isOwner() ? $solution : null;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * is pickable?
+	 * currently... 1st price taken, then just the 2nd one is possible...
+	 *
+	 * @return	boolean
+	 */
+	public function isPickable() {
+		return $this->pickableByWinner() !== null;
 	}
 
 	/**
@@ -88,6 +144,16 @@ class ContestPrice extends DatabaseObject {
 	 */
 	public function isWinner() {
 		return ContestOwner::isOwner($this->winner_userID, $this->winner_groupID);
+	}
+	
+	/**
+	 * Returns true, if the price has been taken
+	 * 
+	 * @return	boolean
+	 */
+	public function hasWinner() {
+		$x = $this->winner_userID || $this->winner_groupID;
+		return !empty($x);
 	}
 	
 	/**

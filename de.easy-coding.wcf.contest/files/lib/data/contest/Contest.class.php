@@ -2,6 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
+require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
 
 /**
  * Represents a contest entry.
@@ -18,6 +19,11 @@ class Contest extends DatabaseObject {
 	protected $juryList = null;
 	protected $sponsorList = null;
 	protected $participantList = null;
+	
+	/**
+	 * @see isCloseable
+	 */
+	public $closableChecks = array();
 
 	/**
 	 * Creates a new Contest object.
@@ -156,13 +162,12 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
-		if(WCF::getUser()->getPermission('mod.contest.isSuperMod')) {
+		if(ContestCrew::isMember()) {
 			return true;
 		}
 		if(WCF::getUser()->getPermission('user.contest.canSolution') == false) {
 			return false;
 		}
-		if($this->state )
 		if($this->isParticipantable() == false) {
 			return false;
 		}
@@ -174,6 +179,43 @@ class Contest extends DatabaseObject {
 			}
 			return false;
 		}
+		return true;
+	}
+	
+	/**
+	 * is closeable by current user
+	 * status close is a successfull finish, if you want to stop the contest use decline status
+	 * 
+	 * @return	boolean
+	 */
+	public function isClosable() {
+		if(WCF::getUser()->userID == 0 || $this->isOwner() == false
+		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+			return false;
+		}
+			
+		try {
+			// call assignVariables event
+			EventHandler::fireAction($this, 'isClosable');
+				
+			// check if all solutions have been judged
+			$this->closableChecks[] = array(
+				'className' => 'ContestJuryTodoList',
+				'classPath' => WCF_DIR.'lib/data/contest/price/jury/ContestJuryTodoList.class.php' 
+			);
+			
+			foreach($this->closableChecks as $check) {
+				require_once($check['classPath']);
+				$todoList = new $check['className']();
+				$todoList->sqlConditions .= 'contestID = '.$this->contestID;
+				if($num = $todoList->countObjects()) {
+					throw new Exception($row['className'].' returns '.$num.' todo objects.');
+				}
+			}
+		} catch(Exception $e) {
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -324,7 +366,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return WCF::getUser()->getPermission('mod.contest.isSuperMod') || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
+		return ContestCrew::isMember() || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
 	
 	/**
@@ -333,7 +375,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return WCF::getUser()->getPermission('mod.contest.isSuperMod') || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
+		return ContestCrew::isMember() || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
 	
 	public function isViewable() {

@@ -16,8 +16,8 @@ CREATE TABLE wcf1_contest_solution_rating (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO wcf1_contest_ratingoption (title) VALUES 
-	('wcf.contest.ratingoption.basic'),
-	('wcf.contest.ratingoption.basic.format');
+	('wcf.contest.rating.option.quality'),
+	('wcf.contest.rating.option.documentation');
 
 ALTER TABLE wcf1_contest_solution ADD ratings SMALLINT( 5 ) NOT NULL AFTER comments;
 ALTER TABLE wcf1_contest CHANGE state state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled', 'closed') NOT NULL DEFAULT 'private';
@@ -30,3 +30,4 @@ ALTER TABLE wcf1_contest_solution DROP userID , DROP groupID;
 ALTER TABLE wcf1_contest_price CHANGE state state ENUM('unknown', 'accepted', 'declined', 'sent', 'received') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'unknown';
 ALTER TABLE wcf1_contest_solution ADD INDEX ( participantID );
 
+ALTER TABLE wcf1_contest ADD INDEX ( state );

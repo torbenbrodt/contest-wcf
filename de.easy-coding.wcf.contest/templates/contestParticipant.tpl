@@ -113,7 +113,7 @@
 						</div>
 						
 						{if $entry->isOwner() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.participants{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.participant.invite{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" id="ParticipantInviteForm" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
 									<input type="hidden" name="ContestParticipantInviteForm" value="1" />
@@ -153,7 +153,7 @@
 						{/if}
 						
 						{if $entry->isParticipantable() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.participants{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.participant.add{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

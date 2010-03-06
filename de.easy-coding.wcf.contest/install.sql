@@ -27,7 +27,8 @@ CREATE TABLE wcf1_contest (
 	state ENUM('private', 'applied', 'accepted', 'declined', 'scheduled', 'closed') NOT NULL DEFAULT 'private',
 	FULLTEXT KEY (subject, message),
 	KEY (userID),
-	KEY (groupID)
+	KEY (groupID),
+	KEY (state)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_solution;
@@ -211,8 +212,8 @@ CREATE TABLE wcf1_contest_solution_rating (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO wcf1_contest_ratingoption (title) VALUES 
-	('wcf.contest.ratingoption.basic'),
-	('wcf.contest.ratingoption.basic.format');
+	('wcf.contest.rating.option.quality'),
+	('wcf.contest.rating.option.documentation');
 
 INSERT INTO wcf1_contest_class (title) VALUES 
 	('wcf.contest.classes.beginner'),

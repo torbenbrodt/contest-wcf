@@ -30,11 +30,11 @@ class ContestSolutionList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::countObjects()
 	 */
 	public function countObjects() {
-		$sql = "SELECT	COUNT(*) AS count
-			FROM	wcf".WCF_N."_contest_solution contest_solution
+		$sql = "SELECT		COUNT(*) AS count
+			FROM		wcf".WCF_N."_contest_solution contest_solution
 			LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
 			ON		contest_participant.participantID = contest_solution.participantID
-			WHERE	(".ContestSolution::getStateConditions().")
+			WHERE		(".ContestSolution::getStateConditions().")
 			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
@@ -51,6 +51,7 @@ class ContestSolutionList extends DatabaseObjectList {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					avatar_table.*,
 					contest_solution.*,
+					contest_price.priceID,
 					group_table.groupName,
 					user_table.username,
 					score,
@@ -61,6 +62,14 @@ class ContestSolutionList extends DatabaseObjectList {
 			FROM		wcf".WCF_N."_contest_solution contest_solution
 			LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
 			ON		contest_participant.participantID = contest_solution.participantID
+			
+			LEFT JOIN (
+				SELECT		priceID,
+						solutionID
+				FROM		wcf".WCF_N."_contest_price contest_solution
+				".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+				
+			) contest_price	ON (contest_price.solutionID = contest_solution.solutionID)
 			
 			LEFT JOIN (
 				-- total score

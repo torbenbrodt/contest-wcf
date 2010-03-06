@@ -160,7 +160,7 @@ class ContestEditForm extends MessageForm {
 		));
 		
 		$this->availableClasses = ContestClass::getClasses();
-		$this->states = ContestEditor::getStates($this->state, $this->entry->isOwner());
+		$this->states = ContestEditor::getStates($this->state, $this->entry->isOwner(), $this->entry->isClosable());
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 	}
 	

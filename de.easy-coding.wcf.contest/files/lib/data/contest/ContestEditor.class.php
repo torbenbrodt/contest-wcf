@@ -14,7 +14,7 @@ require_once(WCF_DIR.'lib/data/image/Thumbnail.class.php');
 class ContestEditor extends Contest {
 	/**
 	 * Creates a new contest entry.
-	 * 
+	 *
 	 * @param	integer				$userID
 	 * @param	integer				$groupID
 	 * @param	string				$subject
@@ -35,7 +35,7 @@ class ContestEditor extends Contest {
 		
 		// save entry
 		$sql = "INSERT INTO	wcf".WCF_N."_contest
-					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml, 
+					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml,
 					enableBBCodes, enableParticipantCheck, enableSponsorCheck)
 			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', ".TIME_NOW.", ".$attachmentsAmount.",
 					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
@@ -66,14 +66,10 @@ class ContestEditor extends Contest {
 		}
 		
 		// update participants
-		if (count($participants) > 0) {
-			$entry->setParticipants($participants);
-		}
+		$entry->setParticipants($participants);
 		
 		// update jurys
-		if (count($jurys) > 0) {
-			$entry->setJurys($jurys);
-		}
+		$entry->setJurys($jurys);
 		
 		// update prices
 		if (count($sponsors) > 0 || count($prices) > 0) {
@@ -86,9 +82,7 @@ class ContestEditor extends Contest {
 		}
 		
 		// update prices
-		if (count($prices) > 0) {
-			$entry->setPrices($prices, $sponsorID);
-		}
+		$entry->setPrices($prices, $sponsorID);
 		
 		// update attachments
 		if ($attachmentList !== null) {
@@ -126,15 +120,15 @@ class ContestEditor extends Contest {
 	
 	/**
 	 * Updates this entry.
-	 * 
+	 *
 	 * @param	integer				$userID
 	 * @param	integer				$groupID
 	 * @param	string				$subject
 	 * @param	string				$message
 	 * @param	string				$state
-	 * @param	array				$options 
+	 * @param	array				$options
 	 * @param	integer				$classIDArray
-	 * @param	MessageAttachmentListEditor	$attachmentList 
+	 * @param	MessageAttachmentListEditor	$attachmentList
 	 */
 	public function update($userID, $groupID, $subject, $message, $fromTime, $untilTime, $state, $options = array(), $classIDArray = array(), $attachmentList = null) {
 		// get number of attachments
@@ -169,8 +163,8 @@ class ContestEditor extends Contest {
 	
 	/**
 	 * Sets the classes of this entry.
-	 * 
-	 * @param	integer		$classIDArray 
+	 *
+	 * @param	integer		$classIDArray
 	 */
 	public function setClasses($classIDArray = array()) {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
@@ -189,45 +183,35 @@ class ContestEditor extends Contest {
 	 * Saves sponsors.
 	 */
 	public function setSponsors($sponsors = array(), $userID = 0, $groupID = 0) {
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
-			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
-		
-		$foundUserID = $foundGroupID = false;
-
-		// existing?
-		if($userID || $groupID)  {
-			foreach ($sponsors as $sponsor) {
-				$foundUserID = $userID > 0 && $sponsor['type'] == 'user' && $sponsor['id'] == $userID;
-				$foundGroupID = $groupID > 0 && $sponsor['type'] == 'group' && $sponsor['id'] == $groupID;
-			}
-			
-			if($userID && $foundUserID == false) {
-				$sponsors[] = array(
-					'type' => 'user',
-					'id' => $userID
-				);
-			} else if($groupID && $foundGroupID == false) {
-				$sponsors[] = array(
-					'type' => 'group',
-					'id' => $groupID
-				);
-			}
-		}
-
-		// create inserts
-		foreach ($sponsors as $sponsor) {
-			$sql = "INSERT INTO	wcf".WCF_N.'_contest_sponsor
-						(contestID, userID, groupID)
-				VALUES		('.$this->contestID.',
-						'.($sponsor['type'] == 'user' ? intval($sponsor['id']) : 0).',
-						'.($sponsor['type'] == 'group' ? intval($sponsor['id']) : 0).')';
-			WCF::getDB()->sendQuery($sql);
-		}
-		
 		$sponsorID = 0;
-		if($userID || $groupID)  {
-			$sponsorID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_sponsor", 'sponsorID');
+		
+		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
+		foreach ($sponsors as $sponsor) {
+			$sponsorObj = ContestSponsorEditor::create(
+				$this->contestID,
+				$sponsor['type'] == 'user' ? intval($sponsor['id']) : 0,
+				$sponsor['type'] == 'group' ? intval($sponsor['id']) : 0,
+				'invited'
+			);
+			
+			// did i create my own user? then remember sponsorID
+			if($sponsorID == 0 && ($userID || $groupID)) {
+
+				if(($userID > 0 && $sponsor['type'] == 'user' && $sponsor['id'] == $userID)
+				    || ($groupID > 0 && $sponsor['type'] == 'group' && $sponsor['id'] == $groupID)) {
+					$sponsorID = $sponsorObj->sponsorID;
+				}
+			}
+		}
+		
+		if($sponsorID == 0 && ($userID || $groupID)) {
+			$sponsorObj = ContestSponsorEditor::create(
+				$this->contestID,
+				$userID,
+				$groupID,
+				'accepted'
+			);
+			$sponsorID = $sponsorObj->sponsorID;
 		}
 		return $sponsorID;
 	}
@@ -236,25 +220,15 @@ class ContestEditor extends Contest {
 	 * Saves prices.
 	 */
 	public function setPrices($prices = array(), $sponsorID = 0) {
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_price
-			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
-
-		// create inserts
-		$inserts = '';
+		require_once(WCF_DIR.'lib/data/contest/price/ContestPriceEditor.class.php');
 		foreach ($prices as $price) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contestID.', 
-					'.intval($sponsorID).',
-					"'.(isset($price['subject']) ? escapeString($price['subject']) : '').'",
-					"'.(isset($price['message']) ? escapeString($price['message']) : '').'")';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wcf".WCF_N."_contest_price
-						(contestID, sponsorID, subject, message)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			ContestPriceEditor::create(
+				$this->contestID,
+				intval($sponsorID),
+				isset($price['subject']) ? $price['subject'] : '',
+				isset($price['message']) ? $price['message'] : '',
+				isset($position) ? $position++ : $position = 1
+			);
 		}
 	}
 	
@@ -262,24 +236,14 @@ class ContestEditor extends Contest {
 	 * Saves participants.
 	 */
 	public function setParticipants($participants = array()) {
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
-			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
-
-		// create inserts
-		$inserts = '';
+		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
 		foreach ($participants as $participant) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contestID.',
-					'.($participant['type'] == 'user' ? intval($participant['id']) : 0).',
-					'.($participant['type'] == 'group' ? intval($participant['id']) : 0).')';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wcf".WCF_N."_contest_participant
-						(contestID, userID, groupID)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			ContestParticipantEditor::create(
+				$this->contestID,
+				$participant['type'] == 'user' ? intval($participant['id']) : 0,
+				$participant['type'] == 'group' ? intval($participant['id']) : 0,
+				'invited'
+			);
 		}
 	}
 	
@@ -287,24 +251,14 @@ class ContestEditor extends Contest {
 	 * Saves jurys.
 	 */
 	public function setJurys($jurys = array()) {
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_jury
-			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
-
-		// create inserts
-		$inserts = '';
+		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
 		foreach ($jurys as $jury) {
-			if (!empty($inserts)) $inserts .= ',';
-			$inserts .= '	('.$this->contestID.',
-					'.($jury['type'] == 'user' ? intval($jury['id']) : 0).',
-					'.($jury['type'] == 'group' ? intval($jury['id']) : 0).')';
-		}
-	
-		if (!empty($inserts)) {
-			$sql = "INSERT INTO	wcf".WCF_N."_contest_jury
-						(contestID, userID, groupID)
-				VALUES		".$inserts;
-			WCF::getDB()->sendQuery($sql);
+			ContestJuryEditor::create(
+				$this->contestID,
+				$jury['type'] == 'user' ? intval($jury['id']) : 0,
+				$jury['type'] == 'group' ? intval($jury['id']) : 0,
+				'invited'
+			);
 		}
 	}
 	
@@ -368,7 +322,7 @@ class ContestEditor extends Contest {
 	
 	/**
 	 * Updates the tags of this entry.
-	 * 
+	 *
 	 * @param	array<string>		$tagArray
 	 */
 	public function updateTags($tagArray) {
@@ -399,7 +353,7 @@ class ContestEditor extends Contest {
 	/**
 	 *
 	 */
-	public static function getStates($current = '', $isUser = false) {
+	public static function getStates($current = '', $isUser = false, $isClosable = false) {
 		switch($current) {
 			case 'private':
 				if($isUser) {
@@ -428,6 +382,7 @@ class ContestEditor extends Contest {
 					);
 				}
 			case 'scheduled':
+			case 'closed':
 				if($isUser) {
 					$arr = array(
 						$current
@@ -444,6 +399,12 @@ class ContestEditor extends Contest {
 				$arr = array();
 			break;
 		}
+		
+
+		if($current != 'closed' && $isClosable) {
+			$arr[] = 'close';
+		}
+		
 		return count($arr) ? array_combine($arr, $arr) : $arr;
 	}
 }

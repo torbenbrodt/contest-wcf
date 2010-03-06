@@ -25,13 +25,18 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function __construct($solutionID, $row = null) {
 		if ($solutionID !== null) {
-			$sql = "SELECT		*,
+			$sql = "SELECT		contest_solution.*,
 						contest_participant.userID, 
 						contest_participant.groupID
 				FROM 		wcf".WCF_N."_contest_solution contest_solution
 				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
-				ON		(contest_participant.participantID = contest_solution.participantID)
-				WHERE 		solutionID = ".intval($solutionID);
+				ON		contest_participant.participantID = contest_solution.participantID
+			
+				LEFT JOIN	wcf".WCF_N."_contest_price contest_price
+				ON		contest_price.contestID = contest_solution.contestID
+				AND		contest_price.solutionID = contest_solution.solutionID
+				
+				WHERE 		contest_solution.solutionID = ".intval($solutionID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -101,6 +106,16 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function isOwner() {
 		return ContestOwner::isOwner($this->userID, $this->groupID);
+	}
+	
+	/**
+	 * Returns true, if the price has been taken
+	 * 
+	 * @return	boolean
+	 */
+	public function hasPrice() {
+		$x = $this->priceID;
+		return !empty($x);
 	}
 	
 	/**

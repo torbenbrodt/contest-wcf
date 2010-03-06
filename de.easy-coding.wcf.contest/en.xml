@@ -80,6 +80,7 @@
 		<item name="wcf.contest.options"><![CDATA[Options]]></item>
 		<item name="wcf.contest.allEntries"><![CDATA[Show all contests]]></item>
 		<item name="wcf.contest.latestEntries"><![CDATA[Latest Contests]]></item>
+		<item name="wcf.contest.latestSolutions"><![CDATA[Latest Solutions]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Add]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Participant have to apply before they are allowed to create solutions.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[For being able to create solutions for this contest, participants first have to apply.]]></item>
@@ -110,6 +111,7 @@
 		<item name="wcf.contest.participant"><![CDATA[Participant]]></item>
 		<item name="wcf.contest.participant"><![CDATA[Participants]]></item>
 		<item name="wcf.contest.participant.add"><![CDATA[Add participant]]></item>
+		<item name="wcf.contest.participant.invite"><![CDATA[Invite participant]]></item>
 		<item name="wcf.contest.participant.description"><![CDATA[]]></item>
 		<item name="wcf.contest.sponsor"><![CDATA[Sponsor]]></item>
 		<item name="wcf.contest.sponsor.add"><![CDATA[Add sponsor]]></item>
@@ -121,10 +123,12 @@
 		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br/>
 Before Termination of the contest, the solutions can only be viewed by the contest owner itself or the jury.]]></item>
 		<item name="wcf.contest.solution.add"><![CDATA[Add solution]]></item>
+		<item name="wcf.contest.solution.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.solution.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.solution.delete"><![CDATA[Delete solution]]></item>
 		<item name="wcf.contest.solution.delete.sure"><![CDATA[Do you really want to delete this solution?]]></item>
 		<item name="wcf.contest.solution.edit"><![CDATA[Edit solution]]></item>
+		<item name="wcf.contest.solution.edit.description"><![CDATA[]]></item>
 		<item name="wcf.contest.solution.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.contest.solution.permalink"><![CDATA[Permalink to solution no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.solutions"><![CDATA[Solutions]]></item>
@@ -175,6 +179,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.jury.message"><![CDATA[Message]]></item>
 		<item name="wcf.contest.jury.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>
 		<item name="wcf.contest.jury.add"><![CDATA[Add Jury]]></item>
+		<item name="wcf.contest.jury.invite"><![CDATA[Invite Jury]]></item>
 		<item name="wcf.contest.jury.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.jury.delete"><![CDATA[Delete Jury]]></item>
 		<item name="wcf.contest.jury.delete.sure"><![CDATA[Do you really want to delete this Jury?]]></item>
@@ -199,6 +204,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.sponsor.message"><![CDATA[Message]]></item>
 		<item name="wcf.contest.sponsor.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>
 		<item name="wcf.contest.sponsor.add"><![CDATA[Add Sponsor]]></item>
+		<item name="wcf.contest.sponsor.invite"><![CDATA[Invite Sponsor]]></item>
 		<item name="wcf.contest.sponsor.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.sponsor.delete"><![CDATA[Delete Sponsor]]></item>
 		<item name="wcf.contest.sponsor.delete.sure"><![CDATA[Do you really want to delete this Sponsor?]]></item>
@@ -223,6 +229,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		
 		<item name="wcf.contest.price"><![CDATA[Price]]></item>
 		<item name="wcf.contest.prices"><![CDATA[Prices]]></item>
+		<item name="wcf.contest.price.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.price.description"><![CDATA[]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Add price]]></item>
 		<item name="wcf.contest.price.delete"><![CDATA[Delete price]]></item>
@@ -230,6 +237,9 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.price.edit"><![CDATA[Edit price]]></item>
 		<item name="wcf.contest.price.subject"><![CDATA[Name]]></item>
 		<item name="wcf.contest.price.message"><![CDATA[Description]]></item>
+		
+		<item name="wcf.contest.winner"><![CDATA[Winner]]></item>
+		<item name="wcf.contest.winner.by"><![CDATA[Won by]]></item>
 		
 		<item name="wcf.contest.feed"><![CDATA[Feed]]></item>
 		<item name="wcf.contest.feed.title"><![CDATA[Contest Feed]]></item>
@@ -256,6 +266,19 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Become a judge]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Become judge]]></item>
 		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[As a judge you can decide who wins the tournament.]]></item>
+		
+		<item name="wcf.contest.rating"><![CDATA[Rating]]></item>
+		<item name="wcf.contest.rating.submit"><![CDATA[Save rating]]></item>
+		<item name="wcf.contest.ratings"><![CDATA[Ratings]]></item>
+		<item name="wcf.contest.rating.avg.jury"><![CDATA[Ø Jury]]></item>
+		<item name="wcf.contest.rating.avg.total"><![CDATA[Ø Total]]></item>
+		<item name="wcf.contest.rating.option.quality"><![CDATA[Quality]]></item>
+		<item name="wcf.contest.rating.option.documentation"><![CDATA[Documentation]]></item>
+		
+		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
+		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[A solution is waiting for revuew.]]></item>
+		<item name="wcf.contest.todo.crew.applied"><![CDATA[A contest waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.owner.solutionapplied"><![CDATA[A solution waits to be accepted.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>
@@ -267,6 +290,12 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.event.notification.jurycreate.invited"><![CDATA[A new jury was invited.]]></item>
 		<item name="wcf.contest.event.notification.jurycreate.applied"><![CDATA[A new jury applied.]]></item>
 		<item name="wcf.contest.event.notification.pricecreate"><![CDATA[A new price was added.]]></item>
+		<item name="wcf.contest.event.notification.solutioncreate"><![CDATA[A new solution was added.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.accepted"><![CDATA[A new sponsor was added.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.invited"><![CDATA[A new participant was invited.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.applied"><![CDATA[A new participant applied.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.accepted"><![CDATA[A new participant was added.]]></item>
+		<item name="wcf.contest.event.notification.jurycreate.accepted"><![CDATA[A new jury was added.]]></item>
 	</category>
 	<category name="wcf.contest.menu">
 		<item name="wcf.contest.menu.link.overview"><![CDATA[Overview]]></item>

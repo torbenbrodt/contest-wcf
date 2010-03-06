@@ -71,8 +71,8 @@
 												</span>
 											</div>
 											<div style="float:left;">
-												jury: {@$solutionObj->getJuryRatingOutput()}<br/>
-												total: {@$solutionObj->getRatingOutput()}
+												{lang}wcf.contest.rating.avg.jury{/lang}: {@$solutionObj->getJuryRatingOutput()}<br/>
+												{lang}wcf.contest.rating.avg.total{/lang}: {@$solutionObj->getRatingOutput()}
 											</div>
 											<br style="clear:both"/>
 										</div>
@@ -103,7 +103,7 @@
 							<input type="hidden" name="ContestSolutionRatingUpdateForm" value="1" />
 							<a id="ratings"></a>
 							<div class="contentBox">
-								<h4 class="subHeadline">{lang}wcf.contest.rating.ratings{/lang} <span>({$solutionObj->ratings})</span></h4>
+								<h4 class="subHeadline">{lang}wcf.contest.ratings{/lang} <span>({$solutionObj->ratings})</span></h4>
 								<ul class="dataList messages">
 									{foreach from=$ratings item=ratingObj}
 										<li class="{cycle values='container-1,container-2'}">
@@ -112,14 +112,14 @@
 												<div class="formFieldLabel">
 													<div style="float:left;margin-left:60px">
 														<span style="font-size:22px">
-															{$ratingObj->jurycount}
+															{$ratingObj->jurycount|intval}
 														</span>
 														<span style="font-size:14px">
-															({$ratingObj->count})
+															({$ratingObj->count|intval})
 														</span>
 													</div>
-													jury: {@$ratingObj->getJuryRatingOutput()}<br/>
-													total: {@$ratingObj->getRatingOutput()}
+													{lang}wcf.contest.rating.avg.jury{/lang}: {@$ratingObj->getJuryRatingOutput()}<br/>
+													{lang}wcf.contest.rating.avg.total{/lang}: {@$ratingObj->getRatingOutput()}
 													<br style="clear:both"/>
 												</div>
 												<div class="formField">

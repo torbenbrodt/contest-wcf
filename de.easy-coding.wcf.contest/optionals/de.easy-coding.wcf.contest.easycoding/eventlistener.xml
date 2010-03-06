@@ -3,12 +3,52 @@
 <data>	
 	<import>
 		<eventlistener>
+			<eventclassname>ContestJuryPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestJurytalkPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
 			<eventclassname>ContestOverviewPage</eventclassname>
 			<eventname>assignVariables</eventname>
 			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
 		</eventlistener>
 		<eventlistener>
-			<eventclassname>ContestAddForm</eventclassname>
+			<eventclassname>ContestPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestParticipantPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestPricePage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestSolutionEntryPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestSolutionPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestSponsorPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestSponsortalkPage</eventclassname>
 			<eventname>assignVariables</eventname>
 			<listenerclassfile>lib/system/event/listener/ContestBetaPageListener.class.php</listenerclassfile>
 		</eventlistener>

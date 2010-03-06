@@ -25,14 +25,7 @@ class ContestPriceEditor extends ContestPrice {
 	public static function create($contestID, $sponsorID, $subject, $message, $position = 0, $time = TIME_NOW) {
 		if($position === 0) {
 			// check maximum position
-			$sql = "SELECT		MAX(position)+1 AS next_position
-				FROM		wcf".WCF_N."_contest_price
-				WHERE		contestID = ".intval($contestID);
-			$row = WCF::getDB()->getFirstRow($sql);
-		
-			if($row) {
-				$position = $row['next_position'];
-			}
+			$position = self::getMaxPosition($contestID) + 1;
 		}
 		
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_price
@@ -52,6 +45,7 @@ class ContestPriceEditor extends ContestPrice {
 		
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/sponsor/ViewableContestSponsor.class.php');
 		$eventName = ContestEvent::getEventName(__METHOD__);
 		$sponsor = new ViewableContestSponsor($sponsorID);
 		ContestEventEditor::create($contestID, $sponsor->userID, $sponsor->groupID, $eventName, array(

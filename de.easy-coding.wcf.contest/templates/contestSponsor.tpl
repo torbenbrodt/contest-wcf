@@ -113,7 +113,7 @@
 						</div>
 						
 						{if $entry->isOwner() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.sponsors{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.sponsor.invite{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" id="SponsorInviteForm" action="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;action=add">
 									<input type="hidden" name="ContestSponsorInviteForm" value="1" />
@@ -153,7 +153,7 @@
 						{/if}
 						
 						{if $entry->isSponsorable() && $action != 'edit'}
-							<h4 class="subHeadline">{lang}wcf.contest.sponsors{/lang}</h4>
+							<h4 class="subHeadline">{lang}wcf.contest.sponsor.add{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;action=add">
 									<fieldset>

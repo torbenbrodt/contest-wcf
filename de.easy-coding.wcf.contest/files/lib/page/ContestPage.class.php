@@ -44,6 +44,12 @@ class ContestPage extends MultipleLinkPage {
 	public $eventmixList = null;
 	
 	/**
+	 * 
+	 * @var ContestJuryTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * comment id
 	 * 
 	 * @var	integer
@@ -216,6 +222,12 @@ class ContestPage extends MultipleLinkPage {
 				MessageAttachmentList::removeEmbeddedAttachments($this->attachments);
 			}
 		}
+		
+		// init todo list
+		require_once(WCF_DIR.'lib/data/contest/owner/todo/ContestOwnerTodoList.class.php');
+		$this->todoList = new ContestOwnerTodoList();
+		$this->todoList->sqlConditions .= 'contest.contestID = '.$this->contestID;
+		$this->todoList->readObjects();
 
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry);
@@ -251,6 +263,7 @@ class ContestPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'tags' => (MODULE_TAGGING ? $this->entry->getTags(WCF::getSession()->getVisibleLanguageIDArray()) : array()),
 			'events' => $this->eventmixList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'classes' => $this->entry->getClasses(),
 			'jurys' => $this->entry->getJurys(),
 			'participants' => $this->entry->getParticipants(),

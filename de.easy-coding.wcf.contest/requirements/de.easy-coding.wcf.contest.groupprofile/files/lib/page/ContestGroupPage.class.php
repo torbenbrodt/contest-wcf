@@ -52,12 +52,14 @@ class ContestGroupPage extends AbstractPage {
 		
 		// get members
 		require_once(WCF_DIR.'lib/data/user/UserProfile.class.php');
-		$sql = "SELECT 		user_option.userOption".User::getUserOptionID('invisible').", user.userID, user.username, user.lastActivityTime
+		$sql = "SELECT		avatar.*, user_table.*
 			FROM		wcf".WCF_N."_user_to_groups ug
-			NATURAL JOIN	wcf".WCF_N."_user user
-			LEFT JOIN	wcf".WCF_N."_user_option_value user_option
-			ON		user.userID = user_option.userID
-			WHERE		ug.groupID = ".$this->groupID;
+			LEFT JOIN 	wcf".WCF_N."_user user_table
+			ON 		(user_table.userID = ug.userID)
+			LEFT JOIN 	wcf".WCF_N."_avatar avatar
+			ON 		(avatar.avatarID = user_table.avatarID)
+			WHERE		ug.groupID = ".intval($this->groupID)."
+					AND user_table.userID IS NOT NULL";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$this->userlist[] = new UserProfile(null, $row);

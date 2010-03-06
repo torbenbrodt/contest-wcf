@@ -21,6 +21,13 @@ class ViewableContestPrice extends ContestPrice {
 	protected $owner = null;
 
 	/**
+	 * winner object
+	 *
+	 * @var ContestOwner
+	 */
+	protected $winner = null;
+
+	/**
 	 * Creates a new ViewableContest object.
 	 *
 	 * @param	integer		$priceID
@@ -72,12 +79,14 @@ class ViewableContestPrice extends ContestPrice {
 	protected function handleData($data) {
 		parent::handleData($data);
 		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
-		$this->winner = new ContestOwner(array(
-			'username' => $this->winner_username,
-			'groupName' => $this->winner_groupName,
-			'userID' => $this->winner_userID,
-			'groupID' => $this->winner_groupID
-		), $this->winner_userID, $this->winner_groupID);
+		if($this->winner_userID || $this->winner_groupID) {
+			$this->winner = new ContestOwner(array(
+				'username' => $this->winner_username,
+				'groupName' => $this->winner_groupName,
+				'userID' => $this->winner_userID,
+				'groupID' => $this->winner_groupID
+			), $this->winner_userID, $this->winner_groupID);
+		}
 	}
 	
 	/**
@@ -115,7 +124,7 @@ class ViewableContestPrice extends ContestPrice {
 	/**
 	 * Returns the winner/participant object.
 	 * 
-	 * @return	ContestOwner
+	 * @return	ContestOwner|null
 	 */
 	public function getWinner() {
 		return $this->winner;

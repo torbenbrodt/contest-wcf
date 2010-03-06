@@ -147,8 +147,12 @@ class ContestPricePage extends MultipleLinkPage {
 		} else {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
 		}
+
+		$solution = null;
 		
-		if($this->entry->state != 'closed') { // TODO: change to == closed
+		// if contest is finished, show todo list
+		// who is able to pick the prices
+		if($this->entry->state == 'closed') {
 			// need winners
 			require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 			$solutionList = new ContestSolutionList();
@@ -173,12 +177,20 @@ class ContestPricePage extends MultipleLinkPage {
 				$this->todoList->readObjects();
 			}
 		}
+		
+		foreach($this->priceList->getObjects() as $price) {
+			if($price->isPickable()) {
+				$solution = $price->pickableByWinner();
+				break;
+			}
+		}
 
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
+			'solution' => $solution,
 			'prices' => $this->priceList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,

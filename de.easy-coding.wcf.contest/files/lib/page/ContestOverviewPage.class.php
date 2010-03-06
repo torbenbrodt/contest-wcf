@@ -32,6 +32,12 @@ class ContestOverviewPage extends MultipleLinkPage {
 	public $tagList = null;
 	
 	/**
+	 * 
+	 * @var ContestJuryTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * list of tags
 	 * 
 	 * @var	array
@@ -155,6 +161,11 @@ class ContestOverviewPage extends MultipleLinkPage {
 		$this->entryList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->entryList->readObjects();
 		
+		// init todo list
+		require_once(WCF_DIR.'lib/data/contest/crew/todo/ContestCrewTodoList.class.php');
+		$this->todoList = new ContestCrewTodoList();
+		$this->todoList->readObjects();
+		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this);
 
@@ -186,6 +197,7 @@ class ContestOverviewPage extends MultipleLinkPage {
 			'entries' => $this->entryList->getObjects(),
 			'classes' => $this->entryList->getClasses(),
 			'jurys' => $this->entryList->getJurys(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'participants' => $this->entryList->getParticipants(),
 			'tags' => $this->entryList->getTags(),
 			'availableTags' => $this->tags,
