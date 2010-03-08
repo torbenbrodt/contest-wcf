@@ -19,6 +19,13 @@ class ContestPrice extends DatabaseObject {
 	 * @var Array key: contestID, val: [ContestSolution, ContestSolution, ...]
 	 */
 	protected static $winners = array();
+	
+	/**
+	 * did call readWinners before?
+	 *
+	 * @var boolean
+	 */
+	protected static $stateReadWinners = false;
 
 	/**
 	 * Creates a new ContestPrice object.
@@ -81,6 +88,11 @@ class ContestPrice extends DatabaseObject {
 	 * @param	integer		$contestID
 	 */
 	protected static function readWinners($contestID) {
+		if(self::$stateReadWinners) {
+			return;
+		}
+		self::$stateReadWinners = true;
+	
 		// get ordered list of winners
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 		$solutionList = new ContestSolutionList();
@@ -106,7 +118,7 @@ class ContestPrice extends DatabaseObject {
 		}
 		$contest = new Contest($this->contestID);
 		if($contest->state != 'closed') {
-			#return null;
+			return null;
 		}
 		self::readWinners($this->contestID);
 		
@@ -134,7 +146,7 @@ class ContestPrice extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::isOwner($this->userID, $this->groupID);
+		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
 
 	/**
@@ -143,7 +155,7 @@ class ContestPrice extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isWinner() {
-		return ContestOwner::isOwner($this->winner_userID, $this->winner_groupID);
+		return ContestOwner::get($this->winner_userID, $this->winner_groupID)->isCurrentUser();
 	}
 	
 	/**
@@ -152,8 +164,7 @@ class ContestPrice extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function hasWinner() {
-		$x = $this->winner_userID || $this->winner_groupID;
-		return !empty($x);
+		return $this->winner_userID > 0 || $this->winner_groupID > 0;
 	}
 	
 	/**

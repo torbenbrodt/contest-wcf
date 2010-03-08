@@ -57,13 +57,23 @@
 		<item name="wcf.header.menu.user.contest"><![CDATA[Contest]]></item>
 	</category>
 	<category name="wcf.help.item">
-		<item name="wcf.help.item.user.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.help.item.user.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest entry</span></p>
+		<item name="wcf.help.item.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.help.item.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest entry</span></p>
 <p>The contest is a competition platform for programmers.</p>
 <h4>More information</h4>
 <ul>
 	{if $allItemNames['message']|isset}<li><a href="index.php?page=Help&item=message{@SID_ARG_2ND}">Writing text</a></li>{/if}
 </ul>]]></item>
+		<item name="wcf.help.item.contest.entry"><![CDATA[Eigener Contest]]></item>
+		<item name="wcf.help.item.contest.entry.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.participant"><![CDATA[Teilnehmer]]></item>
+		<item name="wcf.help.item.contest.participant.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.jury"><![CDATA[Jury]]></item>
+		<item name="wcf.help.item.contest.jury.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.sponsor"><![CDATA[Sponsor]]></item>
+		<item name="wcf.help.item.contest.sponsor.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.crew"><![CDATA[Crew]]></item>
+		<item name="wcf.help.item.contest.crew.description"><![CDATA[...]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.contestEntry"><![CDATA[Contest]]></item>
@@ -248,6 +258,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.lastestEntries"><![CDATA[Last contests]]></item>
 		<item name="wcf.contest.noEntries"><![CDATA[There are no contests available.]]></item>
 		<item name="wcf.contest.overview"><![CDATA[Contest]]></item>
+		<item name="wcf.contest.overview.description"><![CDATA[This is the list of contests you can see.]]></item>
 		<item name="wcf.contest.overview.empty"><![CDATA[No contest contests have been written so far.]]></item>
 		<item name="wcf.contest.search.query"><![CDATA[Search contest]]></item>
 
@@ -278,7 +289,8 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
 		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[A solution is waiting for revuew.]]></item>
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[A contest waits to be accepted.]]></item>
-		<item name="wcf.contest.todo.owner.solutionapplied"><![CDATA[A solution waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[A solution waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[A price waits to be accepted.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>

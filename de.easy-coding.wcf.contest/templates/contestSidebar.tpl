@@ -48,7 +48,8 @@
 		</div>
 	</div>
 </div>
-{*
+
+{if $advertiseParticipant}
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
@@ -60,7 +61,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestParticipantAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				<li><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
@@ -69,7 +70,9 @@
 		</div>
 	</div>
 </div>
+{/if}
 
+{if $advertiseSponsor}
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
@@ -81,7 +84,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestSponsorAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+				<li><a href="index.php?page=ContestSponsor&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
@@ -90,7 +93,9 @@
 		</div>
 	</div>
 </div>
+{/if}
 
+{if $advertiseJury}
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
@@ -102,7 +107,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li><a href="index.php?form=ContestJuryAdd{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+				<li><a href="index.php?page=ContestJury&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
@@ -111,7 +116,8 @@
 		</div>
 	</div>
 </div>
-*}
+{/if}
+
 {if $availableClasses|count > 0}
 	<div class="contentBox">
 		<div class="border"> 
@@ -128,7 +134,7 @@
 							</a>
 						</div>
 						<div class="containerContent">
-							<h4><a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}"><span>{lang}{$class}{/lang}</span></a></h4>
+							<h4><a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}"><span>{lang}{$class}{/lang}</span></a> ({$class->contests|intval})</h4>
 						</div>
 					</li>
 				{/foreach}
@@ -242,12 +248,7 @@
 					<li class="{cycle values='container-1,container-2'}">
 						<div class="containerIcon">
 							<a href="{$price->getOwner()->getLink()}{@SID_ARG_2ND}">
-								{if $price->getOwner()->getAvatar()}
-									{assign var=x value=$price->getOwner()->getAvatar()->setMaxSize(24, 24)}
-									{@$price->getOwner()->getAvatar()}
-								{else}
-									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
-								{/if}
+								<img src="{@RELATIVE_WCF_DIR}icon/contestPriceM.png" alt="" />
 							</a>
 						</div>
 						<div class="containerContent">

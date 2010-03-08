@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{$solutionObj->subject} - {lang}wcf.contest.solutions{/lang} - {$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/TabbedPane.class.js"></script>
@@ -64,10 +64,10 @@
 										<div class="containerContent" style="padding:10px 0px">
 											<div style="float:right;">
 												<span style="font-size:22px">
-													{$solutionObj->jurycount}
+													{$solutionObj->jurycount|intval}
 												</span>
 												<span style="font-size:14px">
-													({$solutionObj->count})
+													({$solutionObj->count|intval})
 												</span>
 											</div>
 											<div style="float:left;">

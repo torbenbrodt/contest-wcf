@@ -5,6 +5,11 @@ require_once(WCF_DIR.'lib/data/user/group/ContestGroupProfile.class.php');
 
 /**
  * Represents a list of contest entries.
+ *
+ * Most common usage:
+ * @code
+ * ContestOwner::get($userID, $groupID)->isCurrentUser();
+ * @endcode
  * 
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
@@ -12,13 +17,20 @@ require_once(WCF_DIR.'lib/data/user/group/ContestGroupProfile.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestOwner {
+	/**
+	 * pseudo singleton for using ContestOwner::get(...)
+	 * constructor is not private
+	 *
+	 * @var array<ContestOwner>
+	 */
+	public static $instances = array();
 
 	/**
 	 * cache in getGroupids, will become array after first call
 	 * 
 	 * @var null|array
 	 */
-	private static $groupIDs = null;
+	private static $currentGroupIDs = null;
 
 	/**
 	 * the meaningful instance 
@@ -29,6 +41,10 @@ class ContestOwner {
 
 	/**
 	 * Creates a new ContestOverviewList object.
+	 *
+	 * @param	mixed		$data
+	 * @param	integer		$userID
+	 * @param	integer		$groupID
 	 */
 	public function __construct($data, $userID, $groupID) {
 		if($groupID) {
@@ -44,13 +60,36 @@ class ContestOwner {
 				$this->owner = new UserProfile($userID);
 			}
 		}
+		
+		// remember for singleton usage
+		if($groupID || $userID) {
+			$key = self::key($userID, $groupID);
+			self::$instances[$key] = $this;
+		}
 	}
 	
 	/**
 	 * static method to construct
+	 *
+	 * @param	integer		$userID
+	 * @param	integer		$groupID
 	 */
 	public static function get($userID, $groupID) {
-		return new self(null, $userID, $groupID);
+		$key = md5(serialize(array($userID, $groupID)));
+		if(!isset(self::$instances[$key])) {
+			self::$instances[$key] = new self(null, $userID, $groupID);
+		}
+		return self::$instances[$key];
+	}
+
+	/**
+	 * static method get a singleton key
+	 *
+	 * @param	integer		$userID
+	 * @param	integer		$groupID
+	 */
+	protected static function key($userID, $groupID) {
+		return md5(serialize(array($userID, $groupID)));
 	}
 
 	/**
@@ -98,18 +137,26 @@ class ContestOwner {
 	
 	/**
 	 * is the current user member of this?
+	 *
+	 * @return boolean
 	 */
-	public static function isOwner($userID, $groupID) {
+	public function isCurrentUser() {
 		$myuserID = WCF::getUser()->userID;
 		if(empty($myuserID)) {
 			return false;
 		}
 
-		return $myuserID == $userID || in_array($groupID, self::getGroupIDs());
+		return $myuserID == $this->userID || in_array($this->groupID, self::getCurrentGroupIDs());
 	}
 	
-	private static function getGroupIDs() {
-		return self::$groupIDs !== null ? $groupIDs : $groupIDs = WCF::getUser()->getGroupIDs();
+	/**
+	 * i don't care for blackbox thinking ;)
+	 * calling the wcf class for a hundred times in inperformat, thats why i use this wrapper method
+	 * 
+	 * @return array<integer>
+	 */
+	private static function getCurrentGroupIDs() {
+		return self::$currentGroupIDs !== null ? self::$currentGroupIDs : self::$currentGroupIDs = WCF::getUser()->getGroupIDs();
 	}
 }
 ?>

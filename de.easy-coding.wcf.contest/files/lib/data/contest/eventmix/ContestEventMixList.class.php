@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/eventmix/ViewableContestEventMix.class.ph
  * Represents a mixture of contest events and contest comments.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */

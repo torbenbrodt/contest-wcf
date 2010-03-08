@@ -32,7 +32,6 @@ onloadEvents.push(function() {
 	$('priceAddInput').onfocus = $('priceAddInput').onblur = $('priceAddInput').onkeyup = function() {
 		return false;
 	};
-	// TODO: after 'add', clear text... $('priceAddText').setValue('');
 	
 	// add onsubmit event
 	onsubmitEvents.push(function(form) {
@@ -153,8 +152,11 @@ onloadEvents.push(function() {
 {if $additionalFields2|isset}{@$additionalFields2}{/if}
 
 <div class="formSubmit">
-	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.back()"{/if} />
-	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.next()"{/if} />
+	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.back()" />
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.next()" />
+	{if $action != 'add'}
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
+	{/if}
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

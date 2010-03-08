@@ -26,8 +26,6 @@
 					<div class="columnInner">
 						<div class="contentBox">
 							{if $userMessages|isset}{@$userMessages}{/if}
-							<h3 class="subHeadline">{lang}wcf.contest{/lang}</h3>
-							
 							<div class="contentHeader">
 								<div class="largeButtons">
 									{if $entry->isSolutionable() || $additionalLargeButtons|isset}
@@ -41,7 +39,7 @@
 							<div class="message content">
 								<div class="messageInner container-1">
 									<a id="entry{@$entry->contestID}"></a>
-									<div class="messageHeader"{if $entry->fromTime > 0 || $entry->untilTime > 0} style="border-style:dashed"{/if}>
+									<div class="messageHeader"{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)} style="border-style:dashed"{/if}>
 										<div class="containerIcon">
 											
 											{if $entry->getOwner()->getAvatar()}
@@ -57,7 +55,7 @@
 											<p class="light smallFont">{@$entry->time|time}</p>
 										</div>
 									</div>
-									{if $entry->fromTime > 0 || $entry->untilTime > 0}
+									{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)}
 									<div class="messageHeader">
 										<div class="containerIcon">
 											<img src="{icon}contestScheduledM.png{/icon}" alt="" />

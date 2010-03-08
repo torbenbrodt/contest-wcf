@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * Represents a contest class.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -33,7 +33,7 @@ class ContestClass extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return $this->title;
+		return "".$this->title;
 	}
 	
 	/**
@@ -45,7 +45,6 @@ class ContestClass extends DatabaseObject {
 		if ($this->description) {
 			return nl2br(StringUtil::encodeHTML($this->description));
 		}
-		
 		return '';
 	}
 	
@@ -64,7 +63,6 @@ class ContestClass extends DatabaseObject {
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$classes[$row['classID']] = new ContestClass(null, $row);
 		}
-		
 		return $classes;
 	}
 	

@@ -47,7 +47,7 @@ class ContestSolutionRating extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::isOwner($this->userID, $this->groupID);
+		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
 	
 	/**

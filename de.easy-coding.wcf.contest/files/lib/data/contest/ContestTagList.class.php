@@ -14,9 +14,9 @@ class ContestTagList extends TagList {
 	/**
 	 * contest
 	 *
-	 * @var	contest
+	 * @var	Contest
 	 */
-	public $contest = 0;
+	public $contest = null;
 	
 	/**
 	 * Creates a new ContestTagList object.

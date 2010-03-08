@@ -7,7 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  * ContestLocation is an implementation of Location for the user contest page.
  *
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */

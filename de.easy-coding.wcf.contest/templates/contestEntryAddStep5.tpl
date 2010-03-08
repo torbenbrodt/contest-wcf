@@ -88,8 +88,8 @@ onloadEvents.push(function() {
 {if $additionalFields1|isset}{@$additionalFields1}{/if}
 
 <div class="formSubmit">
-	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.back()"{/if} />
-	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}"/>
+	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.back()" />
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

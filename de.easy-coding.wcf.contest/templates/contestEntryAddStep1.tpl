@@ -59,7 +59,10 @@
 {if $additionalFields1|isset}{@$additionalFields1}{/if}
 
 <div class="formSubmit">
-	<input id="nextStep1" type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" {if $action == 'add'}onclick="return steppedTabMenu.next()"{/if} />
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.next{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.next()" />
+	{if $action != 'add'}
+	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
+	{/if}
 	{@SID_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

@@ -88,7 +88,9 @@ class ContestParticipantPage extends MultipleLinkPage {
 		$this->participantList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry);
+		$this->sidebar = new ContestSidebar($this, $this->entry, array(
+			'participantList'
+		));
 	}
 	
 	/**

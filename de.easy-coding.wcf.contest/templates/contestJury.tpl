@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{lang}wcf.contest.jurys{/lang} - {$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
@@ -41,9 +41,9 @@
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
-						
 						<div class="contentBox">
 							{if $userMessages|isset}{@$userMessages}{/if}
+							{if $jurys|count > 0}
 							<h4 class="subHeadline">{lang}wcf.contest.jurys{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
@@ -110,6 +110,7 @@
 									</ul>
 								</div>
 							</div>
+							{/if}
 						</div>
 						
 						{if $entry->isOwner() && $action != 'edit'}

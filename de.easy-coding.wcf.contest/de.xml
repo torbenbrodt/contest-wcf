@@ -57,20 +57,34 @@
 		<item name="wcf.header.menu.user.contest"><![CDATA[Contest]]></item>
 	</category>
 	<category name="wcf.help.item">
-		<item name="wcf.help.item.user.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.help.item.user.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest</span></p>
-<p>Contest ist eine Plattform für Programmierwettbewerbe.<br/>
+		<item name="wcf.help.item.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.help.item.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest</span></p>
+<p>Der Contest ist eine Wettbewerbsplattform.<br/>
 Klassen drücken dabei das Können oder eine Altergruppe der teilnehmenden Mitglieder aus.<br/>
 Ihr werdet zum einen selbst Juror, könnt aber auch andere Juroren (zum Beispiel das Projektteam) als Juror einladen.<br/>
 Ihr könnt selbst Preise beisteuern. Während des Wettbewerbs können aber von Sponsoren auch weitere Preise hinzugefügt werden um den Anreiz zu erhöhen.</p>
-
-<p>Nachdem ihr eine Aufgabe erstellt habt, wird diese zuerst als "private" markiert.<br/>
-Ein Moderator kann diese dann zum einen Freischalten und zum anderen auf einen bestimmten Termin planen.</p>
 
 <h4>Weitere Informationen</h4>
 <ul>
 	{if $allItemNames['message']|isset}<li><a href="index.php?page=Help&item=message{@SID_ARG_2ND}">Texte schreiben</a></li>{/if}
 </ul>]]></item>
+		<item name="wcf.help.item.contest.entry"><![CDATA[Eigener Contest]]></item>
+		<item name="wcf.help.item.contest.entry.description"><![CDATA[<p>Nachdem ihr eine Aufgabe erstellt habt, wird dieser zuerst als "private" markiert.<br/>
+Wenn ihr denk, dass die Aufgabe sauber formuliert ist, könnt ihr sie der Crew zur Prüfung einreichen, indem ihr den Status auf "applied" ändert.</p>
+
+<p>Ein Mitglied der Crew wird dann darüber entscheiden ob die Aufgabe den Qualitätsanspruchen und Richtlinien entspricht und die Aufgabe ggbf schon auf einen bestimmten Termin planen.</p>
+]]></item>
+		<item name="wcf.help.item.contest.participant"><![CDATA[Teilnehmer]]></item>
+		<item name="wcf.help.item.contest.participant.description"><![CDATA[<p>Als Teilnehmer könnt ihr Lösungen zu den Aufgaben erstellen.</p>
+<p>Gewinner werden ermittelt nachdem der Contest abgelaufen ist. Sobald dies geschehen ist, kann sich zunächst der Erstplatzierte einen Preis aussuchen. Danach folgen die Zweit- und Drittplatzierten, so lange bis alle Preise vergeben sind.</p>]]></item>
+		<item name="wcf.help.item.contest.jury"><![CDATA[Jury]]></item>
+		<item name="wcf.help.item.contest.jury.description"><![CDATA[Prinzipiell können die Lösungen von jedem Mitglied bewertet werden. Jedoch zählen nur die Bewertungen der Jury in das Ranking ein, das entscheidet welche Lösung gewinnt und verliert.]]></item>
+		<item name="wcf.help.item.contest.sponsor"><![CDATA[Sponsor]]></item>
+		<item name="wcf.help.item.contest.sponsor.description"><![CDATA[<p>Vor dem Wettkampfende könnt ihr dem Contest Preise hinzufügen.</p>
+<p>Ob die Preise zugelassen werden, obliegt beim Ersteller des Contests oder der Contest Crew.</p>
+<p>Nachdem alle Juroren alle Lösungen bewertet haben, sind die Gewinner in der Lage sich ihren Preis auszuwählen. Dann solltet ihr mit den Gewinnern Kontakt aufnehmen und euch um den Versand der Preise kümmern.</p>]]></item>
+		<item name="wcf.help.item.contest.crew"><![CDATA[Crew]]></item>
+		<item name="wcf.help.item.contest.crew.description"><![CDATA[Als Crew müsst ihr Contests freischalten und verfügt über erweiterte Rechte, so könnt ihr zum Beispiel Preise freischalten oder Einladungen verschicken.]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.contestEntry"><![CDATA[Contest]]></item>
@@ -181,6 +195,7 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.jurytalks"><![CDATA[Jurytalks]]></item>
 		<item name="wcf.contest.jury"><![CDATA[Jury]]></item>
 		<item name="wcf.contest.jury.invite"><![CDATA[Jury einladen]]></item>
+		<item name="wcf.contest.jury.closed.info"><![CDATA[Alle Juroren müssen alle Lösungen bewerten haben bevor der Wettbewerb beendet wird und Preise verschickt werden.]]></item>
 		<item name="wcf.contest.jury.add"><![CDATA[Jury hinzufügen]]></item>
 		<item name="wcf.contest.jury.by"><![CDATA[Von]]></item>
 		<item name="wcf.contest.jury.delete"><![CDATA[Jury löschen]]></item>
@@ -255,6 +270,7 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.lastestEntries"><![CDATA[Letzte Contests]]></item>
 		<item name="wcf.contest.noEntries"><![CDATA[Es sind keine Contest vorhanden.]]></item>
 		<item name="wcf.contest.overview"><![CDATA[Contest]]></item>
+		<item name="wcf.contest.overview.description"><![CDATA[Dies ist die Liste der Wettbewerbe, die Sie einsehen können.]]></item>
 		<item name="wcf.contest.overview.empty"><![CDATA[Es wurden bislang noch keine Contests erstellt.]]></item>
 		<item name="wcf.contest.search.query"><![CDATA[Contest durchsuchen]]></item>
 
@@ -264,15 +280,15 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 
 		<item name="wcf.contest.sidebar.becomeparticipant.title"><![CDATA[Werde Teilnehmer]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.submit"><![CDATA[Teilnehmer werden]]></item>
-		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Willst du an diesem Contest teilnehmen oder an einem der zukünftigen?]]></item>
+		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Der Contest hat erst wenige Teilnehmer. Überlege dir eine Lösung und nehme Teil am Contest. Nutze deine Chance!]]></item>
 
 		<item name="wcf.contest.sidebar.becomesponsor.title"><![CDATA[Werde Sponsor]]></item>
 		<item name="wcf.contest.sidebar.becomesponsor.submit"><![CDATA[Preis hinzufügen]]></item>
-		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[Es gibt die verschiedensten Motive warum man Preise für einen Contest sponsorn sollte. Jeder kann davon profitieren.]]></item>
+		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[Die Teilnehmer arbeiten hart und wollen belohnt werden. Werde Sponsor. Es gibt die verschiedensten Motive warum man Preise für einen Contest sponsorn sollte. Jeder kann davon profitieren.]]></item>
 
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Werde Juror]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>
-		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
+		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[Sei fair! Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
 		
 		<item name="wcf.contest.rating"><![CDATA[Bewertung]]></item>
 		<item name="wcf.contest.rating.submit"><![CDATA[Bewertung speichern]]></item>
@@ -285,7 +301,8 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
 		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[Es fehlt noch eine Bewertung zur Lösung.]]></item>
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[Ein Contest wartet auf Freischaltung.]]></item>
-		<item name="wcf.contest.todo.owner.solutionapplied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[Ein Preis wartet auf Freischaltung.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>

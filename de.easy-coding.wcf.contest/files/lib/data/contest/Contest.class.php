@@ -6,7 +6,7 @@ require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
 
 /**
  * Represents a contest entry.
- * 
+ *
  * a contest can only be created if the following conditions are true
  * - user is registered
  *
@@ -16,8 +16,26 @@ require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class Contest extends DatabaseObject {
+	/**
+	 * jury list
+	 *
+	 * @var array<ContestJury>
+	 */
 	protected $juryList = null;
+	
+	
+	/**
+	 * sponsor list
+	 *
+	 * @var array<ContestSponsor>
+	 */
 	protected $sponsorList = null;
+	
+	/**
+	 * participant list
+	 *
+	 * @var array<ContestParticipant>
+	 */
 	protected $participantList = null;
 	
 	/**
@@ -43,7 +61,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Returns the tags of this entry.
-	 * 
+	 *
 	 * @return	array<Tag>
 	 */
 	public function getTags($languageIDArray) {
@@ -64,7 +82,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Gets the classes of this entry.
-	 * 
+	 *
 	 * @return	array<ContestClass>
 	 */
 	public function getClasses() {
@@ -86,7 +104,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Gets the participants of this entry.
-	 * 
+	 *
 	 * @return	array<ContestParticipant>
 	 */
 	public function getParticipants() {
@@ -104,7 +122,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Gets the solutions of this entry.
-	 * 
+	 *
 	 * @return	array<ContestSolution>
 	 */
 	public function getSolutions() {
@@ -122,7 +140,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Gets the jurys of this entry.
-	 * 
+	 *
 	 * @return	array<ContestJury>
 	 */
 	public function getJurys() {
@@ -140,7 +158,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Gets the sponsors of this entry.
-	 * 
+	 *
 	 * @return	array<ContestSponsor>
 	 */
 	public function getSponsors() {
@@ -158,7 +176,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Returns true, if the active user can solution this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
@@ -185,7 +203,7 @@ class Contest extends DatabaseObject {
 	/**
 	 * is closeable by current user
 	 * status close is a successfull finish, if you want to stop the contest use decline status
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isClosable() {
@@ -201,7 +219,7 @@ class Contest extends DatabaseObject {
 			// check if all solutions have been judged
 			$this->closableChecks[] = array(
 				'className' => 'ContestJuryTodoList',
-				'classPath' => WCF_DIR.'lib/data/contest/price/jury/ContestJuryTodoList.class.php' 
+				'classPath' => WCF_DIR.'lib/data/contest/price/jury/ContestJuryTodoList.class.php'
 			);
 			
 			foreach($this->closableChecks as $check) {
@@ -221,7 +239,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Returns true, if the active user is member of the jury
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isJury() {
@@ -236,7 +254,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Returns true, if the active user can solution this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isJurytalkable() {
@@ -253,7 +271,7 @@ class Contest extends DatabaseObject {
 		
 	/**
 	 * everybody can add comments
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isCommentable() {
@@ -262,16 +280,16 @@ class Contest extends DatabaseObject {
 		
 	/**
 	 * Returns true, if the active user can solution this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
-	public function isSponsorable() {
-		return WCF::getUser()->userID && $this->state != 'closed';
+	public function isSponsorable($userCheck = true) {
+		return (!$userCheck || WCF::getUser()->userID) && $this->state != 'closed';
 	}
 		
 	/**
 	 * Returns true, if the active user can solution this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isSponsortalkable() {
@@ -289,11 +307,11 @@ class Contest extends DatabaseObject {
 		
 	/**
 	 * Returns true, if the active user can solution this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
-	public function isParticipantable() {
-		if(WCF::getUser()->userID == 0 || $this->isOwner() || $this->state == 'closed'
+	public function isParticipantable($userCheck = true) {
+		if(($userCheck && WCF::getUser()->userID == 0) || $this->isOwner() || $this->state == 'closed'
 		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
 			return false;
 		}
@@ -308,7 +326,7 @@ class Contest extends DatabaseObject {
 		
 	/**
 	 * Returns true, if the active user can join the jury.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isJuryable() {
@@ -317,7 +335,7 @@ class Contest extends DatabaseObject {
 		
 	/**
 	 * Returns true, if the active user can add prices to this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isPriceable() {
@@ -337,7 +355,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Counts the entrys of a user.
-	 * 
+	 *
 	 * @param	integer		$userID
 	 * @return	integer
 	 */
@@ -353,16 +371,16 @@ class Contest extends DatabaseObject {
 
 	/**
 	 * Returns true, if the active user is member
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::isOwner($this->userID, $this->groupID);
+		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
 	
 	/**
 	 * Returns true, if the active user can edit this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isEditable() {
@@ -371,7 +389,7 @@ class Contest extends DatabaseObject {
 	
 	/**
 	 * Returns true, if the active user can delete this entry.
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isDeletable() {
@@ -433,7 +451,7 @@ class Contest extends DatabaseObject {
 			-- owner
 			IF(
 				contest.groupID > 0,
-				contest.groupID IN (".implode(",", $groupIDs)."), 
+				contest.groupID IN (".implode(",", $groupIDs)."),
 				contest.userID > 0 AND contest.userID = ".$userID."
 			)
 		) OR (

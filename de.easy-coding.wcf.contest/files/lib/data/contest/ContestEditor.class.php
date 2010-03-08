@@ -1,7 +1,6 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-require_once(WCF_DIR.'lib/data/image/Thumbnail.class.php');
 
 /**
  * Provides functions to manage contest entries.
@@ -28,7 +27,8 @@ class ContestEditor extends Contest {
 	 * @param	MessageAttachmentListEditor	$attachmentList
 	 * @return	ContestEditor
 	 */
-	public static function create($userID, $groupID, $subject, $message, $options = array(), $classIDArray = array(), $participants = array(), $jurys = array(), $prices = array(), $sponsors = array(), $attachmentList = null) {
+	public static function create($userID, $groupID, $subject, $message, $options = array(), $classIDArray = array(), $participants = array(), 
+	    $jurys = array(), $prices = array(), $sponsors = array(), $attachmentList = null) {
 	
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
@@ -37,7 +37,8 @@ class ContestEditor extends Contest {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest
 					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml,
 					enableBBCodes, enableParticipantCheck, enableSponsorCheck)
-			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', ".TIME_NOW.", ".$attachmentsAmount.",
+			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', 
+					".TIME_NOW.", ".$attachmentsAmount.",
 					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 					".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).",
@@ -72,6 +73,7 @@ class ContestEditor extends Contest {
 		$entry->setJurys($jurys);
 		
 		// update prices
+		$sponsorID = 0;
 		if (count($sponsors) > 0 || count($prices) > 0) {
 			if(count($prices)) {
 				$sponsorID = $entry->setSponsors($sponsors, $userID, $groupID);
@@ -167,16 +169,45 @@ class ContestEditor extends Contest {
 	 * @param	integer		$classIDArray
 	 */
 	public function setClasses($classIDArray = array()) {
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
+		$existing = array();
+		$sql = "SELECT		classID
+			FROM		wcf".WCF_N."_contest_to_class
 			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$existing[] = intval($row['classID']);
+		}
 		
-		if (count($classIDArray) > 0) {
-			$sql = "INSERT INTO	wcf".WCF_N."_contest_to_class
-						(contestID, classID)
-				VALUES		(".$this->contestID.", ".implode("), (".$this->contestID.", ", $classIDArray).")";
+		$remove = array_diff($existing, $classIDArray);
+		if(count($remove)) {
+			$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
+				WHERE		contestID = ".$this->contestID."
+				AND		classID IN (".implode(",", $remove).")";
 			WCF::getDB()->sendQuery($sql);
 		}
+		
+		$add = array_diff($classIDArray, $existing);
+		if(count($add) > 0) {
+			$sql = "INSERT INTO	wcf".WCF_N."_contest_to_class
+						(contestID, classID)
+				VALUES		(".$this->contestID.", ".implode("), (".$this->contestID.", ", $add).")";
+			WCF::getDB()->sendQuery($sql);
+		}
+		
+		// trick to make sql query easier
+		$classIDArray[] = -1;
+		$remove[] = -1;
+		$add[] = -1;
+
+		// update class counters
+		$sql = "UPDATE		wcf".WCF_N."_contest_class
+			SET		contests = contests + IF(
+						classID IN (".implode(",", $remove)."),
+						-1,
+						IF(classID IN (".implode(",", $add)."), 1, 0)
+					)
+			WHERE		classID IN (".implode(",", $classIDArray).")";
+		WCF::getDB()->sendQuery($sql);
 	}
 	
 	/**
@@ -276,10 +307,8 @@ class ContestEditor extends Contest {
 			WHERE		contestID = ".$this->contestID;
 		WCF::getDB()->sendQuery($sql);
 		
-		// delete entry to class
-		$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
-			WHERE		contestID = ".$this->contestID;
-		WCF::getDB()->sendQuery($sql);
+		// delete entry to class and update class counters
+		$this->setClasses(array());
 		
 		// delete entry to participant
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
@@ -399,9 +428,8 @@ class ContestEditor extends Contest {
 				$arr = array();
 			break;
 		}
-		
 
-		if($current != 'closed' && $isClosable) {
+		if($isClosable && in_array($arr, 'closed')) {
 			$arr[] = 'close';
 		}
 		

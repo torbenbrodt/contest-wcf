@@ -1,7 +1,7 @@
 <?php
 
 /**
- * the supermod is the crew... the only person who can apply contests
+ * the supermod is the crew... the only persons who can apply contests
  *
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de

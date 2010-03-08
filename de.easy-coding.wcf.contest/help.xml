@@ -3,7 +3,36 @@
 	<import>
 		<helpitem name="contest">
 			<showorder>9</showorder>
-			<refererpattern><![CDATA[index\.php\?(?:page=Contest|form=Contest)]]></refererpattern>
+			<refererpattern><![CDATA[index\.php\?(?:page=Contest|form=Contest).*]]></refererpattern>
+			<options>module_contest</options>
+		</helpitem>
+		<helpitem name="contest.entry">
+			<parent>contest</parent>
+			<showorder>1</showorder>
+			<refererpattern><![CDATA[index\.php\?(page|form)=ContestEntry.*)]]></refererpattern>
+			<options>module_contest</options>
+		</helpitem>
+		<helpitem name="contest.participant">
+			<parent>contest</parent>
+			<showorder>2</showorder>
+			<refererpattern><![CDATA[index\.php\?(page|form)=Contest(Participant|Solution).*]]></refererpattern>
+			<options>module_contest</options>
+		</helpitem>
+		<helpitem name="contest.jury">
+			<parent>contest</parent>
+			<showorder>3</showorder>
+			<refererpattern><![CDATA[index\.php\?(page|form)=ContestJury.*]]></refererpattern>
+			<options>module_contest</options>
+		</helpitem>
+		<helpitem name="contest.sponsor">
+			<parent>contest</parent>
+			<showorder>4</showorder>
+			<refererpattern><![CDATA[index\.php\?(page|form)=ContestSponsor.*]]></refererpattern>
+			<options>module_contest</options>
+		</helpitem>
+		<helpitem name="contest.crew">
+			<parent>contest</parent>
+			<showorder>99</showorder>
 			<options>module_contest</options>
 		</helpitem>
 	</import>

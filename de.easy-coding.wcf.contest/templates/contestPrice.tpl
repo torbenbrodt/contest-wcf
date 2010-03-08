@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{lang}wcf.contest.prices{/lang} - {$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
 	
@@ -37,7 +37,9 @@
 						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">
 						<input type="hidden" name="ContestPricePositionForm" value="1" />{/if}
 						<div class="contentBox">
+							
 							{if $userMessages|isset}{@$userMessages}{/if}
+							{if $prices|count > 0}
 							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
 							
 							<div class="contentHeader">
@@ -174,7 +176,7 @@
 							{/foreach}
 							</ol>
 							
-							{if $entry->isOwner()}		
+							{if $entry->isOwner()}
 							<div class="formSubmit">
 								{@SID_INPUT_TAG}
 								<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
@@ -193,6 +195,7 @@
 									</ul>
 								</div>
 							</div>
+							{/if}
 						</div>
 						{if $action != 'edit'}</form>{/if}
 						

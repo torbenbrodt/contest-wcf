@@ -11,6 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php'
  * @package	de.easy-coding.wcf.contest
  */
 class ContestParticipantEditor extends ContestParticipant {
+
 	/**
 	 * Creates a new participant.
 	 *
@@ -108,16 +109,6 @@ class ContestParticipantEditor extends ContestParticipant {
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
 			WHERE		participantID = ".$this->participantID;
 		WCF::getDB()->sendQuery($sql);
-	}
-	
-	/**
-	 * send event
-	 */
-	protected static function sendEvent($contestID, $userID, $groupID, $eventName, array $data = array()) {
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName($eventName);
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, $data);
 	}
 	
 	/**

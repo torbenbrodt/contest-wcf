@@ -105,7 +105,7 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::isOwner($this->userID, $this->groupID);
+		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
 	
 	/**
@@ -135,6 +135,44 @@ class ContestSolution extends DatabaseObject {
 	public function isDeletable() {
 		return $this->isOwner();
 	}
+	
+	/**
+	 * fills cache
+	 *
+	 * @param	integer		$contestID
+	 */
+	protected static function readWinners($contestID) {
+		// get ordered list of winners
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+		$solutionList = new ContestSolutionList();
+		$solutionList->debug = true;
+		$solutionList->sqlConditions .= 'contest_solution.contestID = '.$contestID;
+		$solutionList->sqlLimit = self::getMaxPosition($contestID);
+		$solutionList->readObjects();
+
+		self::$winners[$contestID] = array();
+		foreach($solutionList->getObjects() as $solution) {
+			self::$winners[$contestID][] = $solution;
+		}
+	}
+	
+	/**
+	 * returns rank of winner list
+	 *
+	 * @return	integer
+	 */
+	public function getRank() {
+		self::readWinners($this->contestID);
+		
+		$i = 1;
+		foreach(self::$winners[$this->contestID] as $solution) {
+			if($solution->solutionID == $this->solutionID) {
+				return $i;
+			}
+			$i++;
+		}
+		return 0;
+	}
 		
 	/**
 	 * before contest end - just jury and owner can add comments - after that, everybody can do so
@@ -142,7 +180,7 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isCommentable() {
-		return true; //TODO: solution commentable
+		return true;
 	}
 
 	/**

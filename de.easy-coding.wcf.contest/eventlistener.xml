@@ -8,6 +8,11 @@
 			<listenerclassfile>lib/system/event/listener/UserPageContestListener.class.php</listenerclassfile>
 		</eventlistener>
 		<eventlistener>
+			<eventclassname>ContestGroupPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/GroupPageContestListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
 			<eventclassname>UserProfileFrame</eventclassname>
 			<eventname>init</eventname>
 			<listenerclassfile>lib/system/event/listener/UserProfileFrameContestTabListener.class.php</listenerclassfile>

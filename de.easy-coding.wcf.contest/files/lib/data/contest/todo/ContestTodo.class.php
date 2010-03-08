@@ -36,7 +36,7 @@ class ContestTodo extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this class.
+	 * Wrapper to getMessage.
 	 * 
 	 * @return	string
 	 */
@@ -45,7 +45,7 @@ class ContestTodo extends DatabaseObject {
 	}
 	
 	/**
-	 * Returns the title of this class.
+	 * Returns the translated title of this message.
 	 * 
 	 * @return	string
 	 */

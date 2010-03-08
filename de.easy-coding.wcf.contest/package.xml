@@ -58,6 +58,10 @@
 		<templates>templates.tar</templates>
 		<sql>update030Beta1.sql</sql>
 		
+		<!-- config -->
+		<help>help.xml</help>
+		<eventlistener>eventlistener.xml</eventlistener>
+		
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>

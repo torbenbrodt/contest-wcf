@@ -25,6 +25,7 @@
 		<img src="{icon}contestL.png{/icon}" alt="" />
 		<div class="headlineContainer">
 			<h2>{lang}wcf.contest.overview{/lang}</h2>
+			<p>{lang}wcf.contest.overview.description{/lang}</p>
 		</div>
 	</div>
 	
@@ -50,25 +51,25 @@
 						<div class="message content">
 							<div class="messageInner {cycle values='container-1,container-2'}">
 								<a id="entry{@$entry->contestID}"></a>
-								<div class="messageHeader"{if $entry->fromTime > 0 || $entry->untilTime > 0} style="border-style:dashed"{/if}>
+								<div class="messageHeader"{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)} style="border-style:dashed"{/if}>
 									<p class="messageCount">
 										<a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 									</p>
 									<div class="containerIcon">
 										{if $entry->getOwner()->getAvatar()}
 											{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
-											<a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}" title="{lang username=$entry->username}wcf.user.viewProfile{/lang}">{@$entry->getOwner()->getAvatar()}</a>
+											<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{@$entry->getOwner()->getAvatar()}</a>
 										{else}
-											<a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}" title="{lang username=$entry->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
+											<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 										{/if}
 									</div>
 									<div class="containerContent">
 										<div style="float:right">*{$entry->state}*</div>
 										<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
-										<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="index.php?page=User&amp;userID={@$entry->userID}{@SID_ARG_2ND}">{$entry->username}</a> ({@$entry->time|time})</p>
+										<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{$entry->getOwner()->getName()}</a> ({@$entry->time|time})</p>
 									</div>
 								</div>
-								{if $entry->fromTime > 0 || $entry->untilTime > 0}
+								{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)}
 								<div class="messageHeader">
 									<div class="containerIcon">
 										<img src="{icon}contestScheduledM.png{/icon}" alt="" />

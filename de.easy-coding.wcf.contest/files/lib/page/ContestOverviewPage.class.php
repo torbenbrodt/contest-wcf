@@ -8,7 +8,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * Shows an overview of all user contests.
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -196,9 +196,7 @@ class ContestOverviewPage extends MultipleLinkPage {
 		WCF::getTPL()->assign(array(
 			'entries' => $this->entryList->getObjects(),
 			'classes' => $this->entryList->getClasses(),
-			'jurys' => $this->entryList->getJurys(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
-			'participants' => $this->entryList->getParticipants(),
 			'tags' => $this->entryList->getTags(),
 			'availableTags' => $this->tags,
 			'tagID' => $this->tagID,

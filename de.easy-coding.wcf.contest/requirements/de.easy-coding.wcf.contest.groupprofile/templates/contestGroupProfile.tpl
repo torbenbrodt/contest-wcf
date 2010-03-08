@@ -53,7 +53,7 @@
 								{/foreach}
 							</ul>
 
-							{if $additionalContents2|isset}{@$additionalContents2}{/if}
+							{if $additionalContents1|isset}{@$additionalContents1}{/if}
 			
 							{if $userlist|count > 0}
 								<div class="contentBox">
@@ -83,6 +83,8 @@
 									</div>
 								</div>
 							{/if}
+
+							{if $additionalContents2|isset}{@$additionalContents2}{/if}
 							
 							<div class="contentFooter"> </div>
 						</div>

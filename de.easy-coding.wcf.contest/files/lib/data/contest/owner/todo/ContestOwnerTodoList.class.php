@@ -18,13 +18,6 @@ class ContestOwnerTodoList extends DatabaseObjectList {
 	 * @var array<ViewableContestOwnerTodo>
 	 */
 	public $todos = array();
-
-	/**
-	 * sql order by statement
-	 *
-	 * @var	string
-	 */
-	public $sqlOrderBy = 'contest.contestID';
 	
 	/**
 	 * @see DatabaseObjectList::countObjects()
@@ -42,11 +35,24 @@ class ContestOwnerTodoList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::readObjects()
 	 */
 	public function readObjects() {
-		$sql = "SELECT		*,
-					'owner.solution.applied' AS action
-			FROM		wcf".WCF_N."_contest_solution contest
-			WHERE		state = 'applied'
-			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
+		$sql_todo = array();
+		
+		// care for solution which applied
+		$sql_todos[] = "SELECT		'owner.solution.applied' AS action
+				FROM		wcf".WCF_N."_contest_solution contest
+				WHERE		state = 'applied'
+				".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
+		
+		// care for sponsors' prices which were applied
+		$sql_todos[] = "SELECT		'owner.price.applied' AS action
+				FROM		wcf".WCF_N."_contest_price contest
+				WHERE		state = 'applied'
+				".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
+	
+		$sql = "SELECT	*
+			FROM (
+				".implode(" UNION ", $sql_todos)."
+			) contest
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

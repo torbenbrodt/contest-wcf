@@ -115,7 +115,9 @@ CREATE TABLE wcf1_contest_sponsortalk (
 DROP TABLE IF EXISTS wcf1_contest_class;
 CREATE TABLE wcf1_contest_class (
 	classID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(255) NOT NULL DEFAULT ''
+	title VARCHAR(255) NOT NULL DEFAULT '',
+	contests SMALLINT(5) NOT NULL DEFAULT 0,
+	KEY (contests)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_to_class;

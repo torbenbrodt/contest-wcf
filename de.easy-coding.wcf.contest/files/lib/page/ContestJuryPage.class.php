@@ -11,7 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
  * show/edit jury entries
  * 
  * @author	Torben Brodt
- * @copyright 2010 easy-coding.de
+ * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
@@ -94,7 +94,9 @@ class ContestJuryPage extends MultipleLinkPage {
 		$this->juryList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry);
+		$this->sidebar = new ContestSidebar($this, $this->entry, array(
+			'juryList'
+		));
 	}
 	
 	/**

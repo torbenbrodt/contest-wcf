@@ -72,12 +72,8 @@ class ContestPricePickAction extends AbstractSecureAction {
 	public function execute() {
 		parent::execute();
 		
-		// TODO: get rank of solution
-		// $position = $solution->getRank();
-		$position = 1;
-		
 		// pick price
-		$this->price->pick($this->solutionID, $position);
+		$this->price->pick($this->solutionID, $this->solution->getRank());
 		$this->executed();
 		
 		// forward
