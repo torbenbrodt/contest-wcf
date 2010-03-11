@@ -49,7 +49,7 @@ class ContestJurytalk extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::get($this->userID, $this->groupID)->isMe();
+		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
 	
 	/**
