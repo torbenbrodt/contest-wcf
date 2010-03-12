@@ -30,4 +30,5 @@
 
 		<item name="wcf.contest.notification.sponsortalkcreate.title"><![CDATA[Neuer Sponsortalk-Kommentar]]></item>
 		<item name="wcf.contest.notification.sponsortalkcreate.description"><![CDATA[Als Sponsor erhalten Sie eine Benachrichtigung, falls einer der andere Sponsoren ein Kommentar veröffentlicht.]]></item>
+	</category>
 </language>
