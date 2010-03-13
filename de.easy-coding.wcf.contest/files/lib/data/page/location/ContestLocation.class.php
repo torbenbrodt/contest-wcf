@@ -30,7 +30,7 @@ class ContestLocation implements Location {
 	 * @see Location::cache()
 	 */
 	public function cache($location, $requestURI, $requestMethod, $match) {
-		#$this->cachedEntryIDArray[] = $match[1]; TODO
+		#$this->cachedEntryIDArray[] = $match[1]; TODO ContestLocation
 	}
 	
 	/**
