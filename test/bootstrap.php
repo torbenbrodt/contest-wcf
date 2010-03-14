@@ -13,9 +13,12 @@ function loadFile($file) {
 	$foo = substr(substr(file_get_contents($file), 5), 0, -2);
 	$foo = str_replace('$packageDirs', '$GLOBALS[\'packageDirs\']', $foo);
 	$foo = str_replace('dirname(__FILE__)', '\''.dirname($file).'\'', $foo);
-	$foo = str_replace('require_once', 'echo', $foo);
+	$foo = str_replace('require_once', 'void', $foo);
 	eval($foo);
 	chdir($returndir);
+}
+
+function void($x) {
 }
 
 loadFile(WCFTEST_STANDALONE_PATH.'config.inc.php');

@@ -22,6 +22,29 @@ class WCFTest extends PHPUnit_Framework_TestCase {
 			$groupIDs
 		);
 	}
+
+	/**
+	 *
+	 */
+	protected function createGroup() {
+		require_once(WCF_DIR.'lib/util/StringUtil.class.php');
+		require_once(WCF_DIR.'lib/data/user/group/GroupEditor.class.php');
+		
+		$group = GroupEditor::create(
+			$groupName = StringUtil::getRandomID()
+		);
+		
+		// WCF does not clear instance caches... so rebuild
+		$classFile = WCF_DIR.'lib/system/cache/CacheBuilderGroups.class.php';
+		WCF::getCache()->rebuild(array(
+			'cache' => 'groups',
+			'file' => WCF_DIR.'cache/cache.groups.php', 
+			'className' => StringUtil::getClassName($classFile), 
+			'classFile' => $classFile
+		));
+		
+		return $group;
+	}
 	
 	/**
 	 * set the current session user
@@ -29,10 +52,10 @@ class WCFTest extends PHPUnit_Framework_TestCase {
 	 * @param	User		$user
 	 */
 	protected function setCurrentUser(User $user) {
-		$keys = array('userID', 'username', 'email', 'password', 'salt');
-		foreach($keys as $key) {
-			WCF::getUser()->$key = $user->$key;
+		if(!class_exists('WCFWrapper')) {
+			require_once('WCFWrapper.php');
 		}
+		WCFWrapper::setUser($user->userID);
 	}
 
 	/**

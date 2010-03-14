@@ -17,6 +17,8 @@ class WCFModelTest extends WCFTest {
 		foreach($this->deleteArray as $delete) {
 			if(class_exists('UserEditor') && $delete instanceof User) {
 				UserEditor::deleteUsers(array($delete->userID));
+			} else if (class_exists('GroupEditor') && $delete instanceof Group) {
+				GroupEditor::deleteGroups(array($delete->groupID));
 			} else {
 				$delete->delete();
 			}

@@ -24,14 +24,6 @@ class ContestOwner {
 	 * @var array<ContestOwner>
 	 */
 	public static $instances = array();
-
-	/**
-	 * cache in getGroupids, will become array after first call
-	 * 
-	 * @var null|array
-	 */
-	private static $currentGroupIDs = null;
-
 	/**
 	 * the meaningful instance 
 	 *
@@ -52,12 +44,18 @@ class ContestOwner {
 				$this->owner = new ContestGroupProfile(null, $data);
 			} else {
 				$this->owner = new ContestGroupProfile($groupID);
+				if($this->owner->groupID != $groupID) {
+					throw new Exception('groupID '.$groupID.' not found');
+				}
 			}
 		} else {
 			if(isset($data['userID'], $data['username'])) {
 				$this->owner = new UserProfile(null, $data);
 			} else {
 				$this->owner = new UserProfile($userID);
+				if($this->owner->userID != $userID) {
+					throw new Exception('userID '.$userID.' not found');
+				}
 			}
 		}
 		
@@ -146,17 +144,7 @@ class ContestOwner {
 			return false;
 		}
 
-		return $myuserID == $this->userID || in_array($this->groupID, self::getCurrentGroupIDs());
-	}
-	
-	/**
-	 * i don't care for blackbox thinking ;)
-	 * calling the wcf class for a hundred times in inperformat, thats why i use this wrapper method
-	 * 
-	 * @return array<integer>
-	 */
-	private static function getCurrentGroupIDs() {
-		return self::$currentGroupIDs !== null ? self::$currentGroupIDs : self::$currentGroupIDs = WCF::getUser()->getGroupIDs();
+		return $myuserID == $this->owner->userID || in_array($this->owner->groupID, WCF::getUser()->getGroupIDs());
 	}
 }
 ?>

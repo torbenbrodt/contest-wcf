@@ -132,6 +132,9 @@ class ContestSidebar {
 		$this->juryList = new ContestJuryList();
 		if($this->contest !== null) {
 			$this->juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID;
+		} else {
+			$this->juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
+			$this->juryList->sqlConditions .= 'contest.state = "scheduled"';
 		}
 		$this->juryList->sqlOrderBy = 'juryID DESC';
 		if(!in_array('juryList', $this->disabledModules)) {
@@ -142,6 +145,9 @@ class ContestSidebar {
 		$this->participantList = new ContestParticipantList();
 		if($this->contest !== null) {
 			$this->participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID;
+		} else {
+			$this->participantList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_participant.contestID ";
+			$this->participantList->sqlConditions .= 'contest.state = "scheduled"';
 		}
 		$this->participantList->sqlOrderBy = 'participantID DESC';
 		if(!in_array('participantList', $this->disabledModules)) {
@@ -152,6 +158,9 @@ class ContestSidebar {
 		$this->sponsorList = new ContestSponsorList();
 		if($this->contest !== null) {
 			$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID;
+		} else {
+			$this->sponsorList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_sponsor.contestID ";
+			$this->sponsorList->sqlConditions .= 'contest.state = "scheduled"';
 		}
 		$this->sponsorList->sqlOrderBy = 'sponsorID DESC';
 		if(!in_array('sponsorList', $this->disabledModules)) {
@@ -162,6 +171,9 @@ class ContestSidebar {
 		$this->priceList = new ContestPriceList();
 		if($this->contest !== null) {
 			$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID;
+		} else {
+			$this->priceList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_price.contestID ";
+			$this->priceList->sqlConditions .= 'contest.state = "scheduled"';
 		}
 		$this->priceList->sqlOrderBy = 'priceID DESC';
 		if(!in_array('priceList', $this->disabledModules)) {
