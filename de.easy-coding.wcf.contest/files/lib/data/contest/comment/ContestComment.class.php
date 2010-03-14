@@ -45,7 +45,7 @@ class ContestComment extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
+		return ContestOwner::get($this->userID)->isCurrentUser();
 	}
 	
 	/**

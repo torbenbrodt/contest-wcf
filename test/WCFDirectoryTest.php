@@ -1,6 +1,6 @@
 <?php
 
-class WCFDirectoryTest extends WCFTest {
+class WCFDirectoryTest extends PHPUnit_Framework_TestCase {
 	protected $pattern = '';
 	protected $files = array();
 

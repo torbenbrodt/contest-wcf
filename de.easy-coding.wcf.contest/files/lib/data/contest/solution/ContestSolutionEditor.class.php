@@ -23,7 +23,7 @@ class ContestSolutionEditor extends ContestSolution {
 	 * @param	MessageAttachmentListEditor	$attachmentList
 	 * @return	ContestSolutionEditor
 	 */
-	public static function create($contestID, $participantID, $message, $state = '', $options = array(), $attachmentList = null) {
+	public static function create($contestID, $participantID, $message, $state = 'private', $options = array(), $attachmentList = null) {
 	
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
@@ -53,6 +53,8 @@ class ContestSolutionEditor extends ContestSolution {
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 		$eventName = ContestEvent::getEventName(__METHOD__);
+		
+		require_once(WCF_DIR.'lib/data/contest/participant/ViewableContestParticipant.class.php');
 		$participant = new ViewableContestParticipant($participantID);
 		ContestEventEditor::create($contestID, $participant->userID, $participant->groupID, $eventName, array(
 			'solutionID' => $solutionID,

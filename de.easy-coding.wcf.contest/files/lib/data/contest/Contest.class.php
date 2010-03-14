@@ -53,7 +53,7 @@ class Contest extends DatabaseObject {
 		if ($contestID !== null) {
 			$sql = "SELECT	*
 				FROM 	wcf".WCF_N."_contest
-				WHERE 	contestID = ".$contestID;
+				WHERE 	contestID = ".intval($contestID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -114,7 +114,7 @@ class Contest extends DatabaseObject {
 
 		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');		
 		$this->participantList = new ContestParticipantList();
-		$this->participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contestID;
+		$this->participantList->sqlConditions .= 'contest_participant.contestID = '.intval($this->contestID);
 		$this->participantList->readObjects();
 		
 		return $this->participantList->getObjects();
@@ -132,7 +132,7 @@ class Contest extends DatabaseObject {
 
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');		
 		$this->solutionList = new ContestSolutionList();
-		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
+		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($this->contestID);
 		$this->solutionList->readObjects();
 		
 		return $this->solutionList->getObjects();
@@ -150,7 +150,7 @@ class Contest extends DatabaseObject {
 
 		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');		
 		$this->juryList = new ContestJuryList();
-		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contestID;
+		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.intval($this->contestID);
 		$this->juryList->readObjects();
 		
 		return $this->juryList->getObjects();
@@ -168,7 +168,7 @@ class Contest extends DatabaseObject {
 
 		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');		
 		$this->sponsorList = new ContestSponsorList();
-		$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contestID;
+		$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.intval($this->contestID);
 		$this->sponsorList->readObjects();
 		
 		return $this->sponsorList->getObjects();
@@ -225,7 +225,7 @@ class Contest extends DatabaseObject {
 			foreach($this->closableChecks as $check) {
 				require_once($check['classPath']);
 				$todoList = new $check['className']();
-				$todoList->sqlConditions .= 'contestID = '.$this->contestID;
+				$todoList->sqlConditions .= 'contestID = '.intval($this->contestID);
 				if($num = $todoList->countObjects()) {
 					throw new Exception($row['className'].' returns '.$num.' todo objects.');
 				}

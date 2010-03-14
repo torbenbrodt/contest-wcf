@@ -74,7 +74,7 @@ class ContestOwner {
 	 * @param	integer		$userID
 	 * @param	integer		$groupID
 	 */
-	public static function get($userID, $groupID) {
+	public static function get($userID, $groupID = 0) {
 		$key = md5(serialize(array($userID, $groupID)));
 		if(!isset(self::$instances[$key])) {
 			self::$instances[$key] = new self(null, $userID, $groupID);

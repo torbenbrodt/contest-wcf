@@ -18,6 +18,14 @@ require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
  */
 class ContestSolution extends DatabaseObject {
 	/**
+	 * cache for readWinners
+	 * key = contestID, val = array<ContestSolution>
+	 *
+	 * @var array
+	 */
+	protected static $winners = array();
+
+	/**
 	 * Creates a new ContestSolution object.
 	 *
 	 * @param	integer		$solutionID
@@ -142,12 +150,17 @@ class ContestSolution extends DatabaseObject {
 	 * @param	integer		$contestID
 	 */
 	protected static function readWinners($contestID) {
+		if(isset(self::$winners[$contestID])) {
+			return self::$winners[$contestID];
+		}
+		
 		// get ordered list of winners
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
 		$solutionList = new ContestSolutionList();
 		$solutionList->debug = true;
 		$solutionList->sqlConditions .= 'contest_solution.contestID = '.$contestID;
-		$solutionList->sqlLimit = self::getMaxPosition($contestID);
+		$solutionList->sqlLimit = ContestPrice::getMaxPosition($contestID);
 		$solutionList->readObjects();
 
 		self::$winners[$contestID] = array();
