@@ -168,20 +168,30 @@ class ContestEditor extends Contest {
 	 *
 	 * @param	integer		$classIDArray
 	 */
-	public function setClasses($classIDArray = array()) {
+	public function getClasses() {
 		$existing = array();
 		$sql = "SELECT		classID
 			FROM		wcf".WCF_N."_contest_to_class
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$existing[] = intval($row['classID']);
 		}
+		return $existing;
+	}
+	
+	/**
+	 * Sets the classes of this entry.
+	 *
+	 * @param	integer		$classIDArray
+	 */
+	public function setClasses($classIDArray = array()) {
+		$existing = $this->getClasses();
 		
 		$remove = array_diff($existing, $classIDArray);
 		if(count($remove)) {
 			$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
-				WHERE		contestID = ".$this->contestID."
+				WHERE		contestID = ".intval($this->contestID)."
 				AND		classID IN (".implode(",", $remove).")";
 			WCF::getDB()->sendQuery($sql);
 		}
@@ -206,7 +216,7 @@ class ContestEditor extends Contest {
 						-1,
 						IF(classID IN (".implode(",", $add)."), 1, 0)
 					)
-			WHERE		classID IN (".implode(",", $classIDArray).")";
+			WHERE		classID IN (".implode(",", array_merge($remove, $add)).")";
 		WCF::getDB()->sendQuery($sql);
 	}
 	

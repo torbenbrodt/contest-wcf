@@ -38,7 +38,6 @@ class ContestSolutionTest extends WCFModelTest {
 	}
 
 	public function testCreate() {
-	return;
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
 		$this->deleteArray[] = $user = $this->createUser();
@@ -66,7 +65,6 @@ class ContestSolutionTest extends WCFModelTest {
 	}
 	
 	public function testReflectionAPI() {
-	return;
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
 		$this->deleteArray[] = $user = $this->createUser();

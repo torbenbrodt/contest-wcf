@@ -23,6 +23,7 @@ function void($x) {
 
 loadFile(WCFTEST_STANDALONE_PATH.'config.inc.php');
 loadFile(WBB_DIR.RELATIVE_WCF_DIR.'global.php');
+loadFile(WCFTEST_STANDALONE_PATH.'options.inc.php');
 $GLOBALS['packageDirs'][] = WCF_DIR;
 
 // base classes
