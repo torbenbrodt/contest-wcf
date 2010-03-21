@@ -52,7 +52,7 @@ class ContestCrewTodoList extends DatabaseObjectList {
 		}
 		
 		$sql = "SELECT		*,
-					'crew.applied' AS action
+					'crew.contest.applied' AS action
 			FROM		wcf".WCF_N."_contest contest
 			WHERE		state = 'applied'
 			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."

@@ -9,6 +9,13 @@ class WCFTest extends PHPUnit_Framework_TestCase {
 	protected $returndir = '';
 
 	/**
+	 * for model tests
+	 * 
+	 * @var	array<DatabaseObject>
+	 */
+	protected $deleteArray = array();
+
+	/**
 	 *
 	 */
 	protected function createUser($groupIDs = array()) {
@@ -26,12 +33,13 @@ class WCFTest extends PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 */
-	protected function createGroup() {
+	protected function createGroup($groupOptions = array()) {
 		require_once(WCF_DIR.'lib/util/StringUtil.class.php');
 		require_once(WCF_DIR.'lib/data/user/group/GroupEditor.class.php');
 		
 		$group = GroupEditor::create(
-			$groupName = StringUtil::getRandomID()
+			$groupName = StringUtil::getRandomID(),
+			$groupOptions
 		);
 		
 		// WCF does not clear instance caches... so rebuild
@@ -80,6 +88,16 @@ class WCFTest extends PHPUnit_Framework_TestCase {
 	 * This method is called after a test is executed.
 	 */
 	protected function tearDown() {
+		foreach($this->deleteArray as $delete) {
+			if(class_exists('UserEditor') && $delete instanceof User) {
+				UserEditor::deleteUsers(array($delete->userID));
+			} else if (class_exists('GroupEditor') && $delete instanceof Group) {
+				GroupEditor::deleteGroups(array($delete->groupID));
+			} else {
+				$delete->delete();
+			}
+		}
+
 		chdir($this->returndir);
 	}
 }

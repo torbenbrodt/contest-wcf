@@ -37,6 +37,12 @@ class ContestOwnerTodoList extends DatabaseObjectList {
 	public function readObjects() {
 		$sql_todo = array();
 		
+		// care for contest which still is private
+		$sql_todos[] = "SELECT		'owner.contest.private' AS action
+				FROM		wcf".WCF_N."_contest contest
+				WHERE		state = 'private'
+				".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
+		
 		// care for solution which applied
 		$sql_todos[] = "SELECT		'owner.solution.applied' AS action
 				FROM		wcf".WCF_N."_contest_solution contest

@@ -12,7 +12,7 @@ class WCFWrapper extends WCF {
 	 */
 	public static function setUser($userID) {
 		require_once(WCF_DIR.'lib/system/session/UserSession.class.php');
-		self::$userObj = new UserSession($userID);
+		self::$userObj = new WCFNullwrapper(new UserSession($userID));
 	}
 
 }

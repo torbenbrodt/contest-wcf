@@ -107,6 +107,8 @@
 		<item name="wcf.contest.class.error.tooManyClasses"><![CDATA[The maximum number of classes has been reached. You cannot create more classes.]]></item>
 		<item name="wcf.contest.class.title"><![CDATA[Title]]></item>
 		<item name="wcf.contest.class.title.error.notUnique"><![CDATA[This name has already been taken.]]></item>
+		<item name="wcf.contest.entries.allEntries"><![CDATA[All contests]]></item>
+		<item name="wcf.contest.entries.tagged"><![CDATA[Contests including the tag &raquo;{$tag->getName()}&laquo;]]></item>
 		<item name="wcf.contest.contests.allEntries"><![CDATA[All contests]]></item>
 		<item name="wcf.contest.contests.tagged"><![CDATA[Entries with the tag &quot;{$tag->getName()}&quot;]]></item>
 		<item name="wcf.contest.add"><![CDATA[Write entry]]></item>
@@ -116,11 +118,22 @@
 		<item name="wcf.contest.owner.description"><![CDATA[Whom should this contest belongs to.]]></item>
 		<item name="wcf.contest.jury"><![CDATA[Jury]]></item>
 		<item name="wcf.contest.jurys"><![CDATA[Jurys]]></item>
+		<item name="wcf.contest.jury.owner.description"><![CDATA[]]></item>
+		<item name="wcf.contest.jury.description"><![CDATA[]]></item>
 		<item name="wcf.contest.jury.add"><![CDATA[Add jury]]></item>
 		<item name="wcf.contest.jury.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant"><![CDATA[Participant]]></item>
-		<item name="wcf.contest.participant"><![CDATA[Participants]]></item>
+		<item name="wcf.contest.participants"><![CDATA[Participants]]></item>
+		<item name="wcf.contest.participant.owner.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant.add"><![CDATA[Add participant]]></item>
+		<item name="wcf.contest.participant.add.description"><![CDATA[]]></item>
+		<item name="wcf.contest.participant.by"><![CDATA[By]]></item>
+		<item name="wcf.contest.participant.delete"><![CDATA[Delete participant]]></item>
+		<item name="wcf.contest.participant.delete.sure"><![CDATA[Do you really want to delete this participant?]]></item>
+		<item name="wcf.contest.participant.edit"><![CDATA[Edit participant]]></item>
+		<item name="wcf.contest.participant.edit.description"><![CDATA[]]></item>
+		<item name="wcf.contest.participant.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
+		<item name="wcf.contest.participant.permalink"><![CDATA[Permalink to participant no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.participant.invite"><![CDATA[Invite participant]]></item>
 		<item name="wcf.contest.participant.description"><![CDATA[]]></item>
 		<item name="wcf.contest.sponsor"><![CDATA[Sponsor]]></item>
@@ -184,6 +197,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.jurytalk.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.contest.jurytalk.permalink"><![CDATA[Permalink to Jurytalk no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.jurytalks"><![CDATA[Jurytalks]]></item>
+		<item name="wcf.contest.jurytalk.owner.description"><![CDATA[]]></item>
 		<item name="wcf.contest.jury"><![CDATA[Jury]]></item>
 		<item name="wcf.contest.jury.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.contest.jury.message"><![CDATA[Message]]></item>
@@ -222,6 +236,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.sponsor.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		<item name="wcf.contest.sponsor.permalink"><![CDATA[Permalink to Sponsor no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.sponsors"><![CDATA[Sponsors]]></item>
+		<item name="wcf.contest.sponsor.owner.description"><![CDATA[]]></item>
 		<item name="wcf.contest.delete"><![CDATA[Delete entry]]></item>
 		<item name="wcf.contest.delete.sure"><![CDATA[Do you really want to delete this entry?]]></item>
 		<item name="wcf.contest.edit"><![CDATA[Edit entry]]></item>
@@ -242,11 +257,13 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.price.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.price.description"><![CDATA[]]></item>
 		<item name="wcf.contest.price.add"><![CDATA[Add price]]></item>
+		<item name="wcf.contest.price.pick"><![CDATA[Pick]]></item>
 		<item name="wcf.contest.price.delete"><![CDATA[Delete price]]></item>
 		<item name="wcf.contest.price.delete.sure"><![CDATA[Do you really want to delete this price?]]></item>
 		<item name="wcf.contest.price.edit"><![CDATA[Edit price]]></item>
 		<item name="wcf.contest.price.subject"><![CDATA[Name]]></item>
 		<item name="wcf.contest.price.message"><![CDATA[Description]]></item>
+		<item name="wcf.contest.price.error.tooLong"><![CDATA[Your message is too long. The maximum length of a message is {#$maxTextLength} characters.]]></item>
 		
 		<item name="wcf.contest.winner"><![CDATA[Winner]]></item>
 		<item name="wcf.contest.winner.by"><![CDATA[Won by]]></item>
@@ -280,6 +297,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		
 		<item name="wcf.contest.rating"><![CDATA[Rating]]></item>
 		<item name="wcf.contest.rating.submit"><![CDATA[Save rating]]></item>
+		<item name="wcf.contest.rating.submit.description"><![CDATA[]]></item>
 		<item name="wcf.contest.ratings"><![CDATA[Ratings]]></item>
 		<item name="wcf.contest.rating.avg.jury"><![CDATA[Ø Jury]]></item>
 		<item name="wcf.contest.rating.avg.total"><![CDATA[Ø Total]]></item>

@@ -31,4 +31,5 @@ require_once('WCFTest.php');
 require_once('WCFModelTest.php');
 require_once('WCFDirectoryTest.php');
 require_once('WCFHTTPTest.php');
+require_once('WCFNullWrapper.php');
 ?>

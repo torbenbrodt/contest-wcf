@@ -1,31 +1,6 @@
 <?php
 
 class WCFModelTest extends WCFTest {
-
-	/**
-	 * for model tests
-	 * 
-	 * @var	array<DatabaseObject>
-	 */
-	protected $deleteArray = array();
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown() {
-		foreach($this->deleteArray as $delete) {
-			if(class_exists('UserEditor') && $delete instanceof User) {
-				UserEditor::deleteUsers(array($delete->userID));
-			} else if (class_exists('GroupEditor') && $delete instanceof Group) {
-				GroupEditor::deleteGroups(array($delete->groupID));
-			} else {
-				$delete->delete();
-			}
-		}
-		
-		parent::tearDown();
-	}
 	
 	/**
 	 * calls all public method without required parameters using reflection api
