@@ -105,7 +105,8 @@ class ContestPricePage extends MultipleLinkPage {
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry, array(
-			'priceList'
+			'priceList',
+			'advertiseSponsor'
 		));
 	}
 	

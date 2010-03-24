@@ -95,7 +95,8 @@ class ContestJuryPage extends MultipleLinkPage {
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry, array(
-			'juryList'
+			'juryList',
+			'advertiseJury'
 		));
 	}
 	

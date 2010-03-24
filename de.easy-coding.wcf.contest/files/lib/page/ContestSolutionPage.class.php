@@ -41,6 +41,12 @@ class ContestSolutionPage extends MultipleLinkPage {
 	public $solutionList = null;
 	
 	/**
+	 * 
+	 * @var ContestParticipantTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * solution id
 	 * 
 	 * @var	integer
@@ -97,6 +103,12 @@ class ContestSolutionPage extends MultipleLinkPage {
 		$this->solutionList->sqlLimit = $this->itemsPerPage;
 		$this->solutionList->readObjects();
 		
+		// init todo list
+		require_once(WCF_DIR.'lib/data/contest/participant/todo/ContestParticipantTodoList.class.php');
+		$this->todoList = new ContestParticipantTodoList();
+		$this->todoList->sqlConditions .= 'contest_participant.contestID = '.intval($this->contestID);
+		$this->todoList->readObjects();
+		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry);
 	}
@@ -129,6 +141,7 @@ class ContestSolutionPage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'solutions' => $this->solutionList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			

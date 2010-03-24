@@ -90,7 +90,7 @@
 													{if $juryObj->isDeletable()}<a href="index.php?action=ContestJuryDelete&amp;juryID={@$juryObj->juryID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.jury.delete.sure{/lang}')" title="{lang}wcf.contest.jury.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;juryID={@$juryObj->juryID}{@SID_ARG_2ND}#jury{@$juryObj->juryID}" title="{lang}wcf.contest.jury.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$juryObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$juryObj->getOwner()->getName()}</a> <span>*{$juryObj->state}*</span></p>
+												<p><a href="{$juryObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$juryObj->getOwner()->getName()}</a> <span>{@$juryObj->getState()->renderButton()}</span></p>
 												
 											{/if}
 										</div>
@@ -112,6 +112,20 @@
 							</div>
 							{/if}
 						</div>
+						
+						<fieldset>
+							<legend>{lang}wcf.contest.sidebar.becomejury.title{/lang}</legend>
+							{lang}wcf.contest.sidebar.becomejury.description{/lang}
+	
+							<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+								<ul>
+									{if $isRegistered}
+									<li><a href="index.php?page=ContestJury&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+									{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+									{/if}
+								</ul>
+							</div>
+						</fieldset>
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.jury.invite{/lang}</h4>

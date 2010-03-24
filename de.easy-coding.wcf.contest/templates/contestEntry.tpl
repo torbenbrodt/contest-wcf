@@ -1,6 +1,6 @@
 {include file="documentHeader"}
 <head>
-	<title>{$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
+	<title>{$entry->subject} - {if $pageNo > 1}{$pageNo} - {/if}{lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	{include file='imageViewer'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
@@ -50,7 +50,7 @@
 											{/if}
 										</div>
 										<div class="containerContent">
-											<p style="float:right">*{$entry->state}*</p>
+											<div style="float:right">{@$entry->getState()->renderButton()}</div>
 											<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 											<p class="light smallFont">{@$entry->time|time}</p>
 										</div>
@@ -67,7 +67,8 @@
 									</div>
 									{/if}
 									
-									<div{if $pageNo > 1} style="display:none"{/if}>
+									{if $pageNo == 1}
+									<div>
 										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 											{@$entry->getFormattedMessage()}
 										</div>
@@ -93,6 +94,7 @@
 										</div>
 									</div>
 									<hr />
+									{/if}
 								</div>
 							</div>
 							<div class="largeButtons">

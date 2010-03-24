@@ -3,7 +3,7 @@
 /**
  * searches for all xml files and tries to parse xml
  */
-class ContestSponsortalkControllerTest extends WCFHTTPTest {
+class ContestJurytalkControllerTest extends WCFHTTPTest {
 	protected $user = null;
 	protected $contest = null;
 
@@ -29,24 +29,24 @@ class ContestSponsortalkControllerTest extends WCFHTTPTest {
 		$user = $this->user;
 		$contest = $this->contest;
 		
-		// save two sponsortalk entries
-		require_once(WCF_DIR.'lib/data/contest/sponsortalk/ContestSponsortalkEditor.class.php');
-		$this->deleteArray[] = $sponsortalk = ContestSponsortalkEditor::create(
+		// save two jurytalk entries
+		require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php');
+		$this->deleteArray[] = $jurytalk = ContestJurytalkEditor::create(
 			$contestID = $contest->contestID,
-			$sponsortalk = __METHOD__.' sponsortalk #1',
+			$jurytalk = __METHOD__.' jurytalk #1',
 			$userID = $user->userID,
 			$username = $user->username
 		);
-		$this->deleteArray[] = $sponsortalk = ContestSponsortalkEditor::create(
+		$this->deleteArray[] = $jurytalk = ContestJurytalkEditor::create(
 			$contestID = $contest->contestID,
-			$sponsortalk = __METHOD__.' sponsortalk #2',
+			$jurytalk = __METHOD__.' jurytalk #2',
 			$userID = $user->userID,
 			$username = $user->username
 		);
 
 		$raised = false;
 		try {
-			$this->runHTTP('page=ContestSponsortalk&contestID='.$contest->contestID);
+			$this->runHTTP('page=ContestJurytalk&contestID='.$contest->contestID);
 		} catch(Exception $e) {
 			$raised = true;
 		}
@@ -54,30 +54,30 @@ class ContestSponsortalkControllerTest extends WCFHTTPTest {
 		
 		// now try with owner
 		$this->setCurrentUser($user);
-		$this->runHTTP('page=ContestSponsortalk&contestID='.$contest->contestID);
-		$this->assertEquals(count(WCF::getTPL()->get('sponsortalks')), 2);
+		$this->runHTTP('page=ContestJurytalk&contestID='.$contest->contestID);
+		$this->assertEquals(count(WCF::getTPL()->get('jurytalks')), 2);
 		
-		// now try with sponsor member who was invited
-		$this->deleteArray[] = $sponsoruser = $this->createUser();
+		// now try with jury member who was invited
+		$this->deleteArray[] = $juryuser = $this->createUser();
 		
-		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
-		$this->deleteArray[] = $sponsor = ContestSponsorEditor::create(
+		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
+		$this->deleteArray[] = $jury = ContestJuryEditor::create(
 			$contestID = $contest->contestID,
-			$userID = $sponsoruser->userID,
+			$userID = $juryuser->userID,
 			$groupID = 0,
 			$state = 'invited'
 		);
 		
-		$this->setCurrentUser($sponsoruser);
-		$this->runHTTP('page=ContestSponsortalk&contestID='.$contest->contestID);
+		$this->setCurrentUser($juryuser);
+		$this->runHTTP('page=ContestJurytalk&contestID='.$contest->contestID);
 		
 		// invited members should only see first entry
-		$this->assertEquals(count(WCF::getTPL()->get('sponsortalks')), 1);
+		$this->assertEquals(count(WCF::getTPL()->get('jurytalks')), 1);
 		
 		// accepted members should have 2 entries
-		$sponsor->update($contestID, $userID, $groupID, 'accepted');
-		$this->runHTTP('page=ContestSponsortalk&contestID='.$contest->contestID);
-		$this->assertEquals(count(WCF::getTPL()->get('sponsortalks')), 2);
+		$jury->update($contestID, $userID, $groupID, 'accepted');
+		$this->runHTTP('page=ContestJurytalk&contestID='.$contest->contestID);
+		$this->assertEquals(count(WCF::getTPL()->get('jurytalks')), 2);
 	}
 }
 ?>

@@ -31,7 +31,7 @@ class ContestJuryTest extends WCFModelTest {
 			$contestID = 0,
 			$userID = 0,
 			$groupID = 0,
-			$state = 'private'
+			$state = 'invited'
 		);
 		
 		$this->callAllMethodsWithoutRequiredParameters($jury);

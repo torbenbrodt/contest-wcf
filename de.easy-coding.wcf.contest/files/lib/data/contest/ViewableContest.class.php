@@ -105,5 +105,15 @@ class ViewableContest extends Contest {
 	public function getOwner() {
 		return $this->owner;
 	}
+	
+	/**
+	 * Returns a state object.
+	 * 
+	 * @return	ContestState
+	 */
+	public function getState() {
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		return ContestState::get($this->state);
+	}
 }
 ?>

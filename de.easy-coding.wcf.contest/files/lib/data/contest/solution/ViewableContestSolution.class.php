@@ -158,6 +158,16 @@ class ViewableContestSolution extends ContestSolution {
 	}
 	
 	/**
+	 * Returns a state object.
+	 * 
+	 * @return	ContestState
+	 */
+	public function getState() {
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		return ContestState::get($this->state);
+	}
+	
+	/**
 	 * Gets the solutions rating result for template output.
 	 *
 	 * @return	string		solution rating result for template output

@@ -129,5 +129,15 @@ class ViewableContestPrice extends ContestPrice {
 	public function getWinner() {
 		return $this->winner;
 	}
+	
+	/**
+	 * Returns a state object.
+	 * 
+	 * @return	ContestState
+	 */
+	public function getState() {
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		return ContestState::get($this->state);
+	}
 }
 ?>

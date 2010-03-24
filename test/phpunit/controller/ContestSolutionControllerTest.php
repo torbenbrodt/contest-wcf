@@ -3,7 +3,7 @@
 /**
  * searches for all xml files and tries to parse xml
  */
-class ContestControllerTest extends WCFHTTPTest {
+class ContestSolutionControllerTest extends WCFHTTPTest {
 	protected $contest = null;
 
 	/**
@@ -30,7 +30,7 @@ class ContestControllerTest extends WCFHTTPTest {
 
 		$raised = false;
 		try {
-			$this->runHTTP('page=Contest&contestID='.$contest->contestID);
+			$this->runHTTP('page=ContestSolution&contestID='.$contest->contestID);
 		} catch(Exception $e) {
 			$raised = true;
 		}
@@ -38,24 +38,7 @@ class ContestControllerTest extends WCFHTTPTest {
 		
 		// now try with real user
 		$this->setCurrentUser($user);
-		$this->runHTTP('page=Contest&contestID='.$contest->contestID);
-	}
-	
-	public function testContestFeedPage() {
-		$user = $this->user;
-		$contest = $this->contest;
-
-		$raised = false;
-		try {
-			$this->runHTTP('page=ContestFeed&contestID='.$contest->contestID);
-		} catch(Exception $e) {
-			$raised = true;
-		}
-		$this->assertTrue($raised, "user should not be allowed to access a private contest");
-		
-		// now try with real user
-		$this->setCurrentUser($user);
-		$this->runHTTP('page=ContestFeed&contestID='.$contest->contestID);
+		$this->runHTTP('page=ContestSolution&contestID='.$contest->contestID);
 	}
 }
 ?>

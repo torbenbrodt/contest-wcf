@@ -62,6 +62,16 @@ class ViewableContestJury extends ContestJury {
 	}
 	
 	/**
+	 * Returns a state object.
+	 * 
+	 * @return	ContestState
+	 */
+	public function getState() {
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		return ContestState::get($this->state);
+	}
+	
+	/**
 	 * Returns the title of this class.
 	 * 
 	 * @return	string

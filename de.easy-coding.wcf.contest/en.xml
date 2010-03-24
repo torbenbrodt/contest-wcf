@@ -156,10 +156,6 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.solution.permalink"><![CDATA[Permalink to solution no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.solutions"><![CDATA[Solutions]]></item>
 		<item name="wcf.contest.state"><![CDATA[State]]></item>
-		<item name="wcf.contest.state.private"><![CDATA[private]]></item>
-		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>
-		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
-		<item name="wcf.contest.state.scheduled"><![CDATA[scheduled]]></item>
 		<item name="wcf.contest.fromTime"><![CDATA[Startdate]]></item>
 		<item name="wcf.contest.untilTime"><![CDATA[Enddate]]></item>
 		<item name="wcf.contest.comment"><![CDATA[Comment]]></item>
@@ -309,6 +305,17 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[A contest waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[A solution waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[A price waits to be accepted.]]></item>
+		
+		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
+		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>
+		<item name="wcf.contest.state.closed"><![CDATA[closed]]></item>
+		<item name="wcf.contest.state.declined"><![CDATA[declined]]></item>
+		<item name="wcf.contest.state.invited"><![CDATA[invited]]></item>
+		<item name="wcf.contest.state.private"><![CDATA[private]]></item>
+		<item name="wcf.contest.state.received"><![CDATA[received]]></item>
+		<item name="wcf.contest.state.scheduled"><![CDATA[scheduled]]></item>
+		<item name="wcf.contest.state.sent"><![CDATA[sent]]></item>
+		<item name="wcf.contest.state.unknown"><![CDATA[unknown]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>

@@ -64,7 +64,7 @@
 										{/if}
 									</div>
 									<div class="containerContent">
-										<div style="float:right">*{$entry->state}*</div>
+										<div style="float:right">{@$entry->getState()->renderButton()}</div>
 										<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
 										<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{$entry->getOwner()->getName()}</a> ({@$entry->time|time})</p>
 									</div>

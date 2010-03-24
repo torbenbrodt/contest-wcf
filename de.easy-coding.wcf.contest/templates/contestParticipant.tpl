@@ -91,7 +91,7 @@
 													{if $participantObj->isDeletable()}<a href="index.php?action=ContestParticipantDelete&amp;participantID={@$participantObj->participantID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.participant.delete.sure{/lang}')" title="{lang}wcf.contest.participant.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.contest.participant.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a> <span>*{$participantObj->state}*</span></p>
+												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a> <span>{@$participantObj->getState()->renderButton()}</span></p>
 												
 											{/if}
 										</div>
@@ -113,6 +113,21 @@
 							</div>
 							{/if}
 						</div>
+						
+
+						<fieldset>
+							<legend>{lang}wcf.contest.sidebar.becomeparticipant.title{/lang}</legend>
+							{lang}wcf.contest.sidebar.becomeparticipant.description{/lang}
+	
+							<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+								<ul>
+									{if $isRegistered}
+									<li><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+									{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+									{/if}
+								</ul>
+							</div>
+						</fieldset>
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.participant.invite{/lang}</h4>

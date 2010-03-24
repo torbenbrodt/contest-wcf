@@ -159,10 +159,6 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.solution.permalink"><![CDATA[Permalink zur {#$messageNumber}. Lösung]]></item>
 		<item name="wcf.contest.solutions"><![CDATA[Lösungen]]></item>
 		<item name="wcf.contest.state"><![CDATA[Status]]></item>
-		<item name="wcf.contest.state.private"><![CDATA[Privat]]></item>
-		<item name="wcf.contest.state.applied"><![CDATA[Wartet auf Freischaltung]]></item>
-		<item name="wcf.contest.state.accepted"><![CDATA[Wurde akzeptiert]]></item>
-		<item name="wcf.contest.state.scheduled"><![CDATA[Für Termin geplant]]></item>
 		<item name="wcf.contest.fromTime"><![CDATA[Starttermin]]></item>
 		<item name="wcf.contest.untilTime"><![CDATA[Endtermin]]></item>
 		<item name="wcf.contest.comment"><![CDATA[Kommentar]]></item>
@@ -313,6 +309,17 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[Ein Contest wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[Ein Preis wartet auf Freischaltung.]]></item>
+		
+		<item name="wcf.contest.state.accepted"><![CDATA[Akzeptiert]]></item>
+		<item name="wcf.contest.state.applied"><![CDATA[Beworben]]></item>
+		<item name="wcf.contest.state.closed"><![CDATA[Geschlossen]]></item>
+		<item name="wcf.contest.state.declined"><![CDATA[Abgelehnt]]></item>
+		<item name="wcf.contest.state.invited"><![CDATA[Eingeladen]]></item>
+		<item name="wcf.contest.state.private"><![CDATA[Privat]]></item>
+		<item name="wcf.contest.state.received"><![CDATA[Empfangen]]></item>
+		<item name="wcf.contest.state.scheduled"><![CDATA[Geplant]]></item>
+		<item name="wcf.contest.state.sent"><![CDATA[Versendet]]></item>
+		<item name="wcf.contest.state.unknown"><![CDATA[Unbekannt]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>

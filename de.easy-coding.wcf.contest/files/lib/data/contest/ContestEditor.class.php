@@ -439,7 +439,7 @@ class ContestEditor extends Contest {
 			break;
 		}
 
-		if($isClosable && in_array($arr, 'closed')) {
+		if($isClosable && in_array('closed', $arr)) {
 			$arr[] = 'close';
 		}
 		

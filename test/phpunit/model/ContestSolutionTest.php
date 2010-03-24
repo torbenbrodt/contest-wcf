@@ -40,15 +40,23 @@ class ContestSolutionTest extends WCFModelTest {
 	public function testCreate() {
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
+		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
+		$this->deleteArray[] = $contest = ContestEditor::create(
+			$userID = 0,
+			$groupID = 0,
+			$subject = __METHOD__.' subject',
+			$message = __METHOD__.' message',
+			$options = array()
+		);
 		$this->deleteArray[] = $user = $this->createUser();
 		$this->deleteArray[] = $participant = ContestParticipantEditor::create(
-			$contestID = 0,
+			$contestID = $contest->contestID,
 			$userID = $user->userID,
 			$groupID = 0,
-			$state = 'private'
+			$state = 'accepted'
 		);
 		$this->deleteArray[] = $solution = ContestSolutionEditor::create(
-			$contestID = 0,
+			$contestID = $contest->contestID,
 			$participantID = $participant->participantID,
 			$message = __METHOD__.' message',
 			$state = 'private'
@@ -62,6 +70,14 @@ class ContestSolutionTest extends WCFModelTest {
 		$this->assertFalse($solution->isOwner());
 		$this->setCurrentUser($user);
 		$this->assertTrue($solution->isOwner());
+		
+		// solution owner should have task to publish his private solution
+		require_once(WCF_DIR.'lib/data/contest/participant/todo/ContestParticipantTodoList.class.php');
+		$todo = new ContestParticipantTodoList();
+		$todo->sqlConditions .= 'contest_participant.contestID = '.intval($contest->contestID);
+		$todo->readObjects();
+		$task = array_pop($todo->getObjects());
+		$this->assertEquals($task->action, 'participant.solution.private');
 	}
 	
 	public function testReflectionAPI() {

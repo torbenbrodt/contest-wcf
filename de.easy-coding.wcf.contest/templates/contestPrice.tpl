@@ -4,7 +4,7 @@
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
 	
-	{if $entry->isOwner()}
+	{if $entry->isOwner() && $prices|count > 1}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ItemListEditor.class.js"></script>
 	<script type="text/javascript"> 
 	//<![CDATA[
@@ -147,7 +147,7 @@
 												{/if}
 											</div>
 											<div class="containerContent">
-												<div style="float:right">*{$priceObj->state}*</div>
+												<div style="float:right">{@$priceObj->getState()->renderButton()}</div>
 												<h4 style="margin: 0; padding: 0">{$priceObj->subject}</h4>
 												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a>{if $priceObj->hasWinner()}, {lang}wcf.contest.winner.by{/lang} <a href="{$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getWinner()->getName()}</a>{/if}</p>
 											</div>
@@ -198,6 +198,20 @@
 							{/if}
 						</div>
 						{if $action != 'edit'}</form>{/if}
+							
+						<fieldset>
+							<legend>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</legend>
+							{lang}wcf.contest.sidebar.becomesponsor.description{/lang}
+
+							<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+								<ul>
+									{if $isRegistered}
+									<li><a href="index.php?page=ContestSponsor&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+									{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+									{/if}
+								</ul>
+							</div>
+						</fieldset>
 						
 						{if $entry->isPriceable() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.price.add{/lang}</h4>

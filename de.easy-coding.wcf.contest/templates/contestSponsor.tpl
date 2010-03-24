@@ -91,7 +91,7 @@
 													{if $sponsorObj->isDeletable()}<a href="index.php?action=ContestSponsorDelete&amp;sponsorID={@$sponsorObj->sponsorID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.sponsor.delete.sure{/lang}')" title="{lang}wcf.contest.sponsor.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;sponsorID={@$sponsorObj->sponsorID}{@SID_ARG_2ND}#sponsor{@$sponsorObj->sponsorID}" title="{lang}wcf.contest.sponsor.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$sponsorObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsorObj->getOwner()->getName()}</a> <span>*{$sponsorObj->state}*</span></p>
+												<p><a href="{$sponsorObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsorObj->getOwner()->getName()}</a> <span>{@$sponsorObj->getState()->renderButton()}</span></p>
 												
 											{/if}
 										</div>
@@ -113,6 +113,20 @@
 							</div>
 							{/if}
 						</div>
+							
+						<fieldset>
+							<legend>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</legend>
+							{lang}wcf.contest.sidebar.becomesponsor.description{/lang}
+
+							<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
+								<ul>
+									{if $isRegistered}
+									<li><a href="index.php?page=ContestSponsor&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+									{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+									{/if}
+								</ul>
+							</div>
+						</fieldset>
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.sponsor.invite{/lang}</h4>

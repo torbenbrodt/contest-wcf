@@ -74,7 +74,7 @@
 												{/if}
 											</div>
 											<div class="containerContent">
-												<div style="float:right">*{$solutionObj->state}*</div>
+												<div style="float:right">{@$solutionObj->getState()->renderButton()}</div>
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$entry->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
 												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
 											</div>
