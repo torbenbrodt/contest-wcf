@@ -90,9 +90,9 @@ class Contest extends DatabaseObject {
 		$classes = array();
 		$sql = "SELECT		contest_class.*
 			FROM		wcf".WCF_N."_contest_to_class contest_to_class
-			LEFT JOIN	wcf".WCF_N."_contest_class contest_class
+			INNER JOIN	wcf".WCF_N."_contest_class contest_class
 			ON		(contest_class.classID = contest_to_class.classID)
-			WHERE		contest_to_class.contestID = ".$this->contestID."
+			WHERE		contest_to_class.contestID = ".intval($this->contestID)."
 			ORDER BY	contest_class.title";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {

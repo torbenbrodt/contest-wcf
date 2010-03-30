@@ -6,19 +6,27 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
 	<script type="text/javascript">
 	var sponsors = new Array();
 
 	onloadEvents.push(function() {
 		// sponsors
 		var list1 = new ContestPermissionList('sponsor', sponsors, 'index.php?page=ContestSponsorObjects');
+		
+		var suggestion = new ContestSuggestion();
+		suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+		suggestion.enableIcon(true);
+		suggestion.init('sponsorAddInput');
 	
 		// add onsubmit event
 		document.getElementById('SponsorInviteForm').onsubmit = function() {
-			if (suggestion.selectedIndex != -1) return false;
-			if (list1.inputHasFocus) return false;
-			list1.submit(this);
-		};
+			return function() {
+				if (suggestion.selectedIndex != -1) return false;
+				if (list1.inputHasFocus) return false;
+				list1.submit(this);
+			};
+		}(suggestion);
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -91,7 +99,7 @@
 													{if $sponsorObj->isDeletable()}<a href="index.php?action=ContestSponsorDelete&amp;sponsorID={@$sponsorObj->sponsorID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.sponsor.delete.sure{/lang}')" title="{lang}wcf.contest.sponsor.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;sponsorID={@$sponsorObj->sponsorID}{@SID_ARG_2ND}#sponsor{@$sponsorObj->sponsorID}" title="{lang}wcf.contest.sponsor.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$sponsorObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsorObj->getOwner()->getName()}</a> <span>{@$sponsorObj->getState()->renderButton()}</span></p>
+												<p><a href="{$sponsorObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$sponsorObj->getOwner()->getName()}</a> <div style="float:right">{@$sponsorObj->getState()->renderButton()}</div></p>
 												
 											{/if}
 										</div>
@@ -146,13 +154,6 @@
 										<div class="formElement">
 											<div class="formField">	
 												<input id="sponsorAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
-												<script type="text/javascript">
-													//<![CDATA[
-													suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
-													suggestion.enableIcon(true);
-													suggestion.init('sponsorAddInput');
-													//]]>
-												</script>
 												<input id="sponsorAddButton" type="button" value="{lang}wcf.contest.sponsor.add{/lang}" />
 											</div>
 											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>

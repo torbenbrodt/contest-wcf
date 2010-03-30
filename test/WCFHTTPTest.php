@@ -18,13 +18,16 @@ class WCFHTTPTest extends WCFTest {
 		$_REQUEST = array_merge($_GET, $_POST);
 		
 		$packageDirs = $GLOBALS['packageDirs'];
+		$content = '';
 		try {
 			ob_start();
 			include($dispatcher);
+			$content = ob_get_contents();
 			ob_end_clean();
 		} catch(Exception $e) {
 			throw new Exception($e->getMessage());
 		}
+		return $content;
 	}	
 }
 ?>

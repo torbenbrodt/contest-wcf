@@ -130,8 +130,8 @@
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.contest.state{/lang}</legend>
-				{foreach from=$states item=availableState}
-					<label><input type="radio" name="state" value="{@$availableState}" {if $state == $availableState}checked="checked" {/if}/> {lang}{$availableState}{/lang}</label>
+				{foreach from=$states item=availableState key=key}
+					<label><input type="radio" name="state" value="{@$key}" {if $state == $key}checked="checked" {/if}/> {lang}{$availableState}{/lang}</label>
 				{/foreach}
 			</fieldset>
 		</div>

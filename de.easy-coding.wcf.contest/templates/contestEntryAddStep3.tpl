@@ -33,13 +33,20 @@ onloadEvents.push(function() {
 		return false;
 	};
 	
+	var suggestion = new ContestSuggestion();
+	suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+	suggestion.enableIcon(true);
+	suggestion.init('sponsorAddInput');
+	
 	// add onsubmit event
-	onsubmitEvents.push(function(form) {
-		if (suggestion.selectedIndex != -1) return false;
-		if (list1.inputHasFocus || list2.inputHasFocus) return false;
-		list1.submit(form);
-		list2.submit(form);
-	});
+	onsubmitEvents.push(function(suggestion) {
+		return function(form) {
+			if (suggestion.selectedIndex != -1) return false;
+			if (list1.inputHasFocus || list2.inputHasFocus) return false;
+			list1.submit(form);
+			list2.submit(form);
+		};
+	}(suggestion));
 });
 </script>
 
@@ -101,13 +108,6 @@ onloadEvents.push(function() {
 	<div class="formElement">
 		<div class="formField">	
 			<input id="sponsorAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
-			<script type="text/javascript">
-				//<![CDATA[
-				suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
-				suggestion.enableIcon(true);
-				suggestion.init('sponsorAddInput');
-				//]]>
-			</script>
 			<input id="sponsorAddButton" type="button" value="{lang}wcf.contest.sponsor.add{/lang}" />
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>

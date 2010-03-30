@@ -6,19 +6,27 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
 	<script type="text/javascript">
 	var jurys = new Array();
 
 	onloadEvents.push(function() {
 		// jurys
 		var list1 = new ContestPermissionList('jury', jurys, 'index.php?page=ContestJuryObjects');
+		
+		var suggestion = new ContestSuggestion();
+		suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
+		suggestion.enableIcon(true);
+		suggestion.init('juryAddInput');
 	
 		// add onsubmit event
-		document.getElementById('JuryInviteForm').onsubmit = function() {
-			if (suggestion.selectedIndex != -1) return false;
-			if (list1.inputHasFocus) return false;
-			list1.submit(this);
-		};
+		document.getElementById('JuryInviteForm').onsubmit = function(suggestion) {
+			return function() {
+				if (suggestion.selectedIndex != -1) return false;
+				if (list1.inputHasFocus) return false;
+				list1.submit(this);
+			};
+		}(suggestion);
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -90,7 +98,7 @@
 													{if $juryObj->isDeletable()}<a href="index.php?action=ContestJuryDelete&amp;juryID={@$juryObj->juryID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.jury.delete.sure{/lang}')" title="{lang}wcf.contest.jury.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;juryID={@$juryObj->juryID}{@SID_ARG_2ND}#jury{@$juryObj->juryID}" title="{lang}wcf.contest.jury.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$juryObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$juryObj->getOwner()->getName()}</a> <span>{@$juryObj->getState()->renderButton()}</span></p>
+												<p><a href="{$juryObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$juryObj->getOwner()->getName()}</a> <div style="float:right">{@$juryObj->getState()->renderButton()}</div></p>
 												
 											{/if}
 										</div>
@@ -145,13 +153,6 @@
 										<div class="formElement">
 											<div class="formField">	
 												<input id="juryAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
-												<script type="text/javascript">
-													//<![CDATA[
-													suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
-													suggestion.enableIcon(true);
-													suggestion.init('juryAddInput');
-													//]]>
-												</script>
 												<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
 											</div>
 											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>

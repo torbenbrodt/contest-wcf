@@ -54,7 +54,7 @@
 											{/if}
 										</div>
 										<div class="containerContent">
-											<p style="float:right">{@$solutionObj->getState()->renderButton()}</p>
+											<div style="float:right">{@$solutionObj->getState()->renderButton()}</div>
 											<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
 											<p class="light smallFont">{lang}wcf.contest.solution.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> {@$solutionObj->time|time}</p>
 										</div>
@@ -88,8 +88,8 @@
 										<div class="smallButtons">
 											<ul id="contestEntryButtons{@$solutionObj->solutionID}">
 												<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-												{if $solutionObj->isEditable()}<li><a href="index.php?form=ContestSolutionEdit&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}" title="{lang}wcf.contest.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
-												{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.delete.sure{/lang}')" title="{lang}wcf.contest.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
+												{if $solutionObj->isEditable()}<li><a href="index.php?form=ContestSolutionEdit&amp;contestID={@$solutionObj->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}" title="{lang}wcf.contest.solution.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.edit{/lang}</span></a></li>{/if}
+												{if $solutionObj->isDeletable()}<li><a href="index.php?action=ContestSolutionDelete&amp;contestID={@$solutionObj->contestID}&amp;solutionID={@$solutionObj->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.delete.sure{/lang}')" title="{lang}wcf.contest.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.global.button.delete{/lang}</span></a></li>{/if}
 												{if $additionalSmallButtons|isset}{@$additionalSmallButtons}{/if}
 											</ul>
 										</div>

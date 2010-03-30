@@ -120,6 +120,7 @@ class ContestJuryEditor extends ContestJury {
 	 *
 	 */
 	public static function getStates($current = '', $isUser = false) {
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
 		switch($current) {
 			case 'invited':
 				if($isUser) {
@@ -151,7 +152,7 @@ class ContestJuryEditor extends ContestJury {
 				$arr = array();
 			break;
 		}
-		return count($arr) ? array_combine($arr, $arr) : $arr;
+		return ContestState::translateArray($arr);
 	}
 }
 ?>

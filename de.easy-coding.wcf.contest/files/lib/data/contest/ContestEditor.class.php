@@ -168,25 +168,8 @@ class ContestEditor extends Contest {
 	 *
 	 * @param	integer		$classIDArray
 	 */
-	public function getClasses() {
-		$existing = array();
-		$sql = "SELECT		classID
-			FROM		wcf".WCF_N."_contest_to_class
-			WHERE		contestID = ".intval($this->contestID);
-		$result = WCF::getDB()->sendQuery($sql);
-		while ($row = WCF::getDB()->fetchArray($result)) {
-			$existing[] = intval($row['classID']);
-		}
-		return $existing;
-	}
-	
-	/**
-	 * Sets the classes of this entry.
-	 *
-	 * @param	integer		$classIDArray
-	 */
 	public function setClasses($classIDArray = array()) {
-		$existing = $this->getClasses();
+		$existing = array_keys($this->getClasses());
 		
 		$remove = array_diff($existing, $classIDArray);
 		if(count($remove)) {
@@ -393,9 +376,12 @@ class ContestEditor extends Contest {
 	 *
 	 */
 	public static function getStates($current = '', $isUser = false, $isClosable = false) {
+		require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
+		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		
 		switch($current) {
 			case 'private':
-				if($isUser) {
+				if($isUser || ContestCrew::isMember()) {
 					$arr = array(
 						$current,
 						'applied'
@@ -409,7 +395,7 @@ class ContestEditor extends Contest {
 			case 'accepted':
 			case 'declined':
 			case 'applied':
-				if($isUser) {
+				if($isUser && ContestCrew::isMember() == false) {
 					$arr = array(
 						$current
 					);
@@ -418,11 +404,12 @@ class ContestEditor extends Contest {
 						$current,
 						'accepted',
 						'declined',
+						'scheduled',
 					);
 				}
 			case 'scheduled':
 			case 'closed':
-				if($isUser) {
+				if($isUser && ContestCrew::isMember() == false) {
 					$arr = array(
 						$current
 					);
@@ -439,11 +426,17 @@ class ContestEditor extends Contest {
 			break;
 		}
 
-		if($isClosable && in_array('closed', $arr)) {
-			$arr[] = 'close';
+		if($isClosable && !in_array('closed', $arr)) {
+			$arr[] = 'closed';
 		}
 		
-		return count($arr) ? array_combine($arr, $arr) : $arr;
+		if($isUser && WCF::getUser()->getPermission('user.contest.canScheduleOwnContest')) {
+			if(in_array($this->state, array('private', 'accepted', 'applied'))) {
+				$arr[] = 'scheduled';
+			}
+		}
+		
+		return ContestState::translateArray($arr);
 	}
 }
 ?>

@@ -66,14 +66,17 @@ class ContestState {
 			case 'private':
 			case 'applied':
 			case 'closed':
-				$c['border-color'] = '#aaaaff';
-				$c['background-color'] = '#ddddff';
-				$c['color'] = '#5555ff';
+			case 'invited':
+				$c['border-color'] = '#ffdd00';
+				$c['background-color'] = '#ffffaa';
+				$c['color'] = '#ccaa00';
 			break;
 			
 			/* grey */
 			default:
 				$c['border-color'] = '#afafaf';
+				$c['background-color'] = '#a0a0a0';
+				$c['color'] = '#fff';
 			break;
 		}
 		$this->config = $c;
@@ -111,6 +114,17 @@ class ContestState {
 	 */
 	public function __toString() {
 		return "".$this->state;
+	}
+	
+	/**
+	 *
+	 */
+	public static function translateArray(array $arr) {
+		$arr = count($arr) ? array_combine($arr, $arr) : $arr;
+		foreach($arr as $key => $val) {
+			$arr[$key] = WCF::getLanguage()->get('wcf.contest.state.'.$val);
+		}
+		return $arr;
 	}
 }
 ?>

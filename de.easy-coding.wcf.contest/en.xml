@@ -316,6 +316,9 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.state.scheduled"><![CDATA[scheduled]]></item>
 		<item name="wcf.contest.state.sent"><![CDATA[sent]]></item>
 		<item name="wcf.contest.state.unknown"><![CDATA[unknown]]></item>
+
+		<item name="wcf.contest.register.message"><![CDATA[You need to register to use this function.<br/>
+		You will now be redirected.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>

@@ -13,12 +13,19 @@ onloadEvents.push(function() {
 	// jurys
 	var list1 = new ContestPermissionList('jury', jurys, 'index.php?page=ContestJuryObjects');
 	
+	var suggestion = new ContestSuggestion();
+	suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
+	suggestion.enableIcon(true);
+	suggestion.init('juryAddInput');
+	
 	// add onsubmit event
-	onsubmitEvents.push(function(form) {
-		if (suggestion.selectedIndex != -1) return false;
-		if (list1.inputHasFocus) return false;
-		list1.submit(form);
-	});
+	onsubmitEvents.push(function(suggestion) {
+		return function(form) {
+			if (suggestion.selectedIndex != -1) return false;
+			if (list1.inputHasFocus) return false;
+			list1.submit(form);
+		};
+	}(suggestion));
 });
 </script>
 
@@ -36,13 +43,6 @@ onloadEvents.push(function() {
 	<div class="formElement">
 		<div class="formField">	
 			<input id="juryAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
-			<script type="text/javascript">
-				//<![CDATA[
-				suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
-				suggestion.enableIcon(true);
-				suggestion.init('juryAddInput');
-				//]]>
-			</script>
 			<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
 		</div>
 		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>

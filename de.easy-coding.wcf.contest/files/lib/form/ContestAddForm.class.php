@@ -122,7 +122,7 @@ class ContestAddForm extends MessageForm {
 		parent::readParameters();
 		
 		// check permissions
-		if (MODULE_CONTEST != 1 || !WCF::getUser()->userID) {
+		if (MODULE_CONTEST != 1) {
 			throw new IllegalLinkException();
 		}
 	}
@@ -292,6 +292,16 @@ class ContestAddForm extends MessageForm {
 	public function show() {
 		// set active header menu item
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
+		
+		if(WCF::getUser()->userID == 0) {
+			// forward to index page
+			WCF::getTPL()->assign(array(
+				'url' => 'index.php?page=Register'.SID_ARG_2ND,
+				'message' => WCF::getLanguage()->get('wcf.contest.register.message')
+			));
+			WCF::getTPL()->display('redirect');
+			return;
+		}
 		
 		// check permission
 		WCF::getUser()->checkPermission('user.contest.canUseContest');

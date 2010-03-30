@@ -6,19 +6,27 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/StringUtil.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
 	<script type="text/javascript">
 	var participants = new Array();
 
 	onloadEvents.push(function() {
 		// participants
 		var list1 = new ContestPermissionList('participant', participants, 'index.php?page=ContestParticipantObjects');
+		
+		var suggestion = new ContestSuggestion();
+		suggestion.setSource('index.php?page=ContestParticipantSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+		suggestion.enableIcon(true);
+		suggestion.init('participantAddInput');
 	
 		// add onsubmit event
-		document.getElementById('ParticipantInviteForm').onsubmit = function() {
-			if (suggestion.selectedIndex != -1) return false;
-			if (list1.inputHasFocus) return false;
-			list1.submit(this);
-		};
+		document.getElementById('ParticipantInviteForm').onsubmit = function(suggestion) {
+			return function() {
+				if (suggestion.selectedIndex != -1) return false;
+				if (list1.inputHasFocus) return false;
+				list1.submit(this);
+			};
+		}(suggestion);
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -91,7 +99,7 @@
 													{if $participantObj->isDeletable()}<a href="index.php?action=ContestParticipantDelete&amp;participantID={@$participantObj->participantID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.participant.delete.sure{/lang}')" title="{lang}wcf.contest.participant.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
 													<a href="index.php?page=ContestParticipant&amp;contestID={@$contestID}&amp;participantID={@$participantObj->participantID}{@SID_ARG_2ND}#participant{@$participantObj->participantID}" title="{lang}wcf.contest.participant.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
-												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a> <span>{@$participantObj->getState()->renderButton()}</span></p>
+												<p><a href="{$participantObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$participantObj->getOwner()->getName()}</a> <div style="float:right">{@$participantObj->getState()->renderButton()}</div></p>
 												
 											{/if}
 										</div>
@@ -147,13 +155,6 @@
 										<div class="formElement">
 											<div class="formField">	
 												<input id="participantAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
-												<script type="text/javascript">
-													//<![CDATA[
-													suggestion.setSource('index.php?page=ContestParticipantSuggest{@SID_ARG_2ND_NOT_ENCODED}');
-													suggestion.enableIcon(true);
-													suggestion.init('participantAddInput');
-													//]]>
-												</script>
 												<input id="participantAddButton" type="button" value="{lang}wcf.contest.participant.add{/lang}" />
 											</div>
 											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>

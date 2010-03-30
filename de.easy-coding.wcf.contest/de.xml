@@ -320,6 +320,9 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.state.scheduled"><![CDATA[Geplant]]></item>
 		<item name="wcf.contest.state.sent"><![CDATA[Versendet]]></item>
 		<item name="wcf.contest.state.unknown"><![CDATA[Unbekannt]]></item>
+
+		<item name="wcf.contest.register.message"><![CDATA[Sie müssen Sich erst registrieren um die Wettbewerbsfunktion nutzen zu können.<br/>
+		Sie werden jetzt automatisch zur Registrierung weitergeleitet.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
 		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>
