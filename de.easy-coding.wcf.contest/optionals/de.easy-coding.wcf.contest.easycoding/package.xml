@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" for easy-coding</packagename>
 		<packagedescription>Special adapter to be run on easy-coding.</packagedescription>
-		<version>0.4.0 Beta 1</version>
+		<version>0.5.0 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -28,7 +28,7 @@
 		<eventlistener>eventlistener.xml</eventlistener>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.1.0 Beta 1">
+	<instructions type="update" fromversion="0.4.0 Beta 1">
 		<files>files.tar</files>
 		<eventlistener>eventlistener.xml</eventlistener>
 		<sql>install.sql</sql>

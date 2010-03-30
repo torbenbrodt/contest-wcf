@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" app</packagename>
 		<packagedescription>contest application.</packagedescription>
-		<version>0.4.1 Beta 1</version>
+		<version>0.5.0 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -53,18 +53,18 @@
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.4.0 Beta 1">
-		<help>help.xml</help>
-	</instructions>
-	
-	<instructions type="update" fromversion="0.3.0 Beta 1">
+	<instructions type="update" fromversion="0.4.1 Beta 1">
+		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
-		<sql>update030Beta1.sql</sql>
 		
 		<!-- config -->
-		<help>help.xml</help>
 		<eventlistener>eventlistener.xml</eventlistener>
+		<options>options.xml</options>
+		<groupoptions>groupoptions.xml</groupoptions>
+		<pagemenu>pagemenu.xml</pagemenu>
+		<pagelocation>pagelocation.xml</pagelocation>
+		<help>help.xml</help>
 		
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
