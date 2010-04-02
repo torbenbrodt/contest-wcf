@@ -204,6 +204,20 @@ class ContestAddForm extends MessageForm {
 				throw new UserInputException('ownerID'); 
 			}
 		}
+		
+		if(!array_key_exists($this->state, $this->getStates())) {
+			throw new UserInputException('state');
+		}
+	}
+	
+	/**
+	 * returns available states
+	 */
+	protected function getStates() {
+		$flags = ($this->entry->isOwner() ? ContestState::FLAG_USER : 0)
+			+ ($this->entry->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+		return ContestEditor::getStates($this->state, $flags, $this->entry->isClosable());
 	}
 	
 	/**

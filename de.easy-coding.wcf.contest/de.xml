@@ -5,6 +5,8 @@
 		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.category.mod.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.category.mod.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod"><![CDATA[Ist Supermoderator]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Supermoderatoren haben erweiterte Rechte, selbst gegenüber den Contest Ownern.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Kann Lösungen löschen]]></item>

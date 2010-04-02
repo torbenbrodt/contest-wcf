@@ -10,6 +10,8 @@ require_once(WCF_DIR.'lib/data/contest/date/ContestDate.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 require_once(WCF_DIR.'lib/page/util/InlineCalendar.class.php');
+require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
 
 /**
  * Shows the form for adding new contest entries.
@@ -160,7 +162,7 @@ class ContestEditForm extends MessageForm {
 		));
 		
 		$this->availableClasses = ContestClass::getClasses();
-		$this->states = ContestEditor::getStates($this->state, $this->entry->isOwner(), $this->entry->isClosable());
+		$this->states = $this->getStates();
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 	}
 	
@@ -244,6 +246,20 @@ class ContestEditForm extends MessageForm {
 				throw new UserInputException('ownerID'); 
 			}
 		}
+		
+		if(!array_key_exists($this->state, $this->getStates())) {
+			throw new UserInputException('state');
+		}
+	}
+	
+	/**
+	 * returns available states
+	 */
+	protected function getStates() {
+		$flags = ($this->entry->isOwner() ? ContestState::FLAG_USER : 0)
+			+ ($this->entry->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+		return ContestEditor::getStates($this->state, $flags, $this->entry->isClosable());
 	}
 	
 	/**

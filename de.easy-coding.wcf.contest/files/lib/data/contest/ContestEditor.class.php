@@ -373,56 +373,33 @@ class ContestEditor extends Contest {
 	}
 	
 	/**
-	 *
+	 * 'private', 'applied', 'accepted', 'declined', 'scheduled', 'closed'
 	 */
-	public static function getStates($current = '', $isUser = false, $isClosable = false) {
-		require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
+	public static function getStates($current = '', $flag = 0, $isClosable = false) {
 		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
 		
+		$arr = array($current);
 		switch($current) {
 			case 'private':
-				if($isUser || ContestCrew::isMember()) {
-					$arr = array(
-						$current,
-						'applied'
-					);
-				} else {
-					$arr = array(
-						$current
-					);
+				if($flag & (ContestState::FLAG_USER | ContestState::FLAG_CREW)) {
+					$arr[] = 'applied';
 				}
 			break;
 			case 'accepted':
 			case 'declined':
 			case 'applied':
-				if($isUser && ContestCrew::isMember() == false) {
-					$arr = array(
-						$current
-					);
-				} else {
-					$arr = array(
-						$current,
-						'accepted',
-						'declined',
-						'scheduled',
-					);
+				if($flag & ContestState::FLAG_CREW) {
+					$arr[] = 'accepted';
+					$arr[] = 'declined';
+					$arr[] = 'applied';
+					$arr[] = 'scheduled';
 				}
 			case 'scheduled':
 			case 'closed':
-				if($isUser && ContestCrew::isMember() == false) {
-					$arr = array(
-						$current
-					);
-				} else {
-					$arr = array(
-						$current,
-						'accepted',
-						'declined'
-					);
+				if($flag & ContestState::FLAG_CREW) {
+					$arr[] = 'scheduled';
+					$arr[] = 'accepted';
 				}
-			break;
-			default:
-				$arr = array();
 			break;
 		}
 
@@ -430,8 +407,8 @@ class ContestEditor extends Contest {
 			$arr[] = 'closed';
 		}
 		
-		if($isUser && WCF::getUser()->getPermission('user.contest.canScheduleOwnContest')) {
-			if(in_array($this->state, array('private', 'accepted', 'applied'))) {
+		if($flag & ContestState::FLAG_USER && WCF::getUser()->getPermission('user.contest.canScheduleOwnContest')) {
+			if(in_array($current, array('private', 'accepted', 'applied'))) {
 				$arr[] = 'scheduled';
 			}
 		}

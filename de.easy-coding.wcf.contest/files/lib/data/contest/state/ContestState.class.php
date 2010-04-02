@@ -14,6 +14,12 @@
  * @package	de.easy-coding.wcf.contest
  */
 class ContestState {
+	/**
+	 * see get states
+	 */
+	const FLAG_USER = 1;
+	const FLAG_CONTESTOWNER = 2;
+	const FLAG_CREW = 4;
 	
 	/**
 	 * current config
@@ -120,6 +126,7 @@ class ContestState {
 	 *
 	 */
 	public static function translateArray(array $arr) {
+		$arr = array_unique($arr);
 		$arr = count($arr) ? array_combine($arr, $arr) : $arr;
 		foreach($arr as $key => $val) {
 			$arr[$key] = WCF::getLanguage()->get('wcf.contest.state.'.$val);

@@ -5,6 +5,8 @@
 		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.category.mod.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.category.mod.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod"><![CDATA[Is super moderator]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Super moderators have special permissions.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Can delete solutions]]></item>

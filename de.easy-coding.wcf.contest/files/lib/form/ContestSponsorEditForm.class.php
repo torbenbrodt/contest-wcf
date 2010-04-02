@@ -64,8 +64,6 @@ class ContestSponsorEditForm extends ContestSponsorAddForm {
 		if (!count($_POST)) {
 			$this->state =  $this->entry->state;
 		}
-		
-		$this->states = ContestSponsorEditor::getStates($this->state, $this->entry->isOwner());
 	}
 	
 	/**

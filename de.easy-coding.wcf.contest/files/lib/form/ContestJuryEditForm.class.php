@@ -64,8 +64,6 @@ class ContestJuryEditForm extends ContestJuryAddForm {
 		if (!count($_POST)) {
 			$this->state =  $this->entry->state;
 		}
-		
-		$this->states = ContestJuryEditor::getStates($this->state, $this->entry->isOwner());
 	}
 	
 	/**

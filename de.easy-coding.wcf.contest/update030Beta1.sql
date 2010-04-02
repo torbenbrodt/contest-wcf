@@ -27,9 +27,10 @@ ALTER TABLE wcf1_contest_solution ADD participantID INT UNSIGNED NOT NULL AFTER 
 INSERT IGNORE INTO wcf1_contest_participant (contestID, userID, groupID) SELECT contestID, userID, groupID FROM wcf1_contest_solution;
 UPDATE wcf1_contest_solution x SET participantID = (SELECT participantID FROM wcf1_contest_participant y WHERE x.contestID = y.contestID AND x.userID = y.userID AND x.groupID = y.groupID);
 ALTER TABLE wcf1_contest_solution DROP userID , DROP groupID;
-ALTER TABLE wcf1_contest_price CHANGE state state ENUM('unknown', 'accepted', 'declined', 'sent', 'received') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'unknown';
+ALTER TABLE wcf1_contest_price CHANGE state state ENUM('applied', 'accepted', 'declined', 'sent', 'received') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'applied';
 ALTER TABLE wcf1_contest_solution ADD INDEX ( participantID );
 
 ALTER TABLE wcf1_contest ADD INDEX ( state );
 ALTER TABLE wcf1_contest_class ADD contests SMALLINT UNSIGNED NOT NULL DEFAULT 0 AFTER title;
 ALTER TABLE wcf1_contest_class ADD INDEX ( contests );
+UPDATE wcf1_contest_price SET state = 'applied' WHERE state = '';

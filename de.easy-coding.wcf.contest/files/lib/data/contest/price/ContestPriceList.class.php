@@ -30,9 +30,13 @@ class ContestPriceList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::countObjects()
 	 */
 	public function countObjects() {
-		$sql = "SELECT	COUNT(*) AS count
-			FROM	wcf".WCF_N."_contest_price contest_price
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+		$sql = "SELECT		COUNT(*) AS count
+			FROM		wcf".WCF_N."_contest_price contest_price
+			INNER JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
+			ON		contest_price.sponsorID = contest_sponsor.sponsorID
+			
+			WHERE (".ContestPrice::getStateConditions().")
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
@@ -75,9 +79,10 @@ class ContestPriceList extends DatabaseObjectList {
 			ON		(avatar_table_winner.avatarID = user_table_winner.avatarID)
 			LEFT JOIN	wcf".WCF_N."_group group_table_winner
 			ON		(group_table_winner.groupID = contest_participant.groupID)
-			
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+
+			WHERE (".ContestPrice::getStateConditions().")
+			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

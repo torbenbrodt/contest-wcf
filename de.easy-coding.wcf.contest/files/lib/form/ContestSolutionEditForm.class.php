@@ -18,7 +18,7 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 	 *
 	 * @var ContestSolutionEditor
 	 */
-	public $solutionObj = null;
+	public $entry = null;
 	
 	/**
 	 * solution id
@@ -46,8 +46,8 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		}
 
 		if (isset($_REQUEST['solutionID'])) $this->solutionID = intval($_REQUEST['solutionID']);
-		$this->solutionObj = new ContestSolutionEditor($this->solutionID);
-		if (!$this->solutionObj->solutionID || !$this->solutionObj->isOwner()) {
+		$this->entry = new ContestSolutionEditor($this->solutionID);
+		if (!$this->entry->solutionID || !$this->entry->isOwner()) {
 			throw new IllegalLinkException();
 		}
 	}
@@ -59,11 +59,11 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		MessageForm::save();
 		
 		// save solution
-		$this->solutionObj->update($this->text, $this->state, $this->getOptions(), $this->attachmentListEditor);
+		$this->entry->update($this->text, $this->state, $this->getOptions(), $this->attachmentListEditor);
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->solutionObj->solutionID);
+		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->entry->contestID.'&solutionID='.$this->entry->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->entry->solutionID);
 		exit;
 	}
 	
@@ -75,22 +75,20 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		
 		// default values
 		if (!count($_POST)) {
-			$this->text = $this->solutionObj->message;
-			$this->enableSmilies =  $this->solutionObj->enableSmilies;
-			$this->enableHtml = $this->solutionObj->enableHtml;
-			$this->enableBBCodes = $this->solutionObj->enableBBCodes;
-			$this->enableParticipantCheck = $this->solutionObj->enableParticipantCheck;
-			$this->enableSponsorCheck = $this->solutionObj->enableSponsorCheck;
-			$this->userID = $this->solutionObj->userID;
-			$this->groupID = $this->solutionObj->groupID;
-			$this->state = $this->solutionObj->state;
+			$this->text = $this->entry->message;
+			$this->enableSmilies =  $this->entry->enableSmilies;
+			$this->enableHtml = $this->entry->enableHtml;
+			$this->enableBBCodes = $this->entry->enableBBCodes;
+			$this->enableParticipantCheck = $this->entry->enableParticipantCheck;
+			$this->enableSponsorCheck = $this->entry->enableSponsorCheck;
+			$this->userID = $this->entry->userID;
+			$this->groupID = $this->entry->groupID;
+			$this->state = $this->entry->state;
 			
 			if($this->groupID > 0) {
 				$this->ownerID = $this->groupID;
 			}
 		}
-		
-		$this->states = ContestSolutionEditor::getStates($this->state, $this->contest->isOwner());
 	}
 	
 	/**

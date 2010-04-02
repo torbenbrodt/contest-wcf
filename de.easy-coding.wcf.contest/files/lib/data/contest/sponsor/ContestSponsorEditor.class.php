@@ -102,39 +102,26 @@ class ContestSponsorEditor extends ContestSponsor {
 	}
 	
 	/**
-	 *
+	 * 'invited', 'accepted', 'declined', 'applied'
 	 */
-	public static function getStates($current = '', $isUser = false) {
+	public static function getStates($current = '', $flag = 0) {
 		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+
+		$arr = array($current);
 		switch($current) {
 			case 'invited':
-				if($isUser) {
-					$arr = array(
-						'accepted',
-						'declined'
-					);
-				} else {
-					$arr = array(
-						$current
-					);
+				if($flag & (ContestState::FLAG_USER | ContestState::FLAG_CREW)) {
+					$arr[] = 'accepted';
+					$arr[] = 'declined';
 				}
 			break;
 			case 'accepted':
 			case 'declined':
 			case 'applied':
-				if($isUser) {
-					$arr = array(
-						$current
-					);
-				} else {
-					$arr = array(
-						'accepted',
-						'declined'
-					);
+				if($flag & (ContestState::FLAG_CONTESTOWNER | ContestState::FLAG_CREW)) {
+					$arr[] = 'accepted';
+					$arr[] = 'declined';
 				}
-			break;
-			default:
-				$arr = array();
 			break;
 		}
 		return ContestState::translateArray($arr);

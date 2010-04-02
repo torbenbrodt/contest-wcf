@@ -4,6 +4,8 @@ require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
 
 /**
  * Shows the form for adding contest contest sponsors.
@@ -84,7 +86,7 @@ class ContestSponsorAddForm extends AbstractForm {
 	public function readData() {
 		parent::readData();
 		
-		$this->states = ContestSponsorEditor::getStates();
+		$this->states = $this->getStates();
 
 		// owner
 		$this->availableGroups = ContestUtil::readAvailableGroups();
@@ -104,6 +106,21 @@ class ContestSponsorAddForm extends AbstractForm {
 				throw new UserInputException('ownerID'); 
 			}
 		}
+		
+		if(!array_key_exists($this->state, $this->getStates())) {
+			throw new UserInputException('state');
+		}
+	}
+	
+	/**
+	 * returns available states
+	 */
+	protected function getStates() {
+		$flags = (!isset($this->entry) || $this->entry->isOwner() ? ContestState::FLAG_USER : 0)
+			+ ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+
+		return ContestSponsorEditor::getStates(isset($this->entry) ? $this->entry->state : '', $flags);
 	}
 	
 	/**

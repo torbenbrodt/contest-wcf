@@ -7,6 +7,8 @@ require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
+require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
 
 /**
  * Shows the form for adding contest contest solutions.
@@ -106,18 +108,11 @@ class ContestSolutionAddForm extends MessageForm {
 	public function readData() {
 		parent::readData();
 		
-		$this->states = ContestSolutionEditor::getStates();
+		$this->states = $this->getStates();
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->contest);
-	}
-	
-	/**
-	 * subject canbe empty - do not validate
-	 */
-	protected function validateSubject() {
-	
 	}
 	
 	/**
@@ -142,6 +137,21 @@ class ContestSolutionAddForm extends MessageForm {
 				throw new UserInputException('ownerID'); 
 			}
 		}
+		
+		if(!array_key_exists($this->state, $this->getStates())) {
+			throw new UserInputException('state');
+		}
+	}
+	
+	/**
+	 * returns available states
+	 */
+	protected function getStates() {
+		$flags = (!isset($this->entry) || $this->entry->isOwner() ? ContestState::FLAG_USER : 0)
+			+ ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+
+		return ContestSolutionEditor::getStates(isset($this->entry) ? $this->entry->state : '', $flags);
 	}
 	
 	/**
@@ -187,15 +197,14 @@ class ContestSolutionAddForm extends MessageForm {
 		parent::save();
 		
 		$participant = ContestParticipant::find($this->contest->contestID, $this->userID, $this->groupID);
-		$state = 'invited';
+		$state = 'applied';
 		if($participant === null) {
 			require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
 			$participant = ContestParticipantEditor::create($this->contest->contestID, $this->userID, $this->groupID, $state);
 		}
 		
 		// save solution
-		$state = 'private';
-		$solution = ContestSolutionEditor::create($this->contest->contestID, $participant->participantID, $this->text, $state, $this->getOptions(), $this->attachmentListEditor);
+		$solution = ContestSolutionEditor::create($this->contest->contestID, $participant->participantID, $this->text, $this->state, $this->getOptions(), $this->attachmentListEditor);
 		$this->saved();
 		
 		// forward

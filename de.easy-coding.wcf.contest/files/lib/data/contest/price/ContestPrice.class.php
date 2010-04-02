@@ -184,5 +184,27 @@ class ContestPrice extends DatabaseObject {
 	public function isDeletable() {
 		return $this->isOwner();
 	}
+
+	/**
+	 * thats how the states are implemented
+	 */
+	public static function getStateConditions() {
+		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+
+		return "(
+			-- entry is accepted
+			contest_price.state = 'accepted'
+		) OR (
+			-- entry owner
+			IF(
+				contest_sponsor.groupID > 0,
+				contest_sponsor.groupID IN (".implode(",", $groupIDs)."), 
+				contest_sponsor.userID = ".$userID."
+			)
+		)";
+	}
 }
 ?>

@@ -57,8 +57,6 @@ class ContestPriceEditForm extends ContestPriceAddForm {
 			$this->message = $this->entry->message;
 			$this->state = $this->entry->state;
 		}
-		
-		$this->states = ContestPriceEditor::getStates($this->state, $this->entry->isOwner());
 	}
 	
 	/**

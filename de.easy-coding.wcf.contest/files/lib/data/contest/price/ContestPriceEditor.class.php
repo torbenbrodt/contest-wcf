@@ -11,6 +11,9 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestPriceEditor extends ContestPrice {
+	const STATE_FLAG_WINNER = 8;
+	const STATE_FLAG_SPONSOR = 16;
+	
 	/**
 	 * Creates a new price.
 	 *
@@ -124,28 +127,37 @@ class ContestPriceEditor extends ContestPrice {
 	}
 	
 	/**
+	 * current may be 'applied', 'accepted', 'declined', 'sent', 'received'
 	 *
+	 * flag may be bitmask of ContestState::FLAG_USER, ContestState::FLAG_CONTESTOWNER, 
+	 * ContestState::FLAG_CREW, ContestPriceEditor::STATE_FLAG_WINNER, ContestPriceEditor::STATE_FLAG_SPONSOR
 	 */
-	public static function getStates($current = '', $isUser = false) {
+	public static function getStates($current = '', $flag = 0) {
 		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
+		
+		$arr = array($current);
 		switch($current) {
-			case 'unknown':
+			case 'applied':
 			case 'accepted':
 			case 'declined':
-				if($isUser) {
-					$arr = array(
-						$current
-					);
-				} else {
-					$arr = array(
-						'unknown',
-						'accepted',
-						'declined'
-					);
+				if($flag & (ContestState::FLAG_CONTESTOWNER | ContestState::FLAG_CREW)) {
+					$arr[] = 'applied';
+					$arr[] = 'accepted';
+					$arr[] = 'declined';
+				}
+
+				if($current == 'accepted' && $flag & (self::STATE_FLAG_SPONSOR | ContestState::FLAG_CREW)) {
+					$arr[] = 'sent';
 				}
 			break;
-			default:
-				$arr = array();
+			case 'sent':
+				if($flag & (self::STATE_FLAG_WINNER | ContestState::FLAG_CREW)) {
+					$arr[] = 'received';
+				}
+
+				if($flag & (self::STATE_FLAG_SPONSOR | ContestState::FLAG_CREW)) {
+					$arr[] = 'accepted';
+				}
 			break;
 		}
 		return ContestState::translateArray($arr);
