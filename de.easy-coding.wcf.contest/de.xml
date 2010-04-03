@@ -297,20 +297,20 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>
 		<item name="wcf.contest.sidebar.becomejury.description"><![CDATA[Sei fair! Als Juror kannst du mitentscheiden, wer die Wettbewerbe gewinnt.]]></item>
 		
-		<item name="wcf.contest.rating"><![CDATA[Bewertung]]></item>
-		<item name="wcf.contest.rating.submit"><![CDATA[Bewertung speichern]]></item>
-		<item name="wcf.contest.rating.submit.description"><![CDATA[]]></item>
-		<item name="wcf.contest.ratings"><![CDATA[Bewertungen]]></item>
 		<item name="wcf.contest.rating.avg.jury"><![CDATA[Ø Jury]]></item>
 		<item name="wcf.contest.rating.avg.total"><![CDATA[Ø Total]]></item>
-		<item name="wcf.contest.rating.option.quality"><![CDATA[Qualität]]></item>
+		<item name="wcf.contest.rating"><![CDATA[Bewertung]]></item>
 		<item name="wcf.contest.rating.option.documentation"><![CDATA[Dokumentation]]></item>
+		<item name="wcf.contest.rating.option.quality"><![CDATA[Qualität]]></item>
+		<item name="wcf.contest.ratings"><![CDATA[Bewertungen]]></item>
+		<item name="wcf.contest.rating.submit"><![CDATA[Bewertung speichern]]></item>
+		<item name="wcf.contest.rating.submit.description"><![CDATA[]]></item>
 		
 		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
-		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[Es fehlt noch eine Bewertung zur Lösung.]]></item>
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[Ein Contest wartet auf Freischaltung.]]></item>
-		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[Es fehlt noch eine Bewertung zur Lösung.]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[Ein Preis wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
 		
 		<item name="wcf.contest.state.accepted"><![CDATA[Akzeptiert]]></item>
 		<item name="wcf.contest.state.applied"><![CDATA[Beworben]]></item>
@@ -321,48 +321,46 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des C
 		<item name="wcf.contest.state.received"><![CDATA[Empfangen]]></item>
 		<item name="wcf.contest.state.scheduled"><![CDATA[Geplant]]></item>
 		<item name="wcf.contest.state.sent"><![CDATA[Versendet]]></item>
-		<item name="wcf.contest.state.unknown"><![CDATA[Unbekannt]]></item>
 
 		<item name="wcf.contest.register.message"><![CDATA[Sie müssen Sich erst registrieren um die Wettbewerbsfunktion nutzen zu können.<br/>
 		Sie werden jetzt automatisch zur Registrierung weitergeleitet.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
-		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>
-		<item name="wcf.contest.event.notification.create"><![CDATA[Ein neuer Contest wurde angelegt.]]></item>
-		<item name="wcf.contest.event.notification.solutioncreate"><![CDATA[Eine neue Lösung wurde angelegt.]]></item>
 		<item name="wcf.contest.event.notification.commentcreate"><![CDATA[Ein neuer Kommentar wurde angelegt.]]></item>
-		<item name="wcf.contest.event.notification.sponsortalkcreate"><![CDATA[Ein neuer Sponsorbeitrag wurde angelegt.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.invited"><![CDATA[Ein neuer Sponsor wurde eingeladen.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.applied"><![CDATA[Ein neuer Sponsor hat sich beworben.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.accepted"><![CDATA[Ein neuer Sponsor wurde aufgenommen.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.invited"><![CDATA[Ein neuer Teilnehmer wurde eingeladen.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.applied"><![CDATA[Ein neuer Teilnehmer hat sich beworben.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.accepted"><![CDATA[Ein neuer Teilnehmer wurde aufgenommen.]]></item>
-		<item name="wcf.contest.event.notification.jurycreate.invited"><![CDATA[Ein neuer Juror wurde eingeladen.]]></item>
-		<item name="wcf.contest.event.notification.jurycreate.applied"><![CDATA[Ein neuer Juror hat sich beworben.]]></item>
+		<item name="wcf.contest.event.notification.create"><![CDATA[Ein neuer Contest wurde angelegt.]]></item>
 		<item name="wcf.contest.event.notification.jurycreate.accepted"><![CDATA[Ein neuer Juror wurde aufgenommen.]]></item>
+		<item name="wcf.contest.event.notification.jurycreate.applied"><![CDATA[Ein neuer Juror hat sich beworben.]]></item>
+		<item name="wcf.contest.event.notification.jurycreate.invited"><![CDATA[Ein neuer Juror wurde eingeladen.]]></item>
+		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[Ein neuer Jurybeitrag wurde angelegt.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.accepted"><![CDATA[Ein neuer Teilnehmer wurde aufgenommen.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.applied"><![CDATA[Ein neuer Teilnehmer hat sich beworben.]]></item>
+		<item name="wcf.contest.event.notification.participantcreate.invited"><![CDATA[Ein neuer Teilnehmer wurde eingeladen.]]></item>
 		<item name="wcf.contest.event.notification.pricecreate"><![CDATA[Ein neuer Preis wurde angelegt.]]></item>
+		<item name="wcf.contest.event.notification.solutioncreate"><![CDATA[Eine neue Lösung wurde angelegt.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.accepted"><![CDATA[Ein neuer Sponsor wurde aufgenommen.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.applied"><![CDATA[Ein neuer Sponsor hat sich beworben.]]></item>
+		<item name="wcf.contest.event.notification.sponsorcreate.invited"><![CDATA[Ein neuer Sponsor wurde eingeladen.]]></item>
+		<item name="wcf.contest.event.notification.sponsortalkcreate"><![CDATA[Ein neuer Sponsorbeitrag wurde angelegt.]]></item>
 	</category>
 	<category name="wcf.contest.menu">
-		<item name="wcf.contest.menu.link.overview"><![CDATA[Übersicht]]></item>
 		<item name="wcf.contest.menu.link.jury"><![CDATA[Jury]]></item>
 		<item name="wcf.contest.menu.link.jurytalk"><![CDATA[Jurytalk]]></item>
-		<item name="wcf.contest.menu.link.sponsortalk"><![CDATA[Sponsortalk]]></item>
+		<item name="wcf.contest.menu.link.overview"><![CDATA[Übersicht]]></item>
 		<item name="wcf.contest.menu.link.participant"><![CDATA[Teilnehmer]]></item>
-		<item name="wcf.contest.menu.link.solution"><![CDATA[Lösungen]]></item>
 		<item name="wcf.contest.menu.link.price"><![CDATA[Preise]]></item>
+		<item name="wcf.contest.menu.link.solution"><![CDATA[Lösungen]]></item>
 		<item name="wcf.contest.menu.link.sponsor"><![CDATA[Sponsoren]]></item>
+		<item name="wcf.contest.menu.link.sponsortalk"><![CDATA[Sponsortalk]]></item>
 	</category>
 	<category name="wcf.usersOnline">
-		<item name="wcf.usersOnline.location.contestOverview"><![CDATA[<a href="index.php?page=ContestOverview{SID_ARG_2ND}">Contest</a>]]></item>
-		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Contest verwalten]]></item>
-
 		<item name="wcf.usersOnline.location.contest"><![CDATA[Contest &raquo;{$entry}&laquo;]]></item>
-		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Lösungen des Contests &raquo;{$entry}&laquo;]]></item>
-		<item name="wcf.usersOnline.location.contestParticipant"><![CDATA[Teilnehmerliste des Contests &raquo;{$entry}&laquo;]]></item>
-		<item name="wcf.usersOnline.location.contestPrice"><![CDATA[Preise des Contests &raquo;{$entry}&laquo;]]></item>
 		<item name="wcf.usersOnline.location.contestJury"><![CDATA[Jury des Contests &raquo;{$entry}&laquo;]]></item>
 		<item name="wcf.usersOnline.location.contestJurytalk"><![CDATA[Jurytalk des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestManage"><![CDATA[Contest verwalten]]></item>
+		<item name="wcf.usersOnline.location.contestOverview"><![CDATA[<a href="index.php?page=ContestOverview{SID_ARG_2ND}">Contest</a>]]></item>
+		<item name="wcf.usersOnline.location.contestParticipant"><![CDATA[Teilnehmerliste des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestPrice"><![CDATA[Preise des Contests &raquo;{$entry}&laquo;]]></item>
+		<item name="wcf.usersOnline.location.contestSolution"><![CDATA[Lösungen des Contests &raquo;{$entry}&laquo;]]></item>
 		<item name="wcf.usersOnline.location.contestSponsor"><![CDATA[Sponsoren des Contests &raquo;{$entry}&laquo;]]></item>
 		<item name="wcf.usersOnline.location.contestSponsortalk"><![CDATA[Sponsortalk des Contests &raquo;{$entry}&laquo;]]></item>
 	</category>
