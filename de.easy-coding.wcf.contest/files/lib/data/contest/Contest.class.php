@@ -385,6 +385,15 @@ class Contest extends DatabaseObject {
 	}
 
 	/**
+	 * Returns owner
+	 *
+	 * @return	ContestOwner
+	 */
+	public function getOwner() {
+		return ContestOwner::get($this->userID, $this->groupID);
+	}
+
+	/**
 	 * Returns true, if the active user is member
 	 *
 	 * @return	boolean

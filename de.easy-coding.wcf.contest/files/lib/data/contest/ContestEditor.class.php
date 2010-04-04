@@ -27,7 +27,7 @@ class ContestEditor extends Contest {
 	 * @param	MessageAttachmentListEditor	$attachmentList
 	 * @return	ContestEditor
 	 */
-	public static function create($userID, $groupID, $subject, $message, $options = array(), $classIDArray = array(), $participants = array(), 
+	public static function create($userID, $groupID, $subject, $message, $options = array(), $state = 'private', $classIDArray = array(), $participants = array(), 
 	    $jurys = array(), $prices = array(), $sponsors = array(), $attachmentList = null) {
 	
 		// get number of attachments
@@ -54,6 +54,7 @@ class ContestEditor extends Contest {
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
 		ContestEventEditor::create($contestID, $userID, $groupID, __CLASS__, array(
 			'contestID' => $contestID,
+			'state' => $state,
 			'owner' => ContestOwner::get($userID, $groupID)->getName()
 		));
 		
@@ -126,6 +127,8 @@ class ContestEditor extends Contest {
 	 * @param	integer				$groupID
 	 * @param	string				$subject
 	 * @param	string				$message
+	 * @param	string				$fromTime
+	 * @param	string				$untilTime
 	 * @param	string				$state
 	 * @param	array				$options
 	 * @param	integer				$classIDArray

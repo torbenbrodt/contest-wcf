@@ -18,7 +18,24 @@ class ContestSolutionNotificationObject extends AbstractContestNotificationObjec
 	 * @see ContestNotificationInterface::getRecipients()
 	 */
 	public function getRecipients() {
-		return array(1,2);
+		$ids = array();
+		switch($this->state) {
+			// tell contest jury that a solution was commited
+			case 'applied':
+				require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
+				$contest = new Contest($this->contestID);
+				foreach($contest->getJurys() as $jury) {
+					$ids = array_merge($ids, $jury->getOwner()->getUserIDs());
+				}
+			break;
+			
+			// tell solution member, that moderator did interaction
+			case 'accepted':
+			case 'declined':
+				$ids = array_merge($ids, $this->getInstance()->getOwner()->getUserIDs());
+			break;
+		}
+		return array_unique($ids);
 	}
 
 	/**

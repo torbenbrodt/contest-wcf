@@ -18,7 +18,23 @@ class ContestNotificationObject extends AbstractContestNotificationObject {
 	 * @see ContestNotificationInterface::getRecipients()
 	 */
 	public function getRecipients() {
-		return array(1,2);
+		$ids = array();
+		switch($this->state) {
+			// tell contest crew that new contest applied
+			case 'applied':
+				require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
+				$ids = array_merge($ids, ContestCrew::getUserIDs());
+			break;
+			
+			// tell contest owner, that moderator did interaction
+			case 'accepted':
+			case 'declined':
+			case 'scheduled':
+			case 'closed':
+				$ids = array_merge($ids, $this->getInstance()->getOwner()->getUserIDs());
+			break;
+		}
+		return array_unique($ids);
 	}
 
 	/**

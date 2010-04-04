@@ -37,5 +37,23 @@ class ContestCrew {
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row ? $row['optionID'] : 0;
 	}
+	
+	/**
+	 * return user id array
+	 */
+	public static function getUserIDs() {
+		$ids = array();
+		$sql = "SELECT		DISTINCT userID
+			FROM		wcf".WCF_N."_group_option_value group_option_value
+			INNER JOIN	wcf".WCF_N."_user_to_groups user_to_groups
+			ON		user_to_groups.groupID = group_option_value.groupID
+			AND		group_option_value.optionValue = 1
+			WHERE 		optionID = ".self::getOptionID();
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$ids[] = intval($row['userID']);
+		}
+		return $ids;
+	}
 }
 ?>

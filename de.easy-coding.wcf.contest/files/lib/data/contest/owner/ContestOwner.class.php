@@ -123,6 +123,25 @@ class ContestOwner {
 	}
 	
 	/**
+	 * return user id array
+	 */
+	public function getUserIDs() {
+		$ids = array();
+		if($this->owner instanceof UserProfile) {
+			$ids[] = $this->owner->userID;
+		} else {
+			$sql = "SELECT		userID
+				FROM		wcf".WCF_N."_user_to_groups
+				WHERE 		groupID = ".intval($this->owner->groupID);
+			$result = WCF::getDB()->sendQuery($sql);
+			while ($row = WCF::getDB()->fetchArray($result)) {
+				$ids[] = intval($row['userID']);
+			}
+		}
+		return $ids;
+	}
+	
+	/**
 	 * common method to generate link to user- or group profile page
 	 */
 	public function getLink() {
