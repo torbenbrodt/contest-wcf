@@ -71,6 +71,9 @@ class ContestJuryTodoList extends DatabaseObjectList {
 			WHERE		contest_jury.state = 'accepted'
 			AND		ISNULL(contest_solution_rating.optionID)
 			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
+			
+			GROUP BY	contest_jury.juryID
+			
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

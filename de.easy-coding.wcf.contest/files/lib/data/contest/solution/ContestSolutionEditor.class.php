@@ -52,11 +52,9 @@ class ContestSolutionEditor extends ContestSolution {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__);
-		
 		require_once(WCF_DIR.'lib/data/contest/participant/ViewableContestParticipant.class.php');
 		$participant = new ViewableContestParticipant($participantID);
-		ContestEventEditor::create($contestID, $participant->userID, $participant->groupID, $eventName, array(
+		ContestEventEditor::create($contestID, $participant->userID, $participant->groupID, __CLASS__, array(
 			'solutionID' => $solutionID,
 			'owner' => $participant->getOwner()->getName()
 		));

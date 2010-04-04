@@ -24,6 +24,9 @@ class ContestEventEditor extends ContestEvent {
 	 * @return	ContestEventEditor
 	 */
 	public static function create($contestID, $userID, $groupID, $eventName, array $placeholders = array(), $time = TIME_NOW) {
+		$eventName = preg_replace('/^Contest(.*)Editor(.*)$/', '$1$2', $eventName);
+		$eventName = empty($eventName) ? 'contest' : StringUtil::toLowerCase($eventName);
+		
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_event
 					(contestID, userID, groupID, eventName, placeholders, time)
 			VALUES		(".intval($contestID).", ".intval($userID).", ".intval($groupID).", '".escapeString($eventName)."', 

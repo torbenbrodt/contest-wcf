@@ -52,8 +52,7 @@ class ContestEditor extends Contest {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__);
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+		ContestEventEditor::create($contestID, $userID, $groupID, __CLASS__, array(
 			'contestID' => $contestID,
 			'owner' => ContestOwner::get($userID, $groupID)->getName()
 		));
@@ -320,6 +319,11 @@ class ContestEditor extends Contest {
 		
 		// delete entry to sponsor
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
+			WHERE		contestID = ".$this->contestID;
+		WCF::getDB()->sendQuery($sql);
+		
+		// delete events
+		$sql = "DELETE FROM	wcf".WCF_N."_contest_event
 			WHERE		contestID = ".$this->contestID;
 		WCF::getDB()->sendQuery($sql);
 		

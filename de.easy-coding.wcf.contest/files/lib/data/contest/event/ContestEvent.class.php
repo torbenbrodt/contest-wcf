@@ -30,6 +30,18 @@ class ContestEvent extends DatabaseObject {
 	}
 	
 	/**
+	 * @see DatabaseObject::handleData()
+	 */
+	protected function handleData($data) {
+		parent::handleData($data);
+
+		$this->placeholders = @unserialize($this->placeholders);
+		if(!is_array($this->placeholders)) {
+			$this->placeholders = array();
+		}
+	}
+	
+	/**
 	 * Returns an editor object for this event.
 	 *
 	 * @return	ContestEventEditor
@@ -37,16 +49,6 @@ class ContestEvent extends DatabaseObject {
 	public function getEditor() {
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		return new ContestEventEditor(null, $this->data);
-	}
-	
-	/**
-	 * gets event name from static class method
-	 *
-	 * @param 	string
-	 */
-	public static function getEventName($string) {
-		$string = explode('Editor::', $string);
-		return substr(strtolower($string[0]).ucfirst($string[1]), 7);
 	}
 
 	/**

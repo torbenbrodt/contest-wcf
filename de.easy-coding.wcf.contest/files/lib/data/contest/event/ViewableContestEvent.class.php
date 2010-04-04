@@ -49,7 +49,7 @@ class ViewableContestEvent extends ContestEvent {
 	 */
 	protected function handleData($data) {
 
-		if(isset($data['placeholders'])) {
+		if(isset($data['placeholders']) && !is_array($data['placeholders'])) {
 			$data['placeholders'] = @unserialize($data['placeholders']);
 		}
 		if(!is_array($data['placeholders'])) {
@@ -66,8 +66,8 @@ class ViewableContestEvent extends ContestEvent {
 	 * @return	string
 	 */
 	public function getFormattedMessage() {
-		$languageItem = 'wcf.contest.event.notification.'.strtolower($this->eventName);
-		return WCF::getLanguage()->get($languageItem, $this->placeholders);
+		$languageItem = 'wcf.contest.event.notification.'.$this->eventName;
+		return WCF::getLanguage()->getDynamicVariable($languageItem, $this->placeholders);
 	}
 	
 	/**

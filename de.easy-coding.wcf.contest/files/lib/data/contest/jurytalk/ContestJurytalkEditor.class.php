@@ -39,8 +39,7 @@ class ContestJurytalkEditor extends ContestJurytalk {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__);
-		ContestEventEditor::create($contestID, $userID, $groupID = 0, $eventName, array(
+		ContestEventEditor::create($contestID, $userID, $groupID = 0, __CLASS__, array(
 			'jurytalkID' => $jurytalkID,
 			'owner' => ContestOwner::get($userID, $groupID = 0)->getName()
 		));

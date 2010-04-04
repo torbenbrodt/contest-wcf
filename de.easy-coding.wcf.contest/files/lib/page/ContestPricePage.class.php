@@ -27,6 +27,13 @@ class ContestPricePage extends MultipleLinkPage {
 	public $contestID = 0;
 	
 	/**
+	 * is sponsor?
+	 * 
+	 * @var	boolean
+	 */
+	public $isSponsor = false;
+	
+	/**
 	 * entry object
 	 * 
 	 * @var	ContestPrice
@@ -102,6 +109,8 @@ class ContestPricePage extends MultipleLinkPage {
 		$this->priceList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->priceList->sqlLimit = $this->itemsPerPage;
 		$this->priceList->readObjects();
+		
+		$this->isSponsor = $this->entry->isSponsor();
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry, array(
@@ -191,6 +200,7 @@ class ContestPricePage extends MultipleLinkPage {
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
+			'isSponsor' => $this->isSponsor,
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'solution' => $solution,

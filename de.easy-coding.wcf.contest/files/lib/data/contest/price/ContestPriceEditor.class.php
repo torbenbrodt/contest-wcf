@@ -49,9 +49,8 @@ class ContestPriceEditor extends ContestPrice {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/sponsor/ViewableContestSponsor.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__);
 		$sponsor = new ViewableContestSponsor($sponsorID);
-		ContestEventEditor::create($contestID, $sponsor->userID, $sponsor->groupID, $eventName, array(
+		ContestEventEditor::create($contestID, $sponsor->userID, $sponsor->groupID, __CLASS__, array(
 			'priceID' => $priceID,
 			'owner' => $sponsor->getOwner()->getName()
 		));

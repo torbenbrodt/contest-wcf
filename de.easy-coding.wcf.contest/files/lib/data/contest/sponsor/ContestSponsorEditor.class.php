@@ -58,8 +58,8 @@ class ContestSponsorEditor extends ContestSponsor {
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
-		$eventName = ContestEvent::getEventName(__METHOD__).'.'.$state;
-		ContestEventEditor::create($contestID, $userID, $groupID, $eventName, array(
+		ContestEventEditor::create($contestID, $userID, $groupID, __CLASS__, array(
+			'state' => $state,
 			'sponsorID' => $sponsorID,
 			'owner' => ContestOwner::get($userID, $groupID)->getName()
 		));

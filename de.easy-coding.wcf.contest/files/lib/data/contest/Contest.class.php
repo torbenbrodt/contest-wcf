@@ -22,22 +22,22 @@ class Contest extends DatabaseObject {
 	 * @var array<ContestJury>
 	 */
 	protected $juryList = null;
-	
-	
+
+
 	/**
 	 * sponsor list
 	 *
 	 * @var array<ContestSponsor>
 	 */
 	protected $sponsorList = null;
-	
+
 	/**
 	 * participant list
 	 *
 	 * @var array<ContestParticipant>
 	 */
 	protected $participantList = null;
-	
+
 	/**
 	 * @see isCloseable
 	 */
@@ -58,7 +58,7 @@ class Contest extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
-	
+
 	/**
 	 * Returns the tags of this entry.
 	 *
@@ -68,18 +68,18 @@ class Contest extends DatabaseObject {
 		if($this->isViewable() == false) {
 			return array();
 		}
-	
+
 		// include files
 		require_once(WCF_DIR.'lib/data/tag/TagEngine.class.php');
 		require_once(WCF_DIR.'lib/data/contest/TaggedContest.class.php');
-		
+
 		// get tags
 		return TagEngine::getInstance()->getTagsByTaggedObject(new TaggedContest(null, array(
 			'contestID' => $this->contestID,
 			'taggable' => TagEngine::getInstance()->getTaggable('de.easy-coding.wcf.contest.entry')
 		)), $languageIDArray);
 	}
-	
+
 	/**
 	 * Gets the classes of this entry.
 	 *
@@ -98,10 +98,10 @@ class Contest extends DatabaseObject {
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$classes[$row['classID']] = new ContestClass(null, $row);
 		}
-		
+
 		return $classes;
 	}
-	
+
 	/**
 	 * Gets the participants of this entry.
 	 *
@@ -112,14 +112,14 @@ class Contest extends DatabaseObject {
 			return $this->participantList->getObjects();
 		}
 
-		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');		
+		require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');
 		$this->participantList = new ContestParticipantList();
 		$this->participantList->sqlConditions .= 'contest_participant.contestID = '.intval($this->contestID);
 		$this->participantList->readObjects();
-		
+
 		return $this->participantList->getObjects();
 	}
-	
+
 	/**
 	 * Gets the solutions of this entry.
 	 *
@@ -130,14 +130,14 @@ class Contest extends DatabaseObject {
 			return $this->solutionList->getObjects();
 		}
 
-		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');		
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 		$this->solutionList = new ContestSolutionList();
 		$this->solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($this->contestID);
 		$this->solutionList->readObjects();
-		
+
 		return $this->solutionList->getObjects();
 	}
-	
+
 	/**
 	 * Gets the jurys of this entry.
 	 *
@@ -148,14 +148,14 @@ class Contest extends DatabaseObject {
 			return $this->juryList->getObjects();
 		}
 
-		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');		
+		require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');
 		$this->juryList = new ContestJuryList();
 		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.intval($this->contestID);
 		$this->juryList->readObjects();
-		
+
 		return $this->juryList->getObjects();
 	}
-	
+
 	/**
 	 * Gets the sponsors of this entry.
 	 *
@@ -166,14 +166,14 @@ class Contest extends DatabaseObject {
 			return $this->sponsorList->getObjects();
 		}
 
-		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');		
+		require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');
 		$this->sponsorList = new ContestSponsorList();
 		$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.intval($this->contestID);
 		$this->sponsorList->readObjects();
-		
+
 		return $this->sponsorList->getObjects();
 	}
-	
+
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 *
@@ -199,7 +199,7 @@ class Contest extends DatabaseObject {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * is closeable by current user
 	 * status close is a successfull finish, if you want to stop the contest use decline status
@@ -211,17 +211,17 @@ class Contest extends DatabaseObject {
 		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
 			return false;
 		}
-			
+
 		try {
 			// call assignVariables event
 			EventHandler::fireAction($this, 'isClosable');
-				
+
 			// check if all solutions have been judged
 			$this->closableChecks[] = array(
 				'className' => 'ContestJuryTodoList',
 				'classPath' => WCF_DIR.'lib/data/contest/jury/ContestJuryTodoList.class.php'
 			);
-			
+
 			foreach($this->closableChecks as $check) {
 				require_once($check['classPath']);
 				$todoList = new $check['className']();
@@ -233,10 +233,10 @@ class Contest extends DatabaseObject {
 		} catch(Exception $e) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Returns true, if the active user is member of the jury
 	 *
@@ -248,10 +248,10 @@ class Contest extends DatabaseObject {
 				return true;
 			}
 		}
-	
+
 		return false;
 	}
-	
+
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 *
@@ -268,7 +268,7 @@ class Contest extends DatabaseObject {
 		}
 		return false;
 	}
-		
+
 	/**
 	 * everybody can add comments
 	 *
@@ -277,7 +277,22 @@ class Contest extends DatabaseObject {
 	public function isCommentable() {
 		return true;
 	}
-		
+
+	/**
+	 * Returns true, if the active user is member of the sponsor team
+	 *
+	 * @return	boolean
+	 */
+	public function isSponsor() {
+		foreach($this->getSponsors() as $sponsor) {
+			if($sponsor->state == 'accepted' && $sponsor->isOwner()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 *
@@ -286,7 +301,7 @@ class Contest extends DatabaseObject {
 	public function isSponsorable($userCheck = true) {
 		return (!$userCheck || WCF::getUser()->userID) && $this->state != 'closed';
 	}
-		
+
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 *
@@ -301,10 +316,10 @@ class Contest extends DatabaseObject {
 				return true;
 			}
 		}
-	
+
 		return false;
 	}
-		
+
 	/**
 	 * Returns true, if the active user can solution this entry.
 	 *
@@ -320,10 +335,10 @@ class Contest extends DatabaseObject {
 				return false;
 			}
 		}
-	
+
 		return true;
 	}
-		
+
 	/**
 	 * Returns true, if the active user can join the jury.
 	 *
@@ -332,7 +347,7 @@ class Contest extends DatabaseObject {
 	public function isJuryable() {
 		return WCF::getUser()->userID && $this->state != 'closed';
 	}
-		
+
 	/**
 	 * Returns true, if the active user can add prices to this entry.
 	 *
@@ -352,7 +367,7 @@ class Contest extends DatabaseObject {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Counts the entrys of a user.
 	 *
@@ -361,7 +376,7 @@ class Contest extends DatabaseObject {
 	 */
 	public static function countUserEntries($userID = null) {
 		if ($userID === null) $userID = WCF::getUser()->userID;
-		
+
 		$sql = "SELECT	COUNT(*) AS entries
 			FROM	wcf".WCF_N."_contest
 			WHERE	userID = ".$userID;
@@ -377,7 +392,7 @@ class Contest extends DatabaseObject {
 	public function isOwner() {
 		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
-	
+
 	/**
 	 * Returns true, if the active user can edit this entry.
 	 *
@@ -386,7 +401,7 @@ class Contest extends DatabaseObject {
 	public function isEditable() {
 		return ContestCrew::isMember() || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
-	
+
 	/**
 	 * Returns true, if the active user can delete this entry.
 	 *
@@ -395,7 +410,7 @@ class Contest extends DatabaseObject {
 	public function isDeletable() {
 		return ContestCrew::isMember() || (in_array($this->state, array('private', 'applied')) && $this->isOwner());
 	}
-	
+
 	public function isViewable() {
 		return $this->messagePreview || $this->isOwner() || $this->state == 'closed' || ($this->state == 'scheduled' && $this->fromTime < TIME_NOW);
 	}
@@ -436,10 +451,10 @@ class Contest extends DatabaseObject {
 	 *    state cannot be changed any longer
 	 *
 	 * - scheduled
-	 *    upcoming	
+	 *    upcoming
 	 *
 	 * - closed
-	 *    no ratings can be given, no jurys can be added	
+	 *    no ratings can be given, no jurys can be added
 	 */
 	public static function getStateConditions() {
 		$userID = WCF::getUser()->userID;

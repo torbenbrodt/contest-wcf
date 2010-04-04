@@ -23,6 +23,13 @@ class ContestJuryPage extends MultipleLinkPage {
 	public $ownerID = 0;
 	
 	/**
+	 * is jury?
+	 * 
+	 * @var	boolean
+	 */
+	public $isJury = false;
+	
+	/**
 	 * entry id
 	 *
 	 * @var	integer
@@ -78,7 +85,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		
 		// init jury list
 		$this->juryList = new ContestJuryList();
-		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contestID;
+		$this->juryList->sqlConditions .= 'contest_jury.contestID = '.intval($this->contestID);
 		$this->juryList->sqlOrderBy = 'contest_jury.time DESC';
 	}
 	
@@ -92,6 +99,8 @@ class ContestJuryPage extends MultipleLinkPage {
 		$this->juryList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->juryList->sqlLimit = $this->itemsPerPage;
 		$this->juryList->readObjects();
+		
+		$this->isSponsor = $this->entry->isSponsor();
 		
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry, array(
@@ -144,6 +153,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		$this->sidebar->assignVariables();		
 		WCF::getTPL()->assign(array(
 			'entry' => $this->entry,
+			'isJury' => $this->isJury,
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'jurys' => $this->juryList->getObjects(),
