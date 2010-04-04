@@ -121,7 +121,8 @@
 							</div>
 							{/if}
 						</div>
-							
+						
+						{if $isSponsor == false}	
 						<fieldset>
 							<legend>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</legend>
 							{lang}wcf.contest.sidebar.becomesponsor.description{/lang}
@@ -135,6 +136,7 @@
 								</ul>
 							</div>
 						</fieldset>
+						{/if}
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.sponsor.invite{/lang}</h4>
@@ -169,7 +171,7 @@
 							</div>
 						{/if}
 						
-						{if $entry->isSponsorable() && $action != 'edit'}
+						{if $entry->isSponsorable() && $action != 'edit' && $entry->isSponsor() == false}
 							<h4 class="subHeadline">{lang}wcf.contest.sponsor.add{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestSponsor&amp;contestID={@$contestID}&amp;action=add">

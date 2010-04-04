@@ -121,6 +121,7 @@
 							{/if}
 						</div>
 						
+						{if $isJury == false}
 						<fieldset>
 							<legend>{lang}wcf.contest.sidebar.becomejury.title{/lang}</legend>
 							{lang}wcf.contest.sidebar.becomejury.description{/lang}
@@ -134,6 +135,7 @@
 								</ul>
 							</div>
 						</fieldset>
+						{/if}
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.jury.invite{/lang}</h4>
@@ -168,7 +170,7 @@
 							</div>
 						{/if}
 						
-						{if $entry->isJuryable() && $action != 'edit'}
+						{if $entry->isJuryable() && $action != 'edit' && $entry->isJury() == false}
 							<h4 class="subHeadline">{lang}wcf.contest.jury.add{/lang}</h4>
 							<div class="contentBox">
 								<form method="post" action="index.php?page=ContestJury&amp;contestID={@$contestID}&amp;action=add">

@@ -323,21 +323,15 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		You will now be redirected.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
-		<item name="wcf.contest.event.notification.jurytalkcreate"><![CDATA[A new jurytalk was created.]]></item>
-		<item name="wcf.contest.event.notification.create"><![CDATA[A new contest was created.]]></item>
-		<item name="wcf.contest.event.notification.commentcreate"><![CDATA[A new comment was created.]]></item>
-		<item name="wcf.contest.event.notification.sponsortalkcreate"><![CDATA[A new sponsortalk was created.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.invited"><![CDATA[A new sponsor was invited.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.applied"><![CDATA[A new sponsor applied.]]></item>
-		<item name="wcf.contest.event.notification.jurycreate.invited"><![CDATA[A new jury was invited.]]></item>
-		<item name="wcf.contest.event.notification.jurycreate.applied"><![CDATA[A new jury applied.]]></item>
-		<item name="wcf.contest.event.notification.pricecreate"><![CDATA[A new price was added.]]></item>
-		<item name="wcf.contest.event.notification.solutioncreate"><![CDATA[A new solution was added.]]></item>
-		<item name="wcf.contest.event.notification.sponsorcreate.accepted"><![CDATA[A new sponsor was added.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.invited"><![CDATA[A new participant was invited.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.applied"><![CDATA[A new participant applied.]]></item>
-		<item name="wcf.contest.event.notification.participantcreate.accepted"><![CDATA[A new participant was added.]]></item>
-		<item name="wcf.contest.event.notification.jurycreate.accepted"><![CDATA[A new jury was added.]]></item>
+		<item name="wcf.contest.event.notification.comment"><![CDATA[A new comment was created.]]></item>
+		<item name="wcf.contest.event.notification.contest"><![CDATA[A new contest was created.]]></item>
+		<item name="wcf.contest.event.notification.jury"><![CDATA[{if $state == 'accepted'}A new jury was added.{else if $state == 'applied'}A new jury applied.{else if $state == 'invited'}A new jury was invited.{/if}]]></item>
+		<item name="wcf.contest.event.notification.jurytalk"><![CDATA[A new jurytalk was created.]]></item>
+		<item name="wcf.contest.event.notification.participant"><![CDATA[{if $state == 'accepted'}A new participant was added.{else if $state == 'applied'}A new participant applied.{else if $state == 'invited'}A new participant was invited.{/if}]]></item>
+		<item name="wcf.contest.event.notification.price"><![CDATA[A new price was added.]]></item>
+		<item name="wcf.contest.event.notification.solution"><![CDATA[A new solution was added.]]></item>
+		<item name="wcf.contest.event.notification.sponsor"><![CDATA[{if $state == 'accepted'}A new sponsor was added.{else if $state == 'applied'}A new sponsor applied.{else if $state == 'invited'}A new sponsor was invited.{/if}]]></item>
+		<item name="wcf.contest.event.notification.sponsortalk"><![CDATA[A new sponsortalk was created.]]></item>
 	</category>
 	<category name="wcf.contest.menu">
 		<item name="wcf.contest.menu.link.overview"><![CDATA[Overview]]></item>

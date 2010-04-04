@@ -2,7 +2,7 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/event-listener.xsd">
 	<import>
 		<eventlistener>
-			<eventClassName>ContestEvent</eventClassName>
+			<eventClassName>ContestEventEditor</eventClassName>
 			<eventName>create</eventName>
 			<listenerClassFile>lib/system/event/listener/ContestEventNotificationListener.class.php</listenerClassFile>
 		</eventlistener>

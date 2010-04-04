@@ -3,22 +3,22 @@
 require_once(WCF_DIR.'lib/data/contest/event/AbstractContestNotificationObject.class.php');
 
 /**
- * An implementation of NotificationObject to support the usage of an user contest entry jurytalk as a notification object.
+ * An implementation of NotificationObject to support the usage of an user contest entry jury as a notification object.
  *
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.notification
  */
-class ContestJurytalkNotificationObject extends AbstractContestNotificationObject {
-	protected $className = 'ContestJurytalk';
-	protected $primarykey = 'jurytalkID';
+class ContestJuryNotificationObject extends AbstractContestNotificationObject {
+	protected $className = 'ContestJury';
+	protected $primarykey = 'juryID';
 		
 	/**
 	 * @see ContestNotificationInterface::getRecipients()
 	 */
 	public function getRecipients() {
-		return array(1,2,3);
+		return array(1,2);
 	}
 
 	/**
@@ -31,15 +31,15 @@ class ContestJurytalkNotificationObject extends AbstractContestNotificationObjec
 	 * @see NotificationObject::getURL()
 	 */
 	public function getURL() {
-		return 'index.php?page=Contest&contestID='.$this->contestID.'&jurytalkID='.$this->jurytalkID.'#jurytalk'.$this->jurytalkID;
+		return 'index.php?page=Contest&contestID='.$this->contestID.'&juryID='.$this->juryID.'#jury'.$this->juryID;
 	}
 
 	/**
-	 * @see ViewableContestJurytalk::getFormattedJurytalk()
+	 * @see ViewableContestJury::getFormattedJury()
 	 */
 	public function getFormattedMessage($outputType = 'text/html') {
 		require_once(WCF_DIR.'lib/data/message/bbcode/SimpleMessageParser.class.php');
-		return SimpleMessageParser::getInstance()->parse($this->jurytalk);
+		return SimpleMessageParser::getInstance()->parse($this->jury);
 	}
 }
 ?>

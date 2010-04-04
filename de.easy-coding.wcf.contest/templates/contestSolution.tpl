@@ -45,7 +45,7 @@
 								<div class="message">
 								<div class="columnContainer" style="padding:0px">
 									<div class="container-3 column content">
-										<div style="width:110px; padding:12px">
+										<div style="width:150px; padding:12px">
 											<div class="messageHeader" style="float:left;width:100%;">
 												<span style="font-size:32px">
 													{$messageNumber}.

@@ -34,3 +34,5 @@ ALTER TABLE wcf1_contest ADD INDEX ( state );
 ALTER TABLE wcf1_contest_class ADD contests SMALLINT UNSIGNED NOT NULL DEFAULT 0 AFTER title;
 ALTER TABLE wcf1_contest_class ADD INDEX ( contests );
 UPDATE wcf1_contest_price SET state = 'applied' WHERE state = '';
+UPDATE wcf1_contest_event SET eventName = REPLACE(eventName, "Update", "Create") WHERE eventName LIKE '%Update%';
+UPDATE wcf1_contest_event SET eventName = 'contestCreate' WHERE eventName = 'Create';

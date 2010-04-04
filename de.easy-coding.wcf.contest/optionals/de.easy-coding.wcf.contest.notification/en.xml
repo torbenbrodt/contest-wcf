@@ -3,32 +3,32 @@
 	<category name="wcf.user.notification">
 		<item name="wcf.user.notification.object.type.contestEntry"><![CDATA[contest]]></item>
 	</category>
-	<category name="wcf.contest">
-		<item name="wcf.contest.notification.create.title"><![CDATA[New contest]]></item>
-		<item name="wcf.contest.notification.create.description"><![CDATA[You will receive a notification for new contest entries.]]></item>
+	<category name="wcf.contest.notification">
+		<item name="wcf.contest.notification.contest.title"><![CDATA[New contest]]></item>
+		<item name="wcf.contest.notification.contest.description"><![CDATA[You will receive a notification for new contest entries.]]></item>
 
-		<item name="wcf.contest.notification.commentcreate.title"><![CDATA[New contest comment]]></item>
-		<item name="wcf.contest.notification.commentcreate.description"><![CDATA[You will receive a notification for new comments for your entries.]]></item>
+		<item name="wcf.contest.notification.comment.title"><![CDATA[New contest comment]]></item>
+		<item name="wcf.contest.notification.comment.description"><![CDATA[You will receive a notification for new comments for your entries.]]></item>
 
-		<item name="wcf.contest.notification.jurycreate.title"><![CDATA[New Juror]]></item>
-		<item name="wcf.contest.notification.jurycreate.description"><![CDATA[You will receive a notification if a new Juror joins one of your contests.]]></item>
+		<item name="wcf.contest.notification.jury.title"><![CDATA[New Juror]]></item>
+		<item name="wcf.contest.notification.jury.description"><![CDATA[You will receive a notification if a new Juror joins one of your contests.]]></item>
 
-		<item name="wcf.contest.notification.jurytalkcreate.title"><![CDATA[New Jurortalk comment]]></item>
-		<item name="wcf.contest.notification.jurytalkcreate.description"><![CDATA[As Jury you will receive a notification, if one of the other jury members publishs a comment.]]></item>
+		<item name="wcf.contest.notification.jurytalk.title"><![CDATA[New Jurortalk comment]]></item>
+		<item name="wcf.contest.notification.jurytalk.description"><![CDATA[As Jury you will receive a notification, if one of the other jury members publishs a comment.]]></item>
 
-		<item name="wcf.contest.notification.participantcreate.title"><![CDATA[New Teilnehmer]]></item>
-		<item name="wcf.contest.notification.participantcreate.description"><![CDATA[You will get a notification, if a new participant joins one of your contests.]]></item>
+		<item name="wcf.contest.notification.participant.title"><![CDATA[New Teilnehmer]]></item>
+		<item name="wcf.contest.notification.participant.description"><![CDATA[You will get a notification, if a new participant joins one of your contests.]]></item>
 
-		<item name="wcf.contest.notification.pricecreate.title"><![CDATA[New Preis]]></item>
-		<item name="wcf.contest.notification.pricecreate.description"><![CDATA[You will get a notification, if a new price is added to one of your contests.]]></item>
+		<item name="wcf.contest.notification.price.title"><![CDATA[New Price]]></item>
+		<item name="wcf.contest.notification.price.description"><![CDATA[You will get a notification, if a new price is added to one of your contests.]]></item>
 
-		<item name="wcf.contest.notification.solutioncreate.title"><![CDATA[Neue Lösung]]></item>
-		<item name="wcf.contest.notification.solutioncreate.description"><![CDATA[You will get a notification, if a new solution is added to one of your contests.]]></item>
+		<item name="wcf.contest.notification.solution.title"><![CDATA[Neue Lösung]]></item>
+		<item name="wcf.contest.notification.solution.description"><![CDATA[You will get a notification, if a new solution is added to one of your contests.]]></item>
 
-		<item name="wcf.contest.notification.sponsorcreate.title"><![CDATA[New Sponsor]]></item>
-		<item name="wcf.contest.notification.sponsorcreate.description"><![CDATA[You will receive a notification if a new Sponsor joins one of your contests.]]></item>
+		<item name="wcf.contest.notification.sponsor.title"><![CDATA[New Sponsor]]></item>
+		<item name="wcf.contest.notification.sponsor.description"><![CDATA[You will receive a notification if a new Sponsor joins one of your contests.]]></item>
 
-		<item name="wcf.contest.notification.sponsortalkcreate.title"><![CDATA[New Sponsortalk comment]]></item>
-		<item name="wcf.contest.notification.sponsortalkcreate.description"><![CDATA[As Sponsor you will receive a notification, if one of the other sponsor members publishs a comment.]]></item>
+		<item name="wcf.contest.notification.sponsortalk.title"><![CDATA[New Sponsortalk comment]]></item>
+		<item name="wcf.contest.notification.sponsortalk.description"><![CDATA[As Sponsor you will receive a notification, if one of the other sponsor members publishs a comment.]]></item>
 	</category>
 </language>

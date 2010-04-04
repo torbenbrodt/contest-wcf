@@ -3,7 +3,7 @@
 	<title>{lang}wcf.contest.prices{/lang} - {$entry->subject} - {lang}wcf.header.menu.user.contest{/lang} - {lang}{PAGE_TITLE}{/lang}</title>
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
-	
+
 	{if $entry->isOwner() && $prices|count > 1}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ItemListEditor.class.js"></script>
 	<script type="text/javascript"> 
@@ -28,7 +28,7 @@
 
 <div id="main">
 	{include file="contestEntryHeader"}
-	
+
 	<div class="border tabMenuContent">
 		<div class="layout-2">
 			<div class="columnContainer">
@@ -37,15 +37,15 @@
 						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">
 						<input type="hidden" name="ContestPricePositionForm" value="1" />{/if}
 						<div class="contentBox">
-							
+
 							{if $userMessages|isset}{@$userMessages}{/if}
 							{if $prices|count > 0}
 							<h4 class="subHeadline">{lang}wcf.contest.prices{/lang} <span>({#$items})</span></h4>
-							
+
 							<div class="contentHeader">
 								{pages print=true assign=pagesOutput link="index.php?page=ContestPrice&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
-							
+
 							{assign var='messageNumber' value=$startIndex}
 							<ol class="itemList" id="pricePosition" style="list-style-type:none;padding:0px">
 							{foreach from=$prices item=priceObj}
@@ -54,7 +54,7 @@
 								<div class="message">
 								<div class="columnContainer" style="padding:0px">
 									<div class="container-3 column content">
-										<div style="width:110px; padding:12px">
+										<div style="width:150px; padding:12px">
 											<div class="messageHeader" style="float:left;width:100%;">
 												<span style="font-size:32px">
 													{$messageNumber}.
@@ -68,7 +68,7 @@
 													</ul>
 												{/if}
 											</div>
-											
+
 										</div>
 									</div>
 									<div class="container-1 column content" style="width:100%;">
@@ -155,7 +155,7 @@
 										<div class="messageBody">
 											{@$priceObj->getFormattedMessage()}
 										</div>
-								
+
 										<div class="messageFooter">
 											<div class="smallButtons">
 												<ul>
@@ -175,7 +175,7 @@
 								</li>
 							{/foreach}
 							</ol>
-							
+
 							{if $entry->isOwner()}
 							<div class="formSubmit">
 								{@SID_INPUT_TAG}
@@ -183,11 +183,11 @@
 								<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 							</div>
 							{/if}
-							
+
 							<div class="contentFooter">
 								{@$pagesOutput}
 							</div>
-							
+
 							<div class="buttonBar">
 								<div class="smallButtons">
 									<ul>
@@ -198,7 +198,8 @@
 							{/if}
 						</div>
 						{if $action != 'edit'}</form>{/if}
-							
+
+						{if $isSponsor == false}
 						<fieldset>
 							<legend>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</legend>
 							{lang}wcf.contest.sidebar.becomesponsor.description{/lang}
@@ -212,7 +213,8 @@
 								</ul>
 							</div>
 						</fieldset>
-						
+						{/if}
+
 						{if $entry->isPriceable() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.price.add{/lang}</h4>
 							<div class="contentBox">
@@ -232,7 +234,7 @@
 												</fieldset>
 											</div>
 										</div>
-										
+
 										<div class="formElement{if $errorField == 'subject' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
 												<label for="subject">{lang}wcf.contest.price.subject{/lang}</label>
@@ -247,7 +249,7 @@
 												{/if}
 											</div>
 										</div>
-										
+
 										<div class="formElement{if $errorField == 'message' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
 												<label for="message">{lang}wcf.contest.price.message{/lang}</label>
@@ -263,7 +265,7 @@
 											</div>
 										</div>
 									</fieldset>
-									
+
 									<div class="formSubmit">
 										{@SID_INPUT_TAG}
 										<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
@@ -276,7 +278,7 @@
 						<div class="contentFooter"> </div>
 					</div>
 				</div>
-			
+
 				<div class="container-3 column second contestSidebar">
 					<div class="columnInner">
 						{include file='contestSidebar'}

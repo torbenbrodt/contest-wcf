@@ -1,7 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/user/notification/object/NotificationObject.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/ViewableContestSolution.class.php');
+require_once(WCF_DIR.'lib/data/contest/event/AbstractContestNotificationObject.class.php');
 
 /**
  * An implementation of NotificationObject to support the usage of an user contest entry solution as a notification object.
@@ -11,24 +10,15 @@ require_once(WCF_DIR.'lib/data/contest/solution/ViewableContestSolution.class.ph
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.notification
  */
-class ContestSolutionNotificationObject extends ViewableContestSolution implements NotificationObject {
-
-	/**
-	 * @see ViewableContestSolution:__construct
-	 */
-	public function __construct($solutionID, $row = null) {
-		// construct from old data if possible
-		if (is_object($row)) {
-			$row = $row->data;
-		}
-		parent::__construct($solutionID, $row);
-	}
+class ContestSolutionNotificationObject extends AbstractContestNotificationObject {
+	protected $className = 'ContestSolution';
+	protected $primarykey = 'solutionID';
 		
 	/**
-	 * @see NotificationObject::getObjectID()
+	 * @see ContestNotificationInterface::getRecipients()
 	 */
-	public function getObjectID() {
-		return $this->solutionID;
+	public function getRecipients() {
+		return array(1,2);
 	}
 
 	/**
@@ -42,13 +32,6 @@ class ContestSolutionNotificationObject extends ViewableContestSolution implemen
 	 */
 	public function getURL() {
 		return 'index.php?page=Contest&contestID='.$this->contestID.'&solutionID='.$this->solutionID.'#solution'.$this->solutionID;
-	}
-
-	/**
-	 * @see NotificationObject::getIcon()
-	 */
-	public function getIcon() {
-		return 'contest';
 	}
 
 	/**

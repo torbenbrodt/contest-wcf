@@ -12,31 +12,69 @@ require_once(WCF_DIR.'lib/data/user/notification/NotificationHandler.class.php')
  * @package	de.easy-coding.wcf.contest.notification
  */
 class ContestEventNotificationListener implements EventListener {
+	const OBJECT_TYPE = 'contestEntry';
+
+	/**
+	 *
+	 * @param 	string
+	 */
+	public function getNotificationObject($eventName, array $data = array()) {
+		if($eventName == 'contest') {
+			$className = 'ContestNotificationObject';
+			$classPath = WCF_DIR.'lib/data/contest/'.$className.'.class.php';	
+		} else {
+			$className = 'Contest'.ucfirst($eventName).'NotificationObject';
+			$classPath = WCF_DIR.'lib/data/contest/'.$eventName.'/'.$className.'.class.php';
+		}
+		
+		// include class file
+		if (!file_exists($classPath)) {
+			throw new SystemException("unable to find class file '".$classPath."'", 11000);
+		}
+		require_once($classPath);
+	
+		// create instance
+		if (!class_exists($className)) {
+			throw new SystemException("unable to find class '".$className."'", 11001);
+		}
+
+		return new $className($data);
+	}
 
 	/**
 	 * @see EventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
 		if (!MODULE_USER_NOTIFICATION) return;
-		
-		$objectType = 'contestEntry';
-		$notificationObject = null; // TODO: notification api, read manual
-		
+
+		try {
+			$notificationObject = $this->getNotificationObject($eventObj->eventName, $eventObj->placeholders);
+		} catch(Exception $e) {
+			// just fun, errors don't need to be handled
+			return;
+		}
+
 		switch($eventName) {
 			case 'create':
-				$recipientUserID = 0; // TODO: notification api, read manual
-				NotificationHandler::fireEvent($eventObj->eventName, $objectType, $notificationObject, $recipientUserID);
+				foreach($notificationObject->getRecipients() as $recipientUserID) {
+					NotificationHandler::fireEvent(
+						$eventObj->eventName,
+						self::OBJECT_TYPE,
+						$notificationObject,
+						$recipientUserID
+					);
+				}
 			break;
 			case 'delete':
-				NotificationHandler::revokeEvent(array($eventObj->eventName), $objectType, array($notificationObject));
+				NotificationHandler::revokeEvent(array($eventObj->eventName), self::OBJECT_TYPE, array($notificationObject));
 			break;
 			case 'confirm':
 				$recipientUserID = 0; // TODO: notification api, read manual
 				$objectIDScope = null; // TODO: notification api, read manual
 				NotificationEditor::markConfirmedByObjectVisit(
-					$recipientUserID, 
-					array($eventObj->eventName), 
-					$objectType, 
+					$recipientUserID,
+					array($eventObj->eventName),
+					self::OBJECT_TYPE,
 					$objectIDScope
 				);
 			break;

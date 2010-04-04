@@ -110,7 +110,12 @@
 											<a id="rating{@$ratingObj->ratingID}"></a>
 											<div class="formElement{if $errorField == 'username'} formError{/if}">
 												<div class="formFieldLabel">
-													<div style="float:left;margin-left:60px">
+													{lang}wcf.contest.rating.avg.jury{/lang}: {@$ratingObj->getJuryRatingOutput()}<br/>
+													{lang}wcf.contest.rating.avg.total{/lang}: {@$ratingObj->getRatingOutput()}
+												</div>
+												<div class="formField">
+													<b>{lang}{@$ratingObj->title}{/lang}</b>
+													<div style="float:right">
 														<span style="font-size:22px">
 															{$ratingObj->jurycount|intval}
 														</span>
@@ -118,12 +123,6 @@
 															({$ratingObj->count|intval})
 														</span>
 													</div>
-													{lang}wcf.contest.rating.avg.jury{/lang}: {@$ratingObj->getJuryRatingOutput()}<br/>
-													{lang}wcf.contest.rating.avg.total{/lang}: {@$ratingObj->getRatingOutput()}
-													<br style="clear:both"/>
-												</div>
-												<div class="formField">
-													<b>{lang}{@$ratingObj->title}{/lang}</b>
 												</div>
 												<div class="formFieldDesc">
 													{if $solutionObj->isRateable()}

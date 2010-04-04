@@ -2,91 +2,91 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/notification-event.xsd">
 	<import>
 		<event>
-			<name>Create</name>
+			<name>contest</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>commentCreate</name>
+			<name>comment</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>juryCreate</name>
+			<name>jury</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>jurytalkCreate</name>
+			<name>jurytalk</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>participantCreate</name>
+			<name>participant</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>priceCreate</name>
+			<name>price</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>solutionCreate</name>
+			<name>solution</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>sponsorCreate</name>
+			<name>sponsor</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
 		</event>
 		<event>
-			<name>sponsortalkCreate</name>
+			<name>sponsortalk</name>
 			<objecttype>contestEntry</objecttype>
-			<classfile>lib/data/user/notification/event/DefaultNotificationEvent.class.php</classfile>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
 			<languagecategory>wcf.contest.notification</languagecategory>
-			<defaultnotificationtype>pm</defaultnotificationtype>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
 			<icon>contest</icon>
 			<requiresconfirmation>1</requiresconfirmation>
 			<options>module_contest</options>
