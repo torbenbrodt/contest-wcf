@@ -6,6 +6,8 @@
 	<category name="wcf.contest.notification">
 		<item name="wcf.contest.notification.contest.title"><![CDATA[Neuer Contest]]></item>
 		<item name="wcf.contest.notification.contest.description"><![CDATA[Sie erhalten eine Benachrichtigung bei neuen Contest-Einträgen.]]></item>
+		<item name="wcf.contest.notification.contest.mail"><![CDATA[contest mail]]></item>
+		<item name="wcf.contest.notification.contest.userMessages"><![CDATA[contest pm]]></item>
 
 		<item name="wcf.contest.notification.comment.title"><![CDATA[Neuer Contest-Kommentar]]></item>
 		<item name="wcf.contest.notification.comment.description"><![CDATA[Sie erhalten eine Benachrichtigung bei neuen Kommentaren zu Ihren Contest-Einträgen.]]></item>

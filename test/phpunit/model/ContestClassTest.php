@@ -31,6 +31,7 @@ class ContestClassTest extends WCFModelTest {
 			$subject = __METHOD__.' subject',
 			$message = __METHOD__.' message',
 			$options = array(),
+			$state = 'private',
 			$classIDArray = array($class->classID)
 		);
 		

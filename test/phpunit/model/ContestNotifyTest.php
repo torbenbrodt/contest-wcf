@@ -8,7 +8,6 @@ class ContestNotifyTest extends WCFModelTest {
 	protected function setUp() {
 		parent::setUp();
 		
-		WCF::getDB()->sendQuery('TRUNCATE TABLE wcf'.WCF_N.'_user_notification_event_to_user');
 		WCF::getDB()->sendQuery('TRUNCATE TABLE wcf'.WCF_N.'_user_notification_message');
 		WCF::getDB()->sendQuery('TRUNCATE TABLE wcf'.WCF_N.'_user_notification');
 	}

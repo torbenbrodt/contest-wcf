@@ -81,7 +81,7 @@ class ContestSponsorEditor extends ContestSponsor {
 				userID = ".intval($userID).", 
 				groupID = ".intval($groupID).", 
 				state = '".escapeString($state)."'
-			WHERE	sponsorID = ".$this->sponsorID;
+			WHERE	sponsorID = ".intval($this->sponsorID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	
@@ -92,12 +92,12 @@ class ContestSponsorEditor extends ContestSponsor {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	sponsors = sponsors - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete sponsor
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
-			WHERE		sponsorID = ".$this->sponsorID;
+			WHERE		sponsorID = ".intval($this->sponsorID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

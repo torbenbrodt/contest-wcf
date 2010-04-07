@@ -33,7 +33,7 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
 			SET	ratings = ratings + 1
-			WHERE	solutionID = ".$solutionID;
+			WHERE	solutionID = ".intval($solutionID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// sent event
@@ -55,7 +55,7 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 	public function update($rating) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution_rating
 			SET	rating = ".intval($rating)."
-			WHERE	ratingID = ".$this->ratingID;
+			WHERE	ratingID = ".intval($this->ratingID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	
@@ -66,12 +66,12 @@ class ContestSolutionRatingEditor extends ContestSolutionRating {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
 			SET	ratings = ratings - 1
-			WHERE	solutionID = ".$this->solutionID;
+			WHERE	solutionID = ".intval($this->solutionID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete rating
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_solution_rating
-			WHERE		ratingID = ".$this->ratingID;
+			WHERE		ratingID = ".intval($this->ratingID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

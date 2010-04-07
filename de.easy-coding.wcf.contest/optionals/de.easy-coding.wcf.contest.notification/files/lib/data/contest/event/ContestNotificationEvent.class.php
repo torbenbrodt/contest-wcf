@@ -1,7 +1,6 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/user/notification/event/DefaultNotificationEvent.class.php');
-require_once(WCF_DIR.'lib/data/contest/event/ViewableContestEvent.class.php');
 
 /**
  * 
@@ -21,16 +20,21 @@ class ContestNotificationEvent extends DefaultNotificationEvent {
 	}
 
 	/**
+	 * this is body of mail + pm
 	 * @see NotificationEvent::getMessage()
 	 */
 	public function getMessage(NotificationType $notificationType, $additionalVariables = array()) {
-		return $this->getTitle();
-	}
+		$additionalVariables = array_merge($additionalVariables, $this->getObject()->getData());
+                return $this->getLanguageVariable($this->languageCategory.'.'.$this->getEventName().'.'.$notificationType->getName(), $additionalVariables);
+        }
 
 	/**
+	 * this is subject of mail + pm
 	 * @see NotificationEvent::getShortOutput()
 	 */
 	public function getShortOutput() {
+		require_once(WCF_DIR.'lib/data/contest/event/ViewableContestEvent.class.php');
+		
 		$data = $this->data;
 		$data['placeholders'] = $this->getObject()->getData();
 		$x = new ViewableContestEvent(null, $data);

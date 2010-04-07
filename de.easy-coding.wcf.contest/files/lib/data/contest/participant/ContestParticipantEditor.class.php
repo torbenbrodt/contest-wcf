@@ -82,7 +82,7 @@ class ContestParticipantEditor extends ContestParticipant {
 				userID = ".intval($userID).", 
 				groupID = ".intval($groupID).", 
 				state = '".escapeString($state)."'
-			WHERE	participantID = ".$this->participantID;
+			WHERE	participantID = ".intval($this->participantID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// send event
@@ -102,12 +102,12 @@ class ContestParticipantEditor extends ContestParticipant {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	participants = participants - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete participant
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
-			WHERE		participantID = ".$this->participantID;
+			WHERE		participantID = ".intval($this->participantID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

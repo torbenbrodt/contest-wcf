@@ -15,7 +15,7 @@ class ContestJuryNotificationObject extends AbstractContestNotificationObject {
 	protected $primarykey = 'juryID';
 		
 	/**
-	 * @see ContestNotificationInterface::getRecipients()
+	 * @see AbstractContestNotificationObject::getRecipients()
 	 */
 	public function getRecipients() {
 		$ids = array();
