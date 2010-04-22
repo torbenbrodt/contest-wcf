@@ -69,8 +69,12 @@ class ContestEventNotificationListener implements EventListener {
 				NotificationHandler::revokeEvent(array($eventObj->eventName), self::OBJECT_TYPE, array($notificationObject));
 			break;
 			case 'confirm':
-				$recipientUserID = 0; // TODO: notification api, read manual
-				$objectIDScope = null; // TODO: notification api, read manual
+				// anybody affected by current confirmation?
+                                $objectIDScope = array();
+                                foreach($notificationObject->getObjects() as $objectID) {
+                                        $objectIDScope[] = $objectID;
+                                }
+				$recipientUserID = WCF::getUser()->userID;
 				NotificationEditor::markConfirmedByObjectVisit(
 					$recipientUserID,
 					array($eventObj->eventName),

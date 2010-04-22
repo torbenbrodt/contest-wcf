@@ -28,7 +28,6 @@ ContestSuggestion.prototype.init = function(inputFieldID) {
 	}
 	
 	// set autocomplete off
-	// TODO: does not work in safari
 	element.form.setAttribute('autocomplete', 'off');
 	
 	// disable submit on return

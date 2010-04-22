@@ -45,5 +45,12 @@ abstract class AbstractContestNotificationObject extends DatabaseObject implemen
 	}
 	
 	public abstract function getRecipients();
+	
+	/**
+	 * overwrite this method to get an objectIDScope
+	 */
+	public function getObjects() {
+		return array();
+	}
 }
 ?>
