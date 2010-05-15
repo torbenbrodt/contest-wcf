@@ -129,12 +129,12 @@ class ViewableContestList extends ContestList {
 	 */
 	protected function readClasses() {
 		$sql = "SELECT		contest_to_class.contestID,
-					contest_class.classID, contest_class.title
+					contest_class.classID
 			FROM		wcf".WCF_N."_contest_to_class contest_to_class
 			LEFT JOIN	wcf".WCF_N."_contest_class contest_class
 			ON		(contest_class.classID = contest_to_class.classID)
 			WHERE		contest_to_class.contestID IN (".implode(',', $this->objectIDArray).")
-			ORDER BY	contest_class.title";
+			ORDER BY	contest_class.position";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			if (!isset($this->classes[$row['contestID']])) $this->classes[$row['contestID']] = array();

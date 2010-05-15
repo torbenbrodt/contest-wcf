@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/acpMenu.dtd">
+<data>
+	<import>
+		<acpmenuitem name="wcf.acp.menu.link.contest">
+			<parent>wcf.acp.menu.link.content</parent>
+			<showorder>1</showorder>
+		</acpmenuitem>
+		<acpmenuitem name="wcf.acp.menu.link.contest.class">
+			<parent>wcf.acp.menu.link.contest</parent>
+			<showorder>1</showorder>
+			<link>index.php?page=ContestClassList</link>
+			<icon>icon/contestClassM.png</icon>
+		</acpmenuitem>
+		<acpmenuitem name="wcf.acp.menu.link.contest.ratingoption">
+			<parent>wcf.acp.menu.link.contest</parent>
+			<showorder>2</showorder>
+			<link>index.php?page=ContestRatingoptionList</link>
+			<icon>icon/contestRatingoptionM.png</icon>
+		</acpmenuitem>
+	</import>
+</data>

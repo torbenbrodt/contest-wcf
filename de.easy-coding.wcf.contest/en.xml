@@ -17,6 +17,20 @@
 		<item name="wcf.acp.group.option.mod.contest.canEditSolution.description"><![CDATA[Members of this usergroup can edit solutions.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canEditEntry"><![CDATA[Can edit contests]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canEditEntry.description"><![CDATA[Members of this usergroup can edit contests.]]></item>
+		<item name="wcf.acp.group.option.category.admin.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.category.admin.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canAddClass"><![CDATA[Kann Kategorien hinzufügen hinzufügen]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canAddClass.description"><![CDATA[Mitglieder dieser Benutzergruppe können Kategorien hinzufügen.]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canEditClass"><![CDATA[Kann Kategorien hinzufügen bearbeiten]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canEditClass.description"><![CDATA[Mitglieder dieser Benutzergruppe können Kategorien bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canDeleteClass"><![CDATA[Kann Kategorien hinzufügen löschen]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canDeleteClass.description"><![CDATA[Mitglieder dieser Benutzergruppe können Kategorien hinzufügen.]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canAddRatingoption"><![CDATA[Kann Bewertungskriterien hinzufügen hinzufügen]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canAddRatingoption.description"><![CDATA[Mitglieder dieser Benutzergruppe können Bewertungskriterien hinzufügen.]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canEditRatingoption"><![CDATA[Kann Bewertungskriterien hinzufügen bearbeiten]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canEditRatingoption.description"><![CDATA[Mitglieder dieser Benutzergruppe können Bewertungskriterien bearbeiten.]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canDeleteRatingoption"><![CDATA[Kann Bewertungskriterien hinzufügen löschen]]></item>
+		<item name="wcf.acp.group.option.admin.contest.canDeleteRatingoption.description"><![CDATA[Mitglieder dieser Benutzergruppe können Bewertungskriterien hinzufügen.]]></item>
 		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions"><![CDATA[Allowed file extensions]]></item>
 		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions.description"><![CDATA[Allowed file extensions. Enter one file extension each line.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canSolution"><![CDATA[Can solution contests]]></item>
@@ -52,6 +66,34 @@
 		<item name="wcf.acp.option.profile_show_last_contest_contests"><![CDATA[Show last five contest contests in the user profile]]></item>
 		<item name="wcf.acp.option.profile_show_last_contest_contests.description"><![CDATA[The last five contest contests will be displayed on the user profile start page.]]></item>
 	</category>
+	<category name="wcf.acp.contest">
+		<item name="wcf.acp.contest.ratingoption"><![CDATA[Bewertungskriterien]]></item>
+		<item name="wcf.acp.contest.ratingoption.optionID"><![CDATA[ID]]></item>
+		<item name="wcf.acp.contest.ratingoption.add"><![CDATA[Bewertungskriterium hinzufügen]]></item>
+		<item name="wcf.acp.contest.ratingoption.add.success"><![CDATA[Bewertungskriterium erfolgreich hinzugefügt.]]></item>
+		<item name="wcf.acp.contest.ratingoption.edit"><![CDATA[Bewertungskriterium bearbeiten]]></item>
+		<item name="wcf.acp.contest.ratingoption.edit.success"><![CDATA[Bewertungskriterium erfolgreich bearbeitet.]]></item>
+		<item name="wcf.acp.contest.ratingoption.delete"><![CDATA[Bewertungskriterium löschen]]></item>
+		<item name="wcf.acp.contest.ratingoption.delete.sure"><![CDATA[Wollen Sie das Bewertungskriterium wirklich löschen?]]></item>
+		<item name="wcf.acp.contest.ratingoption.delete.success"><![CDATA[Bewertungskriterium erfolgreich gelöscht.]]></item>
+		<item name="wcf.acp.contest.ratingoption.data"><![CDATA[Daten]]></item>
+		<item name="wcf.acp.contest.ratingoption.title"><![CDATA[Titel]]></item>
+		<item name="wcf.acp.contest.ratingoption.description"><![CDATA[Beschreibung]]></item>
+		<item name="wcf.acp.contest.ratingoption.count"><![CDATA[Es gibt x Einträge]]></item>
+		<item name="wcf.acp.contest.class"><![CDATA[Kategorien]]></item>
+		<item name="wcf.acp.contest.class.optionID"><![CDATA[ID]]></item>
+		<item name="wcf.acp.contest.class.add"><![CDATA[Kategorie hinzufügen]]></item>
+		<item name="wcf.acp.contest.class.add.success"><![CDATA[Kategorie erfolgreich hinzugefügt.]]></item>
+		<item name="wcf.acp.contest.class.edit"><![CDATA[Kategorie bearbeiten]]></item>
+		<item name="wcf.acp.contest.class.edit.success"><![CDATA[Kategorie erfolgreich bearbeitet.]]></item>
+		<item name="wcf.acp.contest.class.delete"><![CDATA[Kategorie löschen]]></item>
+		<item name="wcf.acp.contest.class.delete.sure"><![CDATA[Wollen Sie die Kategorie wirklich löschen?]]></item>
+		<item name="wcf.acp.contest.class.delete.success"><![CDATA[Kategorie erfolgreich gelöscht.]]></item>
+		<item name="wcf.acp.contest.class.data"><![CDATA[Daten]]></item>
+		<item name="wcf.acp.contest.class.title"><![CDATA[Titel]]></item>
+		<item name="wcf.acp.contest.class.description"><![CDATA[Beschreibung]]></item>
+		<item name="wcf.acp.contest.class.count"><![CDATA[Es gibt x Einträge]]></item>
+	</category>
 	<category name="wcf.attachment">
 		<item name="wcf.attachment.containerType.contestEntry"><![CDATA[Contest]]></item>
 	</category>
@@ -86,6 +128,11 @@ When you think your contest is fine, you can  set the status to "applied" for th
 	<category name="wcf.tagging">
 		<item name="wcf.tagging.taggable.all.de.easy-coding.wcf.contest.entry"><![CDATA[All Entries]]></item>
 		<item name="wcf.tagging.taggable.de.easy-coding.wcf.contest.entry"><![CDATA[Contest]]></item>
+	</category>
+	<category name="wcf.contest.class.item">
+		<item name="wcf.contest.class.item.default"><![CDATA[Default]]></item>
+	</category>
+	<category name="wcf.contest.ratingoption.item">
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>

@@ -34,11 +34,13 @@
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<acptemplates>acptemplates.tar</acptemplates>
 		<sql>install.sql</sql>
 		<script>acp/install_contest.php</script>
 		
 		<!-- config -->
 		<eventlistener>eventlistener.xml</eventlistener>
+		<acpmenu>acpmenu.xml</acpmenu>
 		<options>options.xml</options>
 		<taggable>taggable.xml</taggable>
 		<groupoptions>groupoptions.xml</groupoptions>
@@ -57,10 +59,13 @@
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<acptemplates>acptemplates.tar</acptemplates>
 		<sql>update050Beta1.sql</sql>
+		<script>acp/install_contest.php</script>
 		
 		<!-- config -->
 		<eventlistener>eventlistener.xml</eventlistener>
+		<acpmenu>acpmenu.xml</acpmenu>
 		<options>options.xml</options>
 		<groupoptions>groupoptions.xml</groupoptions>
 		<pagemenu>pagemenu.xml</pagemenu>

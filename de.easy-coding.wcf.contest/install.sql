@@ -114,11 +114,13 @@ CREATE TABLE wcf1_contest_sponsortalk (
 
 DROP TABLE IF EXISTS wcf1_contest_class;
 CREATE TABLE wcf1_contest_class (
-	classID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(255) NOT NULL DEFAULT '',
-	contests SMALLINT(5) NOT NULL DEFAULT 0,
-	KEY (contests)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	classID int(10) NOT NULL AUTO_INCREMENT,
+	parentClassID int(10) unsigned NOT NULL DEFAULT '0',
+	showOrder smallint(5) NOT NULL DEFAULT '0',
+	contests smallint(5) NOT NULL DEFAULT '0',
+	PRIMARY KEY (classID),
+	KEY contests (contests)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_to_class;
 CREATE TABLE wcf1_contest_to_class (
@@ -190,7 +192,7 @@ CREATE TABLE wcf1_contest_menu_item (
 	menuItemLink varchar(255) NOT NULL DEFAULT '',
 	menuItemIconM varchar(255) NOT NULL DEFAULT '',
 	menuItemIconL varchar(255) NOT NULL DEFAULT '',
-	showOrder int(10) NOT NULL DEFAULT '0',
+	showOrder smallint(5) NOT NULL DEFAULT '0',
 	permissions text,
 	options text,
 	UNIQUE KEY menuItem (menuItem)
@@ -199,7 +201,8 @@ CREATE TABLE wcf1_contest_menu_item (
 DROP TABLE IF EXISTS wcf1_contest_ratingoption;
 CREATE TABLE wcf1_contest_ratingoption (
 	optionID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	title VARCHAR(128) NOT NULL DEFAULT ''
+	classID INT UNSIGNED NOT NULL DEFAULT '0',
+	position SMALLINT( 5 ) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS wcf1_contest_solution_rating;
@@ -212,14 +215,6 @@ CREATE TABLE wcf1_contest_solution_rating (
 	time INT(10) NOT NULL DEFAULT 0,
 	UNIQUE KEY (solutionID, userID, optionID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-INSERT INTO wcf1_contest_ratingoption (title) VALUES 
-	('wcf.contest.rating.option.quality'),
-	('wcf.contest.rating.option.documentation');
-
-INSERT INTO wcf1_contest_class (title) VALUES 
-	('wcf.contest.classes.beginner'),
-	('wcf.contest.classes.expert');
 
 INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menuItemIconM, menuItemIconL, showOrder, permissions, options) VALUES
 	('wcf.contest.menu.link.overview', '', 'index.php?page=Contest&contestID=%s', 'contestM.png', 'contestL.png', 1, '', ''),

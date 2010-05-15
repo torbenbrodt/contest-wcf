@@ -11,6 +11,10 @@
 				<parent>mod</parent>
 				<options>module_contest</options>
 			</category>
+			<category name="admin.contest">
+				<parent>admin</parent>
+				<options>module_contest</options>
+			</category>
 		</categories>
 		
 		<options>
@@ -127,10 +131,38 @@ pdf]]></defaultvalue>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 			</option>
+			
+			<!-- admin -->
+			<option name="admin.contest.canAddClass">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="admin.contest.canEditClass">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="admin.contest.canDeleteClass">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="admin.contest.canAddRatingoption">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="admin.contest.canEditRatingoption">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="admin.contest.canDeleteRatingoption">
+				<categoryname>admin.contest</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
 		</options>
 	</import>
-	<delete>
-		<option name="mod.contest.canEditClass"/>
-		<option name="mod.contest.canDeleteClass"/>
-	</delete>
 </data>

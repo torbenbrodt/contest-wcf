@@ -1,23 +1,23 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
-require_once(WCF_DIR.'lib/data/contest/solution/comment/ViewableContestSolutionComment.class.php');
+require_once(WCF_DIR.'lib/data/contest/ratingoption/ContestRatingoption.class.php');
 
 /**
- * Represents a list of contest entry comments.
+ * Represents a list of contest entry ratings.
  * 
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSolutionCommentList extends DatabaseObjectList {
+class ContestRatingoptionList extends DatabaseObjectList {
 	/**
-	 * list of comments
+	 * list of ratings
 	 * 
-	 * @var array<ViewableContestSolutionComment>
+	 * @var array<ContestRatingoption>
 	 */
-	public $comments = array();
+	public $ratings = array();
 
 	/**
 	 * sql order by statement
@@ -31,7 +31,7 @@ class ContestSolutionCommentList extends DatabaseObjectList {
 	 */
 	public function countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
-			FROM	wcf".WCF_N."_contest_solution_comment contest_solution_comment
+			FROM	wcf".WCF_N."_contest_ratingoption contest_ratingoption
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
@@ -42,18 +42,14 @@ class ContestSolutionCommentList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					avatar.*, user_table.*, contest_solution_comment.*
-			FROM		wcf".WCF_N."_contest_solution_comment contest_solution_comment
-			LEFT JOIN	wcf".WCF_N."_user user_table
-			ON		(user_table.userID = contest_solution_comment.userID)
-			LEFT JOIN	wcf".WCF_N."_avatar avatar
-			ON		(avatar.avatarID = user_table.avatarID)
+					contest_ratingoption.*
+			FROM 		wcf".WCF_N."_contest_ratingoption contest_ratingoption
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->comments[] = new ViewableContestSolutionComment(null, $row);
+			$this->ratings[] = new ContestRatingoption(null, $row);
 		}
 	}
 	
@@ -61,7 +57,7 @@ class ContestSolutionCommentList extends DatabaseObjectList {
 	 * @see DatabaseObjectList::getObjects()
 	 */
 	public function getObjects() {
-		return $this->comments;
+		return $this->ratings;
 	}
 }
 ?>

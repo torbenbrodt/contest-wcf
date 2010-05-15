@@ -11,6 +11,7 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestClass extends DatabaseObject {
+	
 	/**
 	 * Creates a new ContestClass object.
 	 *
@@ -33,7 +34,9 @@ class ContestClass extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return "".$this->title;
+		$key = 'wcf.contest.class.item'.$this->classID;
+		$val = WCF::getLanguage()->get($key);
+		return "".($key != $val ? $val : '#'.$this->classID);
 	}
 	
 	/**
@@ -58,7 +61,7 @@ class ContestClass extends DatabaseObject {
 		$classes = array();
 		$sql = "SELECT		*
 			FROM 		wcf".WCF_N."_contest_class
-			ORDER BY	title";
+			ORDER BY	position";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$classes[$row['classID']] = new ContestClass(null, $row);
