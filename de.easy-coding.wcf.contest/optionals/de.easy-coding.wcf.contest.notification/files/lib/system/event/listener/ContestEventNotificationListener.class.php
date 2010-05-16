@@ -12,6 +12,12 @@ require_once(WCF_DIR.'lib/data/user/notification/NotificationHandler.class.php')
  * @package	de.easy-coding.wcf.contest.notification
  */
 class ContestEventNotificationListener implements EventListener {
+
+	/**
+	 * all events will be mapped on a single event type
+	 * 
+	 * @var string
+	 */
 	const OBJECT_TYPE = 'contestEntry';
 
 	/**

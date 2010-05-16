@@ -36,6 +36,13 @@ ALTER TABLE wcf1_contest_class ADD INDEX ( contests );
 UPDATE wcf1_contest_price SET state = 'applied' WHERE state = '';
 UPDATE wcf1_contest_event SET eventName = REPLACE(eventName, "Update", "Create") WHERE eventName LIKE '%Update%';
 UPDATE wcf1_contest_event SET eventName = 'contestCreate' WHERE eventName = 'Create';
+UPDATE wcf1_contest_event SET eventName = 'sponsortalk' WHERE eventName LIKE 'sponsortalk%';
+UPDATE wcf1_contest_event SET eventName = 'sponsor' WHERE eventName LIKE 'sponsor%';
+UPDATE wcf1_contest_event SET eventName = 'jurytalk' WHERE eventName LIKE 'jurytalk%';
+UPDATE wcf1_contest_event SET eventName = 'jury' WHERE eventName LIKE 'jury%';
+UPDATE wcf1_contest_event SET eventName = 'price' WHERE eventName LIKE 'price%';
+UPDATE wcf1_contest_event SET eventName = 'participant' WHERE eventName LIKE 'participant%';
+UPDATE wcf1_contest_event SET eventName = 'contest' WHERE eventName LIKE 'contest%';
 UPDATE wcf1_contest_solution x, (
  SELECT solutionID, COUNT(solutionID) AS ratings FROM wcf1_contest_solution_rating GROUP BY solutionID) y
  SET x.ratings = y.ratings WHERE x.solutionID = y.solutionID;

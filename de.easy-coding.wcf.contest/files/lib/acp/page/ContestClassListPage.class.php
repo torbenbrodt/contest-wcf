@@ -24,7 +24,7 @@ class ContestClassListPage extends AbstractPage {
 	 *
 	 * @var	integer
 	 */
-	public $deletedclassID = 0;
+	public $deletedClassID = 0;
 	
 	/**
 	 * If the list was sorted successfully
@@ -54,7 +54,7 @@ class ContestClassListPage extends AbstractPage {
 		parent::readParameters();
 
 		if (isset($_REQUEST['successfullSorting'])) $this->successfullSorting = true;
-		if (isset($_REQUEST['deletedclassID'])) $this->deletedclassID = intval($_REQUEST['deletedclassID']);
+		if (isset($_REQUEST['deletedClassID'])) $this->deletedClassID = intval($_REQUEST['deletedClassID']);
 
 	}
 
@@ -114,10 +114,8 @@ class ContestClassListPage extends AbstractPage {
 
 		WCF::getTPL()->assign(array(
 			'contestClasses' => $this->contestClassList,
-			'deletedclassID' => $this->deletedclassID,
+			'deletedClassID' => $this->deletedClassID,
 			'successfullSorting' => $this->successfullSorting,
-			'contest_class' => $this->contest_class,
-			'contest_classOptionList' => $this->contest_classOptionList,
 		));
 	}
 
@@ -126,7 +124,7 @@ class ContestClassListPage extends AbstractPage {
 	 */
 	public function show() {
 		// check user permission
-		#WCF::getUser()->checkPermission(array('admin.contest.canEditItem', 'admin.contest.canDeleteItem'));
+		WCF::getUser()->checkPermission(array('admin.contest.canEditClass', 'admin.contest.canDeleteClass'));
 		
 		// enable menu item
 		WCFACP::getMenu()->setActiveMenuItem('wcf.acp.menu.link.contest.class');

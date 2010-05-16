@@ -65,10 +65,10 @@ class ContestRatingoptionEditForm extends ContestRatingoptionAddForm {
 				$language = WCF::getLanguage();
 			}
 
-			$this->topic = $language->get('wcf.contest.class.item.'.$this->contestRatingoption->optionID);
-			if ($this->topic == 'wcf.contest.class.item.'.$this->contestRatingoption->optionID) $this->topic = "";
-			$this->text = $language->get('wcf.contest.class.item.'.$this->contestRatingoption->optionID.'.description');
-			if ($this->text == 'wcf.contest.class.item.'.$this->contestRatingoption->optionID.'.description') $this->text = "";
+			$this->topic = $language->get('wcf.contest.ratingoption.item.'.$this->contestRatingoption->optionID);
+			if ($this->topic == 'wcf.contest.ratingoption.item.'.$this->contestRatingoption->optionID) $this->topic = "";
+			$this->text = $language->get('wcf.contest.ratingoption.item.'.$this->contestRatingoption->optionID.'.description');
+			if ($this->text == 'wcf.contest.ratingoption.item.'.$this->contestRatingoption->optionID.'.description') $this->text = "";
 		}
 	}
 

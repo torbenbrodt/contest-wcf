@@ -408,6 +408,10 @@ class ContestEditor extends Contest {
 					$arr[] = 'accepted';
 				}
 			break;
+			default:
+				$arr = array();
+				$arr[] = 'private';
+			break;
 		}
 
 		if($isClosable && !in_array('closed', $arr)) {

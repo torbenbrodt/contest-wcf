@@ -45,24 +45,10 @@ class ContestJuryNotificationObject extends AbstractContestNotificationObject {
 	}
 
 	/**
-	 * @see NotificationObject::getTitle()
-	 */
-	public function getTitle() {
-	}
-
-	/**
 	 * @see NotificationObject::getURL()
 	 */
 	public function getURL() {
 		return 'index.php?page=Contest&contestID='.$this->contestID.'&juryID='.$this->juryID.'#jury'.$this->juryID;
-	}
-
-	/**
-	 * @see ViewableContestJury::getFormattedJury()
-	 */
-	public function getFormattedMessage($outputType = 'text/html') {
-		require_once(WCF_DIR.'lib/data/message/bbcode/SimpleMessageParser.class.php');
-		return SimpleMessageParser::getInstance()->parse($this->jury);
 	}
 }
 ?>

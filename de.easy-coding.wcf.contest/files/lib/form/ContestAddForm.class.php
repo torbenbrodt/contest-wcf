@@ -7,6 +7,7 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
+require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 
@@ -29,6 +30,8 @@ class ContestAddForm extends MessageForm {
 	public $ownerID = 0;
 	public $userID = 0;
 	public $groupID = 0;
+	
+	protected $state = 'private';
 	
 	// options
 	public $enableParticipantCheck = 0;
@@ -214,10 +217,10 @@ class ContestAddForm extends MessageForm {
 	 * returns available states
 	 */
 	protected function getStates() {
-		$flags = ($this->entry->isOwner() ? ContestState::FLAG_USER : 0)
-			+ ($this->entry->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+		$flags = (ContestState::FLAG_USER)
+			+ (ContestState::FLAG_CONTESTOWNER)
 			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
-		return ContestEditor::getStates($this->state, $flags, $this->entry->isClosable());
+		return ContestEditor::getStates($this->state, $flags);
 	}
 	
 	/**

@@ -4,7 +4,7 @@ require_once(WCF_DIR.'lib/data/user/notification/object/NotificationObject.class
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 
 /**
- * 
+ * abstract notification for contest, implementation will be for jury, participant, ...
  *
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
@@ -46,6 +46,14 @@ abstract class AbstractContestNotificationObject extends DatabaseObject implemen
 	 */
 	public function getData() {
 		return $this->data;
+	}
+
+	/**
+	 * @see NotificationObject::getTitle()
+	 */
+	public function getTitle() {
+		$substring = StringUtil::substring($this->className, StringUtil::length('Contest'));
+		return $substring;
 	}
 
 	/**

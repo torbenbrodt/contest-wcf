@@ -67,7 +67,12 @@ class ViewableContestEvent extends ContestEvent {
 	 */
 	public function getFormattedMessage() {
 		$languageItem = 'wcf.contest.event.notification.'.$this->eventName;
-		return WCF::getLanguage()->getDynamicVariable($languageItem, $this->placeholders);
+		try {
+			$x = WCF::getLanguage()->getDynamicVariable($languageItem, $this->placeholders);
+			return $x;
+		} catch(Exception $e) {
+			return $languageItem;
+		}
 	}
 	
 	/**

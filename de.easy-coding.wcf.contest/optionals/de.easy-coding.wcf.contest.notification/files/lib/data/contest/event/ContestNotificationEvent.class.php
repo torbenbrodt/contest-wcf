@@ -3,7 +3,7 @@
 require_once(WCF_DIR.'lib/data/user/notification/event/DefaultNotificationEvent.class.php');
 
 /**
- * 
+ * event supports all notification types, since it provides a fallback solution
  *
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
@@ -11,6 +11,13 @@ require_once(WCF_DIR.'lib/data/user/notification/event/DefaultNotificationEvent.
  * @package	de.easy-coding.wcf.contest
  */
 class ContestNotificationEvent extends DefaultNotificationEvent {
+
+	/**
+	 * fallback solution language variable name, @see getMessage
+	 *
+	 * @var string
+	 */
+	const FALLBACK_NOTIFICATION_TYPE = 'title';
 
 	/**
 	 * @see NotificationEvent::supportsNotificationType()
@@ -25,7 +32,14 @@ class ContestNotificationEvent extends DefaultNotificationEvent {
 	 */
 	public function getMessage(NotificationType $notificationType, $additionalVariables = array()) {
 		$additionalVariables = array_merge($additionalVariables, $this->getObject()->getData());
-                return $this->getLanguageVariable($this->languageCategory.'.'.$this->getEventName().'.'.$notificationType->getName(), $additionalVariables);
+		$key = $this->languageCategory.'.'.$this->getEventName().'.'.$notificationType->getName();
+		$tmp = $this->getLanguageVariable($key, $additionalVariables);
+		if($tmp) {
+			return $tmp;
+		} else {
+			$key = $this->languageCategory.'.'.$this->getEventName().'.'.self::FALLBACK_NOTIFICATION_TYPE;
+			return $this->getLanguageVariable($key, $additionalVariables);
+		} 
         }
 
 	/**

@@ -21,27 +21,7 @@
 	</div>
 </div>
 
-{if $applications > 1 && $contest_classOptionList|count > 1}
-<div class="border content">
-	<div class="container-1">
-		<fieldset>
-			<legend>{lang}wcf.acp.contest_class.list{/lang}</legend>
-			<div class="formElement">
-				<div class="formFieldLabel">
-					<label for="optionID">{lang}wcf.acp.contest_class.list{/lang}</label>
-				</div>
-				<div class="formField">
-					<select name="optionID" id="optionID" onchange="document.location.href=fixURL('index.php?page=ContestClassList&amp;optionID='+this.options[this.selectedIndex].value+'&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}')">
-						{htmlOptions options=$contest_classOptionList selected=$contest_class->optionID}
-					</select>
-				</div>
-			</div>
-		</fieldset>
-	</div>
-</div>
-{/if}
-
-{if $deletedContestClassID}
+{if $deletedClassID}
 	<p class="success">{lang}wcf.acp.contest.class.delete.success{/lang}</p>
 {/if}
 
@@ -52,7 +32,7 @@
 <div class="contentHeader">
 	<div class="largeButtons">
 		<ul>
-			{if $this->user->getPermission('admin.contest.canAddClass')}<li><a href="index.php?form=ContestClassAdd&amp;optionID={@$contest_class->optionID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.add{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestClassAddM.png" alt="" /> <span>{lang}wcf.acp.contest.class.add{/lang}</span></a></li>{/if}
+			{if $this->user->getPermission('admin.contest.canAddClass')}<li><a href="index.php?form=ContestClassAdd&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.add{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestClassAddM.png" alt="" /> <span>{lang}wcf.acp.contest.class.add{/lang}</span></a></li>{/if}
 		</ul>
 	</div>
 </div>
@@ -70,13 +50,13 @@
 							
 							<div class="buttons">
 								{if $this->user->getPermission('admin.contest.canEditClass')}
-									<a href="index.php?form=ContestClassEdit&amp;classID={@$contestClass->classID}&amp;optionID={@$contest_class->optionID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.edit{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/editS.png" alt="" /></a>
+									<a href="index.php?form=ContestClassEdit&amp;classID={@$contestClass->classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.edit{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/editS.png" alt="" /></a>
 								{else}
 									<img src="{@RELATIVE_WCF_DIR}icon/editDisabledS.png" alt="" title="{lang}wcf.acp.contest.class.editDisabled{/lang}" />
 								{/if}
 								
 								{if $this->user->getPermission('admin.contest.canDeleteClass')}
-									<a onclick="return confirm('{lang}wcf.acp.contest.class.delete.sure{/lang}')" href="index.php?action=ContestClassDelete&amp;classID={@$contestClass->classID}&amp;optionID={@$contest_class->optionID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.delete{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/deleteS.png" alt="" /></a>
+									<a onclick="return confirm('{lang}wcf.acp.contest.class.delete.sure{/lang}')" href="index.php?action=ContestClassDelete&amp;classID={@$contestClass->classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.contest.class.delete{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/deleteS.png" alt="" /></a>
 								{else}
 									<img src="{@RELATIVE_WCF_DIR}icon/deleteDisabledS.png" alt="" title="{lang}wcf.acp.contest.class.deleteDisabled{/lang}" />
 								{/if}
@@ -114,7 +94,6 @@
 				<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
 				<input type="reset" id="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 				<input type="hidden" name="packageID" value="{@PACKAGE_ID}" />
-				<input type="hidden" name="optionID" value="{@$contest_class->optionID}" />
 				{@SID_INPUT_TAG}
 			</div>
 		{/if}
