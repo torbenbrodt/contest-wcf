@@ -3,10 +3,10 @@
 /**
  * searchs for all template files and checks if language data is complete
  */
-class LanguageTest extends WCFDirectoryTest {
+class LanguageXMLTest extends WCFDirectoryTest {
 	protected $pattern = '/\.tpl$/';
 	protected $prefix = 'wcf.contest';
-	protected $dictionary = array();	
+	protected $dictionary = array();
 
 	/**
 	 *
