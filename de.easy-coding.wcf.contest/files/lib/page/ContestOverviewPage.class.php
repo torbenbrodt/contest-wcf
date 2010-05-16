@@ -18,6 +18,13 @@ class ContestOverviewPage extends MultipleLinkPage {
 	public $itemsPerPage = 10;
 	
 	/**
+	 * decription for filters to be shown
+	 *
+	 * @var string
+	 */
+	protected $description = array();
+	
+	/**
 	 * list of contest entrys
 	 *
 	 * @var ContestList
@@ -123,19 +130,19 @@ class ContestOverviewPage extends MultipleLinkPage {
 		} else if($this->juryID) {
 			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
 			$this->entryList = new ContestOverviewList();
-			$this->entryList->sqlConditions .= 'contest_jury.juryID = '.$this->juryID;
+			$this->entryList->sqlConditions .= 'contest_jury.juryID = '.intval($this->juryID);
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_jury contest_jury ON (contest_jury.contestID = contest.contestID) ";
 		
 		} else if($this->participantID) {
 			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
 			$this->entryList = new ContestOverviewList();
-			$this->entryList->sqlConditions .= 'contest_participant.participantID = '.$this->participantID;
+			$this->entryList->sqlConditions .= 'contest_participant.participantID = '.intval($this->participantID);
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_participant contest_participant ON (contest_participant.contestID = contest.contestID) ";
 		
 		} else if($this->classID) {
 			require_once(WCF_DIR.'lib/data/contest/ContestOverviewList.class.php');
 			$this->entryList = new ContestOverviewList();
-			$this->entryList->sqlConditions .= 'contest_to_class.classID = '.$this->classID;
+			$this->entryList->sqlConditions .= 'contest_to_class.classID = '.intval($this->classID);
 			$this->entryList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_contest_to_class contest_to_class ON (contest_to_class.contestID = contest.contestID) ";
 		}
 		else {
@@ -155,6 +162,14 @@ class ContestOverviewPage extends MultipleLinkPage {
 	 */
 	public function readData() {
 		parent::readData();
+		
+		if($this->classID) {
+			$class = new ContestClass($this->classID);
+			$val = WCF::getLanguage()->get($class->description);
+			if(!empty($val)) {
+				$this->description[] = $val;
+			}
+		}
 		
 		// read entries
 		$this->entryList->sqlLimit = $this->itemsPerPage;
@@ -195,6 +210,7 @@ class ContestOverviewPage extends MultipleLinkPage {
 		
 		WCF::getTPL()->assign(array(
 			'entries' => $this->entryList->getObjects(),
+			'description' => $this->description,
 			'classes' => $this->entryList->getClasses(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'tags' => $this->entryList->getTags(),

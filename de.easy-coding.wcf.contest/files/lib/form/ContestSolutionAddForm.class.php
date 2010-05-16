@@ -116,6 +116,12 @@ class ContestSolutionAddForm extends MessageForm {
 	}
 	
 	/**
+	 * no validation required
+	 */
+	protected function validateSubject() {
+	}
+	
+	/**
 	 * @see Form::validate()
 	 */
 	public function validate() {
@@ -197,6 +203,7 @@ class ContestSolutionAddForm extends MessageForm {
 		parent::save();
 		
 		$participant = ContestParticipant::find($this->contest->contestID, $this->userID, $this->groupID);
+		
 		$state = 'applied';
 		if($participant === null) {
 			require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');

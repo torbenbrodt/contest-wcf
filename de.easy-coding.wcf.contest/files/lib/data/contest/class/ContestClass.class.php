@@ -22,7 +22,7 @@ class ContestClass extends DatabaseObject {
 		if ($classID !== null) {
 			$sql = "SELECT		contest_class.*
 				FROM 		wcf".WCF_N."_contest_class contest_class
-				WHERE 		contest_class.classID = ".$classID;
+				WHERE 		contest_class.classID = ".intval($classID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -34,7 +34,8 @@ class ContestClass extends DatabaseObject {
 	protected function handleData($data) {
 		parent::handleData($data);
 
-		$this->title = 'wcf.contest.class.item'.$this->classID;
+		$this->title = 'wcf.contest.class.item.'.$this->classID;
+		$this->description = 'wcf.contest.class.item.'.$this->classID.'.description';
 	}
 	
 	/**
@@ -43,7 +44,7 @@ class ContestClass extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		return "".$this->title;
+		return "".WCF::getLanguage()->get($this->title);
 	}
 	
 	/**
@@ -92,6 +93,16 @@ class ContestClass extends DatabaseObject {
 	 */
 	public function isDeletable() {
 		return false;
+	}
+	
+	/**
+	 * Returns an editor object for this rating.
+	 *
+	 * @return	ContestClassEditor
+	 */
+	public function getEditor() {
+		require_once(WCF_DIR.'lib/data/contest/class/ContestClassEditor.class.php');
+		return new ContestClassEditor(null, $this->data);
 	}
 }
 ?>

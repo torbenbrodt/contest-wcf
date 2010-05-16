@@ -47,13 +47,20 @@ class ContestRatingoptionEditor extends ContestRatingoption {
 	 */
 	public function updateTranslation($title, $text, $languageID) {
 		if($languageID == 0) return;
+		
+		// fetch language category
+		$sql = "SELECT	languageCategoryID
+			FROM	wcf".WCF_N."_language_category
+			WHERE	languageCategory = 'wcf.contest.ratingoption.item'";
+		$row = WCF::getDB()->getFirstRow($sql);
+		$languageCategoryID = $row['languageCategoryID'];
+		
 		// save language variables
 		$language = new LanguageEditor($languageID);
 		$language->updateItems(array(
 				'wcf.contest.ratingoption.item.'.$this->optionID => $title, 
 				'wcf.contest.ratingoption.item.'.$this->optionID.'.description' => $text
-			), 0, WCF::getPackageID('de.easy-coding.wcf.contest'));
-		LanguageEditor::deleteLanguageFiles($languageID, 'wcf.contest.ratingoption.item');
+			), $languageCategoryID, PACKAGE_ID);
 	}
 	
 	/**

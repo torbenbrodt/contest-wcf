@@ -19,12 +19,30 @@ class ContestRatingoption extends DatabaseObject {
 	 */
 	public function __construct($optionID, $row = null) {
 		if ($optionID !== null) {
-			$sql = "SELECT		*
-				FROM 		wcf".WCF_N."_contest_ratingoption
-				WHERE 		optionID = ".$optionID;
+			$sql = "SELECT		contest_ratingoption.*
+				FROM 		wcf".WCF_N."_contest_ratingoption contest_ratingoption
+				WHERE 		contest_ratingoption.optionID = ".intval($optionID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
+	}
+
+	/**
+	 * @see DatabaseObject::handleData()
+	 */
+	protected function handleData($data) {
+		parent::handleData($data);
+
+		$this->title = 'wcf.contest.ratingoption.item.'.$this->optionID;
+	}
+	
+	/**
+	 * Returns the title of this class.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return "".WCF::getLanguage()->get($this->title);
 	}
 	
 	/**

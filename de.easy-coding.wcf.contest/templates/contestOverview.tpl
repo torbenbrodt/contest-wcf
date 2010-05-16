@@ -41,6 +41,15 @@
 						
 					<h3 class="subHeadline">{if $tagID}{lang}wcf.contest.entries.tagged{/lang}{else}{lang}wcf.contest.entries.allEntries{/lang}{/if} <span>({#$items})</span></h3>
 					
+	
+					{if $description|count > 0}
+						<div class="info">
+						{foreach from=$description item=entry}
+						<li>{$entry}</li>
+						{/foreach}
+						</div>
+					{/if}
+					
 					<div class="contentHeader">
 						{pages print=true assign=pagesOutput link="index.php?page=ContestOverview&tagID=$tagID&juryID=$juryID&classID=$classID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 					</div>

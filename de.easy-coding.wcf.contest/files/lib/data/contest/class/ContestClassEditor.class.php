@@ -47,13 +47,20 @@ class ContestClassEditor extends ContestClass {
 	 */
 	public function updateTranslation($title, $text, $languageID) {
 		if($languageID == 0) return;
+		
+		// fetch language category
+		$sql = "SELECT	languageCategoryID
+			FROM	wcf".WCF_N."_language_category
+			WHERE	languageCategory = 'wcf.contest.class.item'";
+		$row = WCF::getDB()->getFirstRow($sql);
+		$languageCategoryID = $row['languageCategoryID'];
+		
 		// save language variables
 		$language = new LanguageEditor($languageID);
 		$language->updateItems(array(
 				'wcf.contest.class.item.'.$this->classID => $title, 
 				'wcf.contest.class.item.'.$this->classID.'.description' => $text
-			), 0, WCF::getPackageID('de.easy-coding.wcf.contest'));
-		LanguageEditor::deleteLanguageFiles($languageID, 'wcf.contest.class.item');
+			), $languageCategoryID, PACKAGE_ID);
 	}
 	
 	/**

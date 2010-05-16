@@ -157,6 +157,11 @@ class ContestSolutionEditor extends ContestSolution {
 					$arr[] = 'declined';
 				}
 			break;
+			default:
+				$arr = array(); // reset array
+				$arr[] = 'applied';
+				$arr[] = 'private';
+			break;
 		}
 		return ContestState::translateArray($arr);
 	}

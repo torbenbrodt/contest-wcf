@@ -29,7 +29,7 @@
 		<ul>
 			<li{if $classID == 0} class="activeSubTabMenu"{/if}><a href="index.php?page=ContestRatingoptionList&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}"><span>{lang}wcf.contest.class.item.default{/lang} ({#$defaultRatingoptions})</span></a></li>
 			{foreach from=$classes item=contestClass}
-				<li{if $classID == $contestClass->classID} class="activeSubTabMenu"{/if}><a href="index.php?page=ContestRatingoptionList&amp;classID={@$contestClass->classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}"><span>{lang}wcf.contest.class.item.{$contestClass}{/lang} ({#$contestClass->ratingoptions})</span></a></li>
+				<li{if $classID == $contestClass->classID} class="activeSubTabMenu"{/if}><a href="index.php?page=ContestRatingoptionList&amp;classID={@$contestClass->classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}"><span>{lang}{$contestClass}{/lang} ({#$contestClass->ratingoptions})</span></a></li>
 			{/foreach}
 		</ul>
 	</div>

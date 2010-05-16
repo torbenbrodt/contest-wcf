@@ -27,6 +27,13 @@ class ContestClassList extends DatabaseObjectList {
 	public $sqlOrderBy = 'contest_class.contests DESC';
 	
 	/**
+	 * sql group by statement
+	 *
+	 * @var	string
+	 */
+	public $sqlGroupBy = '';
+	
+	/**
 	 * @see DatabaseObjectList::countObjects()
 	 */
 	public function countObjects() {
@@ -42,10 +49,12 @@ class ContestClassList extends DatabaseObjectList {
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
-					contest_class.*
+					contest_class.*,
+					COUNT(contest_ratingoption.classID) AS ratingoptions
 			FROM		wcf".WCF_N."_contest_class contest_class
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+			".(!empty($this->sqlGroupBy) ? "GROUP BY ".$this->sqlGroupBy : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

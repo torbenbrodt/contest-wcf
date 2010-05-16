@@ -133,6 +133,7 @@ When you think your contest is fine, you can  set the status to "applied" for th
 		<item name="wcf.contest.class.item.default"><![CDATA[Default]]></item>
 	</category>
 	<category name="wcf.contest.ratingoption.item">
+		<item name="wcf.contest.ratingoption.item.default"><![CDATA[General]]></item>
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
@@ -357,6 +358,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.todo.crew.applied"><![CDATA[A contest waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[A solution waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[A price waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.participant.solution.private"><![CDATA[Your solution needs to be published.]]></item>
 		
 		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
 		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>

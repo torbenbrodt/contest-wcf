@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/page/SortablePage.class.php');
-require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
+require_once(WCF_DIR.'lib/data/contest/class/ContestClassList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ratingoption/ContestRatingoptionList.class.php');
 
 /**
@@ -17,6 +17,11 @@ class ContestRatingoptionListPage extends SortablePage {
 	public $templateName = 'contestRatingoptionList';
 	public $defaultSortField = 'position';
 	public $deletedOptionID = 0;
+	
+	/**
+	 *
+	 */
+	protected $defaultRatingoptions = 0;
 	
 	/**
 	 * ratingoption list object
@@ -63,8 +68,21 @@ class ContestRatingoptionListPage extends SortablePage {
 		$this->ratingoptionList->sqlOrderBy = 'contest_ratingoption.'.$this->sortField." ".$this->sortOrder;
 		$this->ratingoptionList->readObjects();
 		
+		// get classes
+		$this->classList = new ContestClassList();
+		$this->classList->sqlJoins = "LEFT JOIN	wcf".WCF_N."_contest_ratingoption contest_ratingoption USING(classID)";
+		$this->classList->sqlGroupBy = 'contest_class.classID';
+		$this->classList->readObjects();
+		
 		// get categories
-		$this->classes = ContestClass::getClasses();
+		$this->classes = $this->classList->getObjects();
+		
+		// defaultRatingoptions
+		$sql = "SELECT	COUNT(*) AS count
+			FROM	wcf".WCF_N."_contest_ratingoption
+			WHERE	classID	= 0";
+		$row = WCF::getDB()->getFirstRow($sql);
+		$this->defaultRatingoptions = $row['count'];
 	}
 	
 	/**
@@ -97,6 +115,7 @@ class ContestRatingoptionListPage extends SortablePage {
 		
 		WCF::getTPL()->assign(array(
 			'ratingoptions' => $this->ratingoptionList->getObjects(),
+			'defaultRatingoptions' => $this->defaultRatingoptions,
 			'deletedOptionID' => $this->deletedOptionID,
 			'classID' => $this->classID,
 			'classes' => $this->classes,
