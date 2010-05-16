@@ -122,7 +122,7 @@
 							{/if}
 						</div>
 						
-
+						{if $isRegistered == false || $entry->isParticipantable()}
 						<fieldset>
 							<legend>{lang}wcf.contest.sidebar.becomeparticipant.title{/lang}</legend>
 							{lang}wcf.contest.sidebar.becomeparticipant.description{/lang}
@@ -130,12 +130,12 @@
 							<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 								<ul>
 									{if $isRegistered}
-									<li><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 									{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 									{/if}
 								</ul>
 							</div>
 						</fieldset>
+						{/if}
 						
 						{if $entry->isOwner() && $action != 'edit'}
 							<h4 class="subHeadline">{lang}wcf.contest.participant.invite{/lang}</h4>

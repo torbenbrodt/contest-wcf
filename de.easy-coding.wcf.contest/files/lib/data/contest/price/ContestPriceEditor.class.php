@@ -69,7 +69,7 @@ class ContestPriceEditor extends ContestPrice {
 		$sql = "UPDATE	wcf".WCF_N."_contest_price
 			SET	subject = '".escapeString($subject)."',
 				message = '".escapeString($message)."',
-				state = '".escapeString($state)."',
+				state = '".escapeString($state)."'
 			WHERE	priceID = ".$this->priceID;
 		WCF::getDB()->sendQuery($sql);
 	}

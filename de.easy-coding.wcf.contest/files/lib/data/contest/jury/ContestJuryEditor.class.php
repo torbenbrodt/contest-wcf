@@ -11,6 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestJuryEditor extends ContestJury {
+	
 	/**
 	 * Creates a new jury.
 	 *
@@ -137,6 +138,10 @@ class ContestJuryEditor extends ContestJury {
 					$arr[] = 'accepted';
 					$arr[] = 'declined';
 				}
+			break;
+			default:
+				$arr = array();
+				$arr[] = 'applied';
 			break;
 		}
 		return ContestState::translateArray($arr);

@@ -26,11 +26,19 @@ class ContestParticipantNotificationObject extends AbstractContestNotificationOb
 				$contest = new Contest($this->contestID);
 				$ids = array_merge($ids, $contest->getOwner()->getUserIDs());
 			break;
-			
-			// tell recipient that s.o. did moderator interaction
-			case 'accepted':
 			case 'invited':
 				$ids = array_merge($ids, $this->getInstance()->getOwner()->getUserIDs());
+			break;
+			// tell recipient that s.o. did moderator interaction
+			case 'accepted':
+				$ids = array_merge($ids, $this->getInstance()->getOwner()->getUserIDs());
+				
+				// maybe the user applied himself, then tell the owners
+				require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
+				$contest = new Contest($this->contestID);
+				if($contest->enableParticipantCheck == false) {
+					$ids = array_merge($ids, $contest->getOwner()->getUserIDs());
+				}
 			break;
 		}
 		return array_unique($ids);

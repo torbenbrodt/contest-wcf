@@ -48,7 +48,9 @@ class ContestEventNotificationListener implements EventListener {
 		if (!MODULE_USER_NOTIFICATION) return;
 
 		try {
-			$notificationObject = $this->getNotificationObject($eventObj->eventName, $eventObj->placeholders);
+			$notificationObject = $this->getNotificationObject($eventObj->eventName, $eventObj->placeholders + array(
+				'contestID' => $eventObj->contestID,
+			));
 		} catch(Exception $e) {
 			// just fun, errors don't need to be handled
 			return;
@@ -57,6 +59,11 @@ class ContestEventNotificationListener implements EventListener {
 		switch($eventName) {
 			case 'create':
 				foreach($notificationObject->getRecipients() as $recipientUserID) {
+					// remove current user from recipient list
+					if($recipientUserID == WCF::getUser()->userID) {
+						continue;
+					}
+						
 					NotificationHandler::fireEvent(
 						$eventObj->eventName,
 						self::OBJECT_TYPE,

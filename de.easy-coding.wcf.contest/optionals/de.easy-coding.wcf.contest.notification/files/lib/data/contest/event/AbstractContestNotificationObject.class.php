@@ -12,8 +12,19 @@ require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 abstract class AbstractContestNotificationObject extends DatabaseObject implements NotificationObject {
+	/**
+	 * eager loading of instance
+	 */
 	protected $instance = null;
+	
+	/**
+	 * @var string
+	 */
 	protected $className = '';
+	
+	/**
+	 * @var string
+	 */
 	protected $primarykey = '';
 
 	/**
@@ -44,13 +55,16 @@ abstract class AbstractContestNotificationObject extends DatabaseObject implemen
 		return 'contest';
 	}
 	
-	public abstract function getRecipients();
-	
 	/**
 	 * overwrite this method to get an objectIDScope
 	 */
 	public function getObjects() {
 		return array();
 	}
+	
+	/**
+	 * overwrite this
+	 */
+	public abstract function getRecipients();
 }
 ?>

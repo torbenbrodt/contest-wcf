@@ -11,6 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php'
  * @package	de.easy-coding.wcf.contest
  */
 class ContestParticipantEditor extends ContestParticipant {
+	const FLAG_PARTICIPANTCHECK = 128;
 
 	/**
 	 * Creates a new participant.
@@ -131,6 +132,14 @@ class ContestParticipantEditor extends ContestParticipant {
 				if($flag & (ContestState::FLAG_CONTESTOWNER | ContestState::FLAG_CREW)) {
 					$arr[] = 'accepted';
 					$arr[] = 'declined';
+				}
+			break;
+			default:
+				$arr = array();
+				if($flag & (self::FLAG_PARTICIPANTCHECK)) {
+					$arr[] = 'applied';
+				} else {
+					$arr[] = 'accepted';
 				}
 			break;
 		}

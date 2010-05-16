@@ -330,8 +330,17 @@ class Contest extends DatabaseObject {
 		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
 			return false;
 		}
+		
+		// is in jury?
 		foreach($this->getJurys() as $jury) {
 			if($jury->isOwner()) {
+				return false;
+			}
+		}
+		
+		// alreay participant
+		foreach($this->getParticipants() as $participant) {
+			if($participant->isOwner()) {
 				return false;
 			}
 		}
@@ -345,7 +354,18 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isJuryable() {
-		return WCF::getUser()->userID && $this->state != 'closed';
+		if(WCF::getUser()->userID == 0 || $this->state == 'closed') {
+			return false;
+		}
+		
+		// already in jury?
+		foreach($this->getJurys() as $jury) {
+			if($jury->isOwner()) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**

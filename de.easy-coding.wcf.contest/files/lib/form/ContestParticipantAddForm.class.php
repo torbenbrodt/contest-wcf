@@ -45,6 +45,7 @@ class ContestParticipantAddForm extends AbstractForm {
 	 */
 	public function __construct(Contest $contest) {
 		$this->contest = $contest;
+		
 		parent::__construct();
 	}
 	
@@ -118,7 +119,8 @@ class ContestParticipantAddForm extends AbstractForm {
 	protected function getStates() {
 		$flags = (!isset($this->entry) || $this->entry->isOwner() ? ContestState::FLAG_USER : 0)
 			+ ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
-			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0)
+			+ ($this->contest->enableParticipantCheck ? ContestParticipantEditor::FLAG_PARTICIPANTCHECK : 0);
 
 		return ContestParticipantEditor::getStates(isset($this->entry) ? $this->entry->state : '', $flags);
 	}
