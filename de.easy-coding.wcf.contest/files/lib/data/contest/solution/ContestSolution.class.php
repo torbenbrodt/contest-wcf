@@ -240,7 +240,7 @@ class ContestSolution extends DatabaseObject {
 			
 		) OR (
 			-- solution has been submitted, and contest is finished
-			contest_solution.state IN ('applied', 'accepted', 'declined')
+			contest_solution.state IN ('accepted', 'declined')
 			
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest contest

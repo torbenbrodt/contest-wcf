@@ -26,6 +26,7 @@ class ViewableContestSolutionRating extends ContestSolutionRating {
 	protected function handleData($data) {
 		parent::handleData($data);
 		$this->owner = new ContestOwner($data, $this->userID, $groupID = 0);
+		$this->title = 'wcf.contest.ratingoption.item.'.$this->optionID;
 	}
 	
 	/**

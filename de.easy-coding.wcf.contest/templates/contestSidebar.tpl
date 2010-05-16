@@ -116,24 +116,37 @@
 {/if}
 
 {if $availableClasses|count > 0}
+	<style type="text/css">
+	.contestClassTree ol li {
+		list-style-type:none;
+	}
+	.contestClassTree ol {
+		padding:0px 4px;
+	}
+	</style>
 	<div class="contentBox">
 		<div class="border"> 
 			<div class="containerHead"> 
 				<h3>{lang}wcf.contest.classes{/lang}</h3> 
-			</div> 
-			 
-			<ul class="dataList">
-				{foreach from=$availableClasses item=class}
-					<li class="{cycle values='container-1,container-2'}">
+			</div>
+			<ul class="dataList contestClassTree">
+				{foreach from=$availableClasses item=child}
+					{assign var="contestClass" value=$child.contestClass}
+
+					<li {if $child.depth == 1}class="{cycle values='container-1,container-2'}"{/if}>
+						{if $child.depth == 1}
 						<div class="containerIcon">
-							<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">
+							<a href="index.php?page=ContestOverview&amp;classID={@$contestClass->classID}{@SID_ARG_2ND}">
 								<img src="{icon}contestM.png{/icon}" alt="" />
 							</a>
 						</div>
+						{/if}
 						<div class="containerContent">
-							<h4><a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}"><span>{lang}{$class}{/lang}</span></a> ({$class->contests|intval})</h4>
+							<h4><a href="index.php?page=ContestOverview&amp;classID={@$contestClass->classID}{@SID_ARG_2ND}"><span>{lang}wcf.contest.class.item.{$contestClass->classID}{/lang}</span></a> ({$contestClass->contests|intval})</h4>
 						</div>
-					</li>
+						
+					{if $child.hasChildren}<ol>{else}</li>{/if}
+					{if $child.openParents > 0}{@"</ol></li>"|str_repeat:$child.openParents}{/if}
 				{/foreach}
 			</ul>
 		</div>

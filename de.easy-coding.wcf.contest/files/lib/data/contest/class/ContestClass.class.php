@@ -27,6 +27,15 @@ class ContestClass extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
+
+	/**
+	 * @see DatabaseObject::handleData()
+	 */
+	protected function handleData($data) {
+		parent::handleData($data);
+
+		$this->title = 'wcf.contest.class.item'.$this->classID;
+	}
 	
 	/**
 	 * Returns the title of this class.
@@ -34,9 +43,7 @@ class ContestClass extends DatabaseObject {
 	 * @return	string
 	 */
 	public function __toString() {
-		$key = 'wcf.contest.class.item'.$this->classID;
-		$val = WCF::getLanguage()->get($key);
-		return "".($key != $val ? $val : '#'.$this->classID);
+		return "".$this->title;
 	}
 	
 	/**

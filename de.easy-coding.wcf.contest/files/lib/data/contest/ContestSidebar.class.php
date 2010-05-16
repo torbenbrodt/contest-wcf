@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/system/event/EventHandler.class.php');
-require_once(WCF_DIR.'lib/data/contest/class/ContestClassList.class.php');
+require_once(WCF_DIR.'lib/data/contest/class/ContestClassTree.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryList.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantList.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');
@@ -42,7 +42,7 @@ class ContestSidebar {
 	/**
 	 * list of contest classes
 	 * 
-	 * @var	ContestClassList
+	 * @var	ContestClassTree
 	 */
 	public $classList = null;
 	
@@ -127,7 +127,7 @@ class ContestSidebar {
 		$this->advertiseJury = false;
 		
 		// get classes
-		$this->classList = new ContestClassList();
+		$this->classList = new ContestClassTree();
 		$this->classList->readObjects();
 		
 		// get jurys

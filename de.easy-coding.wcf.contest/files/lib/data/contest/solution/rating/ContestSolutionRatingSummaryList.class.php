@@ -47,7 +47,6 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 	
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					contest_solution_rating.optionID,
-					title,
 					score,
 					count,
 					juryscore,
@@ -56,7 +55,6 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 			FROM (
 				-- total score
 				SELECT		a.optionID,
-						a.title,
 						AVG(score) AS score,
 						COUNT(score) AS count
 				FROM		wcf".WCF_N."_contest_ratingoption a
@@ -90,6 +88,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 			) y ON contest_solution_rating.optionID = y.optionID
 			
 			".$this->sqlJoins."
+			
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

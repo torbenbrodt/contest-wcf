@@ -223,11 +223,13 @@ class ContestPage extends MultipleLinkPage {
 			}
 		}
 		
-		// init todo list
-		require_once(WCF_DIR.'lib/data/contest/owner/todo/ContestOwnerTodoList.class.php');
-		$this->todoList = new ContestOwnerTodoList();
-		$this->todoList->sqlConditions .= 'contest.contestID = '.$this->contestID;
-		$this->todoList->readObjects();
+		if($this->entry->isOwner()) {
+			// init todo list
+			require_once(WCF_DIR.'lib/data/contest/owner/todo/ContestOwnerTodoList.class.php');
+			$this->todoList = new ContestOwnerTodoList();
+			$this->todoList->sqlConditions .= 'contest.contestID = '.$this->contestID;
+			$this->todoList->readObjects();
+		}
 
 		// init sidebar
 		$this->sidebar = new ContestSidebar($this, $this->entry);
