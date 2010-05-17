@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
+require_once(WCF_DIR.'lib/data/DatabaseObjectListCached.class.php');
 require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
 
 /**
@@ -11,25 +11,14 @@ require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestClassTree extends DatabaseObjectList {
+class ContestClassTree extends DatabaseObjectListCached {
+
 	/**
+	 * id of the root node
 	 *
+	 * @var integer
 	 */
 	protected $rootID = 0;
-
-	/**
-	 * class item list
-	 *
-	 * @var array<array>
-	 */
-	public $contestClassList = array();
-
-	/**
-	 * structured class item list
-	 *
-	 * @var array<array>
-	 */
-	public $contestClasses = array();
 
 	/**
 	 * sql order by statement
@@ -40,9 +29,9 @@ class ContestClassTree extends DatabaseObjectList {
 	
 	/**
 	 * counts number of entries in first level
-	 * @see DatabaseObjectList::countObjects()
+	 * @see DatabaseObjectListCached::_countObjects()
 	 */
-	public function countObjects() {
+	public function _countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest_class contest_class
 			WHERE	parentClassID = ".intval($this->rootID)."
@@ -52,23 +41,25 @@ class ContestClassTree extends DatabaseObjectList {
 	}
 	
 	/**
-	 * @see DatabaseObjectList::readObjects()
+	 * @see DatabaseObjectListCached::_readObjects()
 	 */
-	public function readObjects() {
+	public function _readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					contest_class.*
 			FROM		wcf".WCF_N."_contest_class contest_class
 			".$this->sqlJoins."
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
+
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
-		
 		$classes = array();
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$this->contestClasses[$row['parentClassID']][] = new ContestClass(null, $row);
 		}
 		
 		$this->makeContestClassList($this->rootID);
+		
+		return $this->contestClassList;
 	}
 
 	/**
@@ -94,13 +85,6 @@ class ContestClassTree extends DatabaseObjectList {
 			$this->makeContestClassList($contestClass->classID, $depth + 1, $childrenOpenParents);
 			$i++;
 		}
-	}
-	
-	/**
-	 * @see DatabaseObjectList::getObjects()
-	 */
-	public function getObjects() {
-		return $this->contestClassList;
 	}
 }
 ?>
