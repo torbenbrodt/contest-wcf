@@ -99,7 +99,7 @@ class ContestSponsortalkPage extends MultipleLinkPage {
 		$this->sponsortalkList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry);
+		$this->sidebar = new ContestSidebar($this->entry);
 	}
 	
 	/**

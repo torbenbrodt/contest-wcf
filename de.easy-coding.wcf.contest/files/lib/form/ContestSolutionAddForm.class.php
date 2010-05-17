@@ -112,7 +112,7 @@ class ContestSolutionAddForm extends MessageForm {
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->contest);
+		$this->sidebar = new ContestSidebar($this->contest);
 	}
 	
 	/**

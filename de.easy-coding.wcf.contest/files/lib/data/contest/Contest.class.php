@@ -23,7 +23,6 @@ class Contest extends DatabaseObject {
 	 */
 	protected $juryList = null;
 
-
 	/**
 	 * sponsor list
 	 *

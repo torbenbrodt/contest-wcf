@@ -2,7 +2,7 @@
 // wcf imports
 require_once(WCF_DIR.'lib/form/MessageForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
-require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
+require_once(WCF_DIR.'lib/data/contest/class/ContestClassTree.class.php');
 require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsor.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
@@ -57,6 +57,13 @@ class ContestAddForm extends MessageForm {
 	 * @var	array<ContestClass>
 	 */
 	public $availableClasses = array();
+	
+	/**
+	 * list of contest classes
+	 * 
+	 * @var	ContestClassTree
+	 */
+	public $classList = null;
 	
 	/**
 	 * list of available groups
@@ -137,6 +144,11 @@ class ContestAddForm extends MessageForm {
 		parent::readData();
 		
 		$this->availableClasses = ContestClass::getClasses();
+
+		// get classes
+		$this->classList = new ContestClassTree();
+		$this->classList->readObjects();
+		
 		$this->availableGroups = ContestUtil::readAvailableGroups();
 		
 		// default values
@@ -288,7 +300,7 @@ class ContestAddForm extends MessageForm {
 			'userID' => WCF::getUser()->userID,
 			'tags' => $this->tags,
 			'insertQuotes' => (!count($_POST) && empty($this->text) ? 1 : 0),
-			'availableClasses' => $this->availableClasses,
+			'availableClasses' => $this->classList->getObjects(),
 			'availableGroups' => $this->availableGroups,
 			'ownerID' => $this->ownerID,
 			'classIDArray' => $this->classIDArray,

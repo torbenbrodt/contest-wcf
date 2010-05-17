@@ -100,7 +100,7 @@ class ContestParticipantPage extends MultipleLinkPage {
 		$this->todoList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry, array(
+		$this->sidebar = new ContestSidebar($this->entry, array(
 			'participantList',
 			'advertiseParticipant'
 		));

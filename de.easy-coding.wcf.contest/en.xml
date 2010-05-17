@@ -194,7 +194,7 @@ When you think your contest is fine, you can  set the status to "applied" for th
 		<item name="wcf.contest.solution"><![CDATA[Solution]]></item>
 		<item name="wcf.contest.solution.message.hidden"><![CDATA[The solution is not visible to you.]]></item>
 		<item name="wcf.contest.solution.number"><![CDATA[Solution #{$solutionID}]]></item>
-		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$entry->comments} comment{if $entry->comments != 1}s{/if}]]></item>
+		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$solutionObj->comments} comment{if $solutionObj->comments != 1}s{/if}]]></item>
 		<item name="wcf.contest.solution.description"><![CDATA[The solution can only be viewn by you, the creator of this contest and the jury.]]></item>
 		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br/>
 Before Termination of the contest, the solutions can only be viewed by the contest owner itself or the jury.]]></item>

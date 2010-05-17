@@ -182,7 +182,7 @@ class ContestOverviewPage extends MultipleLinkPage {
 		$this->todoList->readObjects();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this);
+		$this->sidebar = new ContestSidebar();
 
 		// read tags
 		if (MODULE_TAGGING) {

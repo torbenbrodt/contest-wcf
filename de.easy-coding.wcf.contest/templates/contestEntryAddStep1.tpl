@@ -25,8 +25,9 @@
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.contest.classes{/lang}</legend>
-				{foreach from=$availableClasses item=availableClass}
-					<label><input type="checkbox" name="classIDArray[]" value="{@$availableClass->classID}" {if $availableClass->classID|in_array:$classIDArray}checked="checked" {/if}/> {lang}{$availableClass->title}{/lang}</label>
+				{foreach from=$availableClasses item=child}
+					{assign var="contestClass" value=$child.contestClass}
+					<label>{if $child.depth > 1}{@" * "|str_repeat:$child.depth-1}{/if}<input type="checkbox" name="classIDArray[]" value="{@$contestClass->classID}" {if $contestClass->classID|in_array:$classIDArray}checked="checked" {/if}/> {lang}{$contestClass->title}{/lang}</label>
 				{/foreach}
 			</fieldset>
 		</div>

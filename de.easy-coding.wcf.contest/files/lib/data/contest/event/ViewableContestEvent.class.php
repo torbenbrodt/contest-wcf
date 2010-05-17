@@ -48,16 +48,15 @@ class ViewableContestEvent extends ContestEvent {
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {
-
-		if(isset($data['placeholders']) && !is_array($data['placeholders'])) {
-			$data['placeholders'] = @unserialize($data['placeholders']);
-		}
-		if(!is_array($data['placeholders'])) {
-			$data['placeholders'] = array();
-		}
-
 		parent::handleData($data);
 		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
+
+		if(isset($this->placeholders) && !is_array($this->placeholders)) {
+			$this->placeholders = @unserialize($this->placeholders);
+		}
+		if(!is_array($this->placeholders)) {
+			$this->placeholders = array();
+		}
 	}
 	
 	/**

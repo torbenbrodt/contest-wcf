@@ -66,7 +66,7 @@ class ContestGroupPage extends AbstractPage {
 		}
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this);
+		$this->sidebar = new ContestSidebar();
 	}
 	
 	/**

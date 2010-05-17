@@ -103,7 +103,7 @@ class ContestJuryPage extends MultipleLinkPage {
 		$this->isSponsor = $this->entry->isSponsor();
 		
 		// init sidebar
-		$this->sidebar = new ContestSidebar($this, $this->entry, array(
+		$this->sidebar = new ContestSidebar($this->entry, array(
 			'juryList',
 			'advertiseJury'
 		));

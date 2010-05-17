@@ -104,7 +104,10 @@ class ContestSidebar {
 		// init sidebar
 		$this->init();
 	}
-	
+
+	/**
+	 * Initializes the sidebar.
+	 */
 	public function init() {
 		// call init event
 		EventHandler::fireAction($this, 'init');
@@ -142,12 +145,10 @@ class ContestSidebar {
 		$this->advertiseSponsor = $this->contest && !in_array('advertiseSponsor', $this->disabledModules) 
 			&& $this->contest->sponsors < 2 && $this->contest->isSponsorable(false);
 		$this->advertiseJury = false;
-		
-		return $val;
 	}
 	
 	/**
-	 * Initializes the sidebar.
+	 * returns all sidebar data in format, which can be cached
 	 */
 	protected function _init() {
 		// get classes
@@ -240,14 +241,14 @@ class ContestSidebar {
 		// assign variables
 		WCF::getTPL()->assign(array(
 			'isRegistered' => WCF::getUser()->userID > 0,
-			'availableClasses' => $this->classList->getObjects(),
-			'availableJurys' => $this->juryList->getObjects(),
-			'availableParticipants' => $this->participantList->getObjects(),
-			'availableSponsors' => $this->sponsorList->getObjects(),
-			'availablePrices' => $this->priceList->getObjects(),
+			'availableClasses' => $this->classList ? $this->classList->getObjects() : array(),
+			'availableJurys' => $this->juryList ? $this->juryList->getObjects() : array(),
+			'availableParticipants' => $this->participantList ? $this->participantList->getObjects() : array(),
+			'availableSponsors' => $this->sponsorList ? $this->sponsorList->getObjects() : array(),
+			'availablePrices' => $this->priceList ? $this->priceList->getObjects() : array(),
 			'availableTags' => (MODULE_TAGGING ? $this->tagList->getObjects() : array()),
-			'latestEntries' => $this->latestEntryList->getObjects(),
-			'latestSolutions' => $this->latestSolutionList->getObjects(),
+			'latestEntries' => $this->latestEntryList ? $this->latestEntryList->getObjects() : array(),
+			'latestSolutions' => $this->latestSolutionList ? $this->latestSolutionList->getObjects() : array(),
 			'advertiseParticipant' => $this->advertiseParticipant,
 			'advertiseSponsor' => $this->advertiseSponsor,
 			'advertiseJury' => $this->advertiseJury,
