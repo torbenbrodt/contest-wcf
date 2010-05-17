@@ -8,6 +8,7 @@ require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorList.class.php');
 require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestList.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestTagList.class.php');
 
 /**
  * Manages the user contest sidebar.
@@ -18,12 +19,6 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestSidebar {
-	/**
-	 * sidebar container.
-	 * 
-	 * @var	object 
-	 */
-	public $container = null;
 	
 	/**
 	 * use disableModule to add items to blacklist
@@ -98,11 +93,9 @@ class ContestSidebar {
 	/**
 	 * Creates a new ContestSidebar.
 	 *
-	 * @param	object		$container
 	 * @param	ContestJury	$contest
 	 */
-	public function __construct($container = null, Contest $contest = null, $disabledModules = array()) {
-		$this->container = $container;
+	public function __construct(Contest $contest = null, $disabledModules = array()) {
 		$this->contest = $contest;
 		
 		// merge disabled modules
@@ -112,12 +105,36 @@ class ContestSidebar {
 		$this->init();
 	}
 	
-	/**
-	 * Initializes the sidebar.
-	 */
 	public function init() {
 		// call init event
 		EventHandler::fireAction($this, 'init');
+		
+		$userID = WCF::getUser()->userID;
+		$key = __CLASS__.'.'.($this->contest ? $this->contest->contestID : 0).'.'.$userID;
+		$cacheResource = array(
+			'file' => $key,
+			'cache' => $key,
+			'minLifetime' => 0,
+			'maxLifetime' => 15 * 60
+		);
+		
+		// only write cache for guest user
+		if($userID > 0 || ($val = WCF::getCache()->getCacheSource()->get($cacheResource)) === null) {
+			$val = $this->_init();
+			if($userID == 0) {
+				WCF::getCache()->getCacheSource()->set($cacheResource, $val);
+			}
+		}
+		
+		// activate
+		foreach($val as $key => $list) {
+			$this->$key = $list;
+		}
+		
+		// deactivate
+		foreach($this->disabledModules as $diss) {
+			$this->$diss = null;
+		}
 		
 		// advertising
 		$this->advertiseParticipant = $this->contest && !in_array('advertiseParticipant', $this->disabledModules) 
@@ -126,82 +143,91 @@ class ContestSidebar {
 			&& $this->contest->sponsors < 2 && $this->contest->isSponsorable(false);
 		$this->advertiseJury = false;
 		
+		return $val;
+	}
+	
+	/**
+	 * Initializes the sidebar.
+	 */
+	protected function _init() {
 		// get classes
-		$this->classList = new ContestClassTree();
-		$this->classList->readObjects();
+		$classList = new ContestClassTree();
+		$classList->readObjects();
 		
 		// get jurys
-		$this->juryList = new ContestJuryList();
+		$juryList = new ContestJuryList();
 		if($this->contest !== null) {
-			$this->juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID;
+			$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID;
 		} else {
-			$this->juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
-			$this->juryList->sqlConditions .= 'contest.state = "scheduled"';
+			$juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
+			$juryList->sqlConditions .= 'contest.state = "scheduled"';
 		}
-		$this->juryList->sqlOrderBy = 'juryID DESC';
-		if(!in_array('juryList', $this->disabledModules)) {
-			$this->juryList->readObjects();
-		}
+		$juryList->sqlOrderBy = 'juryID DESC';
+		$juryList->readObjects();
 		
 		// get participants
-		$this->participantList = new ContestParticipantList();
+		$participantList = new ContestParticipantList();
 		if($this->contest !== null) {
-			$this->participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID;
+			$participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID;
 		} else {
-			$this->participantList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_participant.contestID ";
-			$this->participantList->sqlConditions .= 'contest.state = "scheduled"';
+			$participantList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_participant.contestID ";
+			$participantList->sqlConditions .= 'contest.state = "scheduled"';
 		}
-		$this->participantList->sqlOrderBy = 'participantID DESC';
-		if(!in_array('participantList', $this->disabledModules)) {
-			$this->participantList->readObjects();
-		}
+		$participantList->sqlOrderBy = 'participantID DESC';
+		$participantList->readObjects();
 		
 		// get sponsors
-		$this->sponsorList = new ContestSponsorList();
+		$sponsorList = new ContestSponsorList();
 		if($this->contest !== null) {
-			$this->sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID;
+			$sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID;
 		} else {
-			$this->sponsorList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_sponsor.contestID ";
-			$this->sponsorList->sqlConditions .= 'contest.state = "scheduled"';
+			$sponsorList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_sponsor.contestID ";
+			$sponsorList->sqlConditions .= 'contest.state = "scheduled"';
 		}
-		$this->sponsorList->sqlOrderBy = 'sponsorID DESC';
-		if(!in_array('sponsorList', $this->disabledModules)) {
-			$this->sponsorList->readObjects();
-		}
+		$sponsorList->sqlOrderBy = 'sponsorID DESC';
+		$sponsorList->readObjects();
 		
 		// get prices
-		$this->priceList = new ContestPriceList();
+		$priceList = new ContestPriceList();
 		if($this->contest !== null) {
-			$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID;
+			$priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID;
 		} else {
-			$this->priceList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_price.contestID ";
-			$this->priceList->sqlConditions .= 'contest.state = "scheduled"';
+			$priceList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_price.contestID ";
+			$priceList->sqlConditions .= 'contest.state = "scheduled"';
 		}
-		$this->priceList->sqlOrderBy = 'priceID DESC';
-		if(!in_array('priceList', $this->disabledModules)) {
-			$this->priceList->readObjects();
-		}
+		$priceList->sqlOrderBy = 'priceID DESC';
+		$priceList->readObjects();
 		
 		// get tag cloud
 		if (MODULE_TAGGING) {
-			require_once(WCF_DIR.'lib/data/contest/ContestTagList.class.php');
-			$this->tagList = new ContestTagList($this->contest, WCF::getSession()->getVisibleLanguageIDArray());
-			$this->tagList->readObjects();
+			$tagList = new ContestTagList($this->contest, WCF::getSession()->getVisibleLanguageIDArray());
+			$tagList->readObjects();
 		}
 
 		// get latest entries
-		$this->latestEntryList = new ContestList();
-		$this->latestEntryList->sqlLimit = 10;
-		$this->latestEntryList->readObjects();
+		$latestEntryList = new ContestList();
+		$latestEntryList->sqlLimit = 10;
+		$latestEntryList->readObjects();
 
 		// get latest solutions
-		$this->latestSolutionList = new ContestSolutionList();
+		$latestSolutionList = new ContestSolutionList();
 		if($this->contest !== null) {
-			$this->latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;
+			$latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;
 		}
-		$this->latestSolutionList->sqlOrderBy = 'solutionID DESC';
-		$this->latestSolutionList->sqlLimit = 5;
-		$this->latestSolutionList->readObjects();
+		$latestSolutionList->sqlOrderBy = 'solutionID DESC';
+		$latestSolutionList->sqlLimit = 5;
+		$latestSolutionList->readObjects();
+		
+		return array(
+			'classList' => $classList,
+			'juryList' => $juryList,
+			'participantList' => $participantList,
+			'sponsorList' => $sponsorList,
+			'priceList' => $priceList,
+			'tagList' => $tagList,
+			'latestEntryList' => $latestEntryList,
+			'latestSolutionList' => $latestSolutionList,
+		);
 	}
 	
 	/**
