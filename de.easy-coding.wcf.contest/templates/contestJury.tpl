@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestListRender.class.js"></script>
 	<script type="text/javascript">
 	var jurys = new Array();
 
@@ -14,19 +15,25 @@
 		// jurys
 		var list1 = new ContestPermissionList('jury', jurys, 'index.php?page=ContestJuryObjects');
 		
-		var suggestion = new ContestSuggestion();
-		suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
-		suggestion.enableIcon(true);
-		suggestion.init('juryAddInput');
-	
-		// add onsubmit event
-		document.getElementById('JuryInviteForm').onsubmit = function(suggestion) {
-			return function() {
-				if (suggestion.selectedIndex != -1) return false;
-				if (list1.inputHasFocus) return false;
-				list1.submit(this);
-			};
-		}(suggestion);
+		if(document.getElementById('juryAddInput')) {
+			var suggestion = new ContestSuggestion();
+			suggestion.setSource('index.php?page=ContestJurySuggest{@SID_ARG_2ND_NOT_ENCODED}');
+			suggestion.enableIcon(true);
+			suggestion.init('juryAddInput');
+
+			// add onsubmit event
+			document.getElementById('JuryInviteForm').onsubmit = function(suggestion) {
+				return function() {
+					if (suggestion.selectedIndex != -1) return false;
+					if (list1.inputHasFocus) return false;
+					list1.submit(this);
+				};
+			}(suggestion);
+		}
+		
+		// contest list render
+		var x = new ContestListRender($('dataListView'));
+		x.change('thumbnailView');
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -58,7 +65,7 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestJury&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<ul class="dataList messages">
+							<ul class="dataList messages" id="dataListView">
 								{assign var='messageNumber' value=$items-$startIndex+1}
 								{foreach from=$jurys item=juryObj}
 									<li class="{cycle values='container-1,container-2'}">
@@ -216,6 +223,7 @@
 		</div>
 	</div>
 </div>
+
 
 {include file='footer' sandbox=false}
 </body>

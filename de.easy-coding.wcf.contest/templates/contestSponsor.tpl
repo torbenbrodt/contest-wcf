@@ -7,26 +7,33 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestListRender.class.js"></script>
 	<script type="text/javascript">
 	var sponsors = new Array();
 
 	onloadEvents.push(function() {
 		// sponsors
 		var list1 = new ContestPermissionList('sponsor', sponsors, 'index.php?page=ContestSponsorObjects');
+
+		if(document.getElementById('sponsorAddInput')) {		
+			var suggestion = new ContestSuggestion();
+			suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+			suggestion.enableIcon(true);
+			suggestion.init('sponsorAddInput');
+
+			// add onsubmit event
+			document.getElementById('SponsorInviteForm').onsubmit = function() {
+				return function() {
+					if (suggestion.selectedIndex != -1) return false;
+					if (list1.inputHasFocus) return false;
+					list1.submit(this);
+				};
+			}(suggestion);
+		}
 		
-		var suggestion = new ContestSuggestion();
-		suggestion.setSource('index.php?page=ContestSponsorSuggest{@SID_ARG_2ND_NOT_ENCODED}');
-		suggestion.enableIcon(true);
-		suggestion.init('sponsorAddInput');
-	
-		// add onsubmit event
-		document.getElementById('SponsorInviteForm').onsubmit = function() {
-			return function() {
-				if (suggestion.selectedIndex != -1) return false;
-				if (list1.inputHasFocus) return false;
-				list1.submit(this);
-			};
-		}(suggestion);
+		// contest list render
+		var x = new ContestListRender($('dataListView'));
+		x.change('thumbnailView');
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -59,7 +66,7 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestSponsor&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<ul class="dataList messages">
+							<ul class="dataList messages" id="dataListView">
 								{assign var='messageNumber' value=$items-$startIndex+1}
 								{foreach from=$sponsors item=sponsorObj}
 									<li class="{cycle values='container-1,container-2'}">

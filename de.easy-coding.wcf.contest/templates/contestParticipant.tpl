@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestPermissionList.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/Suggestion.class.js"></script>
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestSuggestion.class.js"></script>
+	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ContestListRender.class.js"></script>
 	<script type="text/javascript">
 	var participants = new Array();
 
@@ -14,19 +15,25 @@
 		// participants
 		var list1 = new ContestPermissionList('participant', participants, 'index.php?page=ContestParticipantObjects');
 		
-		var suggestion = new ContestSuggestion();
-		suggestion.setSource('index.php?page=ContestParticipantSuggest{@SID_ARG_2ND_NOT_ENCODED}');
-		suggestion.enableIcon(true);
-		suggestion.init('participantAddInput');
+		if(document.getElementById('participantAddInput')) {
+			var suggestion = new ContestSuggestion();
+			suggestion.setSource('index.php?page=ContestParticipantSuggest{@SID_ARG_2ND_NOT_ENCODED}');
+			suggestion.enableIcon(true);
+			suggestion.init('participantAddInput');
 	
-		// add onsubmit event
-		document.getElementById('ParticipantInviteForm').onsubmit = function(suggestion) {
-			return function() {
-				if (suggestion.selectedIndex != -1) return false;
-				if (list1.inputHasFocus) return false;
-				list1.submit(this);
-			};
-		}(suggestion);
+			// add onsubmit event
+			document.getElementById('ParticipantInviteForm').onsubmit = function(suggestion) {
+				return function() {
+					if (suggestion.selectedIndex != -1) return false;
+					if (list1.inputHasFocus) return false;
+					list1.submit(this);
+				};
+			}(suggestion);
+		}
+		
+		// contest list render
+		var x = new ContestListRender($('dataListView'));
+		x.change('thumbnailView');
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
@@ -59,7 +66,7 @@
 								{pages print=true assign=pagesOutput link="index.php?page=ContestParticipant&contestID=$contestID&pageNo=%d"|concat:SID_ARG_2ND_NOT_ENCODED}
 							</div>
 							
-							<ul class="dataList messages">
+							<ul class="dataList messages" id="dataListView">
 								{assign var='messageNumber' value=$items-$startIndex+1}
 								{foreach from=$participants item=participantObj}
 									<li class="{cycle values='container-1,container-2'}">
