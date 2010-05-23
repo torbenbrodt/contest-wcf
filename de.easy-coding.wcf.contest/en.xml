@@ -328,10 +328,6 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.overview.empty"><![CDATA[No contest contests have been written so far.]]></item>
 		<item name="wcf.contest.search.query"><![CDATA[Search contest]]></item>
 
-		<item name="wcf.contest.sidebar.addcontest.title"><![CDATA[Start your own contest]]></item>
-		<item name="wcf.contest.sidebar.addcontest.submit"><![CDATA[Create your contest]]></item>
-		<item name="wcf.contest.sidebar.addcontest.description"><![CDATA[easy-coding is one of the most flexible coding solution on the web. Use can use the contest platform <i>for free</i> to create your own contest.]]></item>
-
 		<item name="wcf.contest.sidebar.becomeparticipant.title"><![CDATA[Become participant]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.submit"><![CDATA[Join the battle]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Do you want to join this contest or want to take part in future contests?]]></item>

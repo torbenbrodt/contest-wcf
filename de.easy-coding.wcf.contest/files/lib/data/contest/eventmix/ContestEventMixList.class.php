@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
+require_once(WCF_DIR.'lib/data/DatabaseObjectListCached.class.php');
 require_once(WCF_DIR.'lib/data/contest/eventmix/ViewableContestEventMix.class.php');
 
 /**
@@ -11,13 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/eventmix/ViewableContestEventMix.class.ph
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEventMixList extends DatabaseObjectList {
-	/**
-	 * list of events
-	 *
-	 * @var array<ContestEventMix>
-	 */
-	public $events = array();
+class ContestEventMixList extends DatabaseObjectListCached {
 
 	/**
 	 * sql order by statement
@@ -36,7 +30,7 @@ class ContestEventMixList extends DatabaseObjectList {
 	/**
 	 * @see DatabaseObjectList::countObjects()
 	 */
-	public function countObjects() {
+	public function _countObjects() {
 		$sql = "SELECT	COUNT(contestID) AS count
 			FROM (
 				SELECT contestID FROM wcf".WCF_N."_contest_event contest_event
@@ -54,7 +48,7 @@ class ContestEventMixList extends DatabaseObjectList {
 	/**
 	 * @see DatabaseObjectList::readObjects()
 	 */
-	public function readObjects() {
+	public function _readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					avatar_table.*,
 					contest_eventmix.id,
@@ -106,15 +100,9 @@ class ContestEventMixList extends DatabaseObjectList {
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->events[] = new ViewableContestEventMix($row);
+			$events[] = new ViewableContestEventMix($row);
 		}
-	}
-	
-	/**
-	 * @see DatabaseObjectList::getObjects()
-	 */
-	public function getObjects() {
-		return $this->events;
+		return $events;
 	}
 }
 ?>

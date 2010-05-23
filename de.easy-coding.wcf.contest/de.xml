@@ -329,10 +329,6 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des W
 		<item name="wcf.contest.overview.empty"><![CDATA[Es wurden bislang noch keine Wettbewerbe erstellt.]]></item>
 		<item name="wcf.contest.search.query"><![CDATA[Wettbewerb durchsuchen]]></item>
 
-		<item name="wcf.contest.sidebar.addcontest.title"><![CDATA[Starte deinen eigenen Wettbewerb]]></item>
-		<item name="wcf.contest.sidebar.addcontest.submit"><![CDATA[Wettbewerb erstellen]]></item>
-		<item name="wcf.contest.sidebar.addcontest.description"><![CDATA[easy-coding ist eins der meistgenutzten Programmierforen in Deutschland. Starten Sie ihren eigenen Wettbewerb. Überlegen Sie sich eine passende Aufgabe, erstellen Sie Preise, uvm.]]></item>
-
 		<item name="wcf.contest.sidebar.becomeparticipant.title"><![CDATA[Werde Teilnehmer]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.submit"><![CDATA[Teilnehmer werden]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Der Wettbewerb hat erst wenige Teilnehmer. Überlege dir eine Lösung und nehme Teil am Wettbewerb. Nutze deine Chance!]]></item>

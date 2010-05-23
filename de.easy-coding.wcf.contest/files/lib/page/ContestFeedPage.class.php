@@ -53,7 +53,7 @@ class ContestFeedPage extends AbstractFeedPage {
 		$this->eventmixList = new ContestEventMixList();
 		
 		// fetch data
-		$this->eventmixList->sqlConditions .= 'contestID = '.$this->contestID;
+		$this->eventmixList->sqlConditions .= 'contestID = '.intval($this->contestID);
 		$this->eventmixList->sqlOrderBy = 'contest_eventmix.time DESC';
 	}
 	

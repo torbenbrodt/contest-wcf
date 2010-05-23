@@ -26,10 +26,22 @@ class ContestEventMix extends DatabaseObject {
 	 * @param 	array<mixed>	$row
 	 */
 	public function __construct(array $row = array()) {
-		if(!isset($row['className'])) {
+		parent::__construct($row);
+
+		$this->autoload($this->className);
+		$this->mix = new $this->className(null, $row);
+	}
+
+	/**
+	 * autoload method for classname
+	 *
+	 * @param 	string		$className
+	 */
+	public function autoload($className) {
+		if(!isset($className)) {
 			throw new SystemException('missing className');
 		}
-		$className = StringUtil::getClassName($row['className']);
+		$className = StringUtil::getClassName($className);
 		$dir = StringUtil::toLowercase(StringUtil::substring($className, StringUtil::length('ViewableContest')));
 		
 		if(empty($dir)) {
@@ -45,15 +57,22 @@ class ContestEventMix extends DatabaseObject {
 		if(!class_exists($className)) {
 			throw new SystemException('class does not exist: '.$className);
 		}
-		
-		$this->mix = new $className(null, $row);
+	
+	}
+
+	public function __wakeup() {
+		$this->autoload($this->className);
 	}
 
 	/**
 	 * pass magic method to owner object
 	 */
 	public function __set($name, $value) {
-		$this->mix->$name = $value;
+		if($this->mix) {
+			$this->mix->$name = $value;
+		} else {
+			parent::__set($name, $value);
+		}
 	}
 	
 	/**
@@ -67,7 +86,7 @@ class ContestEventMix extends DatabaseObject {
 	 * pass magic method to owner object
 	 */
 	public function __get($name) {
-		return $this->mix->$name;
+		return $this->mix ? $this->mix->$name : parent::__get($name);
 	}
 	
 	/**

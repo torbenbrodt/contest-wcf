@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" app</packagename>
 		<packagedescription>contest application.</packagedescription>
-		<version>0.6.1 Beta 1</version>
+		<version>0.7.0 Beta 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -55,32 +55,10 @@
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.6.0 Beta 1">
+	<instructions type="update" fromversion="0.6.1 Beta 1">
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
-		<!-- languages -->
-		<languages languagecode="de">de.xml</languages>
-		<languages languagecode="en">en.xml</languages>
-	</instructions>
-	
-	<instructions type="update" fromversion="0.5.0 Beta 1">
-		<!-- files -->
-		<files>files.tar</files>
-		<templates>templates.tar</templates>
-		<acptemplates>acptemplates.tar</acptemplates>
-		<sql>update050Beta1.sql</sql>
-		<script>acp/install_contest.php</script>
-		
-		<!-- config -->
-		<eventlistener>eventlistener.xml</eventlistener>
-		<acpmenu>acpmenu.xml</acpmenu>
-		<options>options.xml</options>
-		<groupoptions>groupoptions.xml</groupoptions>
-		<pagemenu>pagemenu.xml</pagemenu>
-		<pagelocation>pagelocation.xml</pagelocation>
-		<help>help.xml</help>
-		
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>

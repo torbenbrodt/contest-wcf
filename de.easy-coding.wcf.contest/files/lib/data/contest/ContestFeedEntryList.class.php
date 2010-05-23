@@ -22,7 +22,7 @@ class ContestFeedEntryList extends ContestList {
 			LEFT JOIN	wcf".WCF_N."_user user_table
 			ON		(user_table.userID = contest.userID)
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE 1 ".$this->sqlConditions : '')."
+			".(!empty($this->sqlConditions) ? "WHERE (".$this->sqlConditions.")" : '')."
 			AND ".Contest::getStateConditions()."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);

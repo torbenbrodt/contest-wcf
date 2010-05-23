@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
+require_once(WCF_DIR.'lib/data/DatabaseObjectListCached.class.php');
 require_once(WCF_DIR.'lib/data/contest/event/ViewableContestEvent.class.php');
 
 /**
@@ -11,13 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/event/ViewableContestEvent.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestEventList extends DatabaseObjectList {
-	/**
-	 * list of events
-	 * 
-	 * @var array<ContestEvent>
-	 */
-	public $events = array();
+class ContestEventList extends DatabaseObjectListCached {
 
 	/**
 	 * sql order by statement
@@ -27,9 +21,9 @@ class ContestEventList extends DatabaseObjectList {
 	public $sqlOrderBy = 'contest_event.eventID';
 	
 	/**
-	 * @see DatabaseObjectList::countObjects()
+	 * @see DatabaseObjectListCached::countObjects()
 	 */
-	public function countObjects() {
+	public function _countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest_event contest_event
 			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
@@ -38,9 +32,9 @@ class ContestEventList extends DatabaseObjectList {
 	}
 	
 	/**
-	 * @see DatabaseObjectList::readObjects()
+	 * @see DatabaseObjectListCached::readObjects()
 	 */
-	public function readObjects() {
+	public function _readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					avatar_table.*,
 					contest_event.*,
@@ -58,15 +52,9 @@ class ContestEventList extends DatabaseObjectList {
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->events[] = new ViewableContestEvent(null, $row);
+			$events[] = new ViewableContestEvent(null, $row);
 		}
-	}
-	
-	/**
-	 * @see DatabaseObjectList::getObjects()
-	 */
-	public function getObjects() {
-		return $this->events;
+		return $events;
 	}
 }
 ?>
