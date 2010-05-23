@@ -40,10 +40,17 @@ function ContestListRender(list) {
 		// read from dataList messages
 		var elements = this.list.getElementsByTagName('li');
 		for(var i=0; i<elements.length; i++) {
+			var link = function(e) {
+				var e = e.getElementsByTagName('p');
+				for(var i=0; i<e.length; i++) {
+					return e[i].getElementsByTagName('a')[0];
+				}
+			}(elements[i]);
+
 			this.data[i] = {
 				img: elements[i].getElementsByTagName('img')[0].src,
-				url: elements[i].getElementsByTagName('a')[3].href,
-				username: elements[i].getElementsByTagName('a')[3].innerHTML,
+				url: link ? link.href : null,
+				username: link ? link.innerHTML : null,
 			};
 		}
 	};
