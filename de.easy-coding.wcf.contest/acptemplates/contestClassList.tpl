@@ -101,7 +101,7 @@
 {else}
 	<div class="border content">
 		<div class="container-1">
-			<p>{lang}wcf.acp.contest_class.list.count.noEntries{/lang}</p>
+			<p>{lang}wcf.acp.contest.class.count.noEntries{/lang}</p>
 		</div>
 	</div>
 {/if}

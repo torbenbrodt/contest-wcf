@@ -49,6 +49,20 @@ class ContestClassAddForm extends ACPForm {
 	public $topic = '';
 	
 	/**
+	 * sort order
+	 *
+	 * @var	integer
+	 */
+	public $position = 0;
+	
+	/**
+	 * parent class
+	 *
+	 * @var	integer
+	 */
+	public $parentClassID = 0;
+	
+	/**
 	 * Text
 	 *
 	 * @var	string
@@ -106,7 +120,8 @@ class ContestClassAddForm extends ACPForm {
 		parent::save();
 
 		// save
-		$this->contestClass = ContestClassEditor::create($this->topic, $this->text, $this->position, WCF::getLanguage()->getLanguageID());
+		$this->contestClass = ContestClassEditor::create($this->topic, $this->text, 
+			$this->parentClassID, $this->position, WCF::getLanguage()->getLanguageID());
 		$this->saved();
 
 		// reset values

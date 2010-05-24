@@ -207,6 +207,9 @@ class ContestSidebar {
 
 		// get latest entries
 		$latestEntryList = new ContestList();
+		if($this->contest !== null) {
+			$latestEntryList->sqlConditions .= 'contest.contestID != '.$this->contest->contestID;
+		}
 		$latestEntryList->sqlLimit = 10;
 		$latestEntryList->readObjects();
 

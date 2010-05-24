@@ -57,7 +57,7 @@
 									</div>
 									{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)}
 									<div class="messageHeader">
-										<div class="containerIcon">
+										<div class="containerIcon" style="padding-top:6px">
 											<img src="{icon}contestScheduledM.png{/icon}" alt="" />
 										</div>
 										<div class="containerContent">
@@ -136,7 +136,7 @@
 												<div class="buttons">
 													{if $eventObj->isEditable()}<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;id={@$eventObj->id}&amp;action=edit{@SID_ARG_2ND}#event{@$eventObj->id}" title="{lang}wcf.contest.event.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /></a>{/if}
 													{if $eventObj->isDeletable()}<a href="index.php?action=ContestEventDelete&amp;id={@$eventObj->id}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.event.delete.sure{/lang}')" title="{lang}wcf.contest.event.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /></a>{/if}
-													<a href="index.php?page=Contest&amp;contestID={@$contestID}&amp;id={@$eventObj->id}{@SID_ARG_2ND}#event{@$eventObj->id}" title="{lang}wcf.contest.event.permalink{/lang}">#{#$messageNumber}</a>
+													<a href="#event{@$eventObj->id}" title="{lang}wcf.contest.event.permalink{/lang}">#{#$messageNumber}</a>
 												</div>
 												<p class="firstPost smallFont light">{lang}wcf.contest.event.by{/lang} 
 												{if $eventObj->getOwner()->getLink() != ''}

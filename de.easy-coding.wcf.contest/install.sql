@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS wcf1_contest_class;
 CREATE TABLE wcf1_contest_class (
 	classID int(10) NOT NULL AUTO_INCREMENT,
 	parentClassID int(10) unsigned NOT NULL DEFAULT '0',
-	showOrder smallint(5) NOT NULL DEFAULT '0',
+	position SMALLINT NOT NULL DEFAULT '0',
 	contests smallint(5) NOT NULL DEFAULT '0',
 	PRIMARY KEY (classID),
 	KEY contests (contests)

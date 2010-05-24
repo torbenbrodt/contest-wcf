@@ -80,7 +80,11 @@
 		</table>
 	</div>
 {else}
-	<div class="border content"><div class="container-1">{lang}wcf.acp.contest.ratingoption.count{/lang}</div></div>
+	<div class="border content">
+		<div class="container-1">
+			<p>{lang}wcf.acp.contest.ratingoption.count.noEntries{/lang}</p>
+		</div>
+	</div>
 {/if}
 
 <div class="contentFooter">

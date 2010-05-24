@@ -17,7 +17,7 @@
 
 <div class="contentHeader">
 	<div class="largeButtons">
-		<ul><li><a href="index.php?page=ContestClassList&amp;classID={@$classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.menu.link.contest.class{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestClassM.png" alt="" /> <span>{lang}wcf.acp.menu.link.contest.class{/lang}</span></a></li></ul>
+		<ul><li><a href="index.php?page=ContestClassList&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.menu.link.contest.class{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestClassM.png" alt="" /> <span>{lang}wcf.acp.menu.link.contest.class{/lang}</span></a></li></ul>
 	</div>
 </div>
 

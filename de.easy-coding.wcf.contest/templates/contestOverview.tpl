@@ -80,7 +80,7 @@
 								</div>
 								{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)}
 								<div class="messageHeader">
-									<div class="containerIcon">
+									<div class="containerIcon" style="padding-top:6px">
 										<img src="{icon}contestScheduledM.png{/icon}" alt="" />
 									</div>
 									<div class="containerContent">

@@ -17,7 +17,7 @@
 
 <div class="contentHeader">
 	<div class="largeButtons">
-		<ul><li><a href="index.php?page=ContestRatingoptionList&amp;classID={@$classID}&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.menu.link.contest.ratingoption{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestRatingoptionM.png" alt="" /> <span>{lang}wcf.acp.menu.link.contest.ratingoption{/lang}</span></a></li></ul>
+		<ul><li><a href="index.php?page=ContestRatingoptionList&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}" title="{lang}wcf.acp.menu.link.contest.ratingoption{/lang}"><img src="{@RELATIVE_WCF_DIR}icon/contestRatingoptionM.png" alt="" /> <span>{lang}wcf.acp.menu.link.contest.ratingoption{/lang}</span></a></li></ul>
 	</div>
 </div>
 
@@ -51,7 +51,7 @@
 							<label for="languageID">{lang}wcf.user.language{/lang}</label>
 						</div>
 						<div class="formField">
-							<select name="languageID" id="languageID" onchange="location.href='index.php?form=ContestRatingoptionEdit&amp;classID={@$classID}&amp;languageID=' + this.value + '&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}'">
+							<select name="languageID" id="languageID" onchange="location.href='index.php?form=ContestRatingoptionEdit&amp;optionID={@$optionID}&amp;languageID=' + this.value + '&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}'">
 								{foreach from=$languages key=key item=language}
 									<option value="{@$key}"{if $key == $languageID} selected="selected"{/if}>
 										{lang}wcf.global.language.{@$language}{/lang}

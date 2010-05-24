@@ -25,7 +25,7 @@ class ContestEventMixList extends DatabaseObjectListCached {
 	 *
 	 * @var	string
 	 */
-	public $excludeEvents = array('commentCreate');
+	public $excludeEvents = array('comment');
 	
 	/**
 	 * @see DatabaseObjectList::countObjects()

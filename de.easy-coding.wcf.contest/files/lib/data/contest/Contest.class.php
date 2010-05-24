@@ -218,7 +218,7 @@ class Contest extends DatabaseObject {
 			// check if all solutions have been judged
 			$this->closableChecks[] = array(
 				'className' => 'ContestJuryTodoList',
-				'classPath' => WCF_DIR.'lib/data/contest/jury/ContestJuryTodoList.class.php'
+				'classPath' => WCF_DIR.'lib/data/contest/jury/todo/ContestJuryTodoList.class.php'
 			);
 
 			foreach($this->closableChecks as $check) {

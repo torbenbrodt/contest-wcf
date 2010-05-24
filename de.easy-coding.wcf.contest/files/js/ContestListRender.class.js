@@ -9,11 +9,12 @@
  */
 function ContestListRender(list) {
 	this.list = list;
+	this.current = 'messages';
 	this.data = [];
 	this.cached = {};
 
 	/**
-	 * 
+	 * style definition
 	 */	
 	this.renderDefinition = {
 		thumbnailView: {
@@ -32,10 +33,18 @@ function ContestListRender(list) {
 		}
 	};
 	
+	/**
+	 * returns current view as string
+	 */	
 	this.getCurrent = function() {
-		return 'messages';
+		return this.current;
 	};
 	
+	/**
+	 * fills data array from html template using current view
+	 *
+	 * @param	string		view
+	 */
 	this.read = function(view) {
 		// read from dataList messages
 		var elements = this.list.getElementsByTagName('li');
@@ -55,6 +64,9 @@ function ContestListRender(list) {
 		}
 	};
 	
+	/**
+	 * adds buttons to switch views
+	 */
 	this.addControls = function() {
 		var img, div, h4;
 		
@@ -73,6 +85,7 @@ function ContestListRender(list) {
 		
 		img = document.createElement('img');
 		img.style.cursor = 'pointer';
+		img.style.marginLeft = '3px';
 		img.src = RELATIVE_WCF_DIR + 'icon/contestMessagesViewS.png';
 		img.onclick = function(list) {
 			return function() {
@@ -86,7 +99,7 @@ function ContestListRender(list) {
 	};
 	
 	/**
-	 *
+	 * constructir will cache current template and fill data array
 	 */	
 	this.init = function() {
 		var view;
@@ -102,9 +115,10 @@ function ContestListRender(list) {
 	};
 	
 	/**
-	 *
+	 * switch to another view
 	 */
 	this.change = function(view) {
+		this.current = view;
 		this.list.className = this.renderDefinition[view].className;
 		if(!this.cached[view]) {
 			this.cached[view] = '';
@@ -128,6 +142,7 @@ function ContestListRender(list) {
 		}
 		return style;
 	};
-	
+
+	// call constructor	
 	this.init();
 }

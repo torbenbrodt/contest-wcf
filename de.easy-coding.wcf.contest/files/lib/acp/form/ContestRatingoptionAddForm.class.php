@@ -64,6 +64,13 @@ class ContestRatingoptionAddForm extends ACPForm {
 	public $languageID = 0;
 	
 	/**
+	 * sort order
+	 *
+	 * @var	integer
+	 */
+	public $position = 0;
+	
+	/**
 	 * ratingoption category id
 	 * 
 	 * @var	integer
@@ -132,7 +139,8 @@ class ContestRatingoptionAddForm extends ACPForm {
 		parent::save();
 
 		// save
-		$this->contestRatingoption = ContestRatingoptionEditor::create($this->topic, $this->text, $this->position, WCF::getLanguage()->getLanguageID());
+		$this->contestRatingoption = ContestRatingoptionEditor::create($this->topic, $this->text, 
+			$this->classID, $this->position, WCF::getLanguage()->getLanguageID());
 		$this->saved();
 
 		// reset values
