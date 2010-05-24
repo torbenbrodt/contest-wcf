@@ -158,10 +158,10 @@ class ContestSidebar {
 		// get jurys
 		$juryList = new ContestJuryList();
 		if($this->contest !== null) {
-			$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID;
+			$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID.' AND contest_jury.state = "accepted" ';
 		} else {
 			$juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
-			$juryList->sqlConditions .= 'contest.state = "scheduled"';
+			$juryList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_jury.state = "accepted" ';
 		}
 		$juryList->sqlOrderBy = 'juryID DESC';
 		$juryList->readObjects();
@@ -169,10 +169,10 @@ class ContestSidebar {
 		// get participants
 		$participantList = new ContestParticipantList();
 		if($this->contest !== null) {
-			$participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID;
+			$participantList->sqlConditions .= 'contest_participant.contestID = '.$this->contest->contestID.' AND contest_participant.state = "accepted" ';
 		} else {
 			$participantList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_participant.contestID ";
-			$participantList->sqlConditions .= 'contest.state = "scheduled"';
+			$participantList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_participant.state = "accepted" ';
 		}
 		$participantList->sqlOrderBy = 'participantID DESC';
 		$participantList->readObjects();
@@ -180,10 +180,10 @@ class ContestSidebar {
 		// get sponsors
 		$sponsorList = new ContestSponsorList();
 		if($this->contest !== null) {
-			$sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID;
+			$sponsorList->sqlConditions .= 'contest_sponsor.contestID = '.$this->contest->contestID.' AND contest_sponsor.state = "accepted" ';
 		} else {
 			$sponsorList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_sponsor.contestID ";
-			$sponsorList->sqlConditions .= 'contest.state = "scheduled"';
+			$sponsorList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_sponsor.state = "accepted" ';
 		}
 		$sponsorList->sqlOrderBy = 'sponsorID DESC';
 		$sponsorList->readObjects();
@@ -191,10 +191,10 @@ class ContestSidebar {
 		// get prices
 		$priceList = new ContestPriceList();
 		if($this->contest !== null) {
-			$priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID;
+			$priceList->sqlConditions .= 'contest_price.contestID = '.$this->contest->contestID.' AND contest_price.state != "declined" ';
 		} else {
 			$priceList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_price.contestID ";
-			$priceList->sqlConditions .= 'contest.state = "scheduled"';
+			$priceList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_price.state != "declined" ';
 		}
 		$priceList->sqlOrderBy = 'priceID DESC';
 		$priceList->readObjects();

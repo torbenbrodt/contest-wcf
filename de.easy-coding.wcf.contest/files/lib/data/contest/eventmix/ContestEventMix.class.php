@@ -3,6 +3,10 @@
 require_once(WCF_DIR.'lib/data/DatabaseObject.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 
+// would be nice to be able to eager load the class definition in wakeup method, but it is not possible :(
+require_once(WCF_DIR.'lib/data/contest/event/ViewableContestEvent.class.php');
+require_once(WCF_DIR.'lib/data/contest/comment/ViewableContestComment.class.php');
+
 /**
  * Represents a contest entry event.
  *
@@ -28,8 +32,8 @@ class ContestEventMix extends DatabaseObject {
 	public function __construct(array $row = array()) {
 		parent::__construct($row);
 
-		$this->autoload($this->className);
-		$this->mix = new $this->className(null, $row);
+		$this->autoload($this->data['className']);
+		$this->mix = new $this->data['className'](null, $row);
 	}
 
 	/**
@@ -61,7 +65,9 @@ class ContestEventMix extends DatabaseObject {
 	}
 
 	public function __wakeup() {
-		$this->autoload($this->className);
+		// would be nice to be able to eager load the class definition here, but it is not possible :(
+		// see includes in the top of the file
+		$this->autoload($this->data['className']);
 	}
 
 	/**

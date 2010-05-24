@@ -116,7 +116,7 @@ class ContestPrice extends DatabaseObject {
 		if(WCF::getUser()->userID == 0 || $this->hasWinner()) {
 			return null;
 		}
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		if($contest->state != 'closed') {
 			return null;
 		}
@@ -173,7 +173,7 @@ class ContestPrice extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isOwner();
+		return $this->isOwner() || $this->isSponsor() || Contest::getInstance($this->contestID)->isOwner();
 	}
 	
 	/**
@@ -183,6 +183,20 @@ class ContestPrice extends DatabaseObject {
 	 */
 	public function isDeletable() {
 		return $this->isOwner();
+	}
+	
+	/**
+	 * Returns true, if the active user can delete this entry.
+	 * 
+	 * @return	boolean
+	 */
+	public function isSponsor() {
+		$userID = WCF::getUser()->userID;
+		$userID = $userID ? $userID : -1;
+		$groupIDs = array_keys(ContestUtil::readAvailableGroups());
+		$groupIDs = empty($groupIDs) ? array(-1) : $groupIDs; // makes easier sql queries
+		
+		return $this->userID == $userID || in_array($this->groupID, $groupIDs);
 	}
 
 	/**
@@ -198,13 +212,21 @@ class ContestPrice extends DatabaseObject {
 			-- entry is accepted
 			contest_price.state = 'accepted'
 		) OR (
-			-- entry owner
+			-- sponsor
 			IF(
 				contest_sponsor.groupID > 0,
 				contest_sponsor.groupID IN (".implode(",", $groupIDs)."), 
 				contest_sponsor.userID = ".$userID."
 			)
-		)";
+		) OR (
+			-- is owner
+			SELECT  COUNT(contestID) 
+			FROM 	wcf".WCF_N."_contest contest
+			WHERE	contest.contestID = contest_price.contestID
+			AND (	contest.groupID IN (".implode(",", $groupIDs).")
+			  OR	contest.userID = ".$userID."
+			)
+		) > 0";
 	}
 }
 ?>

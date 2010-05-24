@@ -23,7 +23,7 @@ class ContestPriceNotificationObject extends AbstractContestNotificationObject {
 			// tell contest owner that s.o. did apply
 			case 'applied':
 				require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-				$contest = new Contest($this->contestID);
+				$contest = Contest::getInstance($this->contestID);
 				$ids = array_merge($ids, $contest->getOwner()->getUserIDs());
 			break;
 			

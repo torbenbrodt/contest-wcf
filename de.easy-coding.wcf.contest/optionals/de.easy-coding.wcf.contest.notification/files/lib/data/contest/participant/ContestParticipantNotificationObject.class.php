@@ -23,7 +23,7 @@ class ContestParticipantNotificationObject extends AbstractContestNotificationOb
 			// tell contest owner that s.o. did apply
 			case 'applied':
 				require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-				$contest = new Contest($this->contestID);
+				$contest = Contest::getInstance($this->contestID);
 				$ids = array_merge($ids, $contest->getOwner()->getUserIDs());
 			break;
 			case 'invited':
@@ -35,7 +35,7 @@ class ContestParticipantNotificationObject extends AbstractContestNotificationOb
 				
 				// maybe the user applied himself, then tell the owners
 				require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-				$contest = new Contest($this->contestID);
+				$contest = Contest::getInstance($this->contestID);
 				if($contest->enableParticipantCheck == false) {
 					$ids = array_merge($ids, $contest->getOwner()->getUserIDs());
 				}

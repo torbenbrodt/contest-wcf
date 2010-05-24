@@ -21,7 +21,7 @@ class ContestJurytalkNotificationObject extends AbstractContestNotificationObjec
 		$ids = array();
 		// tell all jury members, that a new entry exists
 		require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		foreach($contest->getJurys() as $jury) {
 			$ids = array_merge($ids, $jury->getOwner()->getUserIDs());
 		}

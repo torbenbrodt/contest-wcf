@@ -88,7 +88,7 @@ class ContestSponsor extends DatabaseObject {
 		if($this->isOwner()) {
 			return true;
 		}
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		if($contest->isOwner()) {
 			return true;
 		}
@@ -101,7 +101,7 @@ class ContestSponsor extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		if($contest->isOwner()) {
 			return true;
 		}

@@ -41,6 +41,13 @@ class Contest extends DatabaseObject {
 	 * @see isCloseable
 	 */
 	public $closableChecks = array();
+	
+	/**
+	 * holds singleton instances
+	 *
+	 * @var array<Contest>
+	 */
+	protected static $instances = array();
 
 	/**
 	 * Creates a new Contest object.
@@ -56,6 +63,19 @@ class Contest extends DatabaseObject {
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
+	}
+	
+	/**
+	 * returns singleton instance
+	 *
+	 * @param	integer		$contestID
+	 * @param 	array<mixed>	$row
+	 */
+	public static function getInstance($contestID) {
+		if(!isset(self::$instances[$contestID])) {
+			self::$instances[$contestID] = new self($contestID);
+		}
+		return self::$instances[$contestID];
 	}
 
 	/**

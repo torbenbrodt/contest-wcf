@@ -74,7 +74,7 @@ class ContestSolution extends DatabaseObject {
 		if($this->messagePreview || $this->isOwner()) {
 			return true;
 		}
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		if($contest->state == 'closed' || ($contest->state == 'scheduled' && $contest->untilTime < TIME_NOW)) {
 			return true;
 		}
@@ -89,7 +89,7 @@ class ContestSolution extends DatabaseObject {
 		if(WCF::getUser()->userID == 0 || $this->isOwner()) {
 			return false;
 		}
-		$contest = new Contest($this->contestID);
+		$contest = Contest::getInstance($this->contestID);
 		if($contest->state == 'closed') {
 			return false;
 		}
