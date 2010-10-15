@@ -10,7 +10,7 @@ require_once(WCF_DIR.'lib/system/event/EventListener.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.easycoding
  */
-class ContestEasyCodingListener implements EventListener {
+class EasyCodingUserLoginListener implements EventListener {
 	/**
 	 * @see EventListener::execute()
 	 */

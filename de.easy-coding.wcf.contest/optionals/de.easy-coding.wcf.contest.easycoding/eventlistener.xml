@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
-<data>	
+<data>
 	<import>
 		<eventlistener>
-			<eventclassname>ContestSidebar</eventclassname>
-			<eventname>init</eventname>
-			<listenerclassfile>lib/system/event/listener/ContestEasyCodingListener.class.php</listenerclassfile>
+			<eventclassname>UserLoginForm</eventclassname>
+			<eventname>assignVariables</eventname>
+			<inherit>1</inherit>
+			<listenerclassfile>lib/system/event/listener/EasyCodingUserLoginListener.class.php</listenerclassfile>
 		</eventlistener>
 	</import>
 </data>
