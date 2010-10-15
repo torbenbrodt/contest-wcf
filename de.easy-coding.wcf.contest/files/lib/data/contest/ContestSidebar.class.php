@@ -200,6 +200,7 @@ class ContestSidebar {
 		$priceList->readObjects();
 		
 		// get tag cloud
+		$tagList = null;
 		if (MODULE_TAGGING) {
 			$tagList = new ContestTagList($this->contest, WCF::getSession()->getVisibleLanguageIDArray());
 			$tagList->readObjects();
