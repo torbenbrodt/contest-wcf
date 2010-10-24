@@ -45,13 +45,13 @@ onloadEvents.push(function() {
 			<input id="participantAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
 			<input id="participantAddButton" type="button" value="{lang}wcf.contest.participant.add{/lang}" />
 		</div>
-		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.owner.enter{/lang}</p>
 	</div>
 		<div class="formElement">
 		<div class="formField">
 			<label for="comment_trigger">
 				<input type="checkbox" name="comment_trigger" id="comment_trigger" value="1" {if $comment_trigger} checked="checked"{/if} onclick="Effect.toggle('comment', 'slide');"/>
-				{lang}comment eröffnen{/lang}
+				{lang}wcf.contest.participant.create{/lang}
 				
 				
 				<script type="text/javascript">
@@ -65,7 +65,7 @@ onloadEvents.push(function() {
 				</script>
 			</label>
 		</div>
-		<p class="formFieldDesc">{lang}Um Teilnehmer zu gewinnen können Sie ihnen eine persönliche Nachricht schicken. Die Nachricht wird verschickt, nachdem der Contest freigeschatet wurde.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.participant.create.description{/lang}</p>
 	</div>
 	<div class="formElement" id="comment">
 		<div class="formField">

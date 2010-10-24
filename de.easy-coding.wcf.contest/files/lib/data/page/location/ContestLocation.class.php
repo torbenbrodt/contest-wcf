@@ -30,7 +30,7 @@ class ContestLocation implements Location {
 	 * @see Location::cache()
 	 */
 	public function cache($location, $requestURI, $requestMethod, $match) {
-		#$this->cachedEntryIDArray[] = $match[1]; TODO ContestLocation
+		$this->cachedEntryIDArray[] = $match[1];
 	}
 	
 	/**
@@ -47,7 +47,9 @@ class ContestLocation implements Location {
 		}
 		
 		return WCF::getLanguage()->get($location['locationName'], array(
-			'$entry' => '<a href="index.php?page=Contest&amp;contestID='.$contestID.SID_ARG_2ND.'">'.StringUtil::encodeHTML($this->entries[$contestID]->subject).'</a>'
+			'$entry' => '<a href="index.php?page=Contest&amp;contestID='.$contestID.SID_ARG_2ND.'">'.
+				StringUtil::encodeHTML($this->entries[$contestID]->subject).
+				'</a>'
 		));
 	}
 	

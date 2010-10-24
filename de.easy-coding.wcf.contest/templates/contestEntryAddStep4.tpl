@@ -45,14 +45,14 @@ onloadEvents.push(function() {
 			<input id="juryAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
 			<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
 		</div>
-		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.owner.enter{/lang}</p>
 	</div>
 	
 	<div class="formElement">
 		<div class="formField">
 			<label for="jurytalk_trigger">
 				<input type="checkbox" name="jurytalk_trigger" id="jurytalk_trigger" value="1" {if $jurytalk_trigger} checked="checked"{/if} onclick="Effect.toggle('jurytalk', 'slide');"/>
-				{lang}Jurytalk eröffnen{/lang}
+				{lang}wcf.contest.jurytalk.create{/lang}
 				
 				
 				<script type="text/javascript">

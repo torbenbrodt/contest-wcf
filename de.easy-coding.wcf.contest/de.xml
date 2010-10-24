@@ -159,6 +159,8 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie der Crew 
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Wettbewerb]]></item>
+		<item name="wcf.contest"><![CDATA[Wettbewerb]]></item>
+		<item name="wcf.contest.create.description"><![CDATA[Geben Sie hier die Aufgabe vor. Seien Sie dabei möglichst ausführlich und versuchen Sie Mehrdeutigkeiten zu vermeiden.]]></item>
 		<item name="wcf.contest.contest.subject.hidden"><![CDATA[Der Wettbewerb ist nicht für Sie sichtbar.]]></item>
 		<item name="wcf.contest.contest.message.hidden"><![CDATA[Der Wettbewerb ist nicht für Sie sichtbar.]]></item>
 		<item name="wcf.contest.settings"><![CDATA[Einstellungen]]></item>
@@ -189,10 +191,13 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie der Crew 
 		<item name="wcf.contest.by"><![CDATA[Von]]></item>
 		<item name="wcf.contest.contest.description"><![CDATA[Sie haben sich bereits eine passende Aufgabe überlegt. Starten Sie jetzt ihren eigenen Wettbewerb.]]></item>
 		<item name="wcf.contest.owner"><![CDATA[Besitzer]]></item>
+		<item name="wcf.contest.owner.enter"><![CDATA[Benutzer- oder Gruppennamen eingeben.]]></item>
 		<item name="wcf.contest.owner.self"><![CDATA[Ich selbst]]></item>
 		<item name="wcf.contest.owner.description"><![CDATA[Unter wem soll der Wettbewerb gestartet werden? Sie können selbst der Besitzer sein oder aber eine ihrer Gruppen, für die Sie die notwendigen Berechtigungen haben.]]></item>
 		<item name="wcf.contest.participant"><![CDATA[Teilnehmer]]></item>
 		<item name="wcf.contest.participants"><![CDATA[Teilnehmer]]></item>
+		<item name="wcf.contest.participant.create"><![CDATA[Kommentar eröffnen]]></item>
+		<item name="wcf.contest.participant.create.description"><![CDATA[Um Teilnehmer zu gewinnen können Sie ihnen eine persönliche Nachricht schicken. Die Nachricht wird verschickt, nachdem der Contest freigeschatet wurde.]]></item>
 		<item name="wcf.contest.participant.add"><![CDATA[Teilnehmer hinzufügen]]></item>
 		<item name="wcf.contest.participant.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant.by"><![CDATA[Von]]></item>
@@ -249,6 +254,7 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des W
 		<item name="wcf.contest.event.permalink"><![CDATA[Permalink zur {#$messageNumber}. Event]]></item>
 		<item name="wcf.contest.events"><![CDATA[Events]]></item>
 		<item name="wcf.contest.jurytalk"><![CDATA[Jurytalk]]></item>
+		<item name="wcf.contest.jurytalk.create"><![CDATA[Jurytalk eröffnen]]></item>
 		<item name="wcf.contest.jurytalk.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.contest.jurytalk.message"><![CDATA[Nachricht]]></item>
 		<item name="wcf.contest.jurytalk.description"><![CDATA[Nutzt diese Diskussion um die Lösungen zu bewerten.]]></item>
@@ -288,8 +294,10 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des W
 		<item name="wcf.contest.sponsor.edit"><![CDATA[Sponsor bearbeiten]]></item>
 		<item name="wcf.contest.sponsor.error.tooLong"><![CDATA[Ihre Nachricht ist zu lang. Es stehen maximal {#$maxTextLength} Zeichen zur Verfügung.]]></item>
 		<item name="wcf.contest.sponsor.permalink"><![CDATA[Permalink zur {#$messageNumber}. Sponsor]]></item>
-		<item name="wcf.contest.sponsors"><![CDATA[Sponsors]]></item>
+		<item name="wcf.contest.sponsors"><![CDATA[Sponsoren]]></item>
 		<item name="wcf.contest.sponsortalk"><![CDATA[Sponsortalk]]></item>
+		<item name="wcf.contest.sponsortalk.create"><![CDATA[Sponsortalk eröffnen]]></item>
+		<item name="wcf.contest.sponsortalk.create.description"><![CDATA[Um Sponsoren zu gewinnen können Sie ihnen eine persönliche Nachricht schicken.]]></item>
 		<item name="wcf.contest.sponsortalk.subject"><![CDATA[Betreff]]></item>
 		<item name="wcf.contest.sponsortalk.message"><![CDATA[Nachricht]]></item>
 		<item name="wcf.contest.sponsortalk.description"><![CDATA[Wenn Sie Juroren überzeugen wollen, an ihrem Wettbewerb teilzunehmen, sollten Sie mit einem Text überzeugen. Der Text ist optional.]]></item>

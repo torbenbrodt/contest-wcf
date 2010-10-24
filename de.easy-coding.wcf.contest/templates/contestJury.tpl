@@ -164,7 +164,7 @@
 												<input id="juryAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
 												<input id="juryAddButton" type="button" value="{lang}wcf.contest.jury.add{/lang}" />
 											</div>
-											<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+											<p class="formFieldDesc">{lang}wcf.contest.owner.enter{/lang}</p>
 										</div>
 									</fieldset>
 									

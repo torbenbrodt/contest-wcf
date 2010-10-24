@@ -101,7 +101,7 @@ onloadEvents.push(function() {
 		
 	<div class="formElement">
 		<div class="formFieldLabel" id="sponsorTitle">
-			{lang}Sponsoren{/lang}
+			{lang}wcf.contest.sponsors{/lang}
 		</div>
 		<div class="formField"><div id="sponsor" class="accessRights" style="height:80px"></div></div>
 	</div>
@@ -110,13 +110,13 @@ onloadEvents.push(function() {
 			<input id="sponsorAddInput" type="text" name="" value="" class="inputText accessRightsInput" />
 			<input id="sponsorAddButton" type="button" value="{lang}wcf.contest.sponsor.add{/lang}" />
 		</div>
-		<p class="formFieldDesc">{lang}Benutzer- oder Gruppennamen eingeben.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.owner.enter{/lang}</p>
 	</div>
 	<div class="formElement">
 		<div class="formField">
 			<label for="sponsortalk_trigger">
 				<input type="checkbox" name="sponsortalk_trigger" id="sponsortalk_trigger" value="1" {if $sponsortalk_trigger} checked="checked"{/if} onclick="Effect.toggle('sponsortalk', 'slide');"/>
-				{lang}Sponsortalk eröffnen{/lang}
+				{lang}wcf.contest.sponsortalk.create{/lang}
 				
 				
 				<script type="text/javascript">
@@ -130,7 +130,7 @@ onloadEvents.push(function() {
 				</script>
 			</label>
 		</div>
-		<p class="formFieldDesc">{lang}Um Juroren zu gewinnen können Sie ihnen eine persönliche Nachricht schicken.{/lang}</p>
+		<p class="formFieldDesc">{lang}wcf.contest.sponsortalk.create.description{/lang}</p>
 	</div>
 	<div class="formElement" id="sponsortalk">
 		<div class="formField">

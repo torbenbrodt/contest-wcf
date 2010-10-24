@@ -3,6 +3,7 @@ var ContestTabMenu = Class.create();
  * @author	Torben Brodt
  * @copyright	2010 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
+ * @package	de.easy-coding.wcf.contest
  */
 ContestTabMenu.prototype = Object.extend(new TabMenu(), {
 	next: function() {

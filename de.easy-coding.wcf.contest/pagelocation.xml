@@ -11,7 +11,7 @@
 		</pagelocation>
 
 		<pagelocation name="wcf.usersOnline.location.contest">
-			<pattern><![CDATA[index\.php\?page=Contest&.*contestID=(\d+)]]></pattern>
+			<pattern><![CDATA[index\.php\?page=Contest.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		

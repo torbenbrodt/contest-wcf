@@ -418,7 +418,7 @@ class Contest extends DatabaseObject {
 
 		$sql = "SELECT	COUNT(*) AS entries
 			FROM	wcf".WCF_N."_contest
-			WHERE	userID = ".$userID;
+			WHERE	userID = ".intval($userID);
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['entries'];
 	}

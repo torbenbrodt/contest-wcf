@@ -1,5 +1,5 @@
 <h3 class="subHeadline">{lang}wcf.contest.{@$action}{/lang}: {lang}wcf.contest.message{/lang}</h3>
-<p>{lang}Geben Sie hier die Aufgabe vor. Seiten Sie dabei möglichst ausführlich und versuchen Sie Mehrdeutigkeiten zu vermeiden.{/lang}</p>
+<p>{lang}wcf.contest.create.description{/lang}</p>
 				
 {if $preview|isset}
 	<div class="message content">

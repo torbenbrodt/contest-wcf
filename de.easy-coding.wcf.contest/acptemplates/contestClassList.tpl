@@ -10,7 +10,6 @@
 	
 	// when the dom is fully loaded, execute these scripts
 	document.observe("dom:loaded", init);
-	
 	//]]>
 </script>
 
