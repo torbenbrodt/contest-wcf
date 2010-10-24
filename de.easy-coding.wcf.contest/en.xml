@@ -140,6 +140,7 @@ When you think your contest is fine, you can  set the status to "applied" for th
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.contest.create.description"><![CDATA[Please formulate the contest. Please be as precise as possible so that everybody understands the quest.]]></item>
 		<item name="wcf.contest.contest.subject.hidden"><![CDATA[The contest is not visible to you.]]></item>
 		<item name="wcf.contest.contest.message.hidden"><![CDATA[The contest is not visible to you.]]></item>
 		<item name="wcf.contest.settings"><![CDATA[Settings]]></item>
@@ -170,6 +171,7 @@ When you think your contest is fine, you can  set the status to "applied" for th
 		<item name="wcf.contest.add"><![CDATA[Write entry]]></item>
 		<item name="wcf.contest.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.owner"><![CDATA[Owner]]></item>
+		<item name="wcf.contest.owner.enter"><![CDATA[Enter user- or groupname.]]></item>
 		<item name="wcf.contest.owner.self"><![CDATA[Myself]]></item>
 		<item name="wcf.contest.owner.description"><![CDATA[Whom should this contest belongs to.]]></item>
 		<item name="wcf.contest.jury"><![CDATA[Jury]]></item>
@@ -179,6 +181,8 @@ When you think your contest is fine, you can  set the status to "applied" for th
 		<item name="wcf.contest.jury.add"><![CDATA[Add jury]]></item>
 		<item name="wcf.contest.jury.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant"><![CDATA[Participant]]></item>
+		<item name="wcf.contest.participant.create"><![CDATA[Add comment]]></item>
+		<item name="wcf.contest.participant.create.description"><![CDATA[To reach new participants, you should write a message. This message will be sent, after the contest gets unlocked.]]></item>
 		<item name="wcf.contest.participants"><![CDATA[Participants]]></item>
 		<item name="wcf.contest.participant.owner.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant.add"><![CDATA[Add participant]]></item>
@@ -238,6 +242,8 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.event.permalink"><![CDATA[Permalink to event no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.events"><![CDATA[Events]]></item>
 		<item name="wcf.contest.jurytalk"><![CDATA[Jurytalk]]></item>
+		<item name="wcf.contest.jurytalk.create"><![CDATA[Add Jurytalk]]></item>
+		<item name="wcf.contest.jurytalk.create.description"><![CDATA[To reach judges, you should write a personal message here.]]></item>
 		<item name="wcf.contest.jurytalk.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.contest.jurytalk.message"><![CDATA[Message]]></item>
 		<item name="wcf.contest.jurytalk.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>
@@ -264,6 +270,8 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.jury.permalink"><![CDATA[Permalink to Jury no. {#$messageNumber}]]></item>
 		<item name="wcf.contest.jurys"><![CDATA[Jurys]]></item>
 		<item name="wcf.contest.sponsortalk"><![CDATA[Sponsortalk]]></item>
+		<item name="wcf.contest.sponsortalk.create"><![CDATA[Add Sponsortalk]]></item>
+		<item name="wcf.contest.sponsortalk.create.description"><![CDATA[To reach sponsors, you should write a personal message here.]]></item>
 		<item name="wcf.contest.sponsortalk.subject"><![CDATA[Subject]]></item>
 		<item name="wcf.contest.sponsortalk.message"><![CDATA[Message]]></item>
 		<item name="wcf.contest.sponsortalk.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>

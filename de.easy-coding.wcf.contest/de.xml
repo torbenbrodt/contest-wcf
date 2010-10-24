@@ -159,7 +159,6 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie der Crew 
 	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Wettbewerb]]></item>
-		<item name="wcf.contest"><![CDATA[Wettbewerb]]></item>
 		<item name="wcf.contest.create.description"><![CDATA[Geben Sie hier die Aufgabe vor. Seien Sie dabei möglichst ausführlich und versuchen Sie Mehrdeutigkeiten zu vermeiden.]]></item>
 		<item name="wcf.contest.contest.subject.hidden"><![CDATA[Der Wettbewerb ist nicht für Sie sichtbar.]]></item>
 		<item name="wcf.contest.contest.message.hidden"><![CDATA[Der Wettbewerb ist nicht für Sie sichtbar.]]></item>
