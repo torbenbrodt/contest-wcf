@@ -28,6 +28,13 @@ class ContestClassTree extends DatabaseObjectListCached {
 	public $sqlOrderBy = 'contest_class.contests DESC';
 	
 	/**
+	 * list of classes, built in makeContestClassList
+	 *
+	 * @var	array<array>
+	 */
+	protected $contestClassList = array();
+	
+	/**
 	 * counts number of entries in first level
 	 * @see DatabaseObjectListCached::_countObjects()
 	 */
