@@ -58,6 +58,7 @@
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<acptemplates>acptemplates.tar</acptemplates>
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
