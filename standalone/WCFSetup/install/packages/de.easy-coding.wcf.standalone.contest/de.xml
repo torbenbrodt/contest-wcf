@@ -1,7 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
-	
+	<category name="contest.acp">
+		<item name="contest.acp.jumpToCONTEST"><![CDATA[Zum Contest]]></item>
+	</category>
+	<category name="contest.acp.index">
+		<item name="contest.acp.index"><![CDATA[easy-coding Contest Administrationsoberfläche]]></item>
+		<item name="contest.acp.index.credits"><![CDATA[Über easy-coding.de Contest]]></item>
+		<item name="contest.acp.index.credits.contributor"><![CDATA[Mitwirkende]]></item>
+		<item name="contest.acp.index.credits.designer"><![CDATA[Design]]></item>
+		<item name="contest.acp.index.credits.developedBy"><![CDATA[Software entwickelt von]]></item>
+		<item name="contest.acp.index.credits.developer"><![CDATA[Programmierung]]></item>
+		<item name="contest.acp.index.credits.productManager"><![CDATA[Projektleitung]]></item>
+		<item name="contest.acp.index.credits.translators"><![CDATA[Übersetzung]]></item>
+		<item name="contest.acp.index.news"><![CDATA[Nachrichten]]></item>
+		<item name="contest.acp.index.searchUsers"><![CDATA[Schnellsuche nach Benutzern]]></item>
+		<item name="contest.acp.index.stat"><![CDATA[Statistik]]></item>
+		<item name="contest.acp.index.stat.attachments"><![CDATA[Dateianhänge]]></item>
+		<item name="contest.acp.index.stat.database.entries"><![CDATA[Datenbankeinträge]]></item>
+		<item name="contest.acp.index.stat.database.size"><![CDATA[Datenbankgröße]]></item>
+		<item name="contest.acp.index.stat.members"><![CDATA[Mitglieder]]></item>
+		<item name="contest.acp.index.stat.posts"><![CDATA[Beiträge]]></item>
+		<item name="contest.acp.index.stat.postsPerDay"><![CDATA[({#$postsPerDay} Beiträge pro Tag)]]></item>
+		<item name="contest.acp.index.stat.privateMessages"><![CDATA[Private Nachrichten]]></item>
+		<item name="contest.acp.index.stat.threads"><![CDATA[Themen]]></item>
+		<item name="contest.acp.index.stat.threadsPerDay"><![CDATA[({#$threadsPerDay} Themen pro Tag)]]></item>
+		<item name="contest.acp.index.stat.usersOnline"><![CDATA[Benutzer online]]></item>
+		<item name="contest.acp.index.system"><![CDATA[System]]></item>
+		<item name="contest.acp.index.system.cache"><![CDATA[Cache]]></item>
+		<item name="contest.acp.index.system.exportInformation"><![CDATA[System-Informationen herunterladen]]></item>
+		<item name="contest.acp.index.system.installationDate"><![CDATA[Installationsdatum]]></item>
+		<item name="contest.acp.index.system.load"><![CDATA[Aktueller UNIX Load]]></item>
+		<item name="contest.acp.index.system.os"><![CDATA[Betriebssystem]]></item>
+		<item name="contest.acp.index.system.php"><![CDATA[PHP Version]]></item>
+		<item name="contest.acp.index.system.server"><![CDATA[Server]]></item>
+		<item name="contest.acp.index.system.software"><![CDATA[Software]]></item>
+		<item name="contest.acp.index.system.sql.type"><![CDATA[Datenbank]]></item>
+		<item name="contest.acp.index.system.sql.version"><![CDATA[MySQL Version]]></item>
+		<item name="contest.acp.index.system.wbb.version"><![CDATA[Burning Board&reg; Version]]></item>
+		<item name="contest.acp.index.system.wcf.version"><![CDATA[Community Framework&trade; Version]]></item>
+		<item name="contest.acp.index.system.webserver"><![CDATA[Webserver]]></item>
+		<item name="contest.acp.index.updates"><![CDATA[Updates]]></item>
+		<item name="contest.acp.index.updates.description"><![CDATA[Es stehen derzeit folgende Updates zur Verfügung:]]></item>
+		<item name="contest.acp.index.updates.startUpdate"><![CDATA[Update jetzt durchführen]]></item>
+		<item name="contest.acp.index.updates.update"><![CDATA[{$update.packageName}{if $update.instanceNo > 1} (#{$update.instanceNo}){/if} Version {$update.version.packageVersion}]]></item>
+	</category>
 	<category name="contest.global">
-		<item name="contest.global.copyright"><![CDATA[<a href="http://www.easy-coding.de/">easy-coding.de</a>]]></item>
+		<item name="contest.global.copyright"><![CDATA[<a href="http://www.easy-coding.de/">Software: <strong>contest</strong>, entwickelt von <strong>easy-coding.de</strong></a>]]></item>
+	</category>
+	<category name="contest.header">
+		<item name="contest.header.login.useCookies"><![CDATA[Dauerhaft angemeldet bleiben?]]></item>
+		<item name="contest.header.menu.board"><![CDATA[Forum]]></item>
+		<item name="contest.header.search.extended"><![CDATA[Erweiterte Suche]]></item>
+		<item name="contest.header.search.query"><![CDATA[Suchbegriffe eingeben]]></item>
+		<item name="contest.header.userMenu.acp"><![CDATA[Administration]]></item>
+		<item name="contest.header.userMenu.changeLanguage"><![CDATA[Sprache ändern]]></item>
+		<item name="contest.header.userMenu.login"><![CDATA[Anmelden]]></item>
+		<item name="contest.header.userMenu.logout"><![CDATA[Abmelden]]></item>
+		<item name="contest.header.userMenu.moderation"><![CDATA[Moderation]]></item>
+		<item name="contest.header.userMenu.pm"><![CDATA[Private Nachrichten]]></item>
+		<item name="contest.header.userMenu.profile"><![CDATA[Profil bearbeiten]]></item>
+		<item name="contest.header.userMenu.register"><![CDATA[Registrieren]]></item>
+		<item name="contest.header.userMenu.subscriptions"><![CDATA[Abonnements]]></item>
+		<item name="contest.header.userMenu.userGroupLeader"><![CDATA[Gruppenleitung]]></item>
+		<item name="contest.header.userNote.guest"><![CDATA[Sie sind nicht angemeldet.]]></item>
+		<item name="contest.header.userNote.user"><![CDATA[Angemeldet als <a href="index.php?page=User&amp;userID={@$this->user->userID}{@SID_ARG_2ND}">{$this->user->username}</a>.]]></item>
+		<item name="contest.header.welcomeBack"><![CDATA[Willkommen zurück, {$this->user->username}! <a href="index.php?form=Search&amp;action=newPostsSince&amp;since={@$this->user->boardLastActivityTime}{@SID_ARG_2ND}">Neue Beiträge seit Ihrem letzten Besuch ({@$this->user->boardLastActivityTime|time}) anzeigen.</a>]]></item>
 	</category>
 </language>

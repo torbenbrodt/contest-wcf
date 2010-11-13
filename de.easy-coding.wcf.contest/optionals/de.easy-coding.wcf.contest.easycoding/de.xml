@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
-	<category name="wcf.contest">
-		<item name="wcf.contest.sidebar.easycoding.addcontest.title"><![CDATA[Starte deinen eigenen Wettbewerb]]></item>
-		<item name="wcf.contest.sidebar.easycoding.addcontest.submit"><![CDATA[Wettbewerb erstellen]]></item>
-		<item name="wcf.contest.sidebar.easycoding.addcontest.description"><![CDATA[easy-coding ist eins der meistgenutzten Programmierforen in Deutschland. Starten Sie ihren eigenen Wettbewerb. Überlegen Sie sich eine passende Aufgabe, erstellen Sie Preise, uvm.]]></item>
-	</category>
-</language>
