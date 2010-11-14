@@ -1,0 +1,79 @@
+
+/* ### -- -- -- -- -- Global Community Calendar Styles -- -- -- -- -- ### */
+
+/* 
+
+File: contest.css 
+Copyright 2010 easy-coding.de 
+
+*/
+
+/* ### -- -- -- -- Access Rights -- -- -- -- ### */
+
+.accessRights {
+	border-width: 1px;
+	border-style: solid;
+	margin: 0;
+	padding: 0;
+	height: 150px;
+	overflow: auto;
+}
+
+.accessRights ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.accessRights ul li {
+	min-height: 0;
+}
+
+.formField .accessRights li span {
+	margin-left: 0;
+	float: none;
+}
+
+.accessRights ul li span {
+	vertical-align: middle;
+	padding: 2px 4px;
+	display: block;
+}
+
+.accessRights ul li a {
+	text-decoration: none;
+	padding: 2px 4px;
+	display: block;
+}
+
+.accessRights ul li a img {
+	vertical-align: middle;
+	padding-right: 4px;
+}
+
+.accessRights ul li a.remove, .accessRights ul li span.remove {
+	display: inline;
+	float: right;
+}
+
+.accessRights ul li a.remove img {
+	padding-right: 0;
+}
+
+.formField .accessRights label {
+	clear: none;
+}
+
+.accessRightsInput {
+	width: 300px !important;
+}
+
+select.accessRightsInput {
+	width: 303px !important;
+}
+
+#permissionsPanel div.popupMenu a, #permissionsPanel div.popupMenu a:hover {
+	padding: 5px 7px 5px 35px !important;
+}
+
+/* ### -- -- -- -- -- EOF -- -- -- -- -- ### */

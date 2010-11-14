@@ -6,13 +6,11 @@ require_once(WCF_DIR.'lib/data/feed/FeedReaderSource.class.php');
 
 /**
  * Shows the welcome page in wbb admin control panel.
- * 
- * @author 	Marcel Werk
- * @copyright	2001-2009 WoltLab GmbH
- * @license	WoltLab Burning Board License <http://www.woltlab.com/products/burning_board/license.php>
- * @package	com.woltlab.wbb
- * @subpackage	acp.page
- * @category 	Burning Board
+ *
+ * @author	Torben Brodt
+ * @copyright	2010 easy-coding.de
+ * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
+ * @package	de.easy-coding.wcf.contest.standalone
  */
 class IndexPage extends AbstractPage {
 	// system
@@ -44,9 +42,13 @@ class IndexPage extends AbstractPage {
 		}
 			
 		// news
-		$this->news = FeedReaderSource::getEntries(5);
-		foreach ($this->news as $key => $news) {
-			$this->news[$key]['description'] = preg_replace('/href="(.*?)"/e', '\'href="'.RELATIVE_WCF_DIR.'acp/dereferrer.php?url=\'.rawurlencode(\'$1\').\'" class="externalURL"\'', $news['description']);
+		if(false) {
+			$this->news = FeedReaderSource::getEntries(5);
+			foreach ($this->news as $key => $news) {
+				$this->news[$key]['description'] = preg_replace('/href="(.*?)"/e', '\'href="'.RELATIVE_WCF_DIR.'acp/dereferrer.php?url=\'.rawurlencode(\'$1\').\'" class="externalURL"\'', $news['description']);
+			}
+		} else {
+			$this->news = array();
 		}
 	}
 	
@@ -74,7 +76,7 @@ class IndexPage extends AbstractPage {
 	 * Gets a list of simple statistics.
 	 */
 	protected function readStat() {
-		WCF::getCache()->addResource('acpstat', WBB_DIR.'cache/cache.acpstat.php', WBB_DIR.'lib/system/cache/CacheBuilderACPStat.class.php', 0, 3600 * 12);
+		WCF::getCache()->addResource('acpstat', CONTEST_DIR.'cache/cache.acpstat.php', CONTEST_DIR.'lib/system/cache/CacheBuilderACPStat.class.php', 0, 3600 * 12);
 		$this->stat = WCF::getCache()->get('acpstat');
 		
 		// users online
