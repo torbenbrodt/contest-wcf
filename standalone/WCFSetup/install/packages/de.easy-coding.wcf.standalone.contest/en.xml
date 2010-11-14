@@ -19,11 +19,10 @@
 		<item name="contest.acp.index.stat.database.entries"><![CDATA[Database entries]]></item>
 		<item name="contest.acp.index.stat.database.size"><![CDATA[Database size]]></item>
 		<item name="contest.acp.index.stat.members"><![CDATA[Members]]></item>
-		<item name="contest.acp.index.stat.posts"><![CDATA[Posts]]></item>
-		<item name="contest.acp.index.stat.postsPerDay"><![CDATA[({#$postsPerDay} Posts per day)]]></item>
+		<item name="contest.acp.index.stat.contests"><![CDATA[Contests]]></item>
+		<item name="contest.acp.index.stat.contestsPerDay"><![CDATA[({#$contestsPerDay} Contests per day)]]></item>
 		<item name="contest.acp.index.stat.privateMessages"><![CDATA[Private Messages]]></item>
-		<item name="contest.acp.index.stat.threads"><![CDATA[Threads]]></item>
-		<item name="contest.acp.index.stat.threadsPerDay"><![CDATA[({#$threadsPerDay} Threads per day)]]></item>
+		<item name="contest.acp.index.stat.contest_classs"><![CDATA[Classes]]></item>
 		<item name="contest.acp.index.stat.usersOnline"><![CDATA[Users online]]></item>
 		<item name="contest.acp.index.system"><![CDATA[System]]></item>
 		<item name="contest.acp.index.system.cache"><![CDATA[Cache]]></item>
@@ -36,7 +35,7 @@
 		<item name="contest.acp.index.system.software"><![CDATA[Software]]></item>
 		<item name="contest.acp.index.system.sql.type"><![CDATA[Database Type]]></item>
 		<item name="contest.acp.index.system.sql.version"><![CDATA[MySQL Version]]></item>
-		<item name="contest.acp.index.system.wbb.version"><![CDATA[Burning Board&reg; Version]]></item>
+		<item name="contest.acp.index.system.contest.version"><![CDATA[easy-coding Contest Version]]></item>
 		<item name="contest.acp.index.system.wcf.version"><![CDATA[Community Framework&trade; Version]]></item>
 		<item name="contest.acp.index.system.webserver"><![CDATA[Webserver]]></item>
 		<item name="contest.acp.index.updates"><![CDATA[Updates]]></item>
