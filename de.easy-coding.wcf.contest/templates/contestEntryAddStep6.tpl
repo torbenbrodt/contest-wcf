@@ -143,14 +143,14 @@
 		</div>
 		<div class="formGroupField">
 			<fieldset>
-				<legend>{lang}wcf.calendar.event.date.from{/lang}</legend>
+				<legend>{lang}wcf.contest.calendar.event.date.from{/lang}</legend>
 				<div class="formElement">
-					<label><input type="checkbox" id="isFullDay" name="isFullDay"{if $eventDate->isFullDay} checked="checked"{/if} /> {lang}wcf.calendar.fullDay{/lang}</label>
+					<label><input type="checkbox" id="isFullDay" name="isFullDay"{if $eventDate->isFullDay} checked="checked"{/if} /> {lang}wcf.contest.calendar.fullDay{/lang}</label>
 				</div>
 			
 				<div class="floatedElement floatedElementContainer">
 					<div class="floatedElement">
-						<p>{lang}wcf.calendar.event.date.from{/lang}</p>
+						<p>{lang}wcf.contest.calendar.event.date.from{/lang}</p>
 					</div>
 				
 					<div class="floatedElement">
@@ -186,7 +186,7 @@
 
 				<div class="floatedElement floatedElementContainer">
 					<div class="floatedElement">
-						<p>{lang}wcf.calendar.event.date.until{/lang}</p>
+						<p>{lang}wcf.contest.calendar.event.date.until{/lang}</p>
 					</div>
 				
 					<div class="floatedElement">

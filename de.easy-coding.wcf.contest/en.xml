@@ -140,6 +140,11 @@ When you think your contest is fine, you can  set the status to "applied" for th
 	<category name="wcf.contest.ratingoption.item">
 		<item name="wcf.contest.ratingoption.item.default"><![CDATA[General]]></item>
 	</category>
+	<category name="wcf.contest.calendar">
+		<item name="wcf.contest.calendar.fullDay"><![CDATA[Ganztägig]]></item>
+		<item name="wcf.contest.calendar.event.date.from"><![CDATA[von]]></item>
+		<item name="wcf.contest.calendar.event.date.until"><![CDATA[bis]]></item>
+	</category>
 	<category name="wcf.contest">
 		<item name="wcf.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.contest.create.description"><![CDATA[Please formulate the contest. Please be as precise as possible so that everybody understands the quest.]]></item>
