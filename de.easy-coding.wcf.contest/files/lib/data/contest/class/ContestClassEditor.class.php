@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/class/ContestClass.class.php');
-require_once(WCF_DIR.'lib/system/language/LanguageEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestLanguageEditor.class.php');
 
 /**
  * Provides functions to manage contest classs.
@@ -48,19 +48,11 @@ class ContestClassEditor extends ContestClass {
 	public function updateTranslation($title, $text, $languageID) {
 		if($languageID == 0) return;
 		
-		// fetch language category
-		$sql = "SELECT	languageCategoryID
-			FROM	wcf".WCF_N."_language_category
-			WHERE	languageCategory = 'wcf.contest.class.item'";
-		$row = WCF::getDB()->getFirstRow($sql);
-		$languageCategoryID = $row['languageCategoryID'];
-		
-		// save language variables
-		$language = new LanguageEditor($languageID);
-		$language->updateItems(array(
-				'wcf.contest.class.item.'.$this->classID => $title, 
-				'wcf.contest.class.item.'.$this->classID.'.description' => $text
-			), $languageCategoryID, PACKAGE_ID);
+		$language = new ContestLanguageEditor($languageID);
+		$language->easyUpdateItems('wcf.contest.class.item', array(
+			'wcf.contest.class.item.'.$this->classID => $title, 
+			'wcf.contest.class.item.'.$this->classID.'.description' => $text
+		));
 	}
 	
 	/**

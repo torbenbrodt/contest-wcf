@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/action/AbstractAction.class.php');
+require_once(WCF_DIR.'lib/data/contest/ContestLanguageEditor.class.php');
 require_once(WCF_DIR.'lib/data/contest/class/ContestClassEditor.class.php');
 
 /**
@@ -53,11 +54,8 @@ class ContestClassRenameAction extends AbstractAction {
 		if (!$contestClass->contestClassID) {
 			throw new IllegalLinkException();
 		}
-
-		// change language variable
-		require_once(WCF_DIR.'lib/system/language/LanguageEditor.class.php');
-		$language = new LanguageEditor(WCF::getLanguage()->getLanguageID());
-		$language->updateItems(array('wcf.classs.item.' . $contestClass->contestClass => $this->title), 0, PACKAGE_ID, array('wcf.classs.item.' . $contestClass->contestClass => 1));
+		
+		$contestClass->updateTranslation($this->title, null, WCF::getLanguage()->getLanguageID());
 
 		$this->executed();
 	}

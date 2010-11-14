@@ -225,3 +225,6 @@ INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menu
 	('wcf.contest.menu.link.jurytalk', '', 'index.php?page=ContestJurytalk&contestID=%s', 'contestJurytalkM.png', 'contestJurytalkL.png', 6, '', ''),
 	('wcf.contest.menu.link.sponsor', '', 'index.php?page=ContestSponsor&contestID=%s', 'contestSponsorM.png', 'contestSponsorL.png', 7, '', ''),
 	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestSponsortalkM.png', 'contestSponsortalkL.png', 8, '', '');
+
+-- general class
+INSERT INTO `wcf1_contest_class` VALUES (1, 0, 1, 0);
