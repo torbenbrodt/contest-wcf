@@ -105,8 +105,6 @@ class ContestJuryAddForm extends AbstractForm {
 		}
 		
 		if(!array_key_exists($this->state, $this->getStates())) {
-			print_r($this->state);
-			print_r($this->getStates());
 			throw new UserInputException('state');
 		}
 	}
