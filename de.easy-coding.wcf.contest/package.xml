@@ -57,6 +57,7 @@
 	<instructions type="update" fromversion="0.7.1 Beta 1">
 		<!-- files -->
 		<files>files.tar</files>
+		<templates>templates.tar</templates>
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>

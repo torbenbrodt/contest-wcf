@@ -63,7 +63,7 @@
 			<ul>
 				{if $isRegistered}
 				<li><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?form=UserLogin{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>
@@ -86,7 +86,7 @@
 			<ul>
 				{if $isRegistered}
 				<li><a href="index.php?page=ContestSponsor&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?form=UserLogin{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomesponsor.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>
@@ -109,7 +109,7 @@
 			<ul>
 				{if $isRegistered}
 				<li><a href="index.php?page=ContestJury&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
-				{else}<li><a href="index.php?page=Register{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
+				{else}<li><a href="index.php?form=UserLogin{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomejury.submit{/lang}</span></a></li>
 				{/if}
 			</ul>
 		</div>

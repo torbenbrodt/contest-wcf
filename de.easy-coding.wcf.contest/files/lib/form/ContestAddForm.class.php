@@ -325,9 +325,9 @@ class ContestAddForm extends MessageForm {
 		PageMenu::setActiveMenuItem('wcf.header.menu.user.contest');
 		
 		if(WCF::getUser()->userID == 0) {
-			// forward to index page
+			// forward to login page
 			WCF::getTPL()->assign(array(
-				'url' => 'index.php?page=Register'.SID_ARG_2ND,
+				'url' => 'index.php?form=UserLogin'.SID_ARG_2ND,
 				'message' => WCF::getLanguage()->get('wcf.contest.register.message')
 			));
 			WCF::getTPL()->display('redirect');
