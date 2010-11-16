@@ -3,8 +3,8 @@
 <data>
 	<import>
 		<categories>
-			<category name="user.profile.contest">
-				<parent>user.profile</parent>
+			<category name="user.contest">
+				<parent>user</parent>
 				<options>module_contest</options>
 			</category>
 			<category name="mod.contest">
