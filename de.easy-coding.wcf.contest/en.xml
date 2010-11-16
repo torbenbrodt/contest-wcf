@@ -143,6 +143,8 @@ When you think your contest is fine, you can  set the status to "applied" for th
 	</category>
 	<category name="wcf.contest.ratingoption.item">
 		<item name="wcf.contest.ratingoption.item.default"><![CDATA[General]]></item>
+		<item name="wcf.contest.ratingoption.item.1"><![CDATA[Total rating]]></item>
+		<item name="wcf.contest.ratingoption.item.1.description"><![CDATA[]]></item>
 	</category>
 	<category name="wcf.contest.calendar">
 		<item name="wcf.contest.calendar.fullDay"><![CDATA[Ganztägig]]></item>

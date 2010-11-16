@@ -162,6 +162,8 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie der Crew 
 	</category>
 	<category name="wcf.contest.ratingoption.item">
 		<item name="wcf.contest.ratingoption.item.default"><![CDATA[Allgemein]]></item>
+		<item name="wcf.contest.ratingoption.item.1"><![CDATA[Gesamtbewertung]]></item>
+		<item name="wcf.contest.ratingoption.item.1.description"><![CDATA[]]></item>
 	</category>
 	<category name="wcf.contest.calendar">
 		<item name="wcf.contest.calendar.fullDay"><![CDATA[Ganztägig]]></item>

@@ -227,4 +227,7 @@ INSERT INTO wcf1_contest_menu_item (menuItem, parentMenuItem, menuItemLink, menu
 	('wcf.contest.menu.link.sponsortalk', '', 'index.php?page=ContestSponsortalk&contestID=%s', 'contestSponsortalkM.png', 'contestSponsortalkL.png', 8, '', '');
 
 -- general class
-INSERT INTO `wcf1_contest_class` VALUES (1, 0, 1, 0);
+INSERT INTO wcf1_contest_class (classID, parentClassID, position, contests) VALUES (1, 0, 1, 0);
+
+-- ratingoption
+INSERT INTO wcf1_contest_ratingoption (optionID, classID, position) VALUES (1, 1, 1);

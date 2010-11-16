@@ -21,7 +21,7 @@ class ContestLanguageEditor extends LanguageEditor {
 	 */
 	public function easyUpdateItems($categoryString, $items, $packageID = null) {
 		$packageID = $packageID === null ? WCF::getPackageID('de.easy-coding.wcf.contest') : $packageID;
-		$language = new LanguageEditor($languageID);
+		$language = new LanguageEditor($this->languageID);
 
 		$xmlString = '<?xml version="1.0" encoding="'.CHARSET.'"?>
 		<language languagecode="'.$this->getLanguageCode().'">
