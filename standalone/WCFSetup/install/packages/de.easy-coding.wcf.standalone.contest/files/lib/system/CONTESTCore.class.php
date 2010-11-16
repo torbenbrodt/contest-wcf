@@ -95,11 +95,13 @@ class CONTESTCore extends WCF implements PageMenuContainer, UserCPMenuContainer,
 		self::$pageMenuObj = new PageMenu();
 		if (PageMenu::getActiveMenuItem() == '') PageMenu::setActiveMenuItem('contest.header.menu.contest');
 	}
-
+	
 	/**
 	 * Initialises the user cp menu.
 	 */
 	protected static function initUserCPMenu() {
+		require_once(WCF_DIR.'lib/page/util/menu/UserCPMenu.class.php');
+		self::$userCPMenuObj = UserCPMenu::getInstance();
 	}
 
 	/**

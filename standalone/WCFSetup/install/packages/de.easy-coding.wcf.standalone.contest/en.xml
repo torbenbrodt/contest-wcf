@@ -65,4 +65,14 @@
 		<item name="contest.header.userNote.user"><![CDATA[Welcome <a href="index.php?page=User&amp;userID={@$this->user->userID}{@SID_ARG_2ND}">{$this->user->username}</a>.]]></item>
 		<item name="contest.header.welcomeBack"><![CDATA[Welcome back, {$this->user->username}! <a href="index.php?form=Search&amp;action=newPostsSince&amp;since={@$this->user->boardLastActivityTime}{@SID_ARG_2ND}">Show new posts since your last visit ({@$this->user->boardLastActivityTime|time}).</a>]]></item>
 	</category>
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.show_style_chooser"><![CDATA[Show style chooser]]></item>
+		<item name="wcf.acp.option.show_style_chooser.description"><![CDATA[A list of all available styles is displayed in the footer of the page.]]></item>
+		<item name="wcf.acp.option.category.offline.general"><![CDATA[Disable system temporarily]]></item>
+		<item name="wcf.acp.option.category.offline.general.description"><![CDATA[]]></item>
+		<item name="wcf.acp.option.offline_message"><![CDATA[Deactivation note]]></item>
+		<item name="wcf.acp.option.offline_message.description"><![CDATA[This message is displayed while the forum is disabled.]]></item>
+		<item name="wcf.acp.option.offline_message_allow_html"><![CDATA[Use HTML code]]></item>
+		<item name="wcf.acp.option.offline_message_allow_html.description"><![CDATA[By enabling this option you can use HTML code in the deactivation note.]]></item>
+	</category>
 </language>
