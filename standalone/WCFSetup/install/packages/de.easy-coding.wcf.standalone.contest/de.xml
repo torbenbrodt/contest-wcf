@@ -70,9 +70,14 @@
 		<item name="wcf.acp.option.show_style_chooser.description"><![CDATA[Soll im Fußteil der Seite eine Liste aller Stile zur Auswahl angezeigt werden?]]></item>
 		<item name="wcf.acp.option.category.offline.general"><![CDATA[System temporär deaktivieren]]></item>
 		<item name="wcf.acp.option.category.offline.general.description"><![CDATA[]]></item>
+		<item name="wcf.acp.option.offline"><![CDATA[System deaktivieren]]></item>
+		<item name="wcf.acp.option.offline.description"><![CDATA[Hier kann das System vorübergehend deaktiviert werden (z.B. für Wartungsarbeiten).]]></item>
 		<item name="wcf.acp.option.offline_message"><![CDATA[Deaktivierungshinweis]]></item>
 		<item name="wcf.acp.option.offline_message.description"><![CDATA[Eine Nachricht/Ein Hinweis, der während der Deaktivierung des Forums angezeigt wird]]></item>
 		<item name="wcf.acp.option.offline_message_allow_html"><![CDATA[HTML-Code im Hinweistext verwenden]]></item>
 		<item name="wcf.acp.option.offline_message_allow_html.description"><![CDATA[Durch Aktivierung dieser Option können Sie zur Formatierung des Textes auch HTML verwenden.]]></item>
+	</category>
+	<category name="wcf.contest.standalone">
+		<item name="wcf.contest.standalone.offline"><![CDATA[Das System befindet sich zur Zeit {if OFFLINE_MESSAGE != ''}aus folgenden Gründen im Wartungsmodus:{else}im Wartungsmodus.{/if}]]></item>
 	</category>
 </language>
