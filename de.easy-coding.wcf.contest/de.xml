@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
 	<category name="wcf.acp.group">
-		<item name="wcf.acp.group.option.class.mod.contest"><![CDATA[Wettbewerb]]></item>
-		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
-		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Wettbewerb]]></item>
-		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.category.mod.contest"><![CDATA[Wettbewerb]]></item>
 		<item name="wcf.acp.group.option.category.mod.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.category.user.contest"><![CDATA[Wettbewerb]]></item>
+		<item name="wcf.acp.group.option.category.user.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod"><![CDATA[Ist Supermoderator]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Supermoderatoren haben erweiterte Rechte, selbst gegenüber den Wettbewerb Ownern.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest"><![CDATA[Kann Wettbewerbe sehen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können die Wettbewerbe sehen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest"><![CDATA[Kann Wettbewerbe nutzen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können mit der Wettbewerbsplattform interagieren.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest"><![CDATA[Kann Termin festlegen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können Start- und Endzeitpunkt des eigenen Wettbewerbs bestimmen.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Kann Lösungen löschen]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen löschen.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteEntry"><![CDATA[Kann Wettbewerb löschen]]></item>

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="en">
 	<category name="wcf.acp.group">
-		<item name="wcf.acp.group.option.class.mod.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.acp.group.option.class.mod.contest.description"><![CDATA[]]></item>
-		<item name="wcf.acp.group.option.class.user.profile.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.acp.group.option.class.user.profile.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.category.mod.contest"><![CDATA[Contest]]></item>
 		<item name="wcf.acp.group.option.category.mod.contest.description"><![CDATA[]]></item>
+		<item name="wcf.acp.group.option.category.user.contest"><![CDATA[Contest]]></item>
+		<item name="wcf.acp.group.option.category.user.contest.description"><![CDATA[]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod"><![CDATA[Is super moderator]]></item>
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Super moderators have special permissions.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest"><![CDATA[Can view contest]]></item>
+		<item name="wcf.acp.group.option.user.contest.canViewContest.description"><![CDATA[Members of this usergroup can view the contest platform.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest"><![CDATA[Can use contest]]></item>
+		<item name="wcf.acp.group.option.user.contest.canUseContest.description"><![CDATA[Members of this usergroup can interact with the contest platform.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest"><![CDATA[Can schedule contest]]></item>
+		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest.description"><![CDATA[Members of this usergroup can schedule start- and end of their own contests.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution"><![CDATA[Can delete solutions]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteSolution.description"><![CDATA[Members of this usergroup can delete solutions.]]></item>
 		<item name="wcf.acp.group.option.mod.contest.canDeleteEntry"><![CDATA[Can delete contests]]></item>
