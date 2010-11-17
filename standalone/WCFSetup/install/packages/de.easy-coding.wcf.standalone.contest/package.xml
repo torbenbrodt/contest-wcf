@@ -6,7 +6,7 @@
 		<packagedescription><![CDATA[contest standalone]]></packagedescription>
 		<isunique>1</isunique>
 		<standalone>1</standalone>
-		<version>0.7.2 Beta 1</version>
+		<version>0.8.0 RC 1</version>
 		<date>DATE</date>
 	</packageinformation>
 
@@ -63,10 +63,21 @@
 	<!--	<style default="true">styles/woltlab-green-sunrise-lite-style.tar.gz</style> -->
 	</instructions>
 	
+	<instructions type="update" fromversion="0.7.2 Beta 1">
+		<!-- files -->
+		<files>files.tar</files>
+		<templates>templates.tar</templates>
+
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+	</instructions>
+	
 	<instructions type="update" fromversion="0.7.1 Beta 1">
 		<!-- files -->
 		<acptemplates>acptemplates.tar</acptemplates>
 		<files>files.tar</files>
+		<templates>templates.tar</templates>
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
@@ -77,6 +88,7 @@
 		<!-- files -->
 		<acptemplates>acptemplates.tar</acptemplates>
 		<files>files.tar</files>
+		<templates>templates.tar</templates>
 		<options>options.xml</options>
 
 		<!-- languages -->
