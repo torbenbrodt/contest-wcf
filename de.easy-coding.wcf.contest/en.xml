@@ -113,9 +113,9 @@
 Here are the various competitions will be played against each other. Most functions can be performed as a group or individual member.<br />
 Below you experience the most basic concepts and procedures.]]></item>
 		<item name="wcf.help.item.contest.entry"><![CDATA[Own Contest]]></item>
-		<item name="wcf.help.item.contest.entry.description"><![CDATA[<p>If you created a new Contest, you must fill the first title, category and function.</p>
+		<item name="wcf.help.item.contest.entry.description"><![CDATA[<p>If you created a new Contest, you must fill the first title, class and function.</p>
 
-<p>A <b>Category</b> expresses the skill or age from the participating members. It can also be used to separate content to separate topics.</p>
+<p>A <b>class</b> expresses the skill or age from the participating members. It can also be used to separate content to separate topics.</p>
 
 The task can either be managed by yourself or together with other group members. For this you need to state a <b>group</b>, in which you are a member, as owner.</p>
 
