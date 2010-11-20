@@ -179,6 +179,8 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.latestEntries"><![CDATA[Latest Contests]]></item>
 		<item name="wcf.contest.latestSolutions"><![CDATA[Latest Solutions]]></item>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Add]]></item>
+		<item name="wcf.contest.price.closed.info"><![CDATA[The prices will be sent after all solutions have be rated by all jury members and the lucky winners are ready to be announced.]]></item>
+		<item name="wcf.contest.price.pick.info"><![CDATA[After the finish of the contest all winners - beginning from the first winner - can choose the prices one by one.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Participant have to apply before they are allowed to create solutions.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[For being able to create solutions for this contest, participants first have to apply.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren have to apply before they are allowed to create prices.]]></item>
@@ -292,6 +294,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.jury.description"><![CDATA[If you want to convice users to judge your contest, you should complain in a message. But the message is not required.]]></item>
 		<item name="wcf.contest.jury.add"><![CDATA[Add Jury]]></item>
 		<item name="wcf.contest.jury.invite"><![CDATA[Invite Jury]]></item>
+		<item name="wcf.contest.jury.closed.info"><![CDATA[All Jury members need to rate all solutions for the contest becoming finished.]]></item>
 		<item name="wcf.contest.jury.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.jury.delete"><![CDATA[Delete Jury]]></item>
 		<item name="wcf.contest.jury.delete.sure"><![CDATA[Do you really want to delete this Jury?]]></item>
@@ -333,7 +336,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.information"><![CDATA[Information]]></item>
 		<item name="wcf.contest.message"><![CDATA[Contest Description]]></item>
 		<item name="wcf.contest.more"><![CDATA[Read more]]></item>
-		<item name="wcf.contest.numberOfSolutions"><![CDATA[{#$entry->solutions} solution{if $entry->solutions != 1}s{/if}]]></item>
+		<item name="wcf.contest.numberOfSolutions"><![CDATA[{#$entry->solutions} Solution{if $entry->solutions != 1}s{/if}]]></item>
 		<item name="wcf.contest.numberOfParticipants"><![CDATA[{#$entry->participants} Participant{if $entry->participants != 1}s{/if}]]></item>
 		<item name="wcf.contest.numberOfPrices"><![CDATA[{#$entry->prices} Price{if $entry->prices != 1}es{/if}]]></item>
 		<item name="wcf.contest.numberOfJurys"><![CDATA[{#$entry->jurys} Jury{if $entry->jurys != 1}s{/if}]]></item>
