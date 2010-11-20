@@ -109,25 +109,43 @@
 	</category>
 	<category name="wcf.help.item">
 		<item name="wcf.help.item.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.help.item.contest.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpContest1.png" alt="" /><span class="smallFont light">Contest entry</span></p>
-<p>The contest is a competition platform for programmers.</p>
-<h4>More information</h4>
-<ul>
-	{if $allItemNames['message']|isset}<li><a href="index.php?page=Help&item=message{@SID_ARG_2ND}">Writing text</a></li>{/if}
-</ul>]]></item>
+		<item name="wcf.help.item.contest.description"><![CDATA[<p class="border container-4"><span class="smallFont light">Contest platform</span></p>
+<p>Welcome to the competition platform.<br /><br />
+Here are the various competitions will be played against each other. Most functions can be performed as a group or individual member.<br />
+Below you experience the most basic concepts and procedures.]]></item>
 		<item name="wcf.help.item.contest.entry"><![CDATA[Own Contest]]></item>
-		<item name="wcf.help.item.contest.entry.description"><![CDATA[<p>When you first create a contest, it will be marked as "private" and only be visible to you.<br/>
-When you think your contest is fine, you can  set the status to "applied" for the crew to check it.</p>
+		<item name="wcf.help.item.contest.entry.description"><![CDATA[<p>If you created a new Contest, you must fill the first title, category and function.</p>
 
-<p>The crew will make the decision based on the quality assurance and from general guidelines. If everything is gine, it will schedule the contest to a date.</p>]]></item>
+<p>A <b>Category</b> expresses the skill or age from the participating members. It can also be used to separate content to separate topics.</p>
+
+The task can either be managed by yourself or together with other group members. For this you need to state a <b>group</b>, in which you are a member, as owner.</p>
+
+<p>Once you've created a task, it will be marked as "<b>private</b>" and wil be protected from public viewing.<br />
+If you think that the task is properly drafted, you can submit it for consideration. To do this you need the change status to "Applied".</p>
+
+<p>A member of the crew will then decide whether the task meets the quality requirements and guidelines, and schedule the task if applicable, in a certain date.</p>]]></item>
 		<item name="wcf.help.item.contest.participant"><![CDATA[Participants]]></item>
-		<item name="wcf.help.item.contest.participant.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.participant.description"><![CDATA[<p>As a participant you can create solutions to the tasks.</p>
+<p>It can be participated as an individual user or as a group. Depending on how the competition is set, you will also have to apply for participation.</p>
+
+<p>The <b>winner</b> will be determined after the competition is over. Once this is done, the winner may first select the prize. Then all winner will follow as awarded until all prizes are gone.</p>]]></item>
 		<item name="wcf.help.item.contest.jury"><![CDATA[Jury]]></item>
-		<item name="wcf.help.item.contest.jury.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.jury.description"><![CDATA[<p>In general all solutions can be rated by each member. However, only the ratings of the jury will go into the ranking that determines which party wins and who loses.</p>
+
+<p>Depending on how the competition is set, you can join the jury at every time as a user or a group. But you may have to wait until the <b>activation</b> of the creator of the contest.</p>
+
+<p>Jurors have a private discussion area (called <b>Jurytalks</b>) where they can discuss about solutions. The creator of the competition may also join this talk.</p>.
+
+<p>As long as there are solutions which are not completly rated, a box in the sidebar will display a <b>TODO</b> that reminds you to rate the solution.</p>]]></item>
 		<item name="wcf.help.item.contest.sponsor"><![CDATA[Sponsor]]></item>
-		<item name="wcf.help.item.contest.sponsor.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.sponsor.description"><![CDATA[<p>Until the competition ends you can add to the prices to it.</p>
+<p>For trust considerations the creator of the competitions or the competition crew have to approve the prices.</p>
+<p>After all jurors have evaluated all the solutions, the winners are able to select a price. Then you should contact the winners and start the transfer.</p>]]></item>
 		<item name="wcf.help.item.contest.crew"><![CDATA[Crew]]></item>
-		<item name="wcf.help.item.contest.crew.description"><![CDATA[...]]></item>
+		<item name="wcf.help.item.contest.crew.description"><![CDATA[<p>As a member of the crew you have extended permissions and the task to <b>unlock new competitions</b></p>
+
+You can also <p>send invitations or <b>unlock prices</b>.</p>
+<p>With the <b>TODO</b> box in the sidebar you will be reminded for your tasks.</p>]]></item>
 	</category>
 	<category name="wcf.search">
 		<item name="wcf.search.type.contestEntry"><![CDATA[Contest]]></item>
@@ -216,7 +234,7 @@ When you think your contest is fine, you can  set the status to "applied" for th
 		<item name="wcf.contest.solution.number"><![CDATA[Solution #{$solutionID}]]></item>
 		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$solutionObj->comments} comment{if $solutionObj->comments != 1}s{/if}]]></item>
 		<item name="wcf.contest.solution.description"><![CDATA[The solution can only be viewn by you, the creator of this contest and the jury.]]></item>
-		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br/>
+		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br />
 Before Termination of the contest, the solutions can only be viewed by the contest owner itself or the jury.]]></item>
 		<item name="wcf.contest.solution.add"><![CDATA[Add solution]]></item>
 		<item name="wcf.contest.solution.add.description"><![CDATA[]]></item>
@@ -399,7 +417,7 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.state.sent"><![CDATA[sent]]></item>
 		<item name="wcf.contest.state.unknown"><![CDATA[unknown]]></item>
 
-		<item name="wcf.contest.register.message"><![CDATA[You need to register to use this function.<br/>
+		<item name="wcf.contest.register.message"><![CDATA[You need to register to use this function.<br />
 		You will now be redirected.]]></item>
 	</category>
 	<category name="wcf.contest.event.notification">
