@@ -44,7 +44,7 @@
 		<item name="contest.acp.index.updates.update"><![CDATA[{$update.packageName}{if $update.instanceNo > 1} (#{$update.instanceNo}){/if} Version {$update.version.packageVersion}]]></item>
 	</category>
 	<category name="contest.global">
-		<item name="contest.global.copyright"><![CDATA[<a href="http://www.easy-coding.de/">Software: <strong>contest</strong>, entwickelt von <strong>easy-coding.de</strong></a>]]></item>
+		<item name="contest.global.copyright"><![CDATA[<a href="http://trac.easy-coding.de/trac/contest">Software: <strong>contest</strong>, entwickelt von <strong>easy-coding.de</strong></a>]]></item>
 	</category>
 	<category name="contest.header">
 		<item name="contest.header.login.useCookies"><![CDATA[Dauerhaft angemeldet bleiben?]]></item>
