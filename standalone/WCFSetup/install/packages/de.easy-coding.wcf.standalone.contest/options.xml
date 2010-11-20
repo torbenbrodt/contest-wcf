@@ -29,6 +29,13 @@
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
+			
+			<!-- overwrite page title with default -->
+			<option name="page_title">
+				<categoryname>general.page</categoryname>
+				<optiontype>text</optiontype>
+				<defaultvalue><![CDATA[Contest]]></defaultvalue>
+			</option>
 
 			<option name="show_style_chooser">
 				<categoryname>general.page</categoryname>
