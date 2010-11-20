@@ -66,6 +66,7 @@
 					<img src="{@RELATIVE_WCF_DIR}icon/contestCommentM.png" alt="" />
 					<span>{lang}wcf.contest.message{/lang}</span></a>
 				</li>
+{* all steps during registration?
 				<li id="step3">
 					<a onclick="steppedTabMenu.showSubTabMenu('step3');">
 					<img src="{@RELATIVE_WCF_DIR}icon/contestPriceM.png" alt="" />
@@ -81,6 +82,7 @@
 					<img src="{@RELATIVE_WCF_DIR}icon/contestParticipantM.png" alt="" />
 					<span>{lang}wcf.contest.participant{/lang}</span></a>
 				</li>
+*}
 			</ul>
 		</div>
 		<div class="subTabMenu">
@@ -96,6 +98,7 @@
 				{include file="contestEntryAddStep2"}
 			</div>
 		</div>
+{* all steps during registration?
 		<div class="border tabMenuContent hidden" id="step3-content">
 			<div class="container-1">
 				{include file="contestEntryAddStep3"}
@@ -111,6 +114,7 @@
 				{include file="contestEntryAddStep5"}
 			</div>
 		</div>
+*}
 	</form>
 </div>
 
