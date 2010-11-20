@@ -246,6 +246,34 @@ class ContestAddForm extends MessageForm {
 	}
 	
 	/**
+	 * @see Form::submit()
+	 */
+	public function submit() {
+		// call submit event
+		EventHandler::fireAction($this, 'submit');
+		
+		$this->readFormParameters();
+		
+		try {
+			// attachment handling
+			if ($this->showAttachments) {
+				$this->attachmentListEditor->handleRequest();
+			}
+
+			// send message or save as draft
+			if ($this->send) {
+				$this->validate();
+				// no errors
+				$this->save();
+			}
+		}
+		catch (UserInputException $e) {
+			$this->errorField = $e->getField();
+			$this->errorType = $e->getType();
+		}
+	}
+	
+	/**
 	 * @see Form::save()
 	 */
 	public function save() {
