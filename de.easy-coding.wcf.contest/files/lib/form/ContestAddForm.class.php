@@ -27,6 +27,7 @@ class ContestAddForm extends MessageForm {
 	public $tags = '';
 	
 	// form parameters
+	public $preview, $send;
 	public $ownerID = 0;
 	public $userID = 0;
 	public $groupID = 0;
@@ -165,6 +166,9 @@ class ContestAddForm extends MessageForm {
 		
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
+		
+		if (isset($_POST['preview']))		$this->preview		= (boolean) $_POST['preview'];
+		if (isset($_POST['send']))		$this->send		= (boolean) $_POST['send'];
 
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
