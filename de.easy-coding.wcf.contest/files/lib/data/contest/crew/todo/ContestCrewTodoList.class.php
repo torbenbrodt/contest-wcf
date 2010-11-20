@@ -40,7 +40,7 @@ class ContestCrewTodoList extends DatabaseObjectList {
 			WHERE		state = 'applied'
 			".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
-		return $row['count'];
+		return max($row['count'], 1);
 	}
 	
 	/**
@@ -60,6 +60,13 @@ class ContestCrewTodoList extends DatabaseObjectList {
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$this->todos[] = new ViewableContestCrewTodo($row);
+		}
+		
+		// say hello to all crew members, even when no contest needs to be accepted
+		if(count($this->todos) == 0) {
+			$this->todos[] = new ViewableContestCrewTodo(array(
+				'action' => 'crew.contest.applied.none'
+			));
 		}
 	}
 	

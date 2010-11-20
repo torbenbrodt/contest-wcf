@@ -389,7 +389,8 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des W
 		<item name="wcf.contest.rating.submit.description"><![CDATA[]]></item>
 		
 		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
-		<item name="wcf.contest.todo.crew.applied"><![CDATA[Ein Wettbewerb wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.crew.contest.applied"><![CDATA[Ein Wettbewerb wartet auf Freischaltung.]]></item>
+		<item name="wcf.contest.todo.crew.contest.applied.none"><![CDATA[Kein Wettbewerb wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[Es fehlt noch eine Bewertung zur Lösung.]]></item>
 		<item name="wcf.contest.todo.owner.contest.private"><![CDATA[Ihr Contest ist noch privat. Schalten Sie ihn frei.]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[Ein Preis wartet auf Freischaltung.]]></item>

@@ -378,7 +378,8 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.rating.submit.description"><![CDATA[]]></item>
 		
 		<item name="wcf.contest.todo"><![CDATA[Todo]]></item>
-		<item name="wcf.contest.todo.crew.applied"><![CDATA[A contest waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.crew.contest.applied"><![CDATA[A contest waits to be accepted.]]></item>
+		<item name="wcf.contest.todo.crew.contest.applied.none"><![CDATA[No contest waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.jury.missingRating"><![CDATA[A solution is waiting for revuew.]]></item>
 		<item name="wcf.contest.todo.owner.contest.private"><![CDATA[Your contest is still privat. Just take it online!]]></item>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[A price waits to be accepted.]]></item>
