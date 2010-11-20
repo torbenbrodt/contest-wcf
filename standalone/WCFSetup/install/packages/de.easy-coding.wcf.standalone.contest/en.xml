@@ -66,6 +66,8 @@
 		<item name="contest.header.welcomeBack"><![CDATA[Welcome back, {$this->user->username}! <a href="index.php?form=Search&amp;action=newPostsSince&amp;since={@$this->user->boardLastActivityTime}{@SID_ARG_2ND}">Show new posts since your last visit ({@$this->user->boardLastActivityTime|time}).</a>]]></item>
 	</category>
 	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.show_clock"><![CDATA[Show current time in page footer]]></item>
+		<item name="wcf.acp.option.show_clock.description"><![CDATA[By enabling this option the current time will be displayed in the page footer.]]></item>
 		<item name="wcf.acp.option.show_style_chooser"><![CDATA[Show style chooser]]></item>
 		<item name="wcf.acp.option.show_style_chooser.description"><![CDATA[A list of all available styles is displayed in the footer of the page.]]></item>
 		<item name="wcf.acp.option.offline"><![CDATA[Disable system]]></item>

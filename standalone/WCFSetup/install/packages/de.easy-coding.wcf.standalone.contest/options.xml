@@ -14,6 +14,15 @@
 			</category>
 		</categories>
 		<options>
+			
+			<!-- general.date -->
+			<option name="show_clock">
+				<categoryname>general.date</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<!-- /general.date -->
+
 			<option name="show_style_chooser">
 				<categoryname>general.page</categoryname>
 				<optiontype>boolean</optiontype>

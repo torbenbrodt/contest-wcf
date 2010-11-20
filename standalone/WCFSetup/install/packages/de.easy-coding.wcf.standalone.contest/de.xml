@@ -66,6 +66,8 @@
 		<item name="contest.header.welcomeBack"><![CDATA[Willkommen zurück, {$this->user->username}! <a href="index.php?form=Search&amp;action=newPostsSince&amp;since={@$this->user->boardLastActivityTime}{@SID_ARG_2ND}">Neue Beiträge seit Ihrem letzten Besuch ({@$this->user->boardLastActivityTime|time}) anzeigen.</a>]]></item>
 	</category>
 	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.show_clock"><![CDATA[Aktuelle Uhrzeit im Fußbereich der Seite anzeigen]]></item>
+		<item name="wcf.acp.option.show_clock.description"><![CDATA[Im Fußbereich wird die aktuelle Uhrzeit angezeigt, wenn diese Option aktiviert ist.]]></item>
 		<item name="wcf.acp.option.show_style_chooser"><![CDATA[Stil-Auswahl anzeigen]]></item>
 		<item name="wcf.acp.option.show_style_chooser.description"><![CDATA[Soll im Fußteil der Seite eine Liste aller Stile zur Auswahl angezeigt werden?]]></item>
 		<item name="wcf.acp.option.category.offline.general"><![CDATA[System temporär deaktivieren]]></item>
