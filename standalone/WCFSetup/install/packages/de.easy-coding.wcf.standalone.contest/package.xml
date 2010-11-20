@@ -48,6 +48,8 @@
 		<requiredpackage minversion="1.1.0" file="requirements/com.woltlab.wcf.data.message.search.tar.gz">com.woltlab.wcf.data.message.search</requiredpackage>
 		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.message.sidebar.tar.gz">com.woltlab.wcf.message.sidebar</requiredpackage>
 		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.data.message.search.tagging.tar.gz">com.woltlab.wcf.data.message.search.tagging</requiredpackage>
+		
+		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.data.gmap.tar.gz">com.woltlab.wcf.data.gmap</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
