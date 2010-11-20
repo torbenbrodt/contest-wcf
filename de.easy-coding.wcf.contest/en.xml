@@ -109,8 +109,7 @@
 	</category>
 	<category name="wcf.help.item">
 		<item name="wcf.help.item.contest"><![CDATA[Contest]]></item>
-		<item name="wcf.help.item.contest.description"><![CDATA[<p class="border container-4"><span class="smallFont light">Contest platform</span></p>
-<p>Welcome to the competition platform.<br /><br />
+		<item name="wcf.help.item.contest.description"><![CDATA[<p>Welcome to the competition platform.<br /><br />
 Here are the various competitions will be played against each other. Most functions can be performed as a group or individual member.<br />
 Below you experience the most basic concepts and procedures.]]></item>
 		<item name="wcf.help.item.contest.entry"><![CDATA[Own Contest]]></item>

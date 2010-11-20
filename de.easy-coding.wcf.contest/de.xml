@@ -109,8 +109,7 @@
 	</category>
 	<category name="wcf.help.item">
 		<item name="wcf.help.item.contest"><![CDATA[Wettbewerb]]></item>
-		<item name="wcf.help.item.contest.description"><![CDATA[<p class="border container-4"><span class="smallFont light">Wettbewerb</span></p>
-<p>Willkommen in der Wettbewerbsplattform.<br /><br />
+		<item name="wcf.help.item.contest.description"><![CDATA[<p>Willkommen in der Wettbewerbsplattform.<br /><br />
 Hier werden die verschiedensten Wettbewerbe gegeneinander ausgetragen. Die meisten Funktionen können als Gruppe oder Einzelmitglied ausgeführt werden.<br />
 Im Folgenden erfahrt ihr die grundlegendsten Begriffe und Vorgehen.]]></item>
 		<item name="wcf.help.item.contest.entry"><![CDATA[Eigener Wettbewerb]]></item>
