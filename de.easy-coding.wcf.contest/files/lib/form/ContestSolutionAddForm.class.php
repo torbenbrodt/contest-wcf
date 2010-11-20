@@ -225,6 +225,10 @@ class ContestSolutionAddForm extends MessageForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		$this->sidebar->assignVariables();
 		WCF::getTPL()->assign(array(
 			'states' => $this->states,

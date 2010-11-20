@@ -120,6 +120,10 @@ class ContestCommentAddForm extends CaptchaForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'comment' => $this->comment,
 			'username' => $this->username,

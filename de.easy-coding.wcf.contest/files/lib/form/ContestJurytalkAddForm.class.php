@@ -91,6 +91,10 @@ class ContestJurytalkAddForm extends AbstractForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'message' => $this->message,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')

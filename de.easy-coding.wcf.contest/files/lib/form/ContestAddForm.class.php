@@ -327,6 +327,9 @@ class ContestAddForm extends MessageForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'action' => 'add',
 			'userID' => WCF::getUser()->userID,
@@ -345,7 +348,6 @@ class ContestAddForm extends MessageForm {
 			'comment_trigger' => $this->comment_trigger,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
-			
 		));
 	}
 	

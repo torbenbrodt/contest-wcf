@@ -179,6 +179,10 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		// save ratings
 		if($this->solutionObj->isRateable()) {
 			require_once(WCF_DIR.'lib/form/ContestSolutionRatingUpdateForm.class.php');

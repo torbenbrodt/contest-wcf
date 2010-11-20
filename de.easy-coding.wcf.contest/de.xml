@@ -397,6 +397,8 @@ Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des W
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.participant.solution.private"><![CDATA[Stellen Sie ihre Lösung fertig.]]></item>
 		
+		<item name="wcf.contest.branding"><![CDATA[Contest Programmierung]]></item>
+		
 		<item name="wcf.contest.state.accepted"><![CDATA[Akzeptiert]]></item>
 		<item name="wcf.contest.state.applied"><![CDATA[Beworben]]></item>
 		<item name="wcf.contest.state.closed"><![CDATA[Geschlossen]]></item>

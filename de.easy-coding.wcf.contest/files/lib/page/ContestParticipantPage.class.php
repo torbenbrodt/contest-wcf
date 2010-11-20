@@ -121,6 +121,10 @@ class ContestParticipantPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		if($this->entry->isOwner()) {
 			require_once(WCF_DIR.'lib/form/ContestParticipantInviteForm.class.php');
 			new ContestParticipantInviteForm($this->entry);

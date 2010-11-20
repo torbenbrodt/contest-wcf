@@ -117,6 +117,10 @@ class ContestSponsortalkPage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		// init form
 		if ($this->action == 'edit') {
 			require_once(WCF_DIR.'lib/form/ContestSponsortalkEditForm.class.php');

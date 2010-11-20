@@ -113,6 +113,10 @@ class ContestRatingoptionListPage extends SortablePage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'ratingoptions' => $this->ratingoptionList->getObjects(),
 			'defaultRatingoptions' => $this->defaultRatingoptions,

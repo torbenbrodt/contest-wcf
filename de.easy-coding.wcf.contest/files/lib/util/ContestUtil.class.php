@@ -9,7 +9,12 @@
  * @package	de.easy-coding.wcf.contest
  */
 class ContestUtil {
-	
+	/**
+	 * for singleton usage of assignVariablesBranding
+	 * @var boolean
+	 */
+	protected static $BRANDED = false;
+
 	/**
 	 * returns the groups for which the current user is admin
 	 */
@@ -32,6 +37,22 @@ class ContestUtil {
 			$availableGroups[$row['groupID']] = new Group(null, $row);
 		}
 		return $availableGroups;
+	}
+	
+	/**
+	 * returns the groups for which the current user is admin
+	 */
+	public static function assignVariablesBranding() {
+		$showBranding = true;
+		if(defined('CONTEST_N') || self::$BRANDED) {
+			$showBranding = false;
+		}
+		
+		if($showBranding) {
+			self::$BRANDED = true;
+
+			WCF::getTPL()->append('additionalFooterOptions', '<li><a class="externalURL" href="http://trac.easy-coding.de/trac/contest"><span>'.WCF::getLanguage()->get('wcf.contest.branding').'</span></a></li>');
+		}
 	}
 }
 ?>

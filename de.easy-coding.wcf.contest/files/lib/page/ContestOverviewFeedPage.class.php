@@ -49,6 +49,10 @@ class ContestOverviewFeedPage extends AbstractFeedPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'entries' => $this->entryList->getObjects()
 		));

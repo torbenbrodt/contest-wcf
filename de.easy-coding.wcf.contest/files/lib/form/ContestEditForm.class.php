@@ -346,6 +346,10 @@ class ContestEditForm extends MessageForm {
 	 */
 	public function assignVariables() {
 		parent::assignVariables();
+		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
 
 		InlineCalendar::assignVariables();		
 		WCF::getTPL()->assign(array(

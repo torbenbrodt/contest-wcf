@@ -134,6 +134,10 @@ class ContestPricePage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		// save price position
 		if($this->entry->isOwner()) {
 			require_once(WCF_DIR.'lib/form/ContestPricePositionForm.class.php');

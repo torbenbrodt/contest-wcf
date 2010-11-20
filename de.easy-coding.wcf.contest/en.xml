@@ -386,6 +386,8 @@ Before Termination of the contest, the solutions can only be viewed by the conte
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[A solution waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.participant.solution.private"><![CDATA[Your solution needs to be published.]]></item>
 		
+		<item name="wcf.contest.branding"><![CDATA[Contest Development]]></item>
+		
 		<item name="wcf.contest.state.accepted"><![CDATA[accepted]]></item>
 		<item name="wcf.contest.state.applied"><![CDATA[applied]]></item>
 		<item name="wcf.contest.state.closed"><![CDATA[closed]]></item>

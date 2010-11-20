@@ -141,6 +141,10 @@ class ContestJuryAddForm extends AbstractForm {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		// display branding
+		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
+		ContestUtil::assignVariablesBranding();
+		
 		WCF::getTPL()->assign(array(
 			'states' => $this->states,
 			'state' => $this->state,
