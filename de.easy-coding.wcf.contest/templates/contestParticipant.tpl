@@ -33,7 +33,7 @@
 		
 		// contest list render
 		var x = new ContestListRender($('dataListView'));
-		x.change('thumbnailView');
+		{if $action != 'edit'}x.change('thumbnailView');{/if}
 	});
 	</script>
 	<link rel="alternate" type="application/rss+xml" href="index.php?page=ContestFeed&amp;contestID={$entry->contestID}&amp;format=rss2" title="{lang}wcf.contest.feed{/lang} (RSS2)" />
