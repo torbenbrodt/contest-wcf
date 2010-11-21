@@ -51,6 +51,12 @@
 		
 		<requiredpackage minversion="1.0.0" file="requirements/com.woltlab.wcf.data.gmap.tar.gz">com.woltlab.wcf.data.gmap</requiredpackage>
 	</requiredpackages>
+	
+	<optionalpackages>
+		<optionalpackage file="optionals/com.woltlab.community.customPage.tar.gz">com.woltlab.community.customPage</optionalpackage>
+		<optionalpackage file="optionals/com.woltlab.community.wcf.user.notification.tar.gz">com.woltlab.community.wcf.user.notification</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.openid.tar.gz">de.easy-coding.wcf.openid</optionalpackage>
+	</optionalpackages>
 
 	<instructions type="install">
 		<acptemplates>acptemplates.tar</acptemplates>
