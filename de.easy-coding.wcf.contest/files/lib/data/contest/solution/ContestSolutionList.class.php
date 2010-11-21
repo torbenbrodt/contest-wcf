@@ -50,6 +50,7 @@ class ContestSolutionList extends DatabaseObjectList {
 		
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
 					avatar_table.*,
+					contest_participant.*,
 					contest_solution.*,
 					contest_price.priceID,
 					group_table.groupName,
