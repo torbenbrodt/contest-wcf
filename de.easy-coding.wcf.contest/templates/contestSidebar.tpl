@@ -29,14 +29,12 @@
 				{foreach from=$todos item=todo}
 					<li class="{cycle values='container-1,container-2'}">
 						<div class="containerIcon">
-							<a href="{$todo->getOwner()->getLink()}{@SID_ARG_2ND}">
-								{if $todo->getOwner()->getAvatar()}
-									{assign var=x value=$todo->getOwner()->getAvatar()->setMaxSize(24, 24)}
-									{@$todo->getOwner()->getAvatar()}
-								{else}
-									<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
-								{/if}
-							</a>
+							{if $todo->getOwner()->getAvatar()}
+								{assign var=x value=$todo->getOwner()->getAvatar()->setMaxSize(24, 24)}
+								{@$todo->getOwner()->getAvatar()}
+							{else}
+								<img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" />
+							{/if}
 						</div>
 						<div class="containerContent">
 							<h4>{$todo->getMessage()}</h4>
