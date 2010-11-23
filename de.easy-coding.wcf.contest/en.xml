@@ -125,7 +125,9 @@ If you think that the task is properly drafted, you can submit it for considerat
 <p>A member of the crew will then decide whether the task meets the quality requirements and guidelines, and schedule the task if applicable, in a certain date.</p>]]></item>
 		<item name="wcf.help.item.contest.participant"><![CDATA[Participants]]></item>
 		<item name="wcf.help.item.contest.participant.description"><![CDATA[<p>As a participant you can create solutions to the tasks.</p>
-<p>It can be participated as an individual user or as a group. Depending on how the competition is set, you will also have to apply for participation.</p>
+<p>It can be participated as Falls nicht anders eingestellt, sindan individual user or as a group. Depending on how the competition is set, you will also have to apply for participation.</p>
+
+<p>The solution will stay hidden from other users until the contest is over. This does not apply to the jury, of course the jury can view the solution at any time.</p>
 
 <p>The <b>winner</b> will be determined after the competition is over. Once this is done, the winner may first select the prize. Then all winner will follow as awarded until all prizes are gone.</p>]]></item>
 		<item name="wcf.help.item.contest.jury"><![CDATA[Jury]]></item>
@@ -181,8 +183,10 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.button.entry.add"><![CDATA[Add]]></item>
 		<item name="wcf.contest.price.closed.info"><![CDATA[The prices will be sent after all solutions have be rated by all jury members and the lucky winners are ready to be announced.]]></item>
 		<item name="wcf.contest.price.pick.info"><![CDATA[After the finish of the contest all winners - beginning from the first winner - can choose the prices one by one.]]></item>
+		<item name="wcf.contest.enableOpenSolutions"><![CDATA[All Solutions will become available instantly after the solution gets finished.]]></item>
+		<item name="wcf.contest.enableOpenSolutions.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Participant have to apply before they are allowed to create solutions.]]></item>
-		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[For being able to create solutions for this contest, participants first have to apply.]]></item>
+		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[Solutions will only become viewable, after the contest has finished.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren have to apply before they are allowed to create prices.]]></item>
 		<item name="wcf.contest.enableSponsorCheck.info"><![CDATA[For being able to create prices for this contest, sponsors first have to apply.]]></item>
 		<item name="wcf.contest.contest.description"><![CDATA[]]></item>
@@ -235,8 +239,6 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.solution.number"><![CDATA[Solution #{$solutionID}]]></item>
 		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$solutionObj->comments} comment{if $solutionObj->comments != 1}s{/if}]]></item>
 		<item name="wcf.contest.solution.description"><![CDATA[The solution can only be viewn by you, the creator of this contest and the jury.]]></item>
-		<item name="wcf.contest.solution.private.info"><![CDATA[Solutions will only become viewable, after the contest has finished.<br />
-Before Termination of the contest, the solutions can only be viewed by the contest owner itself or the jury.]]></item>
 		<item name="wcf.contest.solution.add"><![CDATA[Add solution]]></item>
 		<item name="wcf.contest.solution.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.solution.by"><![CDATA[By]]></item>

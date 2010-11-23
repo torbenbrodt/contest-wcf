@@ -125,7 +125,9 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 <p>Ein Mitglied der Crew wird dann darüber <b>entscheiden</b>, ob die Aufgabe den Qualitätsanspruchen und Richtlinien entspricht, und die Aufgabe gegebenenfalls schon auf einen bestimmten Termin planen.</p>]]></item>
 		<item name="wcf.help.item.contest.participant"><![CDATA[Teilnehmer]]></item>
 		<item name="wcf.help.item.contest.participant.description"><![CDATA[<p>Als Teilnehmer könnt ihr Lösungen zu den Aufgaben erstellen.</p>
-<p>Teilgenommen werden kann sowohl als einzelner Benutzer oder als Gruppe. Je nachdem wie der Wettbewerb eingestellt ist, wird man sich unter Umständen erst für die Teilnahme bewerben müssen.</p>
+<p>Teilgenommen werden kann man sowohl als einzelner Benutzer oder als Gruppe. Je nachdem wie der Wettbewerb eingestellt ist, wird man sich unter Umständen erst für die Teilnahme bewerben müssen.</p>
+
+<p>Falls nicht anders eingestellt, sind die Lösungen für andere Benutzer so lange unsichtbar, bis der Wettbewerb beendet ist. Das gilt natürlich nicht für die Jury, die alle Lösungen jederzeit einsehen kann.</p>
 
 <p>Die <b>Gewinner</b> werden ermittelt, nachdem der Wettbewerb abgelaufen ist. Sobald dies geschehen ist, kann sich zunächst der Erstplatzierte einen Preis aussuchen. Danach folgen die Zweit- und Drittplatzierten, so lange bis alle Preise vergeben sind.</p>]]></item>
 		<item name="wcf.help.item.contest.jury"><![CDATA[Jury]]></item>
@@ -180,6 +182,8 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.button.entry.add"><![CDATA[Eintragen]]></item>
 		<item name="wcf.contest.price.closed.info"><![CDATA[Die Preise werden erst verschickt, nachdem alle Lösungen von allen Jury Mitgliedern gecheckt wurden und die glücklichen Gewinner fest stehen.]]></item>
 		<item name="wcf.contest.price.pick.info"><![CDATA[Nach Beendigung des Wettbewerbe dürfen sich die Gewinner der Reihe nach die Preise aussuchen.]]></item>
+		<item name="wcf.contest.enableOpenSolutions"><![CDATA[Alle Lösungen sind direkt nach Fertigstellung öffentlich einsehbar.]]></item>
+		<item name="wcf.contest.enableOpenSolutions.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Teilnehmer müssen sich bewerben, bevor Sie Lösungen beitragen können.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[Um an diesem Wettbewerb teilnehmen zu können, müssen sich Teilnehmer zuerst bewerben.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren müssen sich bewerben, bevor Sie Preise beitragen können.]]></item>
@@ -224,8 +228,6 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.solution.number"><![CDATA[Lösung #{$solutionID}]]></item>
 		<item name="wcf.contest.solution.numberOfComments"><![CDATA[{#$solutionObj->comments} Kommentar{if $solutionObj->comments != 1}e{/if}]]></item>
 		<item name="wcf.contest.solution.description"><![CDATA[Die Lösung kann nur von Ihnen, dem Ersteller des Wettbewerbe und den Juroren eingsehen werden.]]></item>
-		<item name="wcf.contest.solution.private.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.<br />
-Vor der Beendigung des Wettbewerbs können die Lösungen nur vom Ersteller des Wettbewerbe und der Jury eingesehen werden.]]></item>
 		<item name="wcf.contest.solution.add"><![CDATA[Lösung hinzufügen]]></item>
 		<item name="wcf.contest.solution.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.solution.by"><![CDATA[Von]]></item>

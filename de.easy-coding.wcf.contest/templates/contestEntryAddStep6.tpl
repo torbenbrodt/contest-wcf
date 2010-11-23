@@ -112,6 +112,10 @@
 			<fieldset>
 				<legend>{lang}wcf.contest.state{/lang}</legend>
 				<label>
+					<input type="checkbox" name="enableOpenSolutions" value="1" {if $enableOpenSolutions}checked="checked" {/if}/>
+					{lang}wcf.contest.enableOpenSolutions{/lang}
+				</label>
+				<label>
 					<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
 					{lang}wcf.contest.enableParticipantCheck{/lang}
 				</label>

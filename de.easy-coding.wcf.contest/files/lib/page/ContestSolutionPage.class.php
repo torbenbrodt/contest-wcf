@@ -131,9 +131,11 @@ class ContestSolutionPage extends MultipleLinkPage {
 		// display branding
 		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 		ContestUtil::assignVariablesBranding();
-
-		if($this->entry->state != 'scheduled' || !($this->entry->fromTime < TIME_NOW && TIME_NOW < $this->entry->untilTime)) {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.solution.private.info').'</p>');
+		
+		if(!$this->entry->enableOpenSolutions && (
+			$this->entry->state != 'scheduled' || !($this->entry->fromTime < TIME_NOW && TIME_NOW < $this->entry->untilTime)
+		)) {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableOpenSolutions.info').'</p>');
 		}
 		
 		if($this->entry->enableParticipantCheck) {

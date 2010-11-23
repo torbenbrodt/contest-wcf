@@ -199,8 +199,10 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			new ContestSolutionCommentAddForm($this->solutionObj);
 		}
 		
-		if($this->entry->state != 'scheduled' || !($this->entry->fromTime < TIME_NOW && TIME_NOW < $this->entry->untilTime)) {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.solution.private.info').'</p>');
+		if(!$this->entry->enableOpenSolutions && (
+			$this->entry->state != 'scheduled' || !($this->entry->fromTime < TIME_NOW && TIME_NOW < $this->entry->untilTime)
+		)) {
+			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableOpenSolutions.info').'</p>');
 		}
 		
 		if($this->entry->enableParticipantCheck) {

@@ -143,9 +143,10 @@ class ContestPriceAddForm extends AbstractForm {
 		parent::save();
 		
 		$sponsor = ContestSponsor::find($this->contest->contestID, $this->userID, $this->groupID);
-		$state = 'invited';
+		
 		if($sponsor === null) {
 			require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
+			$state = $this->contest->enableSponsorCheck ? 'applied' : 'accepted';
 			$sponsor = ContestSponsorEditor::create($this->contest->contestID, $this->userID, $this->groupID, $state);
 		}
 		

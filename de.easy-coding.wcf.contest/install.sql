@@ -13,6 +13,7 @@ CREATE TABLE wcf1_contest (
 	enableSmilies TINYINT(1) NOT NULL DEFAULT 1,
 	enableHtml TINYINT(1) NOT NULL DEFAULT 0,
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
+	enableOpenSolutions TINYINT(1) NOT NULL DEFAULT 1,
 	enableParticipantCheck TINYINT(1) NOT NULL DEFAULT 0,
 	enableSponsorCheck TINYINT(1) NOT NULL DEFAULT 0,
 	solutions SMALLINT(5) NOT NULL DEFAULT 0,
