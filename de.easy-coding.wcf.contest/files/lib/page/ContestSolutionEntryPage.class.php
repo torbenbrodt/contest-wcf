@@ -4,6 +4,7 @@ require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/comment/ContestSolutionCommentList.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/rating/ContestSolutionRatingSummaryList.class.php');
+require_once(WCF_DIR.'lib/data/contest/participant/todo/ContestParticipantTodoList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
 require_once(WCF_DIR.'lib/data/contest/ContestSidebar.class.php');
@@ -70,6 +71,12 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	public $ratingList = null;
 	
 	/**
+	 * 
+	 * @var ContestParticipantTodoList
+	 */
+	public $todoList = null;
+	
+	/**
 	 * action
 	 * 
 	 * @var	string
@@ -119,12 +126,12 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 		
 		// init comment list
 		$this->commentList = new ContestSolutionCommentList();
-		$this->commentList->sqlConditions .= 'contest_solution_comment.solutionID = '.$this->solutionID;
+		$this->commentList->sqlConditions .= 'contest_solution_comment.solutionID = '.intval($this->solutionID);
 		$this->commentList->sqlOrderBy = 'contest_solution_comment.time DESC';
 		
 		// init rating list
 		$this->ratingList = new ContestSolutionRatingSummaryList();
-		$this->ratingList->sqlConditions .= 'contest_solution_rating.solutionID = '.$this->solutionID;
+		$this->ratingList->sqlConditions .= 'contest_solution_rating.solutionID = '.intval($this->solutionID);
 	}
 	
 	/**
@@ -132,6 +139,11 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	 */
 	public function readData() {
 		parent::readData();
+		
+		// init todo list
+		$this->todoList = new ContestParticipantTodoList();
+		$this->todoList->sqlConditions .= 'contest_participant.contestID = '.intval($this->contestID);
+		$this->todoList->readObjects();
 		
 		// read comments
 		$this->commentList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
@@ -218,6 +230,7 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			'userID' => $this->entry->userID,
 			'comments' => $this->commentList->getObjects(),
 			'ratings' => $this->ratingList->getObjects(),
+			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
 			'allowSpidersToIndexThisForm' => true,
 			'attachments' => $this->attachments,

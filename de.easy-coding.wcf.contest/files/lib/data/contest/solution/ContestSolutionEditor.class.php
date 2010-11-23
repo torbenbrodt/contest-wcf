@@ -24,31 +24,32 @@ class ContestSolutionEditor extends ContestSolution {
 	 * @return	ContestSolutionEditor
 	 */
 	public static function create($contestID, $participantID, $message, $state = 'private', $options = array(), $attachmentList = null) {
-	
+
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
-		
+
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_solution
-					(contestID, participantID, message, time,
-					attachments, enableSmilies, enableHtml, enableBBCodes)
-			VALUES		(".intval($contestID).", ".intval($participantID).", '".escapeString($message)."', ".TIME_NOW.",
-					".$attachmentsAmount.", ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
+					(contestID, participantID, message, time, 
+					state, attachments, enableSmilies, enableHtml, enableBBCodes)
+			VALUES		(".intval($contestID).", ".intval($participantID).", '".escapeString($message)."', ".TIME_NOW.", 
+					'".escapeString($state)."', ".$attachmentsAmount.",
+					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 					".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).")";
 		WCF::getDB()->sendQuery($sql);
-	
+
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
-		
+
 		// get id
 		$solutionID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_solution", 'solutionID');
-		
+
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	solutions = solutions + 1
 			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
-		
+
 		// sent event
 		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 		require_once(WCF_DIR.'lib/data/contest/owner/ContestOwner.class.php');
@@ -58,16 +59,16 @@ class ContestSolutionEditor extends ContestSolution {
 			'solutionID' => $solutionID,
 			'owner' => $participant->getOwner()->getName()
 		));
-		
+
 		// update attachments
 		if ($attachmentList !== null) {
 			$attachmentList->updateContainerID($solutionID);
 			$attachmentList->findEmbeddedAttachments($message);
 		}
-		
+
 		return new ContestSolutionEditor($solutionID);
 	}
-	
+
 	/**
 	 * Creates the preview of a post with the given data.
 	 * 
@@ -91,7 +92,7 @@ class ContestSolutionEditor extends ContestSolution {
 		$solution = new ViewableContestSolution(null, $row);
 		return $solution->getFormattedMessage();
 	}
-	
+
 	/**
 	 * Updates this entry solution.
 	 *
@@ -103,7 +104,7 @@ class ContestSolutionEditor extends ContestSolution {
 	public function update($message, $state, $options = array(), $attachmentList = null) {
 		// get number of attachments
 		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments($this->solutionID)) : 0);
-		
+
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
 			SET	message = '".escapeString($message)."',
 				state = '".escapeString($state)."',
@@ -113,13 +114,13 @@ class ContestSolutionEditor extends ContestSolution {
 				enableBBCodes = ".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1)."
 			WHERE	solutionID = ".$this->solutionID;
 		WCF::getDB()->sendQuery($sql);
-		
+
 		// update attachments
 		if ($attachmentList != null) {
 			$attachmentList->findEmbeddedAttachments($message);
 		}
 	}
-	
+
 	/**
 	 * Deletes this entry solution.
 	 */
@@ -129,13 +130,13 @@ class ContestSolutionEditor extends ContestSolution {
 			SET	solutions = solutions - 1
 			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
-		
+
 		// delete solution
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_solution
 			WHERE		solutionID = ".intval($this->solutionID);
 		WCF::getDB()->sendQuery($sql);
 	}
-	
+
 	/**
 	 * 'private', 'applied', 'accepted', 'declined'
 	 */

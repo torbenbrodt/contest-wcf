@@ -128,11 +128,19 @@ class ContestSolution extends DatabaseObject {
 	
 	/**
 	 * Returns true, if the active user can edit this entry.
+	 * the owner of the entry can only change the contest, if it has not been published yet.
+	 * the jury can change the entry if the contest has not finished yet.
 	 * 
 	 * @return	boolean
 	 */
 	public function isEditable() {
-		return $this->isOwner();
+		return $this->isOwner() && (
+			in_array($this->state, array('private', 'applied'))
+			|| (
+				Contest::getInstance($this->contestID)->isJuryable()
+				&& Contest::getInstance($this->contestID)->isJury()
+			)
+		);
 	}
 	
 	/**
@@ -141,7 +149,7 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isDeletable() {
-		return $this->isOwner();
+		return $this->isOwner() && in_array($this->state, array('private', 'applied'));
 	}
 	
 	/**
