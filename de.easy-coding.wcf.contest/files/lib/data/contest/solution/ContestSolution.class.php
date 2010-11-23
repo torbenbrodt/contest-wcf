@@ -39,11 +39,11 @@ class ContestSolution extends DatabaseObject {
 				FROM 		wcf".WCF_N."_contest_solution contest_solution
 				LEFT JOIN	wcf".WCF_N."_contest_participant contest_participant
 				ON		contest_participant.participantID = contest_solution.participantID
-			
+
 				LEFT JOIN	wcf".WCF_N."_contest_price contest_price
 				ON		contest_price.contestID = contest_solution.contestID
 				AND		contest_price.solutionID = contest_solution.solutionID
-				
+
 				WHERE 		contest_solution.solutionID = ".intval($solutionID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
@@ -60,13 +60,13 @@ class ContestSolution extends DatabaseObject {
 			$this->message = WCF::getLanguage()->get('wcf.contest.solution.message.hidden');
 			$this->attachments = 0;
 		}
-		
+
 		$this->subject = WCF::getLanguage()->get('wcf.contest.solution.number', array(
 			'$solutionID' => $this->solutionID,
 			'$time' => $this->time,
 		));
 	}
-	
+
 	/**
 	 * solution can be viewed by owner, by jury or if the contest is over
 	 */
@@ -80,7 +80,7 @@ class ContestSolution extends DatabaseObject {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * solution can be rated by any registered user if solution is viewable, 
 	 * the contest is not closed and the current user is not the owner
@@ -93,10 +93,10 @@ class ContestSolution extends DatabaseObject {
 		if($contest->state == 'closed') {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Returns an editor object for this solution.
 	 *
@@ -115,7 +115,7 @@ class ContestSolution extends DatabaseObject {
 	public function isOwner() {
 		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
 	}
-	
+
 	/**
 	 * Returns true, if the price has been taken
 	 * 
@@ -125,7 +125,7 @@ class ContestSolution extends DatabaseObject {
 		$x = $this->priceID;
 		return !empty($x);
 	}
-	
+
 	/**
 	 * Returns true, if the active user can edit this entry.
 	 * the owner of the entry can only change the contest, if it has not been published yet.
@@ -142,7 +142,7 @@ class ContestSolution extends DatabaseObject {
 			)
 		);
 	}
-	
+
 	/**
 	 * Returns true, if the active user can delete this entry.
 	 * 
@@ -151,7 +151,7 @@ class ContestSolution extends DatabaseObject {
 	public function isDeletable() {
 		return $this->isOwner() && in_array($this->state, array('private', 'applied'));
 	}
-	
+
 	/**
 	 * fills cache
 	 *
@@ -161,7 +161,7 @@ class ContestSolution extends DatabaseObject {
 		if(isset(self::$winners[$contestID])) {
 			return self::$winners[$contestID];
 		}
-		
+
 		// get ordered list of winners
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
@@ -176,7 +176,7 @@ class ContestSolution extends DatabaseObject {
 			self::$winners[$contestID][] = $solution;
 		}
 	}
-	
+
 	/**
 	 * returns rank of winner list
 	 *
@@ -184,7 +184,7 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function getRank() {
 		self::readWinners($this->contestID);
-		
+
 		$i = 1;
 		foreach(self::$winners[$this->contestID] as $solution) {
 			if($solution->solutionID == $this->solutionID) {
@@ -194,7 +194,7 @@ class ContestSolution extends DatabaseObject {
 		}
 		return 0;
 	}
-		
+
 	/**
 	 * before contest end - just jury and owner can add comments - after that, everybody can do so
 	 * 
@@ -237,7 +237,7 @@ class ContestSolution extends DatabaseObject {
 		) OR (
 			-- solution has been submitted, and user is jury
 			contest_solution.state IN ('applied', 'accepted', 'declined')
-			
+
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest_jury contest_jury
 				WHERE	contest_jury.contestID = contest_solution.contestID
@@ -245,11 +245,11 @@ class ContestSolution extends DatabaseObject {
 				  OR	contest_jury.userID = ".$userID."
 				)
 			) > 0
-			
+
 		) OR (
 			-- solution has been submitted, and contest is finished
 			contest_solution.state IN ('accepted', 'declined')
-			
+
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest contest
 				WHERE	contest.contestID = contest_solution.contestID

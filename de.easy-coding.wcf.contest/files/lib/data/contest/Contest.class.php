@@ -41,7 +41,7 @@ class Contest extends DatabaseObject {
 	 * @see isCloseable
 	 */
 	public $closableChecks = array();
-	
+
 	/**
 	 * holds singleton instances
 	 *
@@ -64,7 +64,7 @@ class Contest extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
-	
+
 	/**
 	 * returns singleton instance
 	 *
@@ -349,14 +349,14 @@ class Contest extends DatabaseObject {
 		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
 			return false;
 		}
-		
+
 		// is in jury?
 		foreach($this->getJurys() as $jury) {
 			if($jury->isOwner()) {
 				return false;
 			}
 		}
-		
+
 		// alreay participant
 		foreach($this->getParticipants() as $participant) {
 			if($participant->isOwner()) {
@@ -376,14 +376,14 @@ class Contest extends DatabaseObject {
 		if(WCF::getUser()->userID == 0 || $this->state == 'closed') {
 			return false;
 		}
-		
+
 		// already in jury?
 		foreach($this->getJurys() as $jury) {
 			if($jury->isOwner()) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -524,7 +524,7 @@ class Contest extends DatabaseObject {
 			contest.state = 'closed'
 		) OR (
 			-- jury, sponsor, participant
-			SELECT 	COUNT(*)
+			SELECT 	COUNT(x.contestID)
 			FROM (
 				SELECT contestID, userID, groupID FROM wcf".WCF_N."_contest_jury
 				UNION
