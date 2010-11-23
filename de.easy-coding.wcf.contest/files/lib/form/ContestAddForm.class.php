@@ -236,8 +236,8 @@ class ContestAddForm extends MessageForm {
 	 */
 	protected function getStates() {
 		$flags = (ContestState::FLAG_USER)
-			+ (ContestState::FLAG_CONTESTOWNER)
-			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+			| (ContestState::FLAG_CONTESTOWNER)
+			| (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
 		return ContestEditor::getStates($this->state, $flags);
 	}
 	

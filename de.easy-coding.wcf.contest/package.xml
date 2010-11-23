@@ -58,7 +58,6 @@
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
 		<sql>update.sql</sql>
-		<options>options.xml</options>
 		<groupoptions>groupoptions.xml</groupoptions>
 
 		<!-- languages -->

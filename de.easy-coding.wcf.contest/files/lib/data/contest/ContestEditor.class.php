@@ -386,7 +386,7 @@ class ContestEditor extends Contest {
 	 */
 	public static function getStates($current = '', $flag = 0, $isClosable = false) {
 		require_once(WCF_DIR.'lib/data/contest/state/ContestState.class.php');
-		
+
 		$arr = array($current);
 		switch($current) {
 			case 'private':
@@ -419,13 +419,14 @@ class ContestEditor extends Contest {
 		if($isClosable && !in_array('closed', $arr)) {
 			$arr[] = 'closed';
 		}
-		
-		if($flag & ContestState::FLAG_USER && WCF::getUser()->getPermission('user.contest.canScheduleOwnContest')) {
+
+		$canSchedule = WCF::getUser()->getPermission('user.contest.canScheduleOwnContest');
+		if($flag & ContestState::FLAG_USER && $canSchedule) {
 			if(in_array($current, array('private', 'accepted', 'applied'))) {
 				$arr[] = 'scheduled';
 			}
 		}
-		
+
 		return ContestState::translateArray($arr);
 	}
 }
