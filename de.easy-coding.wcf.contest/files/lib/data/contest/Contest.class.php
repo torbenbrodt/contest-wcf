@@ -227,7 +227,7 @@ class Contest extends DatabaseObject {
 	 */
 	public function isClosable() {
 		if(WCF::getUser()->userID == 0 || $this->isOwner() == false
-		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+		  || !($this->state == 'scheduled' && $this->untilTime > TIME_NOW)) {
 			return false;
 		}
 
@@ -346,7 +346,7 @@ class Contest extends DatabaseObject {
 	 */
 	public function isParticipantable($userCheck = true) {
 		if(($userCheck && WCF::getUser()->userID == 0) || $this->isOwner() || $this->state == 'closed'
-		  || !($this->state == 'scheduled' && $this->untilTime < TIME_NOW)) {
+		  || !($this->state == 'scheduled' && $this->untilTime > TIME_NOW)) {
 			return false;
 		}
 
