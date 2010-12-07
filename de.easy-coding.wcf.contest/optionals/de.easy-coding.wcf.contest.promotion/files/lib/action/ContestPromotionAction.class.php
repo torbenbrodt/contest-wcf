@@ -21,6 +21,18 @@ class ContestPromotionAction extends AbstractSecureAction {
 	public $contestID = 0;
 
 	/**
+	 * contest instance
+	 *
+	 * @var Contest
+	 */
+	public $contest = null;
+
+	/**
+	 * @var string
+	 */
+	public $contestAction = '';
+
+	/**
 	 * @see Action::readParameters()
 	 */
 	public function readParameters() {
@@ -31,6 +43,8 @@ class ContestPromotionAction extends AbstractSecureAction {
 		}
 
 		$this->contestID = intval($_REQUEST['contestID']);
+		
+		if(isset($_REQUEST['contestAction'])) $this->contestAction = $_REQUEST['contestAction'];
 
 		$this->contest = new Contest($this->contestID);
 		if (!$this->contest->isViewable()) {
@@ -44,12 +58,27 @@ class ContestPromotionAction extends AbstractSecureAction {
 	public function execute() {
 		parent::execute();
 
-		ContetPromotionUtil::updateList($this->contestID);
+		// remember
+		ContestPromotionUtil::updateList($this->contestID);
 
 		$this->executed();
+		
+		switch($this->contestAction) {
+			case 'participate':
+				$state = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
 
-		HeaderUtil::redirect();
-		exit;
+				// add participant
+				require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
+				$participant = ContestParticipantEditor::create($this->contestID, WCF::getUser()->userID, 0, $state);
+		
+				// forward
+				HeaderUtil::redirect('index.php?page=ContestParticipant'.
+					'&contestID='.$this->contestID.
+					'&participantID='.$participant->participantID.
+					SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID
+				);
+			break;
+		}
 	}
 }
 ?>

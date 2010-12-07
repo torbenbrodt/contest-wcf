@@ -16,10 +16,6 @@ class ContestPromoListener implements EventListener {
 	 */
 	public function execute($eventObj, $className, $eventName) {
 
-		if(WCF::getUser()->userID != 1) {
-			return;
-		}
-
 		$notifications = ContestPromotionUtil::getList();
 		if(count($notifications)) {
 			WCF::getTPL()->assign('contestPromotionNotifications', $notifications);

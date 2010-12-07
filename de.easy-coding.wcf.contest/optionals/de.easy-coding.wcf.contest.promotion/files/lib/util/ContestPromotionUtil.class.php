@@ -36,7 +36,7 @@ class ContestPromotionUtil {
 	 */
 	protected static function getPromotions() {
 		$languageID = WCF::getLanguage()->getLanguageID();
-		$cacheName = 'contest-promotion-'.PACKAGE_ID.'-'.$languageID;
+		$cacheName = 'contestpromotion-'.PACKAGE_ID.'-'.$languageID;
 
 		WCF::getCache()->addResource($cacheName, WCF_DIR.'cache/'.$cacheName.'.php',
 			WCF_DIR.'lib/system/cache/CacheBuilderContestPromotion.class.php', 0, 3600);

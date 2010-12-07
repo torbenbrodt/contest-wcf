@@ -24,6 +24,8 @@
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
 		<sql>install.sql</sql>
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
 		<eventlistener>eventlistener.xml</eventlistener>
 	</instructions>
 	

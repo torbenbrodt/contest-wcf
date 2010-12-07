@@ -136,7 +136,11 @@ class ContestParticipantAddForm extends AbstractForm {
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestParticipant&contestID='.$this->contest->contestID.'&participantID='.$participant->participantID.SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID);
+		HeaderUtil::redirect('index.php?page=ContestParticipant'.
+			'&contestID='.$this->contest->contestID.
+			'&participantID='.$participant->participantID.
+			SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID
+		);
 		exit;
 	}
 	

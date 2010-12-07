@@ -19,8 +19,7 @@ class CacheBuilderContestPromotion implements CacheBuilder {
 		list($cache, $packageID, $languageID) = explode('-', $cacheResource['cache']);
 
 		// get all menu items and filter menu items with low priority
-		$sql = "SELECT		contest_promotion.contestID,
-					contest_promotion.message
+		$sql = "SELECT		contest_promotion.*
 			FROM		wcf".WCF_N."_contest_promotion contest_promotion
 			INNER JOIN	wcf".WCF_N."_contest contest USING(contestID)
 			WHERE		contest.state = 'scheduled'
@@ -31,7 +30,7 @@ class CacheBuilderContestPromotion implements CacheBuilder {
 	
 		$notifications = array();
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$notifications[$row['contestID']] = $row['message'];
+			$notifications[$row['contestID']] = $row;
 		}
 		
 		return $notifications;

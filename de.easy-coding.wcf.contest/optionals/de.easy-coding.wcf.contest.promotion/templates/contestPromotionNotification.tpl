@@ -1,5 +1,7 @@
-<div class="info">
-	Möchtest du kostenlos am easy-coding Weihnachtsgewinnspiel teilnehmen? Für jedes Posting gibt es ein Los.
-	<a style="text-decoration:none" href="index.php?action=ContestPromotion&contestID=3&participate=true{@SID_ARG_2ND}"><img src="{icon}checkS.png{/icon}" alt="" /> Ja</a>,
-	<a style="text-decoration:none" href="index.php?action=ContestPromotion&contestID=3&participate=false{@SID_ARG_2ND}"><img src="{icon}deleteS.png{/icon}" alt="" /> Nein</a>
-</div>
+{foreach from=$contestPromotionNotifications key=contestID item=row}
+	<div class="info deletable" id="contestPromotion{$contestID}">
+		{@$row.message}
+		<a style="text-decoration:none" href="index.php?action=ContestPromotion&contestID={$contestID}&contestAction={@$row.action}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}"><img src="{icon}checkS.png{/icon}" alt="" /> {lang}wcf.contest.promotion.yes{/lang}</a>,
+		<a class="deleteButton" style="text-decoration:none" href="index.php?action=ContestPromotion&contestID={$contestID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}"><img src="{icon}deleteS.png{/icon}" alt="" longdesc="" /> {lang}wcf.contest.promotion.no{/lang}</a>
+	</div>
+{/foreach}
