@@ -174,6 +174,7 @@ class ContestSidebar {
 			$participantList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_participant.contestID ";
 			$participantList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_participant.state = "accepted" ';
 		}
+		$participantList->sqlLimit = 10;
 		$participantList->sqlOrderBy = 'participantID DESC';
 		$participantList->readObjects();
 		
@@ -196,7 +197,7 @@ class ContestSidebar {
 			$priceList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_price.contestID ";
 			$priceList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_price.state != "declined" ';
 		}
-		$priceList->sqlOrderBy = 'priceID DESC';
+		$priceList->sqlOrderBy = 'position ASC';
 		$priceList->readObjects();
 		
 		// get tag cloud
