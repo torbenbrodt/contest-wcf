@@ -65,18 +65,29 @@ class ContestPromotionAction extends AbstractSecureAction {
 		
 		switch($this->contestAction) {
 			case 'participate':
-				$state = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
+				if(WCF::getUser()->userID == 0) {
+					// forward
+                                        HeaderUtil::redirect('index.php?page=Contest'.
+                                                '&contestID='.$this->contestID.
+                                                SID_ARG_2ND_NOT_ENCODED
+                                        );
 
-				// add participant
-				require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
-				$participant = ContestParticipantEditor::create($this->contestID, WCF::getUser()->userID, 0, $state);
-		
-				// forward
-				HeaderUtil::redirect('index.php?page=ContestParticipant'.
-					'&contestID='.$this->contestID.
-					'&participantID='.$participant->participantID.
-					SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID
-				);
+				} else {
+
+					$state = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
+	
+					// add participant
+	
+					require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
+					$participant = ContestParticipantEditor::create($this->contestID, WCF::getUser()->userID, 0, $state);
+			
+					// forward
+					HeaderUtil::redirect('index.php?page=ContestParticipant'.
+						'&contestID='.$this->contestID.
+						'&participantID='.$participant->participantID.
+						SID_ARG_2ND_NOT_ENCODED.'#participant'.$participant->participantID
+					);
+				}
 			break;
 		}
 	}
