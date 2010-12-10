@@ -20,6 +20,9 @@ class ContestMenu extends TreeMenu {
 	protected $validations = array(
 		'wcf.contest.menu.link.jurytalk' => 'isJurytalkable',
 		'wcf.contest.menu.link.sponsortalk' => 'isSponsortalkable'
+		'wcf.contest.menu.link.solution' => 'isEnabledSolutions',
+		'wcf.contest.menu.link.jury' => 'isEnabledSolutions',
+		'wcf.contest.menu.link.jurytalk' => 'isEnabledSolutions',
 	);
 	
 	/**

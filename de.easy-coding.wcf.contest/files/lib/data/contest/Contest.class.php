@@ -292,6 +292,15 @@ class Contest extends DatabaseObject {
 	}
 
 	/**
+	 * Returns true, if the contest should be resolved with solutions.
+	 *
+	 * @return	boolean
+	 */
+	public function isEnabledSolutions() {
+		return $this->isEnabledSolutions;
+	}
+
+	/**
 	 * everybody can add comments
 	 *
 	 * @return	boolean

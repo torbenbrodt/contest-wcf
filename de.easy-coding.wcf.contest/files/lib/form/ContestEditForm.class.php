@@ -39,6 +39,7 @@ class ContestEditForm extends MessageForm {
 	public $isFullDay = 0;
 	
 	// options
+	public $enableSolutions = 1;
 	public $enableOpenSolutions = 1;
 	public $enableParticipantCheck = 0;
 	public $enableSponsorCheck = 0;
@@ -132,6 +133,7 @@ class ContestEditForm extends MessageForm {
 			$this->enableSmilies =  $this->entry->enableSmilies;
 			$this->enableHtml = $this->entry->enableHtml;
 			$this->enableBBCodes = $this->entry->enableBBCodes;
+			$this->enableSolutions = $this->entry->enableSolutions;
 			$this->enableOpenSolutions = $this->entry->enableOpenSolutions;
 			$this->enableParticipantCheck = $this->entry->enableParticipantCheck;
 			$this->enableSponsorCheck = $this->entry->enableSponsorCheck;
@@ -185,6 +187,7 @@ class ContestEditForm extends MessageForm {
 	public function readFormParameters() {
 		parent::readFormParameters();
 		
+		$this->enableSolutions = intval(isset($_POST['enableSolutions']));
 		$this->enableOpenSolutions = intval(isset($_POST['enableOpenSolutions']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
@@ -294,6 +297,7 @@ class ContestEditForm extends MessageForm {
 	 */
 	protected function getOptions() {
 		$options = parent::getOptions();
+		$options['enableSolutions'] = $this->enableSolutions;
 		$options['enableOpenSolutions'] = $this->enableOpenSolutions;
 		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
 		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
@@ -382,6 +386,7 @@ class ContestEditForm extends MessageForm {
 			'states' => $this->states,
 			'state' => $this->state,
 			'eventDate' => $this->eventDate,
+			'enableSolutions' => $this->enableSolutions,
 			'enableOpenSolutions' => $this->enableOpenSolutions,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
