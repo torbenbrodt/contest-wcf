@@ -139,7 +139,7 @@ class ContestParticipant extends DatabaseObject {
 			-- contest owner
 			SELECT  COUNT(contestID) 
 			FROM 	wcf".WCF_N."_contest contest
-			WHERE	contest.contestID = contest.contestID
+			WHERE	contest.contestID = contest_participant.contestID
 			AND (	contest.groupID IN (".implode(",", $groupIDs).")
 			  OR	contest.userID = ".$userID."
 			)
