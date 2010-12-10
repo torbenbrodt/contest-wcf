@@ -96,7 +96,7 @@
 														<label for="subject">{lang}wcf.contest.price.subject{/lang}</label>
 													</div>
 													<div class="formField">
-														<input type="text" class="inputText" name="subject" id="subject" value="{$subject}" tabindex="{counter name='tabindex'}" />
+														<input type="text" class="inputText" name="subject" id="subject" value="{$subject}" tabindex="{counter name='tabindex'}" style="width:100%" />
 														{if $errorField == 'subject'}
 															<p class="innerError">
 																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
@@ -109,7 +109,7 @@
 														<label for="message">{lang}wcf.contest.price.message{/lang}</label>
 													</div>
 													<div class="formField">
-														<textarea name="message" id="message" rows="3" cols="40">{$message}</textarea>
+														<textarea name="message" id="message" rows="4" cols="40">{$message}</textarea>
 														{if $errorField == 'message'}
 															<p class="innerError">
 																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
