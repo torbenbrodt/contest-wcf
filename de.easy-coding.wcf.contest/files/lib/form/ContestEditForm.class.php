@@ -189,6 +189,8 @@ class ContestEditForm extends MessageForm {
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
+		$this->isFullDay = isset($_POST['isFullDay']);
+		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['preview'])) $this->preview = (boolean) $_POST['preview'];
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
@@ -199,8 +201,8 @@ class ContestEditForm extends MessageForm {
 		if (isset($_POST['fromDay'])) $this->fromDay = intval($_POST['fromDay']);
 		if (isset($_POST['fromMonth'])) $this->fromMonth = intval($_POST['fromMonth']);
 		if (isset($_POST['fromYear'])) $this->fromYear = intval($_POST['fromYear']);
-		if (isset($_POST['fromHour'])) $this->fromHour = intval($_POST['fromHour']);
-		if (isset($_POST['fromMinute'])) $this->fromMinute = intval($_POST['fromMinute']);
+		if (isset($_POST['fromHour']) && !$this->isFullDay) $this->fromHour = intval($_POST['fromHour']);
+		if (isset($_POST['fromMinute']) && !$this->isFullDay) $this->fromMinute = intval($_POST['fromMinute']);
 		
 		// starttime
 		$this->fromTime = mktime(
@@ -215,8 +217,8 @@ class ContestEditForm extends MessageForm {
 		if (isset($_POST['untilDay'])) $this->untilDay = intval($_POST['untilDay']);
 		if (isset($_POST['untilMonth'])) $this->untilMonth = intval($_POST['untilMonth']);
 		if (isset($_POST['untilYear'])) $this->untilYear = intval($_POST['untilYear']);
-		if (isset($_POST['untilHour'])) $this->untilHour = intval($_POST['untilHour']);
-		if (isset($_POST['untilMinute'])) $this->untilMinute = intval($_POST['untilMinute']);
+		if (isset($_POST['untilHour']) && !$this->isFullDay) $this->untilHour = intval($_POST['untilHour']);
+		if (isset($_POST['untilMinute']) && !$this->isFullDay) $this->untilMinute = intval($_POST['untilMinute']);
 		
 		// endtime
 		$this->untilTime = mktime(
