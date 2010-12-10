@@ -199,6 +199,9 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
+	
+		// TODO: special kind return false
+	
 		if(ContestCrew::isMember()) {
 			return true;
 		}
@@ -373,6 +376,9 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isJuryable() {
+	
+		// TODO: special kind return false
+	
 		if(WCF::getUser()->userID == 0 || $this->state == 'closed') {
 			return false;
 		}
@@ -398,7 +404,7 @@ class Contest extends DatabaseObject {
 		}
 		if($this->enableSponsorCheck) {
 			foreach($this->getSponsors() as $sponsor) {
-				if($jury->state == 'accepted' && $sponsor->isOwner()) {
+				if($sponsor->state == 'accepted' && $sponsor->isOwner()) {
 					return true;
 				}
 			}
