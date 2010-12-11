@@ -73,7 +73,7 @@
 									</div>
 									<div class="container-1 column content" style="width:100%;">
 									<div class="messageInner {cycle values='container-1,container-2'}">
-										<a name="priceObj{@$priceObj->contestID}"></a>
+										<a name="priceObj{@$priceObj->priceID}"></a>
 										{if $action == 'edit' && $priceID == $priceObj->priceID}
 											<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
 												<div class="formElement{if $errorField == 'state'} formError{/if}">
