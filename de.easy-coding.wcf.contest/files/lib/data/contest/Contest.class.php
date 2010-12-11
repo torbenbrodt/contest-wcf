@@ -200,7 +200,9 @@ class Contest extends DatabaseObject {
 	 */
 	public function isSolutionable() {
 	
-		// TODO: special kind return false
+		if($this->isEnabledSolutions() == false) {
+			return false;
+		}
 	
 		if(ContestCrew::isMember()) {
 			return true;
@@ -386,7 +388,9 @@ class Contest extends DatabaseObject {
 	 */
 	public function isJuryable() {
 	
-		// TODO: special kind return false
+		if($this->isEnabledSolutions() == false) {
+			return false;
+		}
 	
 		if(WCF::getUser()->userID == 0 || $this->state == 'closed') {
 			return false;
