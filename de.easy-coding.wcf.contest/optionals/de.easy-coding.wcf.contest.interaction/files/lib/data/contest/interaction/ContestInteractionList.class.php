@@ -151,7 +151,6 @@ class ContestInteractionList extends DatabaseObjectListCached {
 			ON		(avatar_table.avatarID = u.avatarID)
 			LEFT JOIN	wcf'.WCF_N.'_group g ON x.kind = "group" AND x.id = g.groupID
 			'.$this->sqlJoins.'
-			'.(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '').'
 			'.(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 

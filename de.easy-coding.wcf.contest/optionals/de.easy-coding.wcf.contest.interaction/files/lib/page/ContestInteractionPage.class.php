@@ -87,7 +87,6 @@ class ContestInteractionPage extends MultipleLinkPage {
 	public function readData() {
 		parent::readData();
 
-		$this->interactionList = new ContestInteractionList();
 		$this->interactionList->sqlOffset = ($this->pageNo - 1) * $this->itemsPerPage;
 		$this->interactionList->sqlLimit = $this->itemsPerPage;
 		$this->interactionList->readObjects();
