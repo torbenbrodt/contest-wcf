@@ -112,12 +112,12 @@
 			<fieldset>
 				<legend>{lang}wcf.contest.state{/lang}</legend>
 				<label>
-					<input type="checkbox" name="enableSolutions" value="1" {if $enableSolutions}checked="checked" {/if}/>
-					{lang}wcf.contest.enableSolutions{/lang}
+					<input type="checkbox" name="enableSolution" value="1" {if $enableSolution}checked="checked" {/if}/>
+					{lang}wcf.contest.enableSolution{/lang}
 				</label>
 				<label>
-					<input type="checkbox" name="enableOpenSolutions" value="1" {if $enableOpenSolutions}checked="checked" {/if}/>
-					{lang}wcf.contest.enableOpenSolutions{/lang}
+					<input type="checkbox" name="enableOpenSolution" value="1" {if $enableOpenSolution}checked="checked" {/if}/>
+					{lang}wcf.contest.enableOpenSolution{/lang}
 				</label>
 				<label>
 					<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
@@ -211,6 +211,7 @@
 						<label for="untilYear">{lang}wcf.global.date.year{/lang}</label>
 						<input id="untilYear" class="inputText fourDigitInput" type="text" name="untilYear" value="{@$eventDate->untilYear}" maxlength="4" />
 					</div>
+
 
 				
 					<div class="floatedElement noFullDay">

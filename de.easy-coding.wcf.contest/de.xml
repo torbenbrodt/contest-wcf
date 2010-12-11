@@ -182,9 +182,9 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.button.entry.add"><![CDATA[Eintragen]]></item>
 		<item name="wcf.contest.price.closed.info"><![CDATA[Die Preise werden erst verschickt, nachdem alle Lösungen von allen Jury Mitgliedern gecheckt wurden und die glücklichen Gewinner fest stehen.]]></item>
 		<item name="wcf.contest.price.pick.info"><![CDATA[Nach Beendigung des Wettbewerbe dürfen sich die Gewinner der Reihe nach die Preise aussuchen.]]></item>
-		<item name="wcf.contest.enableSolutions"><![CDATA[Wird der Wettbewerb mit Einsendung von Lösungen ausgetragen?]]></item>
-		<item name="wcf.contest.enableOpenSolutions"><![CDATA[Alle Lösungen sind direkt nach Fertigstellung öffentlich einsehbar.]]></item>
-		<item name="wcf.contest.enableOpenSolutions.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
+		<item name="wcf.contest.enableSolution"><![CDATA[Wird der Wettbewerb mit Einsendung von Lösungen ausgetragen?]]></item>
+		<item name="wcf.contest.enableOpenSolution"><![CDATA[Alle Lösungen sind direkt nach Fertigstellung öffentlich einsehbar.]]></item>
+		<item name="wcf.contest.enableOpenSolution.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Teilnehmer müssen sich bewerben, bevor Sie Lösungen beitragen können.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[Um an diesem Wettbewerb teilnehmen zu können, müssen sich Teilnehmer zuerst bewerben.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren müssen sich bewerben, bevor Sie Preise beitragen können.]]></item>

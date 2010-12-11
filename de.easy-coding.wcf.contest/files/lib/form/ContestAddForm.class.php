@@ -35,8 +35,8 @@ class ContestAddForm extends MessageForm {
 	protected $state = 'private';
 	
 	// options
-	public $enableSolutions = 1;
-	public $enableOpenSolutions = 1;
+	public $enableSolution = 1;
+	public $enableOpenSolution = 1;
 	public $enableParticipantCheck = 0;
 	public $enableSponsorCheck = 0;
 	
@@ -166,8 +166,8 @@ class ContestAddForm extends MessageForm {
 	public function readFormParameters() {
 		parent::readFormParameters();
 		
-		$this->enableSolutions = intval(isset($_POST['enableSolutions']));
-		$this->enableOpenSolutions = intval(isset($_POST['enableOpenSolutions']));
+		$this->enableSolution = intval(isset($_POST['enableSolution']));
+		$this->enableOpenSolution = intval(isset($_POST['enableOpenSolution']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
@@ -248,8 +248,8 @@ class ContestAddForm extends MessageForm {
 	 */
 	protected function getOptions() {
 		$options = parent::getOptions();
-		$options['enableSolutions'] = $this->enableSolutions;
-		$options['enableOpenSolutions'] = $this->enableOpenSolutions;
+		$options['enableSolution'] = $this->enableSolution;
+		$options['enableOpenSolution'] = $this->enableOpenSolution;
 		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
 		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
 		return $options;
@@ -352,8 +352,8 @@ class ContestAddForm extends MessageForm {
 			'jurytalk_trigger' => $this->jurytalk_trigger,
 			'sponsortalk_trigger' => $this->sponsortalk_trigger,
 			'comment_trigger' => $this->comment_trigger,
-			'enableSolutions' => $this->enableSolutions,
-			'enableOpenSolutions' => $this->enableOpenSolutions,
+			'enableSolution' => $this->enableSolution,
+			'enableOpenSolution' => $this->enableOpenSolution,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
 		));

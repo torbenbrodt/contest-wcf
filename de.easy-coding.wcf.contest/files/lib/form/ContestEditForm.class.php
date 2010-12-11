@@ -39,8 +39,8 @@ class ContestEditForm extends MessageForm {
 	public $isFullDay = 0;
 	
 	// options
-	public $enableSolutions = 1;
-	public $enableOpenSolutions = 1;
+	public $enableSolution = 1;
+	public $enableOpenSolution = 1;
 	public $enableParticipantCheck = 0;
 	public $enableSponsorCheck = 0;
 	
@@ -133,8 +133,8 @@ class ContestEditForm extends MessageForm {
 			$this->enableSmilies =  $this->entry->enableSmilies;
 			$this->enableHtml = $this->entry->enableHtml;
 			$this->enableBBCodes = $this->entry->enableBBCodes;
-			$this->enableSolutions = $this->entry->enableSolutions;
-			$this->enableOpenSolutions = $this->entry->enableOpenSolutions;
+			$this->enableSolution = $this->entry->enableSolution;
+			$this->enableOpenSolution = $this->entry->enableOpenSolution;
 			$this->enableParticipantCheck = $this->entry->enableParticipantCheck;
 			$this->enableSponsorCheck = $this->entry->enableSponsorCheck;
 			$this->userID = $this->entry->userID;
@@ -187,8 +187,8 @@ class ContestEditForm extends MessageForm {
 	public function readFormParameters() {
 		parent::readFormParameters();
 		
-		$this->enableSolutions = intval(isset($_POST['enableSolutions']));
-		$this->enableOpenSolutions = intval(isset($_POST['enableOpenSolutions']));
+		$this->enableSolution = intval(isset($_POST['enableSolution']));
+		$this->enableOpenSolution = intval(isset($_POST['enableOpenSolution']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
@@ -297,8 +297,8 @@ class ContestEditForm extends MessageForm {
 	 */
 	protected function getOptions() {
 		$options = parent::getOptions();
-		$options['enableSolutions'] = $this->enableSolutions;
-		$options['enableOpenSolutions'] = $this->enableOpenSolutions;
+		$options['enableSolution'] = $this->enableSolution;
+		$options['enableOpenSolution'] = $this->enableOpenSolution;
 		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
 		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
 		return $options;
@@ -386,8 +386,8 @@ class ContestEditForm extends MessageForm {
 			'states' => $this->states,
 			'state' => $this->state,
 			'eventDate' => $this->eventDate,
-			'enableSolutions' => $this->enableSolutions,
-			'enableOpenSolutions' => $this->enableOpenSolutions,
+			'enableSolution' => $this->enableSolution,
+			'enableOpenSolution' => $this->enableOpenSolution,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
 		));

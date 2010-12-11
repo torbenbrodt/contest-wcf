@@ -36,14 +36,14 @@ class ContestEditor extends Contest {
 		// save entry
 		$sql = "INSERT INTO	wcf".WCF_N."_contest
 					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml,
-					enableBBCodes, enableSolutions, enableOpenSolutions, enableParticipantCheck, enableSponsorCheck)
+					enableBBCodes, enableSolution, enableOpenSolution, enableParticipantCheck, enableSponsorCheck)
 			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', 
 					".TIME_NOW.", ".$attachmentsAmount.",
 					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 					".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).",
-					".(isset($options['enableSolutions']) ? $options['enableSolutions'] : 0).",
-					".(isset($options['enableOpenSolutions']) ? $options['enableOpenSolutions'] : 0).",
+					".(isset($options['enableSolution']) ? $options['enableSolution'] : 0).",
+					".(isset($options['enableOpenSolution']) ? $options['enableOpenSolution'] : 0).",
 					".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
 					".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0).")";
 		WCF::getDB()->sendQuery($sql);
@@ -153,8 +153,8 @@ class ContestEditor extends Contest {
 				enableSmilies = ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 				enableHtml = ".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 				enableBBCodes = ".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1).",
-				enableSolutions = ".(isset($options['enableSolutions']) ? $options['enableSolutions'] : 0).",
-				enableOpenSolutions = ".(isset($options['enableOpenSolutions']) ? $options['enableOpenSolutions'] : 0).",
+				enableSolution = ".(isset($options['enableSolution']) ? $options['enableSolution'] : 0).",
+				enableOpenSolution = ".(isset($options['enableOpenSolution']) ? $options['enableOpenSolution'] : 0).",
 				enableParticipantCheck = ".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
 				enableSponsorCheck = ".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0)."
 			WHERE	contestID = ".$this->contestID;

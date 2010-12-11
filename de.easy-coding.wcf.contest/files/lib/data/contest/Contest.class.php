@@ -200,7 +200,7 @@ class Contest extends DatabaseObject {
 	 */
 	public function isSolutionable() {
 	
-		if($this->isEnabledSolutions() == false) {
+		if($this->isEnabledSolution() == false) {
 			return false;
 		}
 	
@@ -298,8 +298,17 @@ class Contest extends DatabaseObject {
 	 *
 	 * @return	boolean
 	 */
-	public function isEnabledSolutions() {
-		return $this->isEnabledSolutions;
+	public function isEnabledSolution() {
+		return $this->isEnabledSolution;
+	}
+
+	/**
+	 * Returns true, if the contest has a jury.
+	 *
+	 * @return	boolean
+	 */
+	public function isEnabledJury() {
+		return $this->isEnabledSolution();
 	}
 
 	/**
@@ -388,7 +397,7 @@ class Contest extends DatabaseObject {
 	 */
 	public function isJuryable() {
 	
-		if($this->isEnabledSolutions() == false) {
+		if($this->isEnabledSolution() == false) {
 			return false;
 		}
 	
