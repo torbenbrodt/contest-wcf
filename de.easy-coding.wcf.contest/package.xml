@@ -57,7 +57,7 @@
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
-		<sql>update090.sql</sql>
+		<sql>update.sql</sql>
 		<groupoptions>groupoptions.xml</groupoptions>
 
 		<!-- languages -->

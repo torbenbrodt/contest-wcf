@@ -192,7 +192,7 @@ class ContestEditForm extends MessageForm {
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
-		$this->isFullDay = intval($_POST['isFullDay']);
+		$this->isFullDay = isset($_POST['isFullDay']);
 		
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['preview'])) $this->preview = (boolean) $_POST['preview'];

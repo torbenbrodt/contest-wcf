@@ -299,7 +299,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEnabledSolution() {
-		return $this->isEnabledSolution;
+		return $this->enableSolution;
 	}
 
 	/**
