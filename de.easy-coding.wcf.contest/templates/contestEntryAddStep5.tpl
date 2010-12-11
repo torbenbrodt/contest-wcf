@@ -91,5 +91,6 @@ onloadEvents.push(function() {
 	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.back()" />
 	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
 	{@SID_INPUT_TAG}
+	{@SECURITY_TOKEN_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
+require_once(WCF_DIR.'lib/form/AbstractSecureForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php');
 
@@ -12,7 +12,7 @@ require_once(WCF_DIR.'lib/data/contest/jurytalk/ContestJurytalkEditor.class.php'
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestJurytalkAddForm extends AbstractForm {
+class ContestJurytalkAddForm extends AbstractSecureForm {
 	// parameters
 	public $message = '';
 	

@@ -59,6 +59,7 @@
 													</div>
 													<div class="formSubmit">
 														{@SID_INPUT_TAG}
+														{@SECURITY_TOKEN_INPUT_TAG}
 														<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
 														<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 													</div>
@@ -117,6 +118,7 @@
 									
 									<div class="formSubmit">
 										{@SID_INPUT_TAG}
+										{@SECURITY_TOKEN_INPUT_TAG}
 										<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
 										<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 									</div>

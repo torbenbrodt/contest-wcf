@@ -49,5 +49,6 @@
 *}
 	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
 	{@SID_INPUT_TAG}
+	{@SECURITY_TOKEN_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>

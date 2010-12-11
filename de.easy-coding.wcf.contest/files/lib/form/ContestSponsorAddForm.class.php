@@ -1,6 +1,6 @@
 <?php
 // wcf imports
-require_once(WCF_DIR.'lib/form/AbstractForm.class.php');
+require_once(WCF_DIR.'lib/form/AbstractSecureForm.class.php');
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
 require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
 require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
@@ -15,7 +15,7 @@ require_once(WCF_DIR.'lib/data/contest/crew/ContestCrew.class.php');
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest
  */
-class ContestSponsorAddForm extends AbstractForm {
+class ContestSponsorAddForm extends AbstractSecureForm {
 	// form parameters
 	public $ownerID = 0;
 	public $userID = 0;

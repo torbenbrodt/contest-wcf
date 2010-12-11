@@ -103,6 +103,7 @@
 									<input type="submit" name="preview" accesskey="p" value="{lang}wcf.global.button.preview{/lang}" tabindex="{counter name='tabindex'}" />
 									<input type="reset" name="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" tabindex="{counter name='tabindex'}" />
 									{@SID_INPUT_TAG}
+									{@SECURITY_TOKEN_INPUT_TAG}
 									<input type="hidden" name="idHash" value="{$idHash}" />
 								</div>
 							</form>

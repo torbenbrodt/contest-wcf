@@ -211,6 +211,7 @@
 						<label for="untilYear">{lang}wcf.global.date.year{/lang}</label>
 						<input id="untilYear" class="inputText fourDigitInput" type="text" name="untilYear" value="{@$eventDate->untilYear}" maxlength="4" />
 					</div>
+
 				
 					<div class="floatedElement noFullDay">
 						<label for="untilHour">{lang}wcf.global.date.hour{/lang}</label>
@@ -246,5 +247,6 @@
 	<input type="submit" name="send" accesskey="n" value="{lang}wcf.global.button.submit{/lang}" tabindex="{counter name='tabindex'}" />
 	{/if}
 	{@SID_INPUT_TAG}
+	{@SECURITY_TOKEN_INPUT_TAG}
 	<input type="hidden" name="idHash" value="{$idHash}" />
 </div>
