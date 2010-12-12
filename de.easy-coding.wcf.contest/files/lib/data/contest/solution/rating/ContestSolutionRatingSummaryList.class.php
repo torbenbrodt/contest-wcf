@@ -13,6 +13,11 @@ require_once(WCF_DIR.'lib/data/contest/solution/rating/ViewableContestSolutionRa
  */
 class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 	/**
+	 * @var string
+	 */
+	public $sqlConditionsClasses = '';
+
+	/**
 	 * list of ratings
 	 * 
 	 * @var array<ViewableContestSolutionRating>
@@ -67,6 +72,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 					GROUP BY	optionID
 				) contest_solution_rating
 				ON		a.optionID = contest_solution_rating.optionID
+				".(!empty($this->sqlConditionsClasses) ? "WHERE a.classID IN (".$this->sqlConditionsClasses.')' : '')."
 			) contest_solution_rating
 			LEFT JOIN (
 				-- jury score

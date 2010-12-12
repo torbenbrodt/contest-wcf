@@ -54,5 +54,25 @@ class ContestRatingoption extends DatabaseObject {
 		require_once(WCF_DIR.'lib/data/contest/ratingoption/ContestRatingoptionEditor.class.php');
 		return new ContestRatingoptionEditor(null, $this->data);
 	}
+
+	/**
+	 * 
+	 * @param	$classIDs	array<integer>
+	 * @return 			array<ContestRatingoption>
+	 */
+	public static function getByClassIDs(array $classIDs) {
+		$classIDs[] = 0;
+		
+		$optionIDs = array();
+		
+		$sql = "SELECT		*
+			FROM 		wcf".WCF_N."_contest_ratingoption
+			WHERE		classID IN (".implode($classIDs).")";
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+			$optionIDs[$row['optionID']] = new self($row);
+		}
+		return $optionIDs;
+	}
 }
 ?>

@@ -12,6 +12,7 @@ require_once(WCF_DIR.'lib/data/contest/solution/rating/ViewableContestSolutionRa
  * @package	de.easy-coding.wcf.contest
  */
 class ContestSolutionRatingList extends DatabaseObjectList {
+	
 	/**
 	 * list of ratings
 	 * 

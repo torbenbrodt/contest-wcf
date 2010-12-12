@@ -132,6 +132,9 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 		// init rating list
 		$this->ratingList = new ContestSolutionRatingSummaryList();
 		$this->ratingList->sqlConditions .= 'contest_solution_rating.solutionID = '.intval($this->solutionID);
+		$classIDs = array_keys($this->entry->getClasses());
+		$ratingoptionIDs = array_keys(ContestRatingoption::getByClassIDs($classIDs));
+		$this->ratingList->sqlConditionsClasses = implode(',', $ratingoptionIDs);
 	}
 	
 	/**
