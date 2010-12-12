@@ -55,13 +55,18 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 			FROM (
 				-- total score
 				SELECT		a.optionID,
-						AVG(score) AS score,
-						COUNT(score) AS count
+						contest_solution_rating.score,
+						contest_solution_rating.count
 				FROM		wcf".WCF_N."_contest_ratingoption a
-				LEFT JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
+				LEFT JOIN (
+					SELECT		optionID,
+							AVG(score) AS score,
+							COUNT(score) AS count
+					FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
+					".(!empty($this->sqlConditions) ? "WHERE (".$this->sqlConditions.')' : '')."
+					GROUP BY	optionID
+				) contest_solution_rating
 				ON		a.optionID = contest_solution_rating.optionID
-				".(!empty($this->sqlConditions) ? "OR (".$this->sqlConditions.')' : '')."
-				GROUP BY	a.optionID
 			) contest_solution_rating
 			LEFT JOIN (
 				-- jury score
