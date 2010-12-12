@@ -11,6 +11,7 @@ require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestSolutionEditor extends ContestSolution {
+	const FLAG_OPENSOLUTION = 256;
 
 	/**
 	 * Creates a new entry solution.
@@ -147,7 +148,7 @@ class ContestSolutionEditor extends ContestSolution {
 		switch($current) {
 			case 'private':
 				if($flag & (ContestState::FLAG_USER | ContestState::FLAG_CREW)) {
-					$arr[] = 'applied';
+					$arr[] = $flag & self::FLAG_OPENSOLUTION ? 'accepted' : 'applied';
 				}
 			break;
 			case 'accepted':
@@ -160,7 +161,7 @@ class ContestSolutionEditor extends ContestSolution {
 			break;
 			default:
 				$arr = array(); // reset array
-				$arr[] = 'applied';
+				$arr[] = $flag & self::FLAG_OPENSOLUTION ? 'accepted' : 'applied';
 				$arr[] = 'private';
 			break;
 		}

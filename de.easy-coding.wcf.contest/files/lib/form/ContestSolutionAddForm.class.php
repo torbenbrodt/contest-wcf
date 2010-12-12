@@ -157,6 +157,10 @@ class ContestSolutionAddForm extends MessageForm {
 			+ ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
 			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
 
+		if($this->contst->enableOpenSolution) {
+			$flags += ContestSolutionEditor::FLAG_OPENSOLUTION;
+		}
+
 		return ContestSolutionEditor::getStates(isset($this->entry) ? $this->entry->state : '', $flags);
 	}
 	
