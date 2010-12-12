@@ -47,7 +47,7 @@ class ContestParticipant extends DatabaseObject {
 	 * @return      ContestSponsor
 	 */
 	public static function find($contestID, $userID, $groupID) {
-		$sql = "SELECT          *
+		$sql = "SELECT          participantID
 			FROM            wcf".WCF_N."_contest_participant
 			WHERE           contestID = ".intval($contestID)."
 			AND             userID = ".intval($userID)."
@@ -55,7 +55,7 @@ class ContestParticipant extends DatabaseObject {
 		$row = WCF::getDB()->getFirstRow($sql);
 
 		if($row) {
-			return new self(null, $row);
+			return new self($row['participantID']);
 		} else {
 			return null;
 		}

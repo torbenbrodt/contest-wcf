@@ -46,7 +46,7 @@ class TaggedContestList extends ViewableContestList {
 					AND tag_to_object.taggableID = ".$this->taggable->getTaggableID()."
 					AND contest.contestID = tag_to_object.objectID
 					AND ".$this->sqlConditions."
-					AND ".Contest::getStateConditions();
+					AND (".Contest::getStateConditions().")";
 		}
 		else {
 			$sql = "SELECT	COUNT(*) AS count
@@ -69,7 +69,7 @@ class TaggedContestList extends ViewableContestList {
 					AND tag_to_object.taggableID = ".$this->taggable->getTaggableID()."
 					AND contest.contestID = tag_to_object.objectID
 					".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
-					AND ".Contest::getStateConditions()."
+					AND (".Contest::getStateConditions().")
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

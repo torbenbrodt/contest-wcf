@@ -37,6 +37,29 @@ class ContestJury extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
+        
+	/**
+	 * finds existing jury by foreign key combination
+	 * 
+	 * @param       integer         $contestID
+	 * @param       integer         $userID
+	 * @param       integer         $groupID
+	 * @return      ContestJury
+	 */
+	public static function find($contestID, $userID, $groupID) {
+		$sql = "SELECT          juryID
+			FROM            wcf".WCF_N."_contest_jury
+			WHERE           contestID = ".intval($contestID)."
+			AND             userID = ".intval($userID)."
+			AND             groupID = ".intval($groupID);
+		$row = WCF::getDB()->getFirstRow($sql);
+
+		if($row) {
+			return new self($row['juryID']);
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * returns owner object

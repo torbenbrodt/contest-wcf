@@ -93,10 +93,17 @@ class ContestSolutionList extends DatabaseObjectList {
 				FROM		wcf".WCF_N."_contest_solution contest_solution
 				INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				ON		contest_solution.solutionID = contest_solution_rating.solutionID
-				INNER JOIN	wcf".WCF_N."_contest_jury contest_jury
-				ON		contest_jury.userID = contest_solution_rating.userID
-				WHERE 		contest_jury.state = 'accepted'
-				".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
+				INNER JOIN (
+					SELECT		contestID,
+							IF(contest_jury.userID > 0, contest_jury.userID, user_to_groups.userID) AS userID
+					FROM		wcf".WCF_N."_contest_jury contest_jury
+					LEFT JOIN	wcf".WCF_N."_user_to_groups user_to_groups USING(groupID)
+					WHERE		contest_jury.userID > 0
+					AND		contest_jury.state = 'accepted'
+				) contest_jury
+				ON		contest_jury.contestID = contest_solution.contestID
+				AND		contest_jury.userID = contest_solution_rating.userID
+				".(!empty($this->sqlConditions) ? "WHERE (".$this->sqlConditions.')' : '')."
 				GROUP BY	contest_solution.solutionID
 				HAVING		NOT ISNULL(contest_solution.solutionID)
 			) y ON contest_solution.solutionID = y.solutionID

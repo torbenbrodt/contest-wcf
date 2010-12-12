@@ -99,7 +99,7 @@ class ViewableContestSolution extends ContestSolution {
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_participant.groupID)
 				WHERE 		contest_solution.solutionID = ".intval($solutionID)."
-				AND		".ContestSolution::getStateConditions();
+				AND		(".ContestSolution::getStateConditions().")";
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);

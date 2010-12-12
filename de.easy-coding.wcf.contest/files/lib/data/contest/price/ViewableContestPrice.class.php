@@ -68,7 +68,7 @@ class ViewableContestPrice extends ContestPrice {
 				ON		(group_table_winner.groupID = contest_participant.groupID)
 				
 				WHERE 		contest_price.priceID = ".intval($priceID)."
-				AND		".ContestPrice::getStateConditions();
+				AND		(".ContestPrice::getStateConditions().")";
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		DatabaseObject::__construct($row);
