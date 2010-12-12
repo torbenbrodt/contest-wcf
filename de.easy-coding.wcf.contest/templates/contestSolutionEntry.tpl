@@ -137,6 +137,8 @@
 									<li class="container-3" id="SolutionEntryRatingFormSubmit">
 										<div class="formElement">
 											<div class="formField">
+												{@SID_INPUT_TAG}
+												{@SECURITY_TOKEN_INPUT_TAG}
 												<input type="submit" value="{lang}wcf.contest.rating.submit{/lang}" />
 											</div>
 											<div class="formFieldDesc">
