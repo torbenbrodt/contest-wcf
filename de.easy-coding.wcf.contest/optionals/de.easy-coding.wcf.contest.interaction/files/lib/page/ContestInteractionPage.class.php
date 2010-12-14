@@ -61,13 +61,11 @@ class ContestInteractionPage extends MultipleLinkPage {
 			throw new IllegalLinkException();
 		}
 
-		$allowed = array(3);
-
-		// TODO: validation, is this an interaction contest?
-		if(!in_array($this->contestID, $allowed)) {
+		// validation
+		if($this->entry->enableInteraction == 0) {
 			throw new Exception('invalid contest type');
 		}
-		
+
 		// init price list
 		$this->interactionList = new ContestInteractionList();
 		$this->interactionList->sqlConditions .= 'contestID = '.intval($this->contestID);
