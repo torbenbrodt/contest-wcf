@@ -43,7 +43,7 @@ class ContestPriceEditor extends ContestPrice {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	prices = prices + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// sent event
@@ -70,7 +70,7 @@ class ContestPriceEditor extends ContestPrice {
 			SET	subject = '".escapeString($subject)."',
 				message = '".escapeString($message)."',
 				state = '".escapeString($state)."'
-			WHERE	priceID = ".$this->priceID;
+			WHERE	priceID = ".intval($this->priceID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	
@@ -116,12 +116,12 @@ class ContestPriceEditor extends ContestPrice {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	prices = prices - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 
 		// delete price
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_price
-			WHERE		priceID = ".$this->priceID;
+			WHERE		priceID = ".intval($this->priceID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

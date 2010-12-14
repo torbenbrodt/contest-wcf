@@ -157,7 +157,7 @@ class ContestEditor extends Contest {
 				enableOpenSolution = ".(isset($options['enableOpenSolution']) ? $options['enableOpenSolution'] : 0).",
 				enableParticipantCheck = ".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
 				enableSponsorCheck = ".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0)."
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// update attachments
@@ -298,12 +298,12 @@ class ContestEditor extends Contest {
 	public function delete() {
 		// delete solutions
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_solution
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete entry
 		$sql = "DELETE FROM	wcf".WCF_N."_contest
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete entry to class and update class counters
@@ -311,27 +311,27 @@ class ContestEditor extends Contest {
 		
 		// delete entry to participant
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_participant
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete entry to jury
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_jury
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete entry to price
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_price
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete entry to sponsor
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsor
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete events
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_event
-			WHERE		contestID = ".$this->contestID;
+			WHERE		contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete tags
@@ -341,7 +341,7 @@ class ContestEditor extends Contest {
 			
 			$sql = "DELETE FROM	wcf".WCF_N."_tag_to_object
 				WHERE 		taggableID = ".$taggable->getTaggableID()."
-						AND objectID = ".$this->contestID;
+						AND objectID = ".intval($this->contestID);
 			WCF::getDB()->registerShutdownUpdate($sql);
 		}
 		

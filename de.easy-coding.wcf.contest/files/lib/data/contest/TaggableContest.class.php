@@ -37,7 +37,7 @@ class TaggableContest extends AbstractTaggableObject {
 		
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_tag_to_object
-			WHERE	tagID = ".$tagID."
+			WHERE	tagID = ".intval($tagID)."
 				AND taggableID = ".$this->getTaggableID();
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
@@ -58,7 +58,7 @@ class TaggableContest extends AbstractTaggableObject {
 			ON		(contest.contestID = tag_to_object.objectID)
 			LEFT JOIN	wcf".WCF_N."_user user_table
 			ON		(user_table.userID = contest.userID)
-			WHERE		tag_to_object.tagID = ".$tagID."
+			WHERE		tag_to_object.tagID = ".intval($tagID)."
 					AND tag_to_object.taggableID = ".$this->getTaggableID()."
 			ORDER BY	contest.time DESC";
 		$result = WCF::getDB()->sendQuery($sql, $limit, $offset);

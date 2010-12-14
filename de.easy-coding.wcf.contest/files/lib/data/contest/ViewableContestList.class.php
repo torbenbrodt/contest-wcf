@@ -154,7 +154,7 @@ class ViewableContestList extends ContestList {
 				FROM		wcf".WCF_N."_tag_to_object tag_to_object
 				LEFT JOIN	wcf".WCF_N."_tag tag
 				ON		(tag.tagID = tag_to_object.tagID)
-				WHERE		tag_to_object.taggableID = ".$taggable->getTaggableID()."
+				WHERE		tag_to_object.taggableID = ".intval($taggable->getTaggableID())."
 						AND tag_to_object.languageID IN (".implode(',', (count(WCF::getSession()->getVisibleLanguageIDArray()) ? WCF::getSession()->getVisibleLanguageIDArray() : array(0))).")
 						AND tag_to_object.objectID IN (".implode(',', $this->objectIDArray).")";
 			$result = WCF::getDB()->sendQuery($sql);

@@ -92,7 +92,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 				SELECT		optionID,
 						score AS myscore
 				FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
-				WHERE 		contest_solution_rating.userID = ".$userID."
+				WHERE 		contest_solution_rating.userID = ".intval($userID)."
 				".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."
 				GROUP BY	optionID
 				HAVING		NOT ISNULL(optionID)

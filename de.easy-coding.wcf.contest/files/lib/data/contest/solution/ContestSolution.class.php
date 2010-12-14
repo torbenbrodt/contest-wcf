@@ -167,7 +167,7 @@ class ContestSolution extends DatabaseObject {
 		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
 		$solutionList = new ContestSolutionList();
 		$solutionList->debug = true;
-		$solutionList->sqlConditions .= 'contest_solution.contestID = '.$contestID;
+		$solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($contestID);
 		$solutionList->sqlLimit = ContestPrice::getMaxPosition($contestID);
 		$solutionList->readObjects();
 

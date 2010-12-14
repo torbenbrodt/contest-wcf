@@ -54,7 +54,7 @@ class ContestParticipantEditor extends ContestParticipant {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	participants = participants + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// send event

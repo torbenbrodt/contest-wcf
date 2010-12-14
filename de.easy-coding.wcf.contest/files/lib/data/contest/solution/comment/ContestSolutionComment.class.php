@@ -23,7 +23,7 @@ class ContestSolutionComment extends DatabaseObject {
 		if ($commentID !== null) {
 			$sql = "SELECT	*
 				FROM 	wcf".WCF_N."_contest_solution_comment
-				WHERE 	commentID = ".$commentID;
+				WHERE 	commentID = ".intval($commentID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);

@@ -25,7 +25,7 @@ class ContestSolutionRating extends DatabaseObject {
 				FROM 		wcf".WCF_N."_contest_solution_rating
 				LEFT JOIN	wcf".WCF_N."_contest_jury contest_jury
 				ON		(contest_jury.juryID = contest_jury.juryID)
-				WHERE 		ratingID = ".$ratingID;
+				WHERE 		ratingID = ".intval($ratingID);
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);

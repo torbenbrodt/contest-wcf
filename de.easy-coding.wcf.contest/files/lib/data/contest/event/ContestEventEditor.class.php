@@ -39,7 +39,7 @@ class ContestEventEditor extends ContestEvent {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	events = events + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		$event = new ContestEventEditor($eventID);
@@ -57,12 +57,12 @@ class ContestEventEditor extends ContestEvent {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	events = events - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete event
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_event
-			WHERE		eventID = ".$this->eventID;
+			WHERE		eventID = ".intval($this->eventID);
 		WCF::getDB()->sendQuery($sql);
 	}
 }

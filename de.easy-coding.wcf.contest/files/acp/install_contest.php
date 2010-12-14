@@ -26,7 +26,7 @@ $sql = "UPDATE 	wcf".WCF_N."_group_option_value
 				AND packageID IN (
 					SELECT	dependency
 					FROM	wcf".WCF_N."_package_dependency
-					WHERE	packageID = ".$this->installation->getPackageID()."
+					WHERE	packageID = ".intval($this->installation->getPackageID())."
 				)
 		)
 		AND optionValue = '0'";
@@ -43,7 +43,7 @@ $sql = "UPDATE 	wcf".WCF_N."_group_option_value
 				AND packageID IN (
 					SELECT	dependency
 					FROM	wcf".WCF_N."_package_dependency
-					WHERE	packageID = ".$this->installation->getPackageID()."
+					WHERE	packageID = ".intval($this->installation->getPackageID())."
 				)
 		)
 		AND optionValue = '0'";

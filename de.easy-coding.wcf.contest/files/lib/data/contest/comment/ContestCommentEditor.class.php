@@ -33,7 +33,7 @@ class ContestCommentEditor extends ContestComment {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	comments = comments + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// sent event
@@ -55,7 +55,7 @@ class ContestCommentEditor extends ContestComment {
 	public function update($comment) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_comment
 			SET	comment = '".escapeString($comment)."'
-			WHERE	commentID = ".$this->commentID;
+			WHERE	commentID = ".intval($this->commentID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	
@@ -66,12 +66,12 @@ class ContestCommentEditor extends ContestComment {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	comments = comments - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete comment
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_comment
-			WHERE		commentID = ".$this->commentID;
+			WHERE		commentID = ".intval($this->commentID);
 		WCF::getDB()->sendQuery($sql);
 	}
 }

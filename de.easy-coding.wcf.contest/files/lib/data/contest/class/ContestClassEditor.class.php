@@ -70,12 +70,12 @@ class ContestClassEditor extends ContestClass {
 	public function delete() {
 		// update entries of this class
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_to_class
-			WHERE		classID = ".$this->classID;
+			WHERE		classID = ".intval($this->classID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete class
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_class
-			WHERE		classID = ".$this->classID;
+			WHERE		classID = ".intval($this->classID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	

@@ -42,7 +42,7 @@ class TaggedContestList extends ViewableContestList {
 			$sql = "SELECT	COUNT(*) AS count
 				FROM	wcf".WCF_N."_tag_to_object tag_to_object,
 					wcf".WCF_N."_contest contest
-				WHERE	tag_to_object.tagID = ".$this->tagID."
+				WHERE	tag_to_object.tagID = ".intval($this->tagID)."
 					AND tag_to_object.taggableID = ".$this->taggable->getTaggableID()."
 					AND contest.contestID = tag_to_object.objectID
 					AND ".$this->sqlConditions."
@@ -51,7 +51,7 @@ class TaggedContestList extends ViewableContestList {
 		else {
 			$sql = "SELECT	COUNT(*) AS count
 				FROM	wcf".WCF_N."_tag_to_object
-				WHERE	tagID = ".$this->tagID."
+				WHERE	tagID = ".intval($this->tagID)."
 					AND taggableID = ".$this->taggable->getTaggableID();
 		}
 		$row = WCF::getDB()->getFirstRow($sql);
@@ -65,7 +65,7 @@ class TaggedContestList extends ViewableContestList {
 		$sql = "SELECT		contest.contestID, contest.attachments
 			FROM		wcf".WCF_N."_tag_to_object tag_to_object,
 					wcf".WCF_N."_contest contest
-			WHERE		tag_to_object.tagID = ".$this->tagID."
+			WHERE		tag_to_object.tagID = ".intval($this->tagID)."
 					AND tag_to_object.taggableID = ".$this->taggable->getTaggableID()."
 					AND contest.contestID = tag_to_object.objectID
 					".(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."

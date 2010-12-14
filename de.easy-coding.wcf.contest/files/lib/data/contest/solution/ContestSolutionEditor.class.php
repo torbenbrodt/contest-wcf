@@ -113,7 +113,7 @@ class ContestSolutionEditor extends ContestSolution {
 				enableSmilies = ".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
 				enableHtml = ".(isset($options['enableHtml']) ? $options['enableHtml'] : 0).",
 				enableBBCodes = ".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 1)."
-			WHERE	solutionID = ".$this->solutionID;
+			WHERE	solutionID = ".intval($this->solutionID);
 		WCF::getDB()->sendQuery($sql);
 
 		// update attachments

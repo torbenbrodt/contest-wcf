@@ -71,6 +71,7 @@
 									<div>
 										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 											{@$entry->getFormattedMessage()}
+											{if $additionalMessageContent|isset}{@$additionalMessageContent}{/if}
 										</div>
 										
 										{include file='attachmentsShow' messageID=$entry->contestID author=$entry->getOwner()}

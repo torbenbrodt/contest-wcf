@@ -59,7 +59,7 @@ class ContestJuryEditor extends ContestJury {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	jurys = jurys + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// send event

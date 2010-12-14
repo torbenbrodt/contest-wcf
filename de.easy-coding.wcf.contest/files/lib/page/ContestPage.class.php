@@ -134,8 +134,8 @@ class ContestPage extends MultipleLinkPage {
 			
 			// get page number
 			$pagennumber = new ContestEventMixList();
-			$pagennumber->sqlConditions .= 'contestID = '.$this->contestID;
-			$pagennumber->sqlConditions .= ' AND time < '.$this->comment->time;
+			$pagennumber->sqlConditions .= 'contestID = '.intval($this->contestID);
+			$pagennumber->sqlConditions .= ' AND time < '.intval($this->comment->time);
 			$count = $pagennumber->countObjects();
 			$this->pageNo = $count > $this->itemsOnLandingpage ? 1 : 0;
 			$this->pageNo += ceil(($count - $this->itemsOnLandingpage) / $this->itemsPerPage);
@@ -143,7 +143,7 @@ class ContestPage extends MultipleLinkPage {
 		
 		// init eventmix list
 		$this->eventmixList = new ContestEventMixList();
-		$this->eventmixList->sqlConditions .= 'contestID = '.$this->contestID;
+		$this->eventmixList->sqlConditions .= 'contestID = '.intval($this->contestID);
 		$this->eventmixList->sqlOrderBy = 'contest_eventmix.time DESC';
 	}
 	
@@ -183,10 +183,10 @@ class ContestPage extends MultipleLinkPage {
 		// get previous entry
 		$sql = "SELECT		*
 			FROM		wcf".WCF_N."_contest
-			WHERE		userID = ".$this->entry->userID."
+			WHERE		userID = ".intval($this->entry->userID)."
 					AND (
-						time > ".$this->entry->time."
-						OR (time = ".$this->entry->time." AND contestID < ".$this->entry->contestID.")
+						time > ".intval($this->entry->time)."
+						OR (time = ".intval($this->entry->time)." AND contestID < ".intval($this->entry->contestID).")
 					)
 			ORDER BY	time ASC, contestID DESC";
 		$this->previousEntry = new Contest(null, WCF::getDB()->getFirstRow($sql));
@@ -195,10 +195,10 @@ class ContestPage extends MultipleLinkPage {
 		// get next entry
 		$sql = "SELECT		*
 			FROM		wcf".WCF_N."_contest
-			WHERE		userID = ".$this->entry->userID."
+			WHERE		userID = ".intval($this->entry->userID)."
 					AND (
-						time < ".$this->entry->time."
-						OR (time = ".$this->entry->time." AND contestID > ".$this->entry->contestID.")
+						time < ".intval($this->entry->time)."
+						OR (time = ".intval($this->entry->time)." AND contestID > ".intval($this->entry->contestID).")
 					)
 			ORDER BY	time DESC, contestID ASC";
 		$this->nextEntry = new Contest(null, WCF::getDB()->getFirstRow($sql));
@@ -227,7 +227,7 @@ class ContestPage extends MultipleLinkPage {
 			// init todo list
 			require_once(WCF_DIR.'lib/data/contest/owner/todo/ContestOwnerTodoList.class.php');
 			$this->todoList = new ContestOwnerTodoList();
-			$this->todoList->sqlConditions .= 'contest.contestID = '.$this->contestID;
+			$this->todoList->sqlConditions .= 'contest.contestID = '.intval($this->contestID);
 			$this->todoList->readObjects();
 		}
 

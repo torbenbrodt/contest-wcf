@@ -33,7 +33,7 @@ class ContestSponsortalkEditor extends ContestSponsortalk {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	sponsortalks = sponsortalks + 1
-			WHERE	contestID = ".$contestID;
+			WHERE	contestID = ".intval($contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// sent event
@@ -55,7 +55,7 @@ class ContestSponsortalkEditor extends ContestSponsortalk {
 	public function update($message) {
 		$sql = "UPDATE	wcf".WCF_N."_contest_sponsortalk
 			SET	message = '".escapeString($message)."'
-			WHERE	sponsortalkID = ".$this->sponsortalkID;
+			WHERE	sponsortalkID = ".intval($this->sponsortalkID);
 		WCF::getDB()->sendQuery($sql);
 	}
 	
@@ -66,12 +66,12 @@ class ContestSponsortalkEditor extends ContestSponsortalk {
 		// update entry
 		$sql = "UPDATE	wcf".WCF_N."_contest
 			SET	sponsortalks = sponsortalks - 1
-			WHERE	contestID = ".$this->contestID;
+			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
 		
 		// delete sponsortalk
 		$sql = "DELETE FROM	wcf".WCF_N."_contest_sponsortalk
-			WHERE		sponsortalkID = ".$this->sponsortalkID;
+			WHERE		sponsortalkID = ".intval($this->sponsortalkID);
 		WCF::getDB()->sendQuery($sql);
 	}
 }
