@@ -10,7 +10,7 @@
 		{/if}
 		</td>
 		<td style="padding:5px"><a href="{$owner->getOwner()->getLink()}{@SID_ARG_2ND}">{$owner->getOwner()->getName()}</a></td>
-		<td>{$owner->c} Lose</td>
+		<td>{assign var=tickets value=$owner->c}{lang}wcf.contest.interaction.tickets{/lang}</td>
 	</tr>
 {/foreach}
 </table>

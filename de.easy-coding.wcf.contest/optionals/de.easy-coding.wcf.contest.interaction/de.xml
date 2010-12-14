@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+	<category name="wcf.contest">
+		<item name="wcf.contest.enableInteraction"><![CDATA[Lose je nach Interaktion der Benutzer vergeben.]]></item>
+	</category>
+	<category name="wcf.contest.interaction">
+		<item name="wcf.contest.interaction.tickets"><![CDATA[{$tickets} Los{if $tickets != 1}e{/if}]]></item>
+	</category>
+</language>

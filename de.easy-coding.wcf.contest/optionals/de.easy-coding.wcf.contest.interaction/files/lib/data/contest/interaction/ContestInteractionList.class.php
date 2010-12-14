@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObjectListCached.class.php');
+require_once(WCF_DIR.'lib/data/contest/participant/ViewableContestParticipant.class.php');
 
 /**
  * Represents a list of contest events.
@@ -122,10 +123,12 @@ class ContestInteractionList extends DatabaseObjectListCached {
 					g.groupID,
 					g.groupName, 
 					u.username,
+					x.participantID,
 					x.c
 			FROM (
 
 				SELECT		contest_participant.userID AS id,
+						contest_participant.participantID,
 						SUM(c) AS c,
 						"user" AS kind
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
@@ -136,6 +139,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 				GROUP BY	contest_participant.userID
 			UNION
 				SELECT		contest_participant.groupID AS id,
+						contest_participant.participantID,
 						SUM(c) AS c,
 						"group" AS kind
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
@@ -156,7 +160,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 
 		$rows = array();
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$rows[] = new ViewableContestJury(null, $row);
+			$rows[] = new ViewableContestParticipant(null, $row);
 		}
 		return $rows;
 	}

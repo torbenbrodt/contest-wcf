@@ -23,10 +23,18 @@
 	<instructions type="install">
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<sql>install.sql</sql>
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
 	<instructions type="update" fromversion="0.1.0 Beta 1">
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<sql>install.sql</sql>
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
 	</instructions>
 </package>

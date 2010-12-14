@@ -63,6 +63,7 @@ class ContestInteractionPage extends MultipleLinkPage {
 
 		$allowed = array(3);
 
+		// TODO: validation, is this an interaction contest?
 		if(!in_array($this->contestID, $allowed)) {
 			throw new Exception('invalid contest type');
 		}
