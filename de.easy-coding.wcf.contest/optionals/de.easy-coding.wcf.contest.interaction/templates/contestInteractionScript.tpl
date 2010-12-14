@@ -15,7 +15,7 @@ function updateContestInteractionTable(id) {
 		links[i].onclick = ref(links[i].href, id);
 	}
 };
-new Ajax.Updater('contestInteractionTable{$contestID}', '/index.php?page=ContestInteraction&contestID={$contestID}' + SID_ARG_2ND, { method: 'get' , onComplete: function() {
+new Ajax.Updater('contestInteractionTable{$contestID}', 'index.php?page=ContestInteraction&contestID={$contestID}' + SID_ARG_2ND, { method: 'get' , onComplete: function() {
 	updateContestInteractionTable({$contestID});
 }});
 </script>

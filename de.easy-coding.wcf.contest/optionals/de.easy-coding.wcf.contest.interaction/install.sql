@@ -3,8 +3,10 @@ ALTER TABLE wcf1_contest ADD enableInteraction TINYINT( 1 ) UNSIGNED NOT NULL DE
 CREATE TABLE IF NOT EXISTS wcf1_contest_interaction_ruleset (
   rulesetID int(10) unsigned NOT NULL AUTO_INCREMENT,
   kind enum('user','group') NOT NULL,
-  rulesetTable varchar(255) NOT NULL DEFAULT '',
-  rulesetColumn varchar(255) NOT NULL DEFAULT '',
+  rulesetTable varchar(64) NOT NULL DEFAULT '',
+  rulesetColumn varchar(64) NOT NULL DEFAULT '',
+  rulesetColumnTime varchar(64) NOT NULL DEFAULT '',
+  rulesetFactor int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (rulesetID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

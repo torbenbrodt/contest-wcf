@@ -16,7 +16,20 @@ class ContestPageInteractionListener implements EventListener {
 	 * @see EventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		
+	
+		if($eventObj->entry->enableInteraction == 0) {
+			return;
+		}
+	
+		// show button to finish contest
+		if($eventObj->entry->isOwner() && $eventObj->entry->state == 'scheduled' && $eventObj->entry->untilTime < time()) {
+			WCF::getTPL()->append('additionalMessageContent', 'hello admin, want to finish?');
+		}
+
+		WCF::getTPL()->assign(array(
+			'contestID' => $eventObj->entry->contestID
+		));
+		WCF::getTPL()->append('additionalMessageContent', WCF::getTPL()->fetch('contestInteractionScript'));
 	}
 }
 ?>

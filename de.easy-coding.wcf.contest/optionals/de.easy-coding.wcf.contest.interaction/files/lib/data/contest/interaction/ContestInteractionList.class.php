@@ -34,6 +34,9 @@ class ContestInteractionList extends DatabaseObjectListCached {
 	 */
 	public $sqlOrderBy = 'c DESC';
 	
+	/**
+	 * @var boolean
+	 */
 	protected $updated = false;
 
 	/**
@@ -48,7 +51,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 
 				SELECT		contest_participant.userID AS id
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
-				INNER JOIN	wcf'.WCF_N.'_contest_xmas USING(userID)
+				INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 USING(userID)
 				WHERE		contest_participant.userID > 0
 				AND		contest_participant.state = "accepted"
 				'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '').'
@@ -57,7 +60,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 				SELECT		contest_participant.groupID AS id
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
 				INNER JOIN	wcf'.WCF_N.'_user_to_groups user_to_groups USING(groupID)
-				INNER JOIN	wcf'.WCF_N.'_contest_xmas contest_xmas ON contest_xmas.userID = user_to_groups.userID
+				INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 contest_interaction_tmp2 ON contest_interaction_tmp2.userID = user_to_groups.userID
 				WHERE		contest_participant.groupID > 0
 				AND		contest_participant.state = "accepted"
 				'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '').'
@@ -75,39 +78,45 @@ class ContestInteractionList extends DatabaseObjectListCached {
 		}
 		$this->updated = true;
 
-		$sql = 'DROP TABLE IF EXISTS wcf'.WCF_N.'_contest_xmas_tmp;';
+		$sql = 'DROP TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_tmp1;';
 		WCF::getDB()->sendQuery($sql);
 
-		$sql = 'CREATE TABLE	wcf'.WCF_N.'_contest_xmas_tmp Engine=MEMORY
+		$sql = 'CREATE TABLE wcf'.WCF_N.'_contest_interaction_tmp1 (
+			userID int(10) unsigned NOT NULL DEFAULT "0",
+			c int(10) unsigned NOT NULL DEFAULT "0"
+		) Engine=MEMORY DEFAULT CHARSET=utf8';
+		WCF::getDB()->sendQuery($sql);
+
+		$sql = 'SELECT		*
+			FROM 		wcf'.WCF_N.'_contest_interaction
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_ruleset USING(rulesetID)
+			'.(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+
+			$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_interaction_tmp1
+				SELECT		'.$row['rulesetColumn'].' AS userID,
+						COUNT('.$row['rulesetColumn'].') * '.$row['rulesetFactor'].' AS c
+				FROM		'.$row['rulesetTable'].'
+				WHERE		'.$row['rulesetColumnTime'].' BETWEEN '.$row['fromTime'].' AND '.$row['untilTime'].'
+				GROUP BY	'.$row['rulesetColumn'];
+			WCF::getDB()->sendQuery($sql);	
+		}
+
+		// fire event
+		EventHandler::fireAction($this, 'updateData');
+
+		$sql = 'DROP TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_tmp2;';
+		WCF::getDB()->sendQuery($sql);
+
+		$sql = 'CREATE TABLE    wcf'.WCF_N.'_contest_interaction_tmp2 Engine=MEMORY
 			SELECT		userID,
-					COUNT(userID) AS c
-			FROM 		wbb'.WBB_N.'_post
-			WHERE		time BETWEEN UNIX_TIMESTAMP("2010-12-09 00:00:00") AND UNIX_TIMESTAMP("2010-12-24 23:59:59")
+					SUM(c) AS c
+			FROM		wcf'.WCF_N.'_contest_interaction_tmp1
 			GROUP BY	userID;';
 		WCF::getDB()->sendQuery($sql);
 
-		$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_xmas_tmp
-                        SELECT          author,
-                                        COUNT(author) * 15 AS c
-                        FROM            wcf'.WCF_N.'_lexicon_item
-                        WHERE           createTime BETWEEN UNIX_TIMESTAMP("2010-12-09 00:00:00") AND UNIX_TIMESTAMP("2010-12-24 23:59:59")
-                        GROUP BY        author;';
-                WCF::getDB()->sendQuery($sql);
-
-                // fire event
-                EventHandler::fireAction($this, 'updateData');
-
-		$sql = 'DROP TABLE IF EXISTS wcf'.WCF_N.'_contest_xmas;';
-                WCF::getDB()->sendQuery($sql);
-
-		$sql = 'CREATE TABLE    wcf'.WCF_N.'_contest_xmas Engine=MEMORY
-                        SELECT          userID,
-                                        SUM(c) AS c
-                        FROM            wcf'.WCF_N.'_contest_xmas_tmp
-                        GROUP BY        userID;';
-                WCF::getDB()->sendQuery($sql);
-
-		$sql = 'ALTER TABLE	wcf'.WCF_N.'_contest_xmas ADD PRIMARY KEY (userid);';
+		$sql = 'ALTER TABLE	wcf'.WCF_N.'_contest_interaction_tmp2 ADD PRIMARY KEY (userid);';
 		WCF::getDB()->sendQuery($sql);
 	}
 
@@ -132,7 +141,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 						SUM(c) AS c,
 						"user" AS kind
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
-				INNER JOIN	wcf'.WCF_N.'_contest_xmas USING(userID)
+				INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 USING(userID)
 				WHERE		contest_participant.userID > 0
 				AND		contest_participant.state = "accepted"
 				'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '').'
@@ -144,7 +153,7 @@ class ContestInteractionList extends DatabaseObjectListCached {
 						"group" AS kind
 				FROM		wcf'.WCF_N.'_contest_participant contest_participant
 				INNER JOIN	wcf'.WCF_N.'_user_to_groups user_to_groups USING(groupID)
-				INNER JOIN	wcf'.WCF_N.'_contest_xmas contest_xmas ON contest_xmas.userID = user_to_groups.userID
+				INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 contest_interaction_tmp2 ON contest_interaction_tmp2.userID = user_to_groups.userID
 				WHERE		contest_participant.groupID > 0
 				AND		contest_participant.state = "accepted"
 				'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '').'

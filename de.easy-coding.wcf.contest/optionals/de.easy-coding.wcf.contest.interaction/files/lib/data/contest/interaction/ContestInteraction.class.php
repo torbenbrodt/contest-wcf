@@ -36,7 +36,7 @@ class ContestInteraction {
 	protected $winners = array();
 
 	/**
-	 *
+	 * helper
 	 */
 	protected function chooseWinner(ContestPrice $price, array &$owners) {
 
@@ -65,7 +65,7 @@ class ContestInteraction {
 	}
 
 	/**
-	 *
+	 * finish the contest
 	 */
 	public function finish() {
 
