@@ -117,10 +117,11 @@ class ContestSponsorAddForm extends AbstractSecureForm {
 	 */
 	protected function getStates() {
 		$flags = (!isset($this->entry) || $this->entry->isOwner() ? ContestState::FLAG_USER : 0)
-			+ ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
-			+ (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
+			| ($this->contest->isOwner() ? ContestState::FLAG_CONTESTOWNER : 0)
+			| (ContestCrew::isMember() ? ContestState::FLAG_CREW : 0);
 
-		return ContestSponsorEditor::getStates(isset($this->entry) ? $this->entry->state : '', $flags);
+		$default = $this->contest->enableSponsorCheck ? 'applied' : 'accepted'
+		return ContestSponsorEditor::getStates(isset($this->entry) ? $this->entry->state : $default, $flags);
 	}
 	
 	/**
