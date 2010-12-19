@@ -43,6 +43,10 @@ class ContestLocation implements Location {
 			$this->readEntries();
 		}
 		
+		if(count($match) <= 1) {
+			return '';
+		}
+		
 		$contestID = $match[1];
 		if (!isset($this->entries[$contestID])) {
 			return '';
