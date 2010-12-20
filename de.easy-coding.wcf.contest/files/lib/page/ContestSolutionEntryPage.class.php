@@ -4,6 +4,7 @@ require_once(WCF_DIR.'lib/page/MultipleLinkPage.class.php');
 require_once(WCF_DIR.'lib/data/contest/ViewableContest.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/comment/ContestSolutionCommentList.class.php');
 require_once(WCF_DIR.'lib/data/contest/solution/rating/ContestSolutionRatingSummaryList.class.php');
+require_once(WCF_DIR.'lib/data/contest/ratingoption/ContestRatingoption.class.php');
 require_once(WCF_DIR.'lib/data/contest/participant/todo/ContestParticipantTodoList.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/PageMenu.class.php');
 require_once(WCF_DIR.'lib/page/util/menu/ContestMenu.class.php');
