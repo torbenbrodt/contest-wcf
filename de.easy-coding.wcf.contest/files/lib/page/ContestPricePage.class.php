@@ -154,7 +154,7 @@ class ContestPricePage extends MultipleLinkPage {
 			new ContestPriceAddForm($this->entry);
 		}
 		
-		if($this->entry->enableSponsorCheck && !$this->isSponsor()) {
+		if($this->entry->enableSponsorCheck && !$this->entry->isSponsor()) {
 			WCF::getTPL()->append('additionalContentBecomeSponsor', 
 				'<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}

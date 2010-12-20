@@ -73,7 +73,7 @@
 													<a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
-											{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0} style="border-style:dashed"{/if}
+											{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
 											<div class="messageHeader">
 												<div class="containerIcon" style="padding-top:6px">
 													<img src="{icon}contestScheduledM.png{/icon}" alt="" />
