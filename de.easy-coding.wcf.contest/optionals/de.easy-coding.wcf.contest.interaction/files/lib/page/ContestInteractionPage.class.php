@@ -25,7 +25,7 @@ class ContestInteractionPage extends MultipleLinkPage {
 	 * 
 	 * @var integer
 	 */
-	public $itemsPerPage = 15;
+	public $itemsPerPage = 16;
 
 	/**
 	 * entry id
