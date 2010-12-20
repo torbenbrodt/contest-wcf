@@ -152,7 +152,7 @@
 													<a href="{@$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 													{/if}
 												{else}
-													<span style="font-size:28px">??</span>
+													<img src="{@RELATIVE_WCF_DIR}images/contestAnonymous.png" alt="" style="width: 24px; height: 24px" />
 												{/if}
 											</div>
 											<div class="containerContent">
