@@ -61,7 +61,7 @@
 									<div class="container-1 column content" style="width:100%;">
 										<div class="messageInner {cycle values='container-1,container-2'}">
 										<a id="solutionObj{@$solutionObj->contestID}"></a>
-										<div class="messageHeader">
+										<div class="messageHeader"{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0} style="border-style:dashed"{/if}>
 											<p class="messageCount">
 												<a href="index.php?page=ContestSolution&amp;contestID={@$solutionObj->contestID}{@SID_ARG_2ND}" title="{lang}wcf.contest.permalink{/lang}" class="messageNumber">{#$messageNumber}</a>
 											</p>
@@ -73,6 +73,16 @@
 													<a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
+											{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0} style="border-style:dashed"{/if}
+											<div class="messageHeader">
+												<div class="containerIcon" style="padding-top:6px">
+													<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+												</div>
+												<div class="containerContent">
+{* TODO: translation*}											<p class="light smallFont">Der Preis kann gewählt werden ab: {@$solutionObj->pickTime|time}</p>
+												</div>
+											</div>
+											{/if}
 											<div class="containerContent">
 												<div style="float:right">{@$solutionObj->getState()->renderButton()}</div>
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$entry->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
