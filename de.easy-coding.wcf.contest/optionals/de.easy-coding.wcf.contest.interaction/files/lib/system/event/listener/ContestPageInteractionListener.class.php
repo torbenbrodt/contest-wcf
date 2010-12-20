@@ -23,7 +23,7 @@ class ContestPageInteractionListener implements EventListener {
 	
 		// show button to finish contest
 		if($eventObj->entry->isOwner() && $eventObj->entry->state == 'scheduled' && $eventObj->entry->untilTime < time()) {
-			WCF::getTPL()->append('additionalMessageContent', 'hello admin, want to finish?');
+			WCF::getTPL()->append('userMessages', '<p class="info">hello admin, want to finish the interactive contest? <a href="index.php?action=ContestInteractionClose&amp;t='.SECURITY_TOKEN.SID_ARG_2ND.'">YES</a></p>');
 		}
 
 		WCF::getTPL()->assign(array(

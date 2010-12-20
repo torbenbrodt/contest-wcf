@@ -67,7 +67,7 @@ class ContestInteraction {
 	/**
 	 * finish the contest
 	 */
-	public function finish() {
+	public function close() {
 
 		if(!($this->contest->state == 'scheduled' && $this->contest->untilTime < time())) {
 			throw new Exception('contest still needs to be scheduled but time has to be over.');
