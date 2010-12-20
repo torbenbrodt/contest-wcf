@@ -28,6 +28,14 @@
 		<item name="wcf.contest.notification.price.userMessages"><![CDATA[New Price]]></item>
 		<item name="wcf.contest.notification.price.description"><![CDATA[You will get a notification, if a new price is added to one of your contests.]]></item>
 
+		<item name="wcf.contest.notification.pricepick.title"><![CDATA[Price chosen]]></item>
+		<item name="wcf.contest.notification.pricepick.userMessages"><![CDATA[Price chosen]]></item>
+		<item name="wcf.contest.notification.pricepick.description"><![CDATA[You will get a notification, if you are sponsor and one of your prices was chosen by one of the winners.]]></item>
+
+		<item name="wcf.contest.notification.priceexpire.title"><![CDATA[Price expiration]]></item>
+		<item name="wcf.contest.notification.priceexpire.userMessages"><![CDATA[Price expiration]]></item>
+		<item name="wcf.contest.notification.priceexpire.description"><![CDATA[You will get a notification, if its your tourn to choose a price.]]></item>
+
 		<item name="wcf.contest.notification.solution.title"><![CDATA[New Solution]]></item>
 		<item name="wcf.contest.notification.solution.userMessages"><![CDATA[New Solution]]></item>
 		<item name="wcf.contest.notification.solution.description"><![CDATA[You will get a notification, if a new solution is added to one of your contests.]]></item>

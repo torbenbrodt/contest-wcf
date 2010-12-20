@@ -62,6 +62,26 @@
 			<options>module_contest</options>
 		</event>
 		<event>
+			<name>pricepick</name>
+			<objecttype>contestEntry</objecttype>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
+			<languagecategory>wcf.contest.notification</languagecategory>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
+			<icon>contest</icon>
+			<requiresconfirmation>1</requiresconfirmation>
+			<options>module_contest</options>
+		</event>
+		<event>
+			<name>priceexpire</name>
+			<objecttype>contestEntry</objecttype>
+			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>
+			<languagecategory>wcf.contest.notification</languagecategory>
+			<defaultnotificationtype>userMessages</defaultnotificationtype>
+			<icon>contest</icon>
+			<requiresconfirmation>1</requiresconfirmation>
+			<options>module_contest</options>
+		</event>
+		<event>
 			<name>solution</name>
 			<objecttype>contestEntry</objecttype>
 			<classfile>lib/data/contest/event/ContestNotificationEvent.class.php</classfile>

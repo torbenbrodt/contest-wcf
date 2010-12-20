@@ -28,6 +28,14 @@
 		<item name="wcf.contest.notification.price.userMessages"><![CDATA[Neuer Preis]]></item>
 		<item name="wcf.contest.notification.price.description"><![CDATA[Sie erhalten eine Benachrichtigung, wenn ein neuer Preis zu einem ihrer Contests hinzugefügt wird.]]></item>
 
+		<item name="wcf.contest.notification.pricepick.title"><![CDATA[Preis gewählt]]></item>
+		<item name="wcf.contest.notification.pricepick.userMessages"><![CDATA[Preis gewählt]]></item>
+		<item name="wcf.contest.notification.pricepick.description"><![CDATA[Sie erhalten als Sponsor eine Benachrichtigung, wenn ein Contest Sieger ihren gesponsorten Preis auswählt.]]></item>
+
+		<item name="wcf.contest.notification.priceexpire.title"><![CDATA[Preis Laufzeit]]></item>
+		<item name="wcf.contest.notification.priceexpire.userMessages"><![CDATA[Preis Laufzeit]]></item>
+		<item name="wcf.contest.notification.priceexpire.description"><![CDATA[Sie erhalten als Sieger eine Benachrichtigung, wenn sie an der Reihe sind ihren Preis entgegen zu nehmen.]]></item>
+
 		<item name="wcf.contest.notification.solution.title"><![CDATA[Neue Lösung]]></item>
 		<item name="wcf.contest.notification.solution.userMessages"><![CDATA[Neue Lösung]]></item>
 		<item name="wcf.contest.notification.solution.description"><![CDATA[Sie erhalten eine Benachrichtigung, wenn eine neue Lösung zu einem ihrer Contests hinzugefügt wird.]]></item>
