@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" promotion</packagename>
 		<packagedescription>Package will help the admin to promote a contest.</packagedescription>
-		<version>0.1.0 Beta 1</version>
+		<version>0.9.2 RC 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
