@@ -1,4 +1,5 @@
-<ul class="dataList" style="width: 275px">
+{assign var='i' value=1}
+<ul class="dataList" style="width: 275px; float:left">
 {foreach from=$users item=owner}
 	<li class="{cycle values='container-1,container-2'}">
 		<div class="containerIcon">
@@ -16,6 +17,11 @@
 			</div>
 		</div>
 	</li>
+	{if $i == 8}
+		</ul>
+		<ul class="dataList" style="width: 275px; float:left; margin-left: 20px">
+	{/if}
+	{assign var='i' value=$i+1}
 {/foreach}
 </ul>
 <div id="contestInteractionPagination{$contestID}">
