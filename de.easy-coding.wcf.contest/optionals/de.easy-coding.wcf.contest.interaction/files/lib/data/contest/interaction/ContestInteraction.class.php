@@ -94,7 +94,7 @@ class ContestInteraction {
 		}
 
 		if(!$userID) {
-			throw new Exception('cannot determine a user from the ratings will be added.');
+			throw new Exception('cannot determine a user from which the ratings will be added.');
 		}
 
 		$classIDs = array_keys($this->contest->getClasses());
@@ -121,11 +121,6 @@ class ContestInteraction {
 		$priceList->readObjects();
 
 		$score = 255;
-
-		if($priceList->countObjects() > $score) {
-			throw new Exception('maximum numer of '.$score.' prices for per contest is allowed.');
-		}
-
 		foreach($priceList->getObjects() as $price) {
 		
 			// choose a winner
@@ -159,7 +154,7 @@ class ContestInteraction {
 		}
 
 		// close contest state
-		$this->contest->getEditor()->update($status = 'finished');
+		$this->contest->getEditor()->updateState('closed');
 	}
 }
 ?>

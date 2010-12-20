@@ -6,6 +6,7 @@ CREATE TABLE wcf1_contest (
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
+	priceExpireSeconds INT(10) NOT NULL DEFAULT 0,
 	fromTime INT(10) NOT NULL DEFAULT 0,
 	untilTime INT(10) NOT NULL DEFAULT 0,
 	isFullDay TINYINT(1) NOT NULL DEFAULT 1,
@@ -40,8 +41,10 @@ CREATE TABLE wcf1_contest_solution (
 	participantID INT(10) NOT NULL DEFAULT 0,
 	message TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
+	priceExpireTime INT(10) NOT NULL DEFAULT 0,
 	state ENUM('private', 'applied', 'accepted', 'declined') NOT NULL DEFAULT 'private',
 	attachments SMALLINT(5) NOT NULL DEFAULT 0,
+	enableExpireNotification TINYINT(1) NOT NULL DEFAULT 1,
 	enableSmilies TINYINT(1) NOT NULL DEFAULT 1,
 	enableHtml TINYINT(1) NOT NULL DEFAULT 0,
 	enableBBCodes TINYINT(1) NOT NULL DEFAULT 1,
@@ -213,7 +216,7 @@ CREATE TABLE wcf1_contest_solution_rating (
 	solutionID INT(10) NOT NULL,
 	userID INT(10) NOT NULL DEFAULT 0,
 	optionID INT(10) NOT NULL DEFAULT 0,
-	score INT(1) NOT NULL DEFAULT 0,
+	score smallint(5) NOT NULL DEFAULT 0,
 	time INT(10) NOT NULL DEFAULT 0,
 	UNIQUE KEY (solutionID, userID, optionID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

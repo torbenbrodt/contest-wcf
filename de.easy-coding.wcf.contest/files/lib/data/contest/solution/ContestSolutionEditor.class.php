@@ -123,6 +123,32 @@ class ContestSolutionEditor extends ContestSolution {
 	}
 
 	/**
+	 * Updates this entry solution.
+	 *
+	 * @param	integer				$timestamp
+	 */
+	public function updatePriceExpireTime($timestamp) {
+
+		$sql = "UPDATE	wcf".WCF_N."_contest_solution
+			SET	priceExpireTime = ".intval($timestamp)."
+			WHERE	solutionID = ".intval($this->solutionID);
+		WCF::getDB()->sendQuery($sql);
+	}
+
+	/**
+	 * Updates this entry solution.
+	 *
+	 * @param	integer				$timestamp
+	 */
+	public function setExpired($timestamp) {
+		$sql = "UPDATE	wcf".WCF_N."_contest_solution
+			SET	priceExpireTime = ".min($this->priceExpireTime, intval($timestamp))."
+				enableExpireNotification = 0
+			WHERE	solutionID = ".intval($this->solutionID);
+		WCF::getDB()->sendQuery($sql);
+	}
+
+	/**
 	 * Deletes this entry solution.
 	 */
 	public function delete() {

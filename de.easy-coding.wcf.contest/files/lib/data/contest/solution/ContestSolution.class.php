@@ -96,6 +96,39 @@ class ContestSolution extends DatabaseObject {
 
 		return true;
 	}
+	
+	/**
+	 * if winner does not a pick a price, it will expire and the other winners/solution can take prices
+	 *
+	 * @return	boolean
+	 */
+	public function isPriceExpired() {
+		return $this->priceExpireTime > 0 && $this->priceExpireTime > TIME_NOW;
+	}
+
+	/**
+	 * fills cache
+	 *
+	 * @param	integer		$contestID
+	 */
+	public static function getWinners($contestID) {
+		if(isset(self::$winners[$contestID])) {
+			return self::$winners[$contestID];
+		}
+
+		// get ordered list of winners
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
+		$solutionList = new ContestSolutionList();
+		$solutionList->debug = true;
+		$solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($contestID);
+		$solutionList->sqlLimit = self::getMaxPosition($contestID);
+		$solutionList->readObjects();
+
+		self::$winners[$contestID] = array();
+		foreach($solutionList->getObjects() as $solution) {
+			self::$winners[$contestID][] = $solution;
+		}
+	}
 
 	/**
 	 * Returns an editor object for this solution.
@@ -150,31 +183,6 @@ class ContestSolution extends DatabaseObject {
 	 */
 	public function isDeletable() {
 		return $this->isOwner() && in_array($this->state, array('private', 'applied'));
-	}
-
-	/**
-	 * fills cache
-	 *
-	 * @param	integer		$contestID
-	 */
-	protected static function readWinners($contestID) {
-		if(isset(self::$winners[$contestID])) {
-			return self::$winners[$contestID];
-		}
-
-		// get ordered list of winners
-		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
-		require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
-		$solutionList = new ContestSolutionList();
-		$solutionList->debug = true;
-		$solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($contestID);
-		$solutionList->sqlLimit = ContestPrice::getMaxPosition($contestID);
-		$solutionList->readObjects();
-
-		self::$winners[$contestID] = array();
-		foreach($solutionList->getObjects() as $solution) {
-			self::$winners[$contestID][] = $solution;
-		}
 	}
 
 	/**

@@ -1,2 +1,3 @@
-ALTER TABLE wcf1_contest ADD enableOpenSolution TINYINT(1) NOT NULL DEFAULT 1 AFTER enableBBCodes;
-ALTER TABLE wcf1_contest ADD enableSolution TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT 1 AFTER enableParticipantCheck;
+ALTER TABLE wcf1_contest ADD priceExpireSeconds INT(10) NOT NULL DEFAULT 0 AFTER time;
+ALTER TABLE wcf1_contest_solution ADD priceExpireTime INT(10) NOT NULL DEFAULT 0 AFTER time;
+ALTER TABLE wcf1_contest_solution_rating CHANGE score score smallint(5) NOT NULL DEFAULT 0;
