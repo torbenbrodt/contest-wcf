@@ -154,8 +154,9 @@ class ContestPricePage extends MultipleLinkPage {
 			new ContestPriceAddForm($this->entry);
 		}
 		
-		if($this->entry->enableSponsorCheck) {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
+		if($this->entry->enableSponsorCheck && !$this->isSponsor()) {
+			WCF::getTPL()->append('additionalContentBecomeSponsor', 
+				'<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}
 		
 		if($this->entry->state == 'scheduled' && $this->entry->untilTime > TIME_NOW) {
