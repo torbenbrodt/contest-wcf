@@ -200,7 +200,7 @@ class Contest extends DatabaseObject {
 	 */
 	public function isSolutionable() {
 	
-		if($this->isEnabledSolution() == false) {
+		if(!$this->enableSolution) {
 			return false;
 		}
 	
@@ -295,11 +295,12 @@ class Contest extends DatabaseObject {
 
 	/**
 	 * Returns true, if the contest should be resolved with solutions.
+	 * If state is closed, then solutions will be enabled too
 	 *
 	 * @return	boolean
 	 */
 	public function isEnabledSolution() {
-		return $this->enableSolution;
+		return $this->enableSolution || $this->state == 'closed';
 	}
 
 	/**
@@ -308,7 +309,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isEnabledJury() {
-		return $this->isEnabledSolution();
+		return $this->enableSolution;
 	}
 
 	/**

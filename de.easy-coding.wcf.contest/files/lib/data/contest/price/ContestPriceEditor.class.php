@@ -87,17 +87,19 @@ class ContestPriceEditor extends ContestPrice {
 		WCF::getDB()->sendQuery($sql);
 
 		// TODO: pricepick: send event to sponsor
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		$owner = $this->getOwner();
-		ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPricePick', array(
-			'priceID' => $this->priceID,
-			'owner' => $owner->getName()
-		));
+		if(false) {
+			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+			$owner = $this->getOwner();
+			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPricePick', array(
+				'priceID' => $this->priceID,
+				'owner' => $owner->getName()
+			));
+		}
 
 		// update price expirations, next winner may only have 24 hours from now on
 		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
 		$contest = new ContestEditor();
-		$contest->updatePriceExpirations();
+		$contest->updatePickTimes();
 	}
 	
 	/**

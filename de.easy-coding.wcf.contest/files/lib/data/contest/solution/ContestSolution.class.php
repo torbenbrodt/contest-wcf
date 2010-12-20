@@ -96,15 +96,6 @@ class ContestSolution extends DatabaseObject {
 
 		return true;
 	}
-	
-	/**
-	 * if winner does not a pick a price, it will expire and the other winners/solution can take prices
-	 *
-	 * @return	boolean
-	 */
-	public function isPriceExpired() {
-		return $this->priceExpireTime > 0 && $this->priceExpireTime > TIME_NOW;
-	}
 
 	/**
 	 * fills cache

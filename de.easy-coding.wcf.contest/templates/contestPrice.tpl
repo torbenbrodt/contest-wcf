@@ -34,6 +34,14 @@
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
+						{if $isWinner}
+							{if $solution}
+{* TODO: translation *}						Herzlichen Glückwunsch, Sie können Sich jetzt einen Preis aussuchen.
+							{else}
+{* TODO: translation *}						Herzlichen Glückwunsch, Sie haben gewonnen und können sich in Kürze einen Preis aussuchen.
+							{/if}
+						{/if}
+					
 						{if $action != 'edit'}<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}">
 						<input type="hidden" name="ContestPricePositionForm" value="1" />{/if}
 						<div class="contentBox">

@@ -88,7 +88,7 @@ class ContestPrice extends DatabaseObject {
 
 		foreach($winners as $solution) {
 			if($solution->hasPrice() == false) {
-				if($solution->isPriceExpired() && $solution->isOwner() == false) {
+				if($solution->pickTime < TIME_NOW && $solution->isOwner() == false) {
 					continue;
 				}
 

@@ -438,34 +438,62 @@ class ContestEditor extends Contest {
 	 * if priceExpireSeconds is set, the solution will have a maximum time to choose a price
 	 * if no price is chosen in this period, the next winner can take a price
 	 */
-	public function updatePriceExpirations($timestamp = TIME_NOW) {
+	public function updatePickTimes() {
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
 
+		// get first + latest pick
+		$firstPick = $lastPick = 0;
 		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
-		
-			// if solution is already expired, then it will stay expired
-			// if price has alreay been picked, then it can expire too
-			if($solution->isPriceExpired() || $solution->hasPrice()) {
+			if($solution->hasPrice()) {
+				$lastPick = max($lastPick, $solution->pickTime);
+			} else {
+				$firstPick = min($firstPick, $solution->pickTime);
+			}
+		}
+
+		// first run? then start from the current date
+		if($firstPick == 0) {
+			$firstPick = TIME_NOW;
+		}
+
+		// no price was picked yet, so start from the beginning
+		if($lastPick == 0) {
+			$timestamp = $firstPick;
+		}
+
+		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
+			if($solution->hasPrice()) {
 				continue;
 			}
 
+			// user will have xx hours from now on
 			$timestamp += $this->priceExpireSeconds;
 
+			// no change, skip database update
 			$save = $this->priceExpireSeconds == 0 ? 0 : $timestamp;
-			$solution->getEditor()->updatePriceExpireTime($save);
+			if($solution->pickTime == $save) {
+				continue;
+			}
+
+			// database update
+			$solution->getEditor()->updatePickTime($save);
 		}
 
 		// TODO: send event to the next winner
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		$owner = $this->getOwner();
-		ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
-			'priceID' => $priceID,
-			'owner' => $owner->getName()
-		));
+		if(false) {
+			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+			$owner = $this->getOwner();
+			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
+				'priceID' => $priceID,
+				'owner' => $owner->getName()
+			));
+		}
 	}
 
 	/**
+	 * updates state
 	 *
+	 * @param	$state		string
 	 */
 	public function updateState($state) {
 		// update data
@@ -473,19 +501,21 @@ class ContestEditor extends Contest {
 			SET	state = '".escapeString($state)."'
 			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
-		
-		// TODO: if state is changed to closed, then update expiration list.. maybe another listener should do so?
+
+		// if state is changed to closed, then update timestamps, when winners have to pick prices
 		if($state == 'closed') {
-			$this->updatePriceExpirations();
+			$this->updatePickTimes();
 		}
 
 		// TODO: send event to participants that contest is finished
-		require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-		$owner = $this->getOwner();
-		ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestState', array(
-			'priceID' => $priceID,
-			'owner' => $owner->getName()
-		));
+		if(false) {
+			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+			$owner = $this->getOwner();
+			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestState', array(
+				'priceID' => $priceID,
+				'owner' => $owner->getName()
+			));
+		}
 	}
 }
 ?>

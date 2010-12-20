@@ -164,11 +164,10 @@ class ContestPricePage extends MultipleLinkPage {
 		} else {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
 		}
-
-		$solution = null;
 		
 		// if contest is finished, show todo list
 		// who is able to pick the prices
+		$isWinner = false;
 		if($this->entry->state == 'closed') {
 			// need winners
 			require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
@@ -180,6 +179,7 @@ class ContestPricePage extends MultipleLinkPage {
 			$winners = array();
 			foreach($solutionList->getObjects() as $solution) {
 				$winners[] = $solution->participantID;
+				$isWinner = $isWinner || $solution->isOwner();
 			}
 			
 			if(count($winners)) {
@@ -194,11 +194,15 @@ class ContestPricePage extends MultipleLinkPage {
 				$this->todoList->readObjects();
 			}
 		}
-		
-		foreach($this->priceList->getObjects() as $price) {
-			if($price->isPickable()) {
-				$solution = $price->pickableByWinner();
-				break;
+
+		// which price is pickable be the current user NOW?
+		$solution = null;
+		if($isWinner) {
+			foreach($this->priceList->getObjects() as $price) {
+				if($price->isPickable()) {
+					$solution = $price->pickableByWinner();
+					break;
+				}
 			}
 		}
 
@@ -209,6 +213,7 @@ class ContestPricePage extends MultipleLinkPage {
 			'contestID' => $this->contestID,
 			'userID' => $this->entry->userID,
 			'solution' => $solution,
+			'isWinner' => $isWinner,
 			'prices' => $this->priceList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
