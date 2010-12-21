@@ -1,5 +1,11 @@
 <?php
-require_once(WCF_DIR.'lib/data/contest/jury/ViewableContestJury.class.php');
+require_once(WCF_DIR.'lib/data/contest/jury/ContestJury.class.php');
+require_once(WCF_DIR.'lib/data/contest/jury/ContestJuryEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/ratingoption/ContestRatingoption.class.php');
+require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
+require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/rating/ContestSolutionRatingEditor.class.php');
+require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
 require_once(WCF_DIR.'lib/data/contest/interaction/ContestInteractionList.class.php');
 
 /**
@@ -70,7 +76,7 @@ class ContestInteraction {
 	public function close() {
 
 		if(!($this->contest->state == 'scheduled' && $this->contest->untilTime < time())) {
-			throw new Exception('contest still needs to be scheduled but time has to be over.');
+			throw new Exception('contest needs to be scheduled, and time has to be over.');
 		}
 
 		// make a jury instance from the contst owner
@@ -100,7 +106,7 @@ class ContestInteraction {
 		$classIDs = array_keys($this->contest->getClasses());
 		$ratingoptionIDs = array_keys(ContestRatingoption::getByClassIDs($classIDs));
 		if(empty($ratingoptionIDs)) {
-			throw new Exception('cannot determine a ratingoption needed for contest ratings to be added.');
+			throw new Exception('cannot determine a ratingoption from classes ['.implode(',', $classIDs).'] needed for contest ratings to be added.');
 		}
 
 		// get interactions
@@ -116,7 +122,7 @@ class ContestInteraction {
 
 		// get prices
 		$priceList = new ContestPriceList();
-		$priceList->sqlConditions .= 'contestID = '.intval($this->contest->contestID);
+		$priceList->sqlConditions .= 'contest_price.contestID = '.intval($this->contest->contestID);
 		$priceList->sqlLimit = 0;
 		$priceList->readObjects();
 

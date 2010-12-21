@@ -17,6 +17,7 @@
 
 	<requiredpackages>
 		<requiredpackage minversion="1.1.0 RC 1">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="0.9.1 RC 1">de.easy-coding.wcf.contest</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">

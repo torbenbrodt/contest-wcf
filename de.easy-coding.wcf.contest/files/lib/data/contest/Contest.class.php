@@ -493,6 +493,16 @@ class Contest extends DatabaseObject {
 	}
 
 	/**
+	 * Returns an editor object for this contest.
+	 *
+	 * @return	ContestEditor
+	 */
+	public function getEditor() {
+		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
+		return new ContestEditor(null, $this->data);
+	}
+
+	/**
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {

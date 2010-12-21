@@ -67,7 +67,7 @@ class ContestRatingoption extends DatabaseObject {
 		
 		$sql = "SELECT		*
 			FROM 		wcf".WCF_N."_contest_ratingoption
-			WHERE		classID IN (".implode($classIDs).")";
+			WHERE		classID IN (".implode(',', $classIDs).")";
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$optionIDs[$row['optionID']] = new self($row);

@@ -112,20 +112,35 @@
 			<fieldset>
 				<legend>{lang}wcf.contest.state{/lang}</legend>
 				<label>
-					<input type="checkbox" name="enableSolution" value="1" {if $enableSolution}checked="checked" {/if}/>
-					{lang}wcf.contest.enableSolution{/lang}
+					<div id="enableSolutionDiv">
+						<input type="checkbox" onclick="if (this.checked) enableOptions('enableOpenSolution'); else disableOptions('enableOpenSolution')" name="enableSolution" value="1" {if $enableSolution}checked="checked" {/if}/>
+						{lang}wcf.contest.enableSolution{/lang}
+					</div>
+				</label>
+				<script type="text/javascript">
+					//<![CDATA[
+					onloadEvents.push(function() {
+					{if $enableSolution}enableOptions('enableOpenSolution');{else}disableOptions('enableOpenSolution');{/if}
+					});
+					//]]>
+				</script>
+				<label>
+					<div id="enableOpenSolutionDiv">
+						<input type="checkbox" name="enableOpenSolution" value="1" {if $enableOpenSolution}checked="checked" {/if}/>
+						{lang}wcf.contest.enableOpenSolution{/lang}
+					</div>
 				</label>
 				<label>
-					<input type="checkbox" name="enableOpenSolution" value="1" {if $enableOpenSolution}checked="checked" {/if}/>
-					{lang}wcf.contest.enableOpenSolution{/lang}
+					<div id="enableParticipantCheckDiv">
+						<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
+						{lang}wcf.contest.enableParticipantCheck{/lang}
+					</div>
 				</label>
 				<label>
-					<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
-					{lang}wcf.contest.enableParticipantCheck{/lang}
-				</label>
-				<label>
-					<input type="checkbox" name="enableSponsorCheck" value="1" {if $enableSponsorCheck}checked="checked" {/if}/>
-					{lang}wcf.contest.enableSponsorCheck{/lang}
+					<div id="enableSponsorCheckDiv">
+						<input type="checkbox" name="enableSponsorCheck" value="1" {if $enableSponsorCheck}checked="checked" {/if}/>
+						{lang}wcf.contest.enableSponsorCheck{/lang}
+					</div>
 				</label>
 			</fieldset>
 		</div>

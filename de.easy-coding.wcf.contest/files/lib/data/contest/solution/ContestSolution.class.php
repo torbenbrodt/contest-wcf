@@ -112,7 +112,7 @@ class ContestSolution extends DatabaseObject {
 		$solutionList = new ContestSolutionList();
 		$solutionList->debug = true;
 		$solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($contestID);
-		$solutionList->sqlLimit = self::getMaxPosition($contestID);
+		$solutionList->sqlLimit = ContestPrice::getMaxPosition($contestID);
 		$solutionList->readObjects();
 
 		self::$winners[$contestID] = array();
