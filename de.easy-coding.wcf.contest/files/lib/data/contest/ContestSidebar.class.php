@@ -216,13 +216,17 @@ class ContestSidebar {
 		$latestEntryList->readObjects();
 
 		// get latest solutions
-		$latestSolutionList = new ContestSolutionList();
-		if($this->contest !== null) {
-			$latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;
+		if($this->contest->enableSolution) {
+			$latestSolutionList = new ContestSolutionList();
+			if($this->contest !== null) {
+				$latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;
+			}
+			$latestSolutionList->sqlOrderBy = 'solutionID DESC';
+			$latestSolutionList->sqlLimit = 5;
+			$latestSolutionList->readObjects();
+		} else {
+			$latestSolutionList = null;
 		}
-		$latestSolutionList->sqlOrderBy = 'solutionID DESC';
-		$latestSolutionList->sqlLimit = 5;
-		$latestSolutionList->readObjects();
 		
 		return array(
 			'classList' => $classList,

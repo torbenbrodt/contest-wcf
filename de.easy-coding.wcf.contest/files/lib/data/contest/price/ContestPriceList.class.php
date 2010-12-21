@@ -58,7 +58,13 @@ class ContestPriceList extends DatabaseObjectList {
 					user_table_winner.userID AS winner_userID,
 					user_table_winner.username AS winner_username,
 					group_table_winner.groupID AS winner_groupID,
-					group_table_winner.groupName AS group_groupName
+					group_table_winner.groupName AS winner_groupName,
+					avatar_table_winner.avatarID AS winner_avatarID,
+					avatar_table_winner.avatarCategoryID AS winner_avatarCategoryID,
+					avatar_table_winner.avatarName AS winner_avatarName,
+					avatar_table_winner.avatarExtension AS winner_avatarExtension,
+					avatar_table_winner.width AS winner_width,
+					avatar_table_winner.height  AS winner_height
 			FROM 		wcf".WCF_N."_contest_price contest_price
 			LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 			ON		(contest_sponsor.sponsorID = contest_price.sponsorID)

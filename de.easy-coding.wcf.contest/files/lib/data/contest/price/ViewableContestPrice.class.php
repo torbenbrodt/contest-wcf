@@ -45,7 +45,13 @@ class ViewableContestPrice extends ContestPrice {
 						user_table_winner.userID AS winner_userID,
 						user_table_winner.username AS winner_username,
 						group_table_winner.groupID AS winner_groupID,
-						group_table_winner.groupName AS group_groupName
+						group_table_winner.groupName AS winner_groupName,
+						avatar_table_winner.avatarID AS winner_avatarID,
+						avatar_table_winner.avatarCategoryID AS winner_avatarCategoryID,
+						avatar_table_winner.avatarName AS winner_avatarName,
+						avatar_table_winner.avatarExtension AS winner_avatarExtension,
+						avatar_table_winner.width AS winner_width,
+						avatar_table_winner.height  AS winner_height
 				FROM 		wcf".WCF_N."_contest_price contest_price
 				LEFT JOIN	wcf".WCF_N."_contest_sponsor contest_sponsor
 				ON		(contest_sponsor.sponsorID = contest_price.sponsorID)
@@ -78,16 +84,20 @@ class ViewableContestPrice extends ContestPrice {
 	 * @see DatabaseObject::handleData()
 	 */
 	protected function handleData($data) {
-		parent::handleData($data);
-		$this->owner = new ContestOwner($data, $this->userID, $this->groupID);
-		if($this->winner_userID || $this->winner_groupID) {
-			$this->winner = new ContestOwner(array(
-				'username' => $this->winner_username,
-				'groupName' => $this->winner_groupName,
-				'userID' => $this->winner_userID,
-				'groupID' => $this->winner_groupID
-			), $this->winner_userID, $this->winner_groupID);
+		
+		$winnerData = $ownerData = array();
+		foreach($data as $key => $val) {
+			if(strpos($key, 'winner_') === 0) {
+				$winnerData[substr($key, strlen('winner_'))] = $val;
+			} else {
+				$ownerData[$key] = $val;
+			}
 		}
+	
+		$this->winner = new ContestOwner($winnerData, $winnerData['userID'], $winnerData['groupID']);
+		$this->owner = new ContestOwner($ownerData, $ownerData['userID'], $ownerData['groupID']);
+
+		parent::handleData($data);
 	}
 	
 	/**
