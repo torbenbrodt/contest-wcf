@@ -119,6 +119,7 @@ class ContestSolution extends DatabaseObject {
 		foreach($solutionList->getObjects() as $solution) {
 			self::$winners[$contestID][] = $solution;
 		}
+		return self::$winners[$contestID];
 	}
 
 	/**
@@ -182,10 +183,8 @@ class ContestSolution extends DatabaseObject {
 	 * @return	integer
 	 */
 	public function getRank() {
-		self::readWinners($this->contestID);
-
 		$i = 1;
-		foreach(self::$winners[$this->contestID] as $solution) {
+		foreach(self::getWinners($this->contestID) as $solution) {
 			if($solution->solutionID == $this->solutionID) {
 				return $i;
 			}

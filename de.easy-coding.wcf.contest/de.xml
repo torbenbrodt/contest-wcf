@@ -396,6 +396,7 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[Ein Preis wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[Eine Lösung wartet auf Freischaltung.]]></item>
 		<item name="wcf.contest.todo.participant.solution.private"><![CDATA[Stellen Sie ihre Lösung fertig.]]></item>
+		<item name="wcf.contest.todo.price.pick"><![CDATA[Teilnehmer muss Preis wählen.]]></item>
 		
 		<item name="wcf.contest.branding"><![CDATA[Contest Programmierung]]></item>
 		

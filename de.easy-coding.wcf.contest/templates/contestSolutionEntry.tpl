@@ -77,6 +77,16 @@
 											<br style="clear:both"/>
 										</div>
 									</div>
+									{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
+									<div class="messageHeader">
+										<div class="containerIcon">
+											<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+										</div>
+										<div class="containerContent">
+{* TODO: translation*}											<p class="light smallFont">Der Preis kann voraussichtlich gewählt werden ab: {@$solutionObj->pickTime|time}</p>
+										</div>
+									</div>
+									{/if}
 									
 									<div class="messageBody" id="contestEntryText{@$solutionObj->solutionID}">
 										{@$solutionObj->getFormattedMessage()}

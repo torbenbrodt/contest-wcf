@@ -34,11 +34,11 @@
 			<div class="columnContainer">
 				<div class="container-1 column first">
 					<div class="columnInner">
-						{if $isWinner}
+						{if $isWinner && !$didPick}
 							{if $solution}
-{* TODO: translation *}						Herzlichen Glückwunsch, Sie können Sich jetzt einen Preis aussuchen.
+{* TODO: translation *}						<p class="info">Herzlichen Glückwunsch, Sie können Sich jetzt einen Preis aussuchen.</p>
 							{else}
-{* TODO: translation *}						Herzlichen Glückwunsch, Sie haben gewonnen und können sich in Kürze einen Preis aussuchen.
+{* TODO: translation *}						<p class="info">Herzlichen Glückwunsch, Sie haben gewonnen und können sich in Kürze einen Preis aussuchen.</p>
 							{/if}
 						{/if}
 					

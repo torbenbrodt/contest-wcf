@@ -53,7 +53,7 @@ class ViewableContestSolution extends ContestSolution {
 				LEFT JOIN (
 					-- total score
 					SELECT		contest_solution.solutionID,
-							AVG(score) AS score,
+							AVG(IF(score > 5, 5, score)) AS score,
 							COUNT(DISTINCT contest_solution_rating.userID) AS count
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -66,7 +66,7 @@ class ViewableContestSolution extends ContestSolution {
 				LEFT JOIN (
 					-- jury score
 					SELECT		contest_solution.solutionID,
-							AVG(score) AS juryscore,
+							AVG(IF(score > 5, 5, score)) AS juryscore,
 							COUNT(DISTINCT contest_solution_rating.userID) AS jurycount
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -82,7 +82,7 @@ class ViewableContestSolution extends ContestSolution {
 				LEFT JOIN (
 					-- my score
 					SELECT		contest_solution.solutionID,
-							AVG(score) AS myscore
+							AVG(IF(score > 5, 5, score)) AS myscore
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 					ON		contest_solution.solutionID = contest_solution_rating.solutionID

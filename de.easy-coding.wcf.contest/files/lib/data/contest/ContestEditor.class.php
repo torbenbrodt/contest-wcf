@@ -450,10 +450,11 @@ class ContestEditor extends Contest {
 				$firstPick = min($firstPick, $solution->pickTime);
 			}
 		}
+		$timestamp = 0;
 
 		// first run? then start from the current date
 		if($firstPick == 0) {
-			$firstPick = TIME_NOW;
+			$timestamp = TIME_NOW;
 		}
 
 		// no price was picked yet, so start from the beginning
@@ -466,9 +467,6 @@ class ContestEditor extends Contest {
 				continue;
 			}
 
-			// user will have xx hours from now on
-			$timestamp += $this->priceExpireSeconds;
-
 			// no change, skip database update
 			$save = $this->priceExpireSeconds == 0 ? 0 : $timestamp;
 			if($solution->pickTime == $save) {
@@ -477,6 +475,9 @@ class ContestEditor extends Contest {
 
 			// database update
 			$solution->getEditor()->updatePickTime($save);
+			
+			// user will have xx hours from now on
+			$timestamp += $this->priceExpireSeconds;
 		}
 
 		// TODO: send event to the next winner

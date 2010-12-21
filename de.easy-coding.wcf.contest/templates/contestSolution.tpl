@@ -73,22 +73,22 @@
 													<a href="{@$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}" title="{lang username=$solutionObj->username}wcf.user.viewProfile{/lang}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
 												{/if}
 											</div>
-											{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
-											<div class="messageHeader">
-												<div class="containerIcon" style="padding-top:6px">
-													<img src="{icon}contestScheduledM.png{/icon}" alt="" />
-												</div>
-												<div class="containerContent">
-{* TODO: translation*}											<p class="light smallFont">Der Preis kann gewählt werden ab: {@$solutionObj->pickTime|time}</p>
-												</div>
-											</div>
-											{/if}
 											<div class="containerContent">
 												<div style="float:right">{@$solutionObj->getState()->renderButton()}</div>
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$entry->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
 												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
 											</div>
 										</div>
+										{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
+										<div class="messageHeader">
+											<div class="containerIcon">
+												<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+											</div>
+											<div class="containerContent">
+{* TODO: translation*}											<p class="light smallFont">Der Preis kann voraussichtlich gewählt werden ab: {@$solutionObj->pickTime|time}</p>
+											</div>
+										</div>
+										{/if}
 										<div class="messageBody">
 											{@$solutionObj->getExcerpt()}
 										</div>

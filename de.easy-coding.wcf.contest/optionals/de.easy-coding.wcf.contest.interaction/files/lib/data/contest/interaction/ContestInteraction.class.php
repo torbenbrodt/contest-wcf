@@ -29,7 +29,9 @@ class ContestInteraction {
 	protected $sum = 0;
 
 	/**
+	 * construct with contest instance
 	 *
+	 * @param	$contest	Contest
 	 */
 	public function __construct(Contest $contest) {
 		$this->contest = $contest;
@@ -39,10 +41,11 @@ class ContestInteraction {
 		}
 	}
 
-	protected $winners = array();
-
 	/**
-	 * helper
+	 * algorithm to choose winner with the most tickets
+	 *
+	 * @param	$price		ContestPrice
+	 * @param	$owners		array<ContestParticipant>
 	 */
 	protected function chooseWinner(ContestPrice $price, array &$owners) {
 
@@ -51,7 +54,7 @@ class ContestInteraction {
 			return null;
 		}
 
-		$rand = rand(1, $this->sum);
+		$random = mt_rand(1, $this->sum);
 
 		$add = 0;
 		foreach($owners as $key => $owner) {

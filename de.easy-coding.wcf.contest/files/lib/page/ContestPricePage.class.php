@@ -159,12 +159,6 @@ class ContestPricePage extends MultipleLinkPage {
 				'<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}
 		
-		if($this->entry->state == 'scheduled' && $this->entry->untilTime > TIME_NOW) {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.closed.info').'</p>');
-		} else {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
-		}
-		
 		// if contest is finished, show todo list
 		// who is able to pick the prices
 		$isWinner = false;
@@ -197,12 +191,21 @@ class ContestPricePage extends MultipleLinkPage {
 
 		// which price is pickable be the current user NOW?
 		$solution = null;
+		$didPick = true;
 		if($isWinner) {
 			foreach($this->priceList->getObjects() as $price) {
 				if($price->isPickable()) {
 					$solution = $price->pickableByWinner();
 					break;
+				} else if($price->isOwner()) {
+					$didPick = true;
 				}
+			}
+		} else {
+			if($this->entry->state == 'scheduled' && $this->entry->untilTime > TIME_NOW) {
+				WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.closed.info').'</p>');
+			} else {
+				WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
 			}
 		}
 
@@ -214,6 +217,7 @@ class ContestPricePage extends MultipleLinkPage {
 			'userID' => $this->entry->userID,
 			'solution' => $solution,
 			'isWinner' => $isWinner,
+			'didPick' => $didPick,
 			'prices' => $this->priceList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,

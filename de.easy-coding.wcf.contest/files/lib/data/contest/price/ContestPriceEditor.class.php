@@ -11,8 +11,8 @@ require_once(WCF_DIR.'lib/data/contest/price/ContestPrice.class.php');
  * @package	de.easy-coding.wcf.contest
  */
 class ContestPriceEditor extends ContestPrice {
-	const STATE_FLAG_WINNER = 8;
-	const STATE_FLAG_SPONSOR = 16;
+	const STATE_FLAG_WINNER = 256;
+	const STATE_FLAG_SPONSOR = 512;
 	
 	/**
 	 * Creates a new price.
@@ -90,15 +90,19 @@ class ContestPriceEditor extends ContestPrice {
 		if(false) {
 			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
 			$owner = $this->getOwner();
-			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPricePick', array(
+			ContestEventEditor::create($this->contestID, $owner->userID, $owner->groupID, 'ContestPricePick', array(
 				'priceID' => $this->priceID,
 				'owner' => $owner->getName()
 			));
 		}
 
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
+		$solution = new ContestSolutionEditor($solutionID);
+		$solution->updatePickTime(TIME_NOW);
+
 		// update price expirations, next winner may only have 24 hours from now on
 		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
-		$contest = new ContestEditor();
+		$contest = new ContestEditor($this->contestID);
 		$contest->updatePickTimes();
 	}
 	

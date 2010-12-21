@@ -408,6 +408,7 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.todo.owner.price.applied"><![CDATA[A price waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.owner.solution.applied"><![CDATA[A solution waits to be accepted.]]></item>
 		<item name="wcf.contest.todo.participant.solution.private"><![CDATA[Your solution needs to be published.]]></item>
+		<item name="wcf.contest.todo.price.pick"><![CDATA[Participant has to choose price.]]></item>
 		
 		<item name="wcf.contest.branding"><![CDATA[Contest Development]]></item>
 		
