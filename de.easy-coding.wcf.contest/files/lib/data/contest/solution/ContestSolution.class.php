@@ -90,7 +90,9 @@ class ContestSolution extends DatabaseObject {
 			return false;
 		}
 		$contest = Contest::getInstance($this->contestID);
-		if($contest->state == 'closed') {
+		
+		// guest users can give ratings, even after contest is closed
+		if($contest->state == 'closed' && $contest->isJury()) {
 			return false;
 		}
 
@@ -251,8 +253,11 @@ class ContestSolution extends DatabaseObject {
 			AND (
 				SELECT  COUNT(contestID) FROM wcf".WCF_N."_contest contest
 				WHERE	contest.contestID = contest_solution.contestID
-				AND	contest.state = 'scheduled'
-				AND 	contest.untilTime < UNIX_TIMESTAMP(NOW())
+				AND	contest.state = 'closed'
+				OR	(
+					contest.state = 'scheduled'
+					AND 	contest.untilTime < UNIX_TIMESTAMP(NOW())
+				)
 			) > 0
 		)";
 	}

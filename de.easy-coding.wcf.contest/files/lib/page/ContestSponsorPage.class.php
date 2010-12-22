@@ -148,11 +148,12 @@ class ContestSponsorPage extends MultipleLinkPage {
 			new ContestSponsorAddForm($this->entry);
 		}
 
-		if($this->entry->enableSponsorCheck) {
-			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
+		if($this->entry->enableSponsorCheck && !$this->entry->isSponsor()) {
+			WCF::getTPL()->append('additionalContentBecomeSponsor', 
+				'<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}
 
-		if($this->entry->state == 'closed') {
+		if($this->entry->isEnabledJury() && $this->entry->state == 'closed') {
 			WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.jury.closed.info').'</p>');
 
 			// init todo list

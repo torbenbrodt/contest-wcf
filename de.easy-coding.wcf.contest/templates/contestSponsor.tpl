@@ -130,7 +130,8 @@
 							{/if}
 						</div>
 						
-						{if $isSponsor == false}	
+						{if $isSponsor == false}
+						{if $additionalContentBecomeSponsor|isset}{@$additionalContentBecomeSponsor}{/if}
 						<fieldset>
 							<legend>{lang}wcf.contest.sidebar.becomesponsor.title{/lang}</legend>
 							{lang}wcf.contest.sidebar.becomesponsor.description{/lang}

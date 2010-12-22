@@ -156,15 +156,19 @@ class ContestSidebar {
 		$classList->readObjects();
 		
 		// get jurys
-		$juryList = new ContestJuryList();
-		if($this->contest !== null) {
-			$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID.' AND contest_jury.state = "accepted" ';
+		if($this->contest->isEnabledJury()) {
+			$juryList = new ContestJuryList();
+			if($this->contest !== null) {
+				$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID.' AND contest_jury.state = "accepted" ';
+			} else {
+				$juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
+				$juryList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_jury.state = "accepted" ';
+			}
+			$juryList->sqlOrderBy = 'juryID DESC';
+			$juryList->readObjects();
 		} else {
-			$juryList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest contest ON contest.contestID = contest_jury.contestID ";
-			$juryList->sqlConditions .= 'contest.state IN ("scheduled", "closed") AND contest_jury.state = "accepted" ';
+			$juryList = null;
 		}
-		$juryList->sqlOrderBy = 'juryID DESC';
-		$juryList->readObjects();
 		
 		// get participants
 		$participantList = new ContestParticipantList();

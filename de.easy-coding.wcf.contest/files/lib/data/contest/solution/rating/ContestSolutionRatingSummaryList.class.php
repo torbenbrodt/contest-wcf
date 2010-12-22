@@ -72,7 +72,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 					GROUP BY	optionID
 				) contest_solution_rating
 				ON		a.optionID = contest_solution_rating.optionID
-				".(!empty($this->sqlConditionsClasses) ? "WHERE a.classID IN (".$this->sqlConditionsClasses.')' : '')."
+				".(!empty($this->sqlConditionsClasses) ? "WHERE a.optionID IN (".$this->sqlConditionsClasses.')' : '')."
 			) contest_solution_rating
 			LEFT JOIN (
 				-- jury score
