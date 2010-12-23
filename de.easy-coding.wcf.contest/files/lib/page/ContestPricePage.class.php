@@ -96,7 +96,7 @@ class ContestPricePage extends MultipleLinkPage {
 		
 		// init price list
 		$this->priceList = new ContestPriceList();
-		$this->priceList->sqlConditions .= 'contest_price.contestID = '.$this->contestID;
+		$this->priceList->sqlConditions .= 'contest_price.contestID = '.intval($this->contestID);
 	}
 	
 	/**
@@ -204,7 +204,10 @@ class ContestPricePage extends MultipleLinkPage {
 		} else {
 			if($this->entry->state == 'scheduled' && $this->entry->untilTime > TIME_NOW) {
 				WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.closed.info').'</p>');
-			} else {
+			}
+			
+			// after contest is finished, winners have to choose prices
+			else if($this->entry->enablePricechoice) {
 				WCF::getTPL()->append('userMessages', '<p class="info">'.WCF::getLanguage()->get('wcf.contest.price.pick.info').'</p>');
 			}
 		}

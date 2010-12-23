@@ -42,6 +42,8 @@ class ContestEditForm extends MessageForm {
 	public $enableSolution = 1;
 	public $enableOpenSolution = 1;
 	public $enableParticipantCheck = 0;
+	public $enablePricechoice = 0;
+	public $priceExpireSeconds = 0;
 	public $enableSponsorCheck = 0;
 	
 	/**
@@ -136,6 +138,8 @@ class ContestEditForm extends MessageForm {
 			$this->enableSolution = $this->entry->enableSolution;
 			$this->enableOpenSolution = $this->entry->enableOpenSolution;
 			$this->enableParticipantCheck = $this->entry->enableParticipantCheck;
+			$this->enablePricechoice = $this->entry->enablePricechoice;
+			$this->priceExpireSeconds = $this->entry->priceExpireSeconds;
 			$this->enableSponsorCheck = $this->entry->enableSponsorCheck;
 			$this->userID = $this->entry->userID;
 			$this->groupID = $this->entry->groupID;
@@ -190,6 +194,8 @@ class ContestEditForm extends MessageForm {
 		$this->enableSolution = intval(isset($_POST['enableSolution']));
 		$this->enableOpenSolution = intval(isset($_POST['enableOpenSolution']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
+		$this->enablePricechoice = intval(isset($_POST['enablePricechoice']));
+		$this->priceExpireSeconds = intval($_POST['priceExpireSeconds']);
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
 		$this->isFullDay = isset($_POST['isFullDay']);
@@ -300,7 +306,9 @@ class ContestEditForm extends MessageForm {
 		$options['enableSolution'] = $this->enableSolution;
 		$options['enableOpenSolution'] = $this->enableOpenSolution;
 		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
+		$options['enablePricechoice'] = $this->enablePricechoice;
 		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
+		$options['priceExpireSeconds'] = $this->priceExpireSeconds;
 		return $options;
 	}
 	
@@ -389,6 +397,8 @@ class ContestEditForm extends MessageForm {
 			'enableSolution' => $this->enableSolution,
 			'enableOpenSolution' => $this->enableOpenSolution,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
+			'enablePricechoice' => $this->enablePricechoice,
+			'priceExpireSeconds' => $this->priceExpireSeconds,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
 		));
 	}

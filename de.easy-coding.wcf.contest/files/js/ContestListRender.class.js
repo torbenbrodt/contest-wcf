@@ -1,5 +1,5 @@
 /**
- * allws to switch between different views.
+ * allows to switch between different views.
  * - datalist messages
  * - gallery mode
  *

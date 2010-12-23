@@ -156,7 +156,7 @@ class ContestSidebar {
 		$classList->readObjects();
 		
 		// get jurys
-		if($this->contest->isEnabledJury()) {
+		if(!$this->contest || $this->contest->isEnabledJury()) {
 			$juryList = new ContestJuryList();
 			if($this->contest !== null) {
 				$juryList->sqlConditions .= 'contest_jury.contestID = '.$this->contest->contestID.' AND contest_jury.state = "accepted" ';
@@ -220,7 +220,7 @@ class ContestSidebar {
 		$latestEntryList->readObjects();
 
 		// get latest solutions
-		if($this->contest->enableSolution) {
+		if(!$this->contest || $this->contest->enableSolution) {
 			$latestSolutionList = new ContestSolutionList();
 			if($this->contest !== null) {
 				$latestSolutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contest->contestID;

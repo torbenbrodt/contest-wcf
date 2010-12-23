@@ -16,31 +16,31 @@
 		</pagelocation>
 		
 		<pagelocation name="wcf.usersOnline.location.contestSolution">
-			<pattern><![CDATA[index\.php\?page=ContestSolution]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestSolution.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestParticipant">
-			<pattern><![CDATA[index\.php\?page=ContestParticipant]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestParticipant.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestPrice">
-			<pattern><![CDATA[index\.php\?page=ContestParticipant]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestParticipant.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestJury">
-			<pattern><![CDATA[index\.php\?page=ContestJury]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestJury.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestJurytalk">
-			<pattern><![CDATA[index\.php\?page=ContestJurytalk]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestJurytalk.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestSponsor">
-			<pattern><![CDATA[index\.php\?page=ContestSponsor]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestSponsor.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 		<pagelocation name="wcf.usersOnline.location.contestSponsortalk">
-			<pattern><![CDATA[index\.php\?page=ContestSponsortalk]]></pattern>
+			<pattern><![CDATA[index\.php\?page=ContestSponsortalk.*&contestID=(\d+)]]></pattern>
 			<classpath>lib/data/page/location/ContestLocation.class.php</classpath>
 		</pagelocation>
 	</import>

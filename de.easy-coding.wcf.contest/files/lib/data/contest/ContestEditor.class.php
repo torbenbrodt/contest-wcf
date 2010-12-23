@@ -36,7 +36,8 @@ class ContestEditor extends Contest {
 		// save entry
 		$sql = "INSERT INTO	wcf".WCF_N."_contest
 					(userID, groupID, subject, message, time, attachments, enableSmilies, enableHtml,
-					enableBBCodes, enableSolution, enableOpenSolution, enableParticipantCheck, enableSponsorCheck)
+					enableBBCodes, enableSolution, enableOpenSolution, enableParticipantCheck,
+					enablePricechoice, priceExpireSeconds, enableSponsorCheck)
 			VALUES		(".intval($userID).", ".intval($groupID).", '".escapeString($subject)."', '".escapeString($message)."', 
 					".TIME_NOW.", ".$attachmentsAmount.",
 					".(isset($options['enableSmilies']) ? $options['enableSmilies'] : 1).",
@@ -45,6 +46,8 @@ class ContestEditor extends Contest {
 					".(isset($options['enableSolution']) ? $options['enableSolution'] : 0).",
 					".(isset($options['enableOpenSolution']) ? $options['enableOpenSolution'] : 0).",
 					".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
+					".(isset($options['enablePricechoice']) ? $options['enablePricechoice'] : 0).",
+					".(isset($options['priceExpireSeconds']) ? $options['priceExpireSeconds'] : 0).",
 					".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0).")";
 		WCF::getDB()->sendQuery($sql);
 
@@ -155,6 +158,8 @@ class ContestEditor extends Contest {
 				enableSolution = ".(isset($options['enableSolution']) ? $options['enableSolution'] : 0).",
 				enableOpenSolution = ".(isset($options['enableOpenSolution']) ? $options['enableOpenSolution'] : 0).",
 				enableParticipantCheck = ".(isset($options['enableParticipantCheck']) ? $options['enableParticipantCheck'] : 0).",
+				enablePricechoice = ".(isset($options['enablePricechoice']) ? $options['enablePricechoice'] : 0).",
+				priceExpireSeconds = ".(isset($options['priceExpireSeconds']) ? $options['priceExpireSeconds'] : 0).",
 				enableSponsorCheck = ".(isset($options['enableSponsorCheck']) ? $options['enableSponsorCheck'] : 0)."
 			WHERE	contestID = ".intval($this->contestID);
 		WCF::getDB()->sendQuery($sql);
@@ -433,6 +438,34 @@ class ContestEditor extends Contest {
 
 		return ContestState::translateArray($arr);
 	}
+	
+	/**
+	 * when winners are not allowed to take the prices on their own, this is done automatically
+	 */
+	public function updatePricechoices() {
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
+
+		// check if there are already solutions with prices
+		$solutionIDs = array();
+		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
+			if($solution->hasPrice()) {
+				return;
+			}
+			$solutionIDs[] = $solution->solutionID;
+		}
+		
+		require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
+		$priceList = new ContestPriceList();
+		$priceList->sqlConditions .= 'contest_price.contestID = '.intval($this->contestID);
+		$priceList->sqlLimit = count($solutionIDs);
+		$priceList->readObjects();
+		
+		$i = 0;
+		foreach($this->priceList->getObjects() as $price) {
+			$price->getEditor()->pick($solutionIDs[$i], $i + 1);
+			$i++;
+		}
+	}
 
 	/**
 	 * if priceExpireSeconds is set, the solution will have a maximum time to choose a price
@@ -506,6 +539,11 @@ class ContestEditor extends Contest {
 		// if state is changed to closed, then update timestamps, when winners have to pick prices
 		if($state == 'closed') {
 			$this->updatePickTimes();
+			
+			// winners cannot choose prices on their own, so give prices now
+			if(!$this->enablePricechoice) {
+				$this->updatePricechoices();
+			}
 		}
 
 		// TODO: send event to participants that contest is finished

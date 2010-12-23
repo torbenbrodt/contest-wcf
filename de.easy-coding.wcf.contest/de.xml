@@ -187,6 +187,9 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.enableOpenSolution.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
 		<item name="wcf.contest.enableParticipantCheck"><![CDATA[Teilnehmer müssen sich bewerben, bevor Sie Lösungen beitragen können.]]></item>
 		<item name="wcf.contest.enableParticipantCheck.info"><![CDATA[Um an diesem Wettbewerb teilnehmen zu können, müssen sich Teilnehmer zuerst bewerben.]]></item>
+		<item name="wcf.contest.enablePricechoice"><![CDATA[Teilnehmer können in ihrer Gewinnreihenfolge selbst die Preise auswählen.]]></item>
+		<item name="wcf.contest.priceExpireSeconds"><![CDATA[Zeit (s)]]></item>
+		<item name="wcf.contest.priceExpireSeconds.description"><![CDATA[Wie viel Zeit (in Sekunden) verbleiben den Gewinnern, bis auch die nachfolgenden Gewinner einen Preis wählen dürfen.]]></item>
 		<item name="wcf.contest.enableSponsorCheck"><![CDATA[Sponsoren müssen sich bewerben, bevor Sie Preise beitragen können.]]></item>
 		<item name="wcf.contest.enableSponsorCheck.info"><![CDATA[Um Preise für diesen Wettbewerb beisteuern zu können, müssen sich Sponsoren zuerst bewerben.]]></item>
 		<item name="wcf.contest.classes"><![CDATA[Kategorien]]></item>

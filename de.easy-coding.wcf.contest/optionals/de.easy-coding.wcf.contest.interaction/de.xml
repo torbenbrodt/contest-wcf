@@ -5,5 +5,6 @@
 	</category>
 	<category name="wcf.contest.interaction">
 		<item name="wcf.contest.interaction.tickets"><![CDATA[{$tickets} Los{if $tickets != 1}e{/if}]]></item>
+		<item name="wcf.contest.interaction.settings"><![CDATA[Interaktion]]></item>
 	</category>
 </language>

@@ -21,8 +21,28 @@ function loadFile($file) {
 function void($x) {
 }
 
+$file = file(WCFTEST_STANDALONE_PATH.'config.inc.php');
+$const = null;
+foreach($file as $row) {
+	if(preg_match('/define\(\'([A-Z]+_DIR)\'/', $row, $res)) {
+		$const = $res[1];
+	}
+}
+
+if(!$const) {
+	throw new Exception('cannot find standalone installation #1');
+}
+
+// load wcf config
 loadFile(WCFTEST_STANDALONE_PATH.'config.inc.php');
-loadFile(WBB_DIR.RELATIVE_WCF_DIR.'global.php');
+
+$standalone_dir = constant($const);
+if(!$standalone_dir) {
+	throw new Exception('cannot find standalone installation #2');
+}
+
+// load global file, including autoloader
+loadFile($standalone_dir.RELATIVE_WCF_DIR.'global.php');
 loadFile(WCFTEST_STANDALONE_PATH.'options.inc.php');
 $GLOBALS['packageDirs'][] = WCF_DIR;
 

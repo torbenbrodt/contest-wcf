@@ -25,6 +25,13 @@
 		<div class="formField">				
 			<textarea name="text" id="text" rows="15" cols="40" tabindex="{counter name='tabindex'}">{$text}</textarea>
 			{if $errorField == 'text'}
+				<script type="text/javascript">
+				//<![CDATA[
+				onloadEvents.push(function() {
+					steppedTabMenu.showSubTabMenu('step2');
+				});
+				//]]>
+				</script>
 				<p class="innerError">
 					{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
 					{if $errorType == 'tooLong'}{lang}wcf.message.error.tooLong{/lang}{/if}

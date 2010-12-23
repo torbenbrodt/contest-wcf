@@ -38,6 +38,8 @@ class ContestAddForm extends MessageForm {
 	public $enableSolution = 1;
 	public $enableOpenSolution = 1;
 	public $enableParticipantCheck = 0;
+	public $enablePricechoice = 0;
+	public $priceExpireSeconds = 0;
 	public $enableSponsorCheck = 0;
 	
 	/**
@@ -169,6 +171,8 @@ class ContestAddForm extends MessageForm {
 		$this->enableSolution = intval(isset($_POST['enableSolution']));
 		$this->enableOpenSolution = intval(isset($_POST['enableOpenSolution']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
+		$this->enablePricechoice = intval(isset($_POST['enablePricechoice']));
+		$this->priceExpireSeconds = intval($_POST['priceExpireSeconds']);
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
 		if (isset($_POST['preview']))		$this->preview		= (boolean) $_POST['preview'];
@@ -251,7 +255,9 @@ class ContestAddForm extends MessageForm {
 		$options['enableSolution'] = $this->enableSolution;
 		$options['enableOpenSolution'] = $this->enableOpenSolution;
 		$options['enableParticipantCheck'] = $this->enableParticipantCheck;
+		$options['enablePricechoice'] = $this->enablePricechoice;
 		$options['enableSponsorCheck'] = $this->enableSponsorCheck;
+		$options['priceExpireSeconds'] = $this->priceExpireSeconds;
 		return $options;
 	}
 	
@@ -355,6 +361,8 @@ class ContestAddForm extends MessageForm {
 			'enableSolution' => $this->enableSolution,
 			'enableOpenSolution' => $this->enableOpenSolution,
 			'enableParticipantCheck' => $this->enableParticipantCheck,
+			'enablePricechoice' => $this->enablePricechoice,
+			'priceExpireSeconds' => $this->priceExpireSeconds,
 			'enableSponsorCheck' => $this->enableSponsorCheck,
 		));
 	}

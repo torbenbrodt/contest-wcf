@@ -162,7 +162,7 @@
 				<p class="formField">{$webserver}</p>
 			</div>
 			<div class="formElement">
-				<p class="formFieldLabel"><a href="index.php?page=PHPInfo&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}">{lang}contest.acp.index.system.php{/lang}</a></p>
+				<p class="formFieldLabel">{lang}contest.acp.index.system.php{/lang}</p>
 				<p class="formField"><a href="index.php?page=PHPInfo&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}">{PHP_VERSION}</a></p>
 			</div>
 			<div class="formElement">

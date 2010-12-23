@@ -63,5 +63,7 @@
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>
+		<pagelocation>pagelocation.xml</pagelocation>
+		<groupoptions>groupoptions.xml</groupoptions>
 	</instructions>
 </package>

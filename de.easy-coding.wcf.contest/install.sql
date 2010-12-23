@@ -17,6 +17,7 @@ CREATE TABLE wcf1_contest (
 	enableSolution TINYINT(1) NOT NULL DEFAULT 1,
 	enableOpenSolution TINYINT(1) NOT NULL DEFAULT 1,
 	enableParticipantCheck TINYINT(1) NOT NULL DEFAULT 0,
+	enablePricechoice TINYINT(1) NOT NULL DEFAULT 0,
 	enableSponsorCheck TINYINT(1) NOT NULL DEFAULT 0,
 	solutions SMALLINT(5) NOT NULL DEFAULT 0,
 	comments SMALLINT(5) NOT NULL DEFAULT 0,

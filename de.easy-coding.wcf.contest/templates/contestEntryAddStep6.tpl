@@ -104,7 +104,7 @@
 <fieldset>
 	<legend>{lang}wcf.contest.settings{/lang}</legend>
 	
-	<div class="formElement{if $errorField == 'state'} formError{/if}">
+	<div class="formElement{if $errorField == 'priceExpireSeconds'} formError{/if}">
 		<div class="formFieldLabel">
 			<label>{lang}wcf.contest.options{/lang}</label>
 		</div>
@@ -131,6 +131,40 @@
 					</div>
 				</label>
 				<label>
+					<div id="enablePricechoiceDiv">
+						<input type="checkbox" onclick="if (this.checked) enableOptions('priceExpireSeconds'); else disableOptions('priceExpireSeconds')" name="enablePricechoice" value="1" {if $enablePricechoice}checked="checked" {/if}/>
+						{lang}wcf.contest.enablePricechoice{/lang}
+					</div>
+				</label>
+				<div class="formElement{if $errorField == 'priceExpireSeconds'} formError{/if}" id="priceExpireSecondsDiv" style="margin-left: -120px">
+					<div class="formFieldLabel">
+						<label for="priceExpireSeconds">{lang}wcf.contest.priceExpireSeconds{/lang}</label>
+					</div>
+					<div class="formField">
+						<input type="text" class="inputText" name="priceExpireSeconds" id="priceExpireSeconds" value="{$priceExpireSeconds}" tabindex="{counter name='tabindex'}" style="width:100pt" />
+						{if $errorField == 'priceExpireSeconds'}
+							<script type="text/javascript">
+							//<![CDATA[
+							onloadEvents.push(function() {
+								steppedTabMenu.showSubTabMenu('step6');
+							});
+							//]]>
+							</script>
+							<p class="innerError">
+								{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
+							</p>
+						{/if}
+					</div>
+					<p class="formFieldDesc">{lang}wcf.contest.priceExpireSeconds.description{/lang}</p>
+				</div>
+				<script type="text/javascript">
+					//<![CDATA[
+					onloadEvents.push(function() {
+					{if $enablePricechoice}enableOptions('priceExpireSeconds');{else}disableOptions('priceExpireSeconds');{/if}
+					});
+					//]]>
+				</script>
+				<label>
 					<div id="enableParticipantCheckDiv">
 						<input type="checkbox" name="enableParticipantCheck" value="1" {if $enableParticipantCheck}checked="checked" {/if}/>
 						{lang}wcf.contest.enableParticipantCheck{/lang}
@@ -153,6 +187,15 @@
 		<div class="formField">
 			<fieldset>
 				<legend>{lang}wcf.contest.state{/lang}</legend>
+				{if $errorField == 'state'}
+				<script type="text/javascript">
+				//<![CDATA[
+				onloadEvents.push(function() {
+					steppedTabMenu.showSubTabMenu('step6');
+				});
+				//]]>
+				</script>
+				{/if}
 				{foreach from=$states item=availableState key=key}
 					<label><input type="radio" name="state" value="{@$key}" {if $state == $key}checked="checked" {/if}/> {lang}{$availableState}{/lang}</label>
 				{/foreach}
@@ -209,6 +252,7 @@
 
 				<div class="floatedElement floatedElementContainer">
 					<div class="floatedElement">
+
 						<p>{lang}wcf.contest.calendar.event.date.until{/lang}</p>
 					</div>
 				

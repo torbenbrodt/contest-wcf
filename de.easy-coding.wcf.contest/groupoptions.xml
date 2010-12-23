@@ -19,64 +19,64 @@
 		
 		<options>
 			<option name="user.contest.canViewContest">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canScheduleOwnContest">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canSolution">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.maxSolutionLength">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>1000</defaultvalue>
 			</option>
 			<option name="user.contest.canEditOwnSolution">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canDeleteOwnSolution">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			
 			<option name="user.contest.canUseContest">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canDownloadAttachment">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canViewAttachmentPreview">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="user.contest.canUploadAttachment">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 				<enableoptions>user.contest.maxAttachmentSize,user.contest.allowedAttachmentExtensions,user.contest.maxAttachmentCount</enableoptions>
 			</option>
 			<option name="user.contest.maxAttachmentSize">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>150000</defaultvalue>
 			</option>
 			<option name="user.contest.allowedAttachmentExtensions">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>textarea</optiontype>
 				<defaultvalue><![CDATA[gif
 jpg
@@ -88,19 +88,19 @@ txt
 pdf]]></defaultvalue>
 			</option>
 			<option name="user.contest.maxAttachmentCount">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>integer</optiontype>
 				<defaultvalue>5</defaultvalue>
 			</option>
 			
 			
 			<option name="user.contest.canEditSolution">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 			</option>
 			<option name="user.contest.canDeleteSolution">
-				<categoryname>user.profile.contest</categoryname>
+				<categoryname>user.contest</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>0</defaultvalue>
 			</option>
