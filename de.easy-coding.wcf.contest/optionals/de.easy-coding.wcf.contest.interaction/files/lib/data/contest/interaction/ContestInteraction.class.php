@@ -130,6 +130,7 @@ class ContestInteraction {
 		$priceList->readObjects();
 
 		$score = 255;
+
 		foreach($priceList->getObjects() as $price) {
 		
 			// choose a winner
@@ -144,7 +145,7 @@ class ContestInteraction {
 			$solution = ContestSolutionEditor::create(
 				$this->contest->contestID,
 				$owner->participantID,
-				$message = '',
+				$message = 'Der Teilnehmer hat mit insgesamt '.$owner->c.' Losen am Gewinnspiel teilgenommen.', /* TODO: translation */
 				$state = 'accepted'
 			);
 			
