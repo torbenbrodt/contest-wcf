@@ -125,7 +125,7 @@ class ContestInteraction {
 
 		// get prices
 		$priceList = new ContestPriceList();
-		$priceList->sqlConditions .= 'contest_price.contestID = '.intval($this->contest->contestID);
+		$priceList->sqlConditions .= 'contest_price.state = "accepted" AND contest_price.contestID = '.intval($this->contest->contestID);
 		$priceList->sqlLimit = 0;
 		$priceList->readObjects();
 

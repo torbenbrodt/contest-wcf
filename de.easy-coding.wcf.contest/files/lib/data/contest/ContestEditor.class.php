@@ -456,12 +456,12 @@ class ContestEditor extends Contest {
 		
 		require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
 		$priceList = new ContestPriceList();
-		$priceList->sqlConditions .= 'contest_price.contestID = '.intval($this->contestID);
+		$priceList->sqlConditions .= 'contest_price.state = "accepted" AND contest_price.contestID = '.intval($this->contestID);
 		$priceList->sqlLimit = count($solutionIDs);
 		$priceList->readObjects();
 		
 		$i = 0;
-		foreach($this->priceList->getObjects() as $price) {
+		foreach($priceList->getObjects() as $price) {
 			$price->getEditor()->pick($solutionIDs[$i], $i + 1);
 			$i++;
 		}

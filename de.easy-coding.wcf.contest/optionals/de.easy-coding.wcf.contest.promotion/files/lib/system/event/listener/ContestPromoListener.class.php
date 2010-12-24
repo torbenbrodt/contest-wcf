@@ -10,11 +10,16 @@ require_once(WCF_DIR.'lib/util/ContestPromotionUtil.class.php');
  * @package	de.easy-coding.wcf.contest.promotion
  */
 class ContestPromoListener implements EventListener {
+	private static $executed = false;
 
 	/**
 	 * @see EventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
+		if(self::$executed) {
+			return;
+		}
+		self::$executed = true;
 
 		$notifications = ContestPromotionUtil::getList();
 		if(count($notifications)) {
