@@ -12,6 +12,10 @@ require_once(WCF_DIR.'lib/data/contest/solution/rating/ViewableContestSolutionRa
  * @package	de.easy-coding.wcf.contest
  */
 class ContestSolutionRatingList extends DatabaseObjectList {
+	/**
+	 * @var string
+	 */
+	public $sqlConditionsClasses = '';
 	
 	/**
 	 * list of ratings
@@ -33,13 +37,15 @@ class ContestSolutionRatingList extends DatabaseObjectList {
 	public function countObjects() {
 		$sql = "SELECT	COUNT(*) AS count
 			FROM	wcf".WCF_N."_contest_solution_rating contest_solution_rating
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '');
+			WHERE	".(!empty($this->sqlConditions) ? $this->sqlConditions : '1')."
+			".(!empty($this->sqlConditionsClasses) ? "AND contest_solution_rating.optionID IN (".$this->sqlConditionsClasses.')' : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
 	
 	/**
 	 * @see DatabaseObjectList::readObjects()
+				".(!empty($this->sqlConditionsClasses) ? "WHERE a.optionID IN (".$this->sqlConditionsClasses.')' : '')."
 	 */
 	public function readObjects() {
 		$sql = "SELECT		".(!empty($this->sqlSelects) ? $this->sqlSelects.',' : '')."
@@ -62,7 +68,8 @@ class ContestSolutionRatingList extends DatabaseObjectList {
 			LEFT JOIN	wcf".WCF_N."_avatar avatar_table
 			ON		(avatar_table.avatarID = user_table.avatarID)
 			".$this->sqlJoins."
-			".(!empty($this->sqlConditions) ? "WHERE ".$this->sqlConditions : '')."
+			WHERE ".(!empty($this->sqlConditions) ? $this->sqlConditions : '1')."
+			".(!empty($this->sqlConditionsClasses) ? "AND contest_solution_rating.optionID IN (".$this->sqlConditionsClasses.')' : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {

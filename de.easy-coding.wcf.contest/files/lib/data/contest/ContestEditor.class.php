@@ -487,12 +487,17 @@ class ContestEditor extends Contest {
 
 		// first run? then start from the current date
 		if($firstPick == 0) {
-			$timestamp = TIME_NOW;
+			$firstPick = TIME_NOW;
 		}
 
 		// no price was picked yet, so start from the beginning
 		if($lastPick == 0) {
 			$timestamp = $firstPick;
+		}
+		
+		// there was a picked price, so use the last timestamp
+		else {
+			$timestamp = $lastPick;
 		}
 
 		foreach(ContestSolution::getWinners($this->contestID) as $solution) {

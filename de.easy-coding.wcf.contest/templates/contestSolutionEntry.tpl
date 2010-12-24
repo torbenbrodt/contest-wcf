@@ -80,10 +80,10 @@
 									{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
 									<div class="messageHeader">
 										<div class="containerIcon">
-											<img src="{icon}contestScheduledM.png{/icon}" alt="" />
+											<img src="{icon}{if $solutionObj->hasPrice()}success{else}contestScheduled{/if}M.png{/icon}" alt="" />
 										</div>
 										<div class="containerContent">
-{* TODO: translation*}											<p class="light smallFont">Der Preis kann voraussichtlich gewählt werden ab: {@$solutionObj->pickTime|time}</p>
+{* TODO: translation*}											<p class="light smallFont">{if $solutionObj->hasPrice()}Der Preis wurde gewählt, herzlichen Glückwunsch.{else}Der Preis kann voraussichtlich gewählt werden ab: {@$solutionObj->pickTime|time}{/if}</p>
 										</div>
 									</div>
 									{/if}
