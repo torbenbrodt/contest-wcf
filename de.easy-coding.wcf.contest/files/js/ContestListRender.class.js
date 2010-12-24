@@ -27,6 +27,7 @@ function ContestListRender(list) {
 					'</span>'+
 					'<span class="avatarCaption">{$username}</span>'+
 				'</a>'+
+				'{$buttons}'+
 			'</li>'
 		},
 		messages: {
@@ -56,11 +57,25 @@ function ContestListRender(list) {
 					return e[i].getElementsByTagName('a')[0];
 				}
 			}(elements[i]);
+			var buttons = function(e) {
+				var html = '', hasButtons = false;
+				var e = e.getElementsByTagName('div');
+				for(var i=0; i<e.length; i++) {
+					if(e[i].className == 'buttons') {
+						hasButtons = true;
+					}
+					if(e[i].style && e[i].style.cssFloat == 'right') {
+						html += e[i].innerHTML;
+					}
+				}
+				return hasButtons ? html : '';
+			}(elements[i]);
 
 			this.data[i] = {
 				img: elements[i].getElementsByTagName('img')[0].src,
 				url: link ? link.href : null,
 				username: link ? link.innerHTML : null,
+				buttons: buttons,
 			};
 		}
 	};
