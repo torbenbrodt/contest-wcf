@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
+<data>	
+	<import>
+		<eventlistener>
+			<eventclassname>ContestPricePage</eventclassname>
+			<eventname>readData</eventname>
+			<inherit>1</inherit>
+			<listenerclassfile>lib/system/event/listener/ContestPricePageInterestListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestPricePage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<inherit>1</inherit>
+			<listenerclassfile>lib/system/event/listener/ContestPricePageInterestListener.class.php</listenerclassfile>
+		</eventlistener>
+	</import>
+</data>

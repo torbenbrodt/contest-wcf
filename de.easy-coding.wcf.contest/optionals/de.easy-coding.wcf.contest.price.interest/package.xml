@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
+<package name="de.easy-coding.wcf.contest.price.interest">
+	<packageinformation>
+		<packagename>easy-coding "contest" price interest</packagename>
+		<packagedescription>The more interaction the user has, the greater the chance, that the user wins.</packagedescription>
+		<version>0.9.3 RC 1</version>
+		<plugin>com.woltlab.wcf</plugin>
+		<isunique>1</isunique>
+		<date>DATE</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author>Torben Brodt</author>
+		<authorurl>http://trac.easy-coding.de/trac/contest</authorurl>
+	</authorinformation>
+	
+	<requiredpackages>
+		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="0.9.1 RC 1">de.easy-coding.wcf.contest</requiredpackage>
+	</requiredpackages>
+	
+	<instructions type="install">
+		<files>files.tar</files>
+		<eventlistener>eventlistener.xml</eventlistener>
+		<templates>templates.tar</templates>
+		<sql>install.sql</sql>
+
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+	</instructions>
+	
+	<instructions type="update" fromversion="0.9.2 RC 1">
+		<files>files.tar</files>
+		<templates>templates.tar</templates>
+
+		<!-- languages -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+	</instructions>
+</package>

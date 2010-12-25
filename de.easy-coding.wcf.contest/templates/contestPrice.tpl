@@ -57,6 +57,7 @@
 							{assign var='messageNumber' value=$startIndex}
 							<ol class="itemList" id="pricePosition" style="list-style-type:none;padding:0px">
 							{foreach from=$prices item=priceObj}
+								{assign var="priceID" value=$priceObj->priceID}
 								<li id="item_{$priceObj->priceID}" class="deletable">
 								{assign var="contestID" value=$priceObj->contestID}
 								<div class="message">
@@ -70,9 +71,10 @@
 											</div>
 											<br style="clear:both"/>
 											<div class="smallButtons">
-												{if $priceObj->isPickable()}
+												{if $priceObj->isPickable() || $additionalSmallButtons.$priceID|isset}
 													<ul>
-														<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>
+														{if $priceObj->isPickable()<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
+														{if $additionalSmallButtons.$priceID|isset}{@$additionalSmallButtons.$priceID}{/if}
 													</ul>
 												{/if}
 											</div>
@@ -163,6 +165,8 @@
 										</div>
 										<div class="messageBody">
 											{@$priceObj->getFormattedMessage()}
+											
+											{if $additionalMessageContents.$priceID|isset}{@$additionalMessageContents.$priceID}{/if}
 										</div>
 
 										<div class="messageFooter">
