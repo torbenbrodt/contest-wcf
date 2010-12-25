@@ -476,6 +476,9 @@ class ContestEditor extends Contest {
 
 		// get first + latest pick
 		$firstPick = $lastPick = 0;
+
+		// update cache
+		ContestSolution::resetWinners();
 		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
 			if($solution->hasPrice()) {
 				$lastPick = max($lastPick, $solution->pickTime);

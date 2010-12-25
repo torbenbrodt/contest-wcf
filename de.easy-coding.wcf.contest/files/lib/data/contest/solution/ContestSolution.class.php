@@ -98,6 +98,17 @@ class ContestSolution extends DatabaseObject {
 
 		return true;
 	}
+	
+	/**
+	 * reset list
+	 *
+	 * @param	integer		$contestID
+	 */
+	public static function resetWinners($contestID) {
+		if(isset(self::$winners[$contestID])) {
+			unset(self::$winners[$contestID]);
+		}
+	}
 
 	/**
 	 * fills cache

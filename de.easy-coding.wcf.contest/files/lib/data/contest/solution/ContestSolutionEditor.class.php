@@ -128,7 +128,6 @@ class ContestSolutionEditor extends ContestSolution {
 	 * @param	integer				$timestamp
 	 */
 	public function updatePickTime($timestamp) {
-
 		$sql = "UPDATE	wcf".WCF_N."_contest_solution
 			SET	pickTime = ".intval($timestamp)."
 			WHERE	solutionID = ".intval($this->solutionID);

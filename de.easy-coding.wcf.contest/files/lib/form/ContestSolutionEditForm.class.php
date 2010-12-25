@@ -39,11 +39,6 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		if (!$this->contest->contestID) {
 			throw new IllegalLinkException();
 		}
-		
-		// get contest
-		if (!$this->contest->isSolutionable()) {
-			throw new PermissionDeniedException();
-		}
 
 		if (isset($_REQUEST['solutionID'])) $this->solutionID = intval($_REQUEST['solutionID']);
 		$this->entry = new ContestSolutionEditor($this->solutionID);
