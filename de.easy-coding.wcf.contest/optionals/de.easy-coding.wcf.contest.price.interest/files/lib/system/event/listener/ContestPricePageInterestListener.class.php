@@ -36,7 +36,6 @@ class ContestPricePageInterestListener implements EventListener {
 	public function execute($eventObj, $className, $eventName) {
 		$this->eventObj = $eventObj;
 		$this->className = $className;
-		additionalMessageContents
 		$this->$eventName();
 	}
 

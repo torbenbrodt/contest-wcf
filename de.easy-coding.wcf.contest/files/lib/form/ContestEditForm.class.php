@@ -355,8 +355,10 @@ class ContestEditForm extends MessageForm {
 		parent::save();
 		
 		// save entry
-		$this->entry->update($this->userID, $this->groupID, $this->subject, $this->text, $this->fromTime, $this->untilTime, $this->state, $this->getOptions(), 
-			$this->classIDArray, $this->attachmentListEditor);
+		$this->entry->update($this->userID, $this->groupID, $this->subject, $this->text, 
+			$this->fromTime, $this->untilTime, $this->state, $this->getOptions(), 
+			$this->classIDArray, $this->attachmentListEditor
+		);
 		$this->saved();
 		
 		// save tags

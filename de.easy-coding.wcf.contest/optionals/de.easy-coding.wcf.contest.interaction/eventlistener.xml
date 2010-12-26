@@ -8,6 +8,21 @@
 			<listenerclassfile>lib/system/event/listener/ContestEditFormInteractionListener.class.php</listenerclassfile>
 		</eventlistener>
 		<eventlistener>
+			<eventclassname>ContestEditForm</eventclassname>
+			<eventname>readFormParameters</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestEditFormInteractionListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestEditForm</eventclassname>
+			<eventname>readData</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestEditFormInteractionListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestEditForm</eventclassname>
+			<eventname>save</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestEditFormInteractionListener.class.php</listenerclassfile>
+		</eventlistener>
+		<eventlistener>
 			<eventclassname>ContestPage</eventclassname>
 			<eventname>assignVariables</eventname>
 			<listenerclassfile>lib/system/event/listener/ContestPageInteractionListener.class.php</listenerclassfile>

@@ -24,10 +24,13 @@
 	</requiredpackages>
 	
 	<optionalpackages>
-                <optionalpackage file="optionals/de.easy-coding.wcf.contest.notification.tar.gz">de.easy-coding.wcf.contest.notification</optionalpackage>
-                <optionalpackage file="optionals/de.easy-coding.wcf.contest.infraction.tar.gz">de.easy-coding.wcf.contest.infraction</optionalpackage>
-                <optionalpackage file="optionals/de.easy-coding.wcf.contest.interaction.tar.gz">de.easy-coding.wcf.contest.interaction</optionalpackage>
-                <optionalpackage file="optionals/de.easy-coding.wcf.contest.promotion.tar.gz">de.easy-coding.wcf.contest.promotion</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.contest.notification.tar.gz">de.easy-coding.wcf.contest.notification</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.contest.infraction.tar.gz">de.easy-coding.wcf.contest.infraction</optionalpackage>
+<!--
+		<optionalpackage file="optionals/de.easy-coding.wcf.contest.interaction.tar.gz">de.easy-coding.wcf.contest.interaction</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.contest.promotion.tar.gz">de.easy-coding.wcf.contest.promotion</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.contest.price.interest.tar.gz">de.easy-coding.wcf.contest.price.interest</optionalpackage>
+-->
 	</optionalpackages>
 	
 	<instructions type="install">

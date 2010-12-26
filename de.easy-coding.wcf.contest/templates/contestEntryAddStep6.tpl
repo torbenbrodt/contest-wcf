@@ -61,7 +61,7 @@
 		var fromMinute = document.getElementById('fromMinute');
 		var fromDate = new Date(fromYear.value, fromMonth.value-1, fromDay.value, fromHour.value, fromMinute.value, 0);
 		
-		var untilDay = document.getElementById('untilDay');
+		var untilDay = document.getElementById('untilDay');{if $additionalFields1|isset}{@$additionalFields1}{/if}
 		var untilMonth = document.getElementById('untilMonth');
 		var untilYear = document.getElementById('untilYear');
 		var untilHour = document.getElementById('untilHour')
@@ -103,6 +103,7 @@
 <p>{lang}wcf.contest.contest.description{/lang}</p>
 <fieldset>
 	<legend>{lang}wcf.contest.settings{/lang}</legend>
+	{if $additionalFields1|isset}{@$additionalFields1}{/if}
 	
 	<div class="formElement{if $errorField == 'priceExpireSeconds'} formError{/if}">
 		<div class="formFieldLabel">
@@ -158,7 +159,8 @@
 					<p class="formFieldDesc">{lang}wcf.contest.priceExpireSeconds.description{/lang}</p>
 				</div>
 				<script type="text/javascript">
-					//<![CDATA[
+			
+	{if $additionalFields1|isset}{@$additionalFields1}{/if}		//<![CDATA[
 					onloadEvents.push(function() {
 					{if $enablePricechoice}enableOptions('priceExpireSeconds');{else}disableOptions('priceExpireSeconds');{/if}
 					});
@@ -180,6 +182,7 @@
 		</div>
 	</div>
 	
+	{if $additionalFields2|isset}{@$additionalFields2}{/if}
 	<div class="formElement{if $errorField == 'state'} formError{/if}">
 		<div class="formFieldLabel">
 			<label>{lang}wcf.contest.state{/lang}</label>
@@ -203,6 +206,7 @@
 		</div>
 	</div>
 	
+	{if $additionalFields3|isset}{@$additionalFields3}{/if}
 	<div class="formGroup" id="stateScheduled">
 		<div class="formGroupLabel">
 			<label>{lang}wcf.search.period{/lang}</label>
@@ -276,7 +280,7 @@
 					<div class="floatedElement noFullDay">
 						<label for="untilHour">{lang}wcf.global.date.hour{/lang}</label>
 						{htmlOptions options=$hourOptions selected=$eventDate->untilHour id=untilHour name=untilHour} :
-					</div>
+					</additionalFields1div>
 				
 					<div class="floatedElement noFullDay">
 						<label for="untilHour">{lang}wcf.global.date.minutes{/lang}</label>
@@ -297,9 +301,9 @@
 			</fieldset>
 		</div>
 	</div>
-</fieldset>
 
-{if $additionalFields1|isset}{@$additionalFields1}{/if}
+	{if $additionalFields4|isset}{@$additionalFields4}{/if}
+</fieldset>
 
 <div class="formSubmit">
 	<input type="submit" name="back" accesskey="b" value="{lang}wcf.global.button.back{/lang}" tabindex="{counter name='tabindex'}" onclick="return steppedTabMenu.back()" />
