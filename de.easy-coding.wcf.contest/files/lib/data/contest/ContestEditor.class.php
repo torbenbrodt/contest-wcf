@@ -438,7 +438,7 @@ class ContestEditor extends Contest {
 
 		return ContestState::translateArray($arr);
 	}
-	
+
 	/**
 	 * when winners are not allowed to take the prices on their own, this is done automatically
 	 */
@@ -453,13 +453,13 @@ class ContestEditor extends Contest {
 			}
 			$solutionIDs[] = $solution->solutionID;
 		}
-		
+
 		require_once(WCF_DIR.'lib/data/contest/price/ContestPriceList.class.php');
 		$priceList = new ContestPriceList();
 		$priceList->sqlConditions .= 'contest_price.state = "accepted" AND contest_price.contestID = '.intval($this->contestID);
 		$priceList->sqlLimit = count($solutionIDs);
 		$priceList->readObjects();
-		
+
 		$i = 0;
 		foreach($priceList->getObjects() as $price) {
 			$price->getEditor()->pick($solutionIDs[$i], $i + 1);
@@ -497,23 +497,26 @@ class ContestEditor extends Contest {
 		if($lastPick == 0) {
 			$timestamp = $firstPick;
 		}
-		
+
 		// there was a picked price, so use the last timestamp
 		else {
 			$timestamp = $lastPick;
 		}
 
 		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
-			if($solution->hasPrice()) {
+			// contest already has price?
+			// pick time has passed since the winner did not choose a price in time
+			if($solution->hasPrice() || ($solution->pickTime && $solution->pickTime < TIME_NOW)) {
 				continue;
 			}
 
 			// no change, skip database update
 			$save = $this->priceExpireSeconds == 0 ? 0 : $timestamp;
-			
+
 			// user will have xx hours from now on
 			$timestamp += $this->priceExpireSeconds;
 
+			// no database update needed
 			if($solution->pickTime == $save) {
 				continue;
 			}
@@ -548,7 +551,7 @@ class ContestEditor extends Contest {
 		// if state is changed to closed, then update timestamps, when winners have to pick prices
 		if($state == 'closed') {
 			$this->updatePickTimes();
-			
+
 			// winners cannot choose prices on their own, so give prices now
 			if(!$this->enablePricechoice) {
 				$this->updatePricechoices();
