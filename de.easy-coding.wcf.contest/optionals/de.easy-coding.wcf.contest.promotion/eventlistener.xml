@@ -2,11 +2,19 @@
 <!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/eventListeners.dtd">
 <data>	
 	<import>
+		<!-- show notification -->
 		<eventlistener>
 			<eventclassname>AbstractPage</eventclassname>
 			<eventname>assignVariables</eventname>
 			<inherit>1</inherit>
 			<listenerclassfile>lib/system/event/listener/ContestPromoListener.class.php</listenerclassfile>
+		</eventlistener>
+		
+		<!-- show button to contest owner -->
+		<eventlistener>
+			<eventclassname>ContestPage</eventclassname>
+			<eventname>assignVariables</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestPagePromoListener.class.php</listenerclassfile>
 		</eventlistener>
 	</import>
 </data>

@@ -3,5 +3,8 @@
 	<category name="wcf.contest.promotion">
 		<item name="wcf.contest.promotion.yes"><![CDATA[Ja]]></item>
 		<item name="wcf.contest.promotion.no"><![CDATA[Nein]]></item>
+		<item name="wcf.contest.promotion"><![CDATA[Promotion]]></item>
+		<item name="wcf.contest.promotion.description"><![CDATA[Promotion]]></item>
+		<item name="wcf.contest.promotion.message"><![CDATA[Nachricht]]></item>
 	</category>
 </language>

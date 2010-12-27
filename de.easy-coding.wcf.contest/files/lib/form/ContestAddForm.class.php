@@ -172,12 +172,12 @@ class ContestAddForm extends MessageForm {
 		$this->enableOpenSolution = intval(isset($_POST['enableOpenSolution']));
 		$this->enableParticipantCheck = intval(isset($_POST['enableParticipantCheck']));
 		$this->enablePricechoice = intval(isset($_POST['enablePricechoice']));
-		$this->priceExpireSeconds = intval($_POST['priceExpireSeconds']);
 		$this->enableSponsorCheck = intval(isset($_POST['enableSponsorCheck']));
 		
 		if (isset($_POST['preview']))		$this->preview		= (boolean) $_POST['preview'];
 		if (isset($_POST['send']))		$this->send		= (boolean) $_POST['send'];
-
+		
+		if (isset($_POST['priceExpireSeconds'])) $this->priceExpireSeconds = intval($_POST['priceExpireSeconds']);
 		if (isset($_POST['tags'])) $this->tags = StringUtil::trim($_POST['tags']);
 		if (isset($_POST['send'])) $this->send = (boolean) $_POST['send'];
 		if (isset($_POST['classIDArray']) && is_array($_POST['classIDArray'])) $this->classIDArray = $_POST['classIDArray'];

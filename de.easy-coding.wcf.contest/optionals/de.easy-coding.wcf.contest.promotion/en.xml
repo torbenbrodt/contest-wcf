@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="en">
 	<category name="wcf.contest.promotion">
-		<item name="wcf.contest.promotion.yes"><![CDATA[Ja]]></item>
-		<item name="wcf.contest.promotion.no"><![CDATA[Nein]]></item>
+		<item name="wcf.contest.promotion.yes"><![CDATA[Yes]]></item>
+		<item name="wcf.contest.promotion.no"><![CDATA[No]]></item>
+		<item name="wcf.contest.promotion"><![CDATA[Promotion]]></item>
+		<item name="wcf.contest.promotion.description"><![CDATA[Promotion]]></item>
+		<item name="wcf.contest.promotion.message"><![CDATA[Message]]></item>
 	</category>
 </language>
