@@ -34,6 +34,7 @@
 	<instructions type="update" fromversion="0.9.2 RC 1">
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<eventlistener>eventlistener.xml</eventlistener>
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>

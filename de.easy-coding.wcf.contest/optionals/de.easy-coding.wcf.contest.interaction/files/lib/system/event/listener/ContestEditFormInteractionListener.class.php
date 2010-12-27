@@ -35,14 +35,17 @@ class ContestEditFormInteractionListener implements EventListener {
 	 *
 	 */
 	public function readData() {
-		if(count($_POST)) {
+		if(count($_POST) == 0) {
 			$this->enableInteraction = $this->eventObj->entry->enableInteraction;
 		}
 		
 		if($this->enableInteraction) {
 			require_once(WCF_DIR.'lib/data/contest/interaction/ruleset/ContestInteractionRulesetList.class.php');
 			$this->rulesetList = new ContestInteractionRulesetList();
+			$this->rulesetList->sqlSelects .= 'contest_interaction.*';
 			$this->rulesetList->sqlConditions .= ' contestID = '.intval($this->eventObj->entry->contestID);
+			$this->rulesetList->sqlJoins .= " INNER JOIN wcf".WCF_N."_contest_interaction contest_interaction
+				ON contest_interaction.rulesetID = contest_interaction_ruleset.rulesetID ";
 			$this->rulesetList->readObjects();
 		}
 	}
