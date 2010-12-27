@@ -27,5 +27,8 @@ ContestTabMenu.prototype = Object.extend(new TabMenu(), {
 			prev = li;
 		}, this);
 		return false;
+	},
+	isActive: function() {
+		return this.activeTabMenuItem != '';
 	}
 });

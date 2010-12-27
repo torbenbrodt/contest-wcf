@@ -16,7 +16,9 @@
 		onsubmitEvents = [];
 		var steppedTabMenu = new ContestTabMenu();
 		onloadEvents.push(function() {
-			steppedTabMenu.showSubTabMenu('step1');
+			if(steppedTabMenu.isActive() == false) {
+				steppedTabMenu.showSubTabMenu('step1');
+			}
 			
 			document.getElementById('ContestAddForm').onsubmit = function() {
 				for(var i=0; i<onsubmitEvents.length; i++) {

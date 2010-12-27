@@ -516,13 +516,10 @@ class ContestEditor extends Contest {
 			// user will have xx hours from now on
 			$timestamp += $this->priceExpireSeconds;
 
-			// no database update needed
-			if($solution->pickTime == $save) {
-				continue;
+			// database update, if needed
+			if($solution->pickTime != $save) {
+				$solution->getEditor()->updatePickTime($save);
 			}
-
-			// database update
-			$solution->getEditor()->updatePickTime($save);
 		}
 
 		// TODO: send event to the next winner
