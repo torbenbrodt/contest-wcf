@@ -20,7 +20,7 @@ function ContestListRender(list) {
 	this.renderDefinition = {
 		thumbnailView: {
 			className: 'class="dataList thumbnailView floatContainer">',
-			style: '<li class="floatedElement smallFont">'+
+			style: '<li class="floatedElement smallFont"{$buttonstyle}>'+
 				'<a href="{$url}" title="{$title}">'+
 					'<span class="thumbnail" style="width: 40px;">'+
 						'<img src="{$img}" style="width: 40px; height: 48px" alt="">'+
@@ -52,14 +52,13 @@ function ContestListRender(list) {
 		var elements = this.list.getElementsByTagName('li');
 		for(var i=0; i<elements.length; i++) {
 			var link = function(e) {
-				var e = e.getElementsByTagName('p');
+				e = e.getElementsByTagName('p');
 				for(var i=0; i<e.length; i++) {
 					return e[i].getElementsByTagName('a')[0];
 				}
 			}(elements[i]);
 			var buttons = function(e) {
-				var html = '', hasButtons = false;
-				var e = e.getElementsByTagName('div');
+				var html = '', hasButtons = false, e = e.getElementsByTagName('div');
 				for(var i=0; i<e.length; i++) {
 					if(e[i].className == 'buttons') {
 						hasButtons = true;
@@ -68,7 +67,22 @@ function ContestListRender(list) {
 						html += e[i].innerHTML;
 					}
 				}
-				return hasButtons ? html : '';
+				return hasButtons ? '<div style="padding:0px 25px">' + html + '</div>' : '';
+			}(elements[i]);
+			var buttonstyle = function(e) {
+				var html = '', hasButtons = false, e = e.getElementsByTagName('div'), x;
+				for(var i=0; i<e.length; i++) {
+					if(e[i].className == 'buttons') {
+						hasButtons = true;
+					}
+					if(e[i].style && e[i].style.cssFloat == 'right') {
+						x = e[i].getElementsByTagName('div');
+						if(x.length > 0 && x[0].style.backgroundColor) {
+							html += 'background-color:' + x[0].style.backgroundColor + ';';
+						}
+					}
+				}
+				return hasButtons ? ' style="margin:5px; padding:5px;' + html + '"' : '';
 			}(elements[i]);
 
 			this.data[i] = {
@@ -76,6 +90,7 @@ function ContestListRender(list) {
 				url: link ? link.href : null,
 				username: link ? link.innerHTML : null,
 				buttons: buttons,
+				buttonstyle: buttonstyle,
 			};
 		}
 	};
