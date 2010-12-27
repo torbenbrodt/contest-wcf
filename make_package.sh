@@ -107,6 +107,8 @@ fi
 # package optionals
 if [ -d "optionals" ]; then
 	cd optionals
+	mkdir -p /tmp/${TITLE}/optionalsbackup
+	cp *.tar.gz /tmp/${TITLE}/optionalsbackup
 	dirs=`find . -mindepth 1 -maxdepth 1 -type d | grep -v .svn`
 	cd ..
 
@@ -218,6 +220,7 @@ if [ -f "pip.tar" ]; then
 fi
 if [ -d "optionals" ]; then
 	rm -f optionals/*.tar.gz
+	mv /tmp/${TITLE}/optionalsbackup/*.tar.gz optionals
 fi
 if [ -d "requirements" ]; then
 	rm -f requirements/*.tar.gz

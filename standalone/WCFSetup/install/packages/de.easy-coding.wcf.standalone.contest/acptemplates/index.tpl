@@ -163,7 +163,7 @@
 			</div>
 			<div class="formElement">
 				<p class="formFieldLabel">{lang}contest.acp.index.system.php{/lang}</p>
-				<p class="formField"><a href="index.php?page=PHPInfo&amp;packageID={@PACKAGE_ID}{@SID_ARG_2ND}">{PHP_VERSION}</a></p>
+				<p class="formField">{PHP_VERSION}</p>
 			</div>
 			<div class="formElement">
 				<p class="formFieldLabel">{lang}contest.acp.index.system.sql.type{/lang}</p>
