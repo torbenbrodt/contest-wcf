@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS wcf1_contest_interaction_ruleset (
   rulesetTable varchar(64) NOT NULL DEFAULT '',
   rulesetColumn varchar(64) NOT NULL DEFAULT '',
   rulesetColumnTime varchar(64) NOT NULL DEFAULT '',
-  rulesetFactor int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (rulesetID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -18,6 +17,7 @@ CREATE TABLE IF NOT EXISTS wcf1_contest_interaction (
   contestID int(10) unsigned NOT NULL DEFAULT '0',
   fromTime INT(10) NOT NULL DEFAULT 0,
   untilTime INT(10) NOT NULL DEFAULT 0,
+  rulesetFactor int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (interactionID),
   INDEX contestID (contestID)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

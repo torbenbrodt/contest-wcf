@@ -25,6 +25,12 @@
 		<eventlistener>eventlistener.xml</eventlistener>
 		<templates>templates.tar</templates>
 		<sql>install.sql</sql>
+		<acptemplates>acptemplates.tar</acptemplates>
+		<acpmenu>acpmenu.xml</acpmenu>
+		
+		<!-- config -->
+		<eventlistener>eventlistener.xml</eventlistener>
+		<acpmenu>acpmenu.xml</acpmenu>
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
@@ -34,6 +40,9 @@
 	<instructions type="update" fromversion="0.9.2 RC 1">
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
+		<acptemplates>acptemplates.tar</acptemplates>
+		<acpmenu>acpmenu.xml</acpmenu>
+		<sql>update.sql</sql>
 		<eventlistener>eventlistener.xml</eventlistener>
 
 		<!-- languages -->

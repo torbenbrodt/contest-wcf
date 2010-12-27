@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data SYSTEM "http://www.woltlab.com/DTDs/acpMenu.dtd">
+<data>
+	<import>
+		<acpmenuitem name="wcf.acp.menu.link.contest.interaction">
+			<parent>wcf.acp.menu.link.contest</parent>
+			<showorder>11</showorder>
+			<link>index.php?page=ContestInteractionList</link>
+			<icon>icon/contestInteractionM.png</icon>
+		</acpmenuitem>
+	</import>
+</data>
