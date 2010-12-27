@@ -73,7 +73,7 @@
 											<div class="smallButtons">
 												{if $priceObj->isPickable() || $additionalSmallButtons.$priceID|isset}
 													<ul>
-														{if $priceObj->isPickable()<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
+														{if $priceObj->isPickable()}<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
 														{if $additionalSmallButtons.$priceID|isset}{@$additionalSmallButtons.$priceID}{/if}
 													</ul>
 												{/if}
