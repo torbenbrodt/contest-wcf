@@ -39,9 +39,6 @@ class ContestSolutionEditor extends ContestSolution {
 					".(isset($options['enableBBCodes']) ? $options['enableBBCodes'] : 0).")";
 		WCF::getDB()->sendQuery($sql);
 
-		// get number of attachments
-		$attachmentsAmount = ($attachmentList !== null ? count($attachmentList->getAttachments()) : 0);
-
 		// get id
 		$solutionID = WCF::getDB()->getInsertID("wcf".WCF_N."_contest_solution", 'solutionID');
 

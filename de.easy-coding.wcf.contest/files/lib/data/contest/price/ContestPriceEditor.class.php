@@ -17,24 +17,32 @@ class ContestPriceEditor extends ContestPrice {
 	/**
 	 * Creates a new price.
 	 *
-	 * @param	integer		$contestID
-	 * @param	integer		$sponsorID
-	 * @param	string		$subject
-	 * @param	string		$message
-	 * @param	integer		$position	if zero, position will automatically be determined
-	 * @param	integer		$time
+	 * @param	integer				$contestID
+	 * @param	integer				$sponsorID
+	 * @param	string				$subject
+	 * @param	string				$message
+	 * @param	string				$secretMessage
+	 * @param	MessageAttachmentListEditor	$attachmentList
+	 * @param	integer				$position	if zero, position will automatically be determined
 	 * @return	ContestPriceEditor
 	 */
-	public static function create($contestID, $sponsorID, $subject, $message, $position = 0, $time = TIME_NOW) {
+	public static function create($contestID, $sponsorID, $subject, $message, $secretMessage, $attachmentList = null, $position = 0) {
 		if($position === 0) {
 			// check maximum position
 			$position = self::getMaxPosition($contestID) + 1;
 		}
+
+		// get number of attachments
+		$attachments = $attachmentList !== null ? $attachmentList->getAttachments() : array();
+		$attachmentsAmount = count($attachments);
+		$tmp = array_keys($attachments);
+		$attachmentID = count($tmp) ? $attachments[ $tmp[0] ]->attachmentID : 0;
 		
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_price
-					(contestID, sponsorID, subject, message, time, position)
+					(contestID, sponsorID, subject, message, secretMessage, time, position, attachments, attachmentID)
 			VALUES		(".intval($contestID).", ".intval($sponsorID).", '".escapeString($subject)."', 
-					'".escapeString($message)."', ".intval($time).", ".intval($position).")";
+					'".escapeString($message)."', '".escapeString($secretMessage)."', 
+					".TIME_NOW.", ".intval($position).", ".$attachmentsAmount.", ".intval($attachmentID).")";
 		WCF::getDB()->sendQuery($sql);
 		
 		// get new id
@@ -55,23 +63,45 @@ class ContestPriceEditor extends ContestPrice {
 			'owner' => $sponsor->getOwner()->getName()
 		));
 
+		// update attachments
+		if ($attachmentList !== null) {
+			$attachmentList->updateContainerID($priceID);
+			$attachmentList->findEmbeddedAttachments($message);
+		}
+
 		return new ContestPriceEditor($priceID);
 	}
 	
 	/**
 	 * Updates this price.
 	 *
-	 * @param	string		$subject
-	 * @param	string		$message
-	 * @param	string		$state
+	 * @param	string				$subject
+	 * @param	string				$message
+	 * @param	string				$secretMessage
+	 * @param	string				$state
+	 * @param	MessageAttachmentListEditor	$attachmentList
 	 */
-	public function update($subject, $message, $state) {
+	public function update($subject, $message, $secretMessage, $state, $attachmentList = null) {
+		// get number of attachments
+		$attachments = $attachmentList !== null ? $attachmentList->getAttachments($this->priceID) : array();
+		$attachmentsAmount = count($attachments);
+		$tmp = array_keys($attachments);
+		$attachmentID = count($tmp) ? $attachments[ $tmp[0] ]->attachmentID : 0;
+
 		$sql = "UPDATE	wcf".WCF_N."_contest_price
 			SET	subject = '".escapeString($subject)."',
 				message = '".escapeString($message)."',
-				state = '".escapeString($state)."'
+				secretMessage = '".escapeString($secretMessage)."',
+				state = '".escapeString($state)."',
+				attachments = ".$attachmentsAmount.",
+				attachmentID = ".intval($attachmentID)."
 			WHERE	priceID = ".intval($this->priceID);
 		WCF::getDB()->sendQuery($sql);
+
+		// update attachments
+		if ($attachmentList != null) {
+			$attachmentList->findEmbeddedAttachments($message);
+		}
 	}
 	
 	/**

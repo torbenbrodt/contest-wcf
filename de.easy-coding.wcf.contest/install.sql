@@ -182,9 +182,12 @@ CREATE TABLE wcf1_contest_price (
 	solutionID INT(10) NOT NULL DEFAULT 0, -- winner
 	subject VARCHAR(255) NOT NULL DEFAULT '',
 	message TEXT NULL,
+	secretMessage TEXT NULL,
 	time INT(10) NOT NULL DEFAULT 0,
 	state ENUM('applied', 'accepted', 'declined', 'sent', 'received') NOT NULL DEFAULT 'applied',
 	position SMALLINT(5) NOT NULL DEFAULT 0,
+	attachmentID INT(10) NOT NULL DEFAULT 0,
+	attachments SMALLINT(5) NOT NULL DEFAULT 0,
 	KEY (contestID),
 	KEY (solutionID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

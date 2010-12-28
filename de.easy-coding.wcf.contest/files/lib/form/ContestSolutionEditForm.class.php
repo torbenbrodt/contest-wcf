@@ -61,7 +61,7 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->entry->contestID.'&solutionID='.$this->entry->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->entry->solutionID);
 		exit;
 	}
-	
+
 	/**
 	 * @see Page::readData()
 	 */
@@ -102,7 +102,7 @@ class ContestSolutionEditForm extends ContestSolutionAddForm {
 	 */
 	public function show() {
 		require_once(WCF_DIR.'lib/data/attachment/MessageAttachmentListEditor.class.php');
-		$this->attachmentListEditor = new MessageAttachmentListEditor(array($this->solutionID), 'contestSolutionEntry', WCF::getPackageID('de.easy-coding.wcf.contest'), WCF::getUser()->getPermission('user.blog.maxAttachmentSize'), WCF::getUser()->getPermission('user.contest.allowedAttachmentExtensions'), WCF::getUser()->getPermission('user.contest.maxAttachmentCount'));
+		$this->attachmentListEditor = new MessageAttachmentListEditor(array($this->solutionID), 'contestSolutionEntry', WCF::getPackageID('de.easy-coding.wcf.contest'), WCF::getUser()->getPermission('user.contest.maxAttachmentSize'), WCF::getUser()->getPermission('user.contest.allowedAttachmentExtensions'), WCF::getUser()->getPermission('user.contest.maxAttachmentCount'));
 		
 		parent::show();
 	}

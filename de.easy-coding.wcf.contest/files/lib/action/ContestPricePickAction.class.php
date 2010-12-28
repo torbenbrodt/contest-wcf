@@ -77,7 +77,12 @@ class ContestPricePickAction extends AbstractSecureAction {
 		$this->executed();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestPrice&contestID='.$this->price->contestID.SID_ARG_2ND_NOT_ENCODED);
+		HeaderUtil::redirect('index.php?page=ContestPrice'.
+			'&contestID='.$this->price->contestID.
+			'&success=pick'.
+			'#priceObj'.$this->price->priceID.
+			SID_ARG_2ND_NOT_ENCODED
+		);
 		exit;
 	}
 }

@@ -162,10 +162,10 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			require_once(WCF_DIR.'lib/data/attachment/MessageAttachmentList.class.php');
 			$this->attachmentList = new MessageAttachmentList($this->solutionObj->solutionID, 'contestSolutionEntry', '', WCF::getPackageID('de.easy-coding.wcf.contest'));
 			$this->attachmentList->readObjects();
-			$this->attachments = $this->attachmentList->getSortedAttachments(WCF::getUser()->getPermission('user.blog.canViewAttachmentPreview'));
+			$this->attachments = $this->attachmentList->getSortedAttachments(WCF::getUser()->getPermission('user.contest.canViewAttachmentPreview'));
 			
 			// set embedded attachments
-			if (WCF::getUser()->getPermission('user.blog.canViewAttachmentPreview')) {
+			if (WCF::getUser()->getPermission('user.contest.canViewAttachmentPreview')) {
 				require_once(WCF_DIR.'lib/data/message/bbcode/AttachmentBBCode.class.php');
 				AttachmentBBCode::setAttachments($this->attachments);
 			}

@@ -27,6 +27,13 @@ class ContestPricePage extends MultipleLinkPage {
 	public $contestID = 0;
 	
 	/**
+	 * success action
+	 *
+	 * @var	string
+	 */
+	public $success = '';
+	
+	/**
 	 * is sponsor?
 	 * 
 	 * @var	boolean
@@ -87,6 +94,9 @@ class ContestPricePage extends MultipleLinkPage {
 	public function readParameters() {
 		parent::readParameters();
 		
+		// any success action?
+		if (isset($_REQUEST['success'])) $this->success = $_REQUEST['success'];
+		
 		// get entry
 		if (isset($_REQUEST['contestID'])) $this->contestID = intval($_REQUEST['contestID']);
 		$this->entry = new ViewableContest($this->contestID);
@@ -134,6 +144,11 @@ class ContestPricePage extends MultipleLinkPage {
 	public function assignVariables() {
 		parent::assignVariables();
 		
+		if($this->success) {
+			$l = 'wcf.contest.price.'.StringUtil::encodeHTML($this->success).'.success';
+			WCF::getTPL()->append('userMessages', '<p class="success">'.WCF::getLanguage()->get($l).'</p>');
+		}
+		
 		// display branding
 		require_once(WCF_DIR.'lib/util/ContestUtil.class.php');
 		ContestUtil::assignVariablesBranding();
@@ -153,8 +168,9 @@ class ContestPricePage extends MultipleLinkPage {
 			require_once(WCF_DIR.'lib/form/ContestPriceAddForm.class.php');
 			new ContestPriceAddForm($this->entry);
 		}
-		
-		if($this->entry->enableSponsorCheck && !$this->entry->isSponsor()) {
+
+		// become sponsor
+		if($this->entry->enableSponsorCheck && !$this->entry->isSponsor() && $this->entry->isSponsorable(false)) {
 			WCF::getTPL()->append('additionalContentBecomeSponsor', 
 				'<p class="info">'.WCF::getLanguage()->get('wcf.contest.enableSponsorCheck.info').'</p>');
 		}
@@ -182,7 +198,7 @@ class ContestPricePage extends MultipleLinkPage {
 				$this->todoList = new ContestPriceTodoList();
 				$this->todoList->sqlConditions .= '
 					contest_solution.participantID IN ('.implode(',', $winners).')
-					AND contest_solution.contestID = '.$this->contestID;
+					AND contest_solution.contestID = '.intval($this->contestID);
 				$this->todoList->sqlOrderBy = 'FIND_IN_SET(contest_solution.participantID, \''.implode(',', $winners).'\')';
 				$this->todoList->sqlLimit = $this->countItems();
 				$this->todoList->readObjects();

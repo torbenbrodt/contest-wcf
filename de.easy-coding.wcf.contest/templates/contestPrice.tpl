@@ -4,7 +4,7 @@
 	{include file='headInclude' sandbox=false}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/MultiPagesLinks.class.js"></script>
 
-	{if $entry->isOwner() && $prices|count > 1}
+	{if $entry->isOwner() && $prices|count > 1 && $action != 'edit'}
 	<script type="text/javascript" src="{@RELATIVE_WCF_DIR}js/ItemListEditor.class.js"></script>
 	<script type="text/javascript"> 
 	//<![CDATA[
@@ -57,7 +57,6 @@
 							{assign var='messageNumber' value=$startIndex}
 							<ol class="itemList" id="pricePosition" style="list-style-type:none;padding:0px">
 							{foreach from=$prices item=priceObj}
-								{assign var="priceID" value=$priceObj->priceID}
 								<li id="item_{$priceObj->priceID}" class="deletable">
 								{assign var="contestID" value=$priceObj->contestID}
 								<div class="message">
@@ -71,10 +70,11 @@
 											</div>
 											<br style="clear:both"/>
 											<div class="smallButtons">
-												{if $priceObj->isPickable() || $additionalSmallButtons.$priceID|isset}
+												{assign var="tmp" value=$priceObj->priceID}
+												{if $priceObj->isPickable() || $additionalSmallButtons.$tmp|isset}
 													<ul>
 														{if $priceObj->isPickable()}<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
-														{if $additionalSmallButtons.$priceID|isset}{@$additionalSmallButtons.$priceID}{/if}
+														{if $additionalSmallButtons.$tmp|isset}{@$additionalSmallButtons.$tmp}{/if}
 													</ul>
 												{/if}
 											</div>
@@ -85,7 +85,7 @@
 									<div class="messageInner {cycle values='container-1,container-2'}">
 										<a name="priceObj{@$priceObj->priceID}"></a>
 										{if $action == 'edit' && $priceID == $priceObj->priceID}
-											<form method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
+											<form enctype="multipart/form-data" method="post" action="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit">
 												<div class="formElement{if $errorField == 'state'} formError{/if}">
 													<div class="formFieldLabel">
 														<label for="state">{lang}wcf.contest.state{/lang}</label>
@@ -114,19 +114,54 @@
 														{/if}
 													</div>
 												</div>
-												<div class="formElement{if $errorField == 'message'} formError{/if}">
+												<div class="formElement{if $errorField == 'text'} formError{/if}">
 													<div class="formFieldLabel">
-														<label for="message">{lang}wcf.contest.price.message{/lang}</label>
+														<label for="text">{lang}wcf.contest.price.message{/lang}</label>
 													</div>
 													<div class="formField">
-														<textarea name="message" id="message" rows="4" cols="40">{$message}</textarea>
-														{if $errorField == 'message'}
+														<textarea name="text" id="text" rows="4" cols="40">{$text}</textarea>
+														{if $errorField == 'text'}
 															<p class="innerError">
 																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
 															</p>
 														{/if}
 													</div>
 												</div>
+												<div class="formElement{if $errorField == 'secretMessage'} formError{/if}">
+													<div class="formFieldLabel">
+														<label for="secretMessage">{lang}wcf.contest.price.secretMessage{/lang}</label>
+													</div>
+													<div class="formField">
+														<textarea name="secretMessage" id="secretMessage" rows="4" cols="40">{$secretMessage}</textarea>
+														{if $errorField == 'secretMessage'}
+															<p class="innerError">
+																{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
+															</p>
+														{/if}
+													</div>
+												</div>
+												{if MODULE_ATTACHMENT && $showAttachments}{include file="attachmentsEdit"}
+												<script type="text/javascript"> 
+												//<![CDATA[
+												// hide wysiwyg button + ordered list
+												(function() {
+													var base = document.getElementById('attachmentsEdit');
+													var x = base.getElementsByTagName('select');
+													for(var i=0; i<x.length; i++) {
+														x[i].style.display = 'none';
+													}
+													var x = base.getElementsByTagName('div');
+													for(var i=0; i<x.length; i++) {
+														if(x[i].className == 'buttons') {
+															var y = x[i].getElementsByTagName('a');
+															for(var j=0; j<x.length; j++) {
+																y[j].style.display = 'none';
+															}
+														}
+													}
+												})();
+												//]]>
+												</script>{/if}
 												<div class="formSubmit">
 													{@SID_INPUT_TAG}
 													{@SECURITY_TOKEN_INPUT_TAG}
@@ -151,8 +186,7 @@
 													{assign var=x value=$priceObj->getWinner()->getAvatar()->setMaxSize(24, 24)}
 													<a href="{@$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}">{@$priceObj->getWinner()->getAvatar()}</a>
 													{else}
-													<a href="{@$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
-													{/if}
+													<a href="{@$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>{/if}
 												{else}
 													<img src="{@RELATIVE_WCF_DIR}images/contestAnonymous.png" alt="" style="width: 24px; height: 24px" />
 												{/if}
@@ -164,16 +198,19 @@
 											</div>
 										</div>
 										<div class="messageBody">
+											{if $priceObj->attachmentID}
+											<img style="float:right" src="index.php?page=Attachment&attachmentID={$priceObj->attachmentID}" alt="" />
+											{/if}
 											{@$priceObj->getFormattedMessage()}
-											
-											{if $additionalMessageContents.$priceID|isset}{@$additionalMessageContents.$priceID}{/if}
+											{assign var="tmp" value=$priceObj->priceID}
+											{if $additionalMessageContents.$tmp|isset}{@$additionalMessageContents.$tmp}{/if}
 										</div>
 
 										<div class="messageFooter">
 											<div class="smallButtons">
 												<ul>
 													<li class="extraButton"><a href="#top" title="{lang}wcf.global.scrollUp{/lang}"><img src="{icon}upS.png{/icon}" alt="" /> <span class="hidden">{lang}wcf.global.scrollUp{/lang}</span></a></li>
-													{if $priceObj->isEditable()}<li><a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#price{@$priceObj->priceID}" title="{lang}wcf.contest.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.edit{/lang}</span></a></li>{/if}
+													{if $priceObj->isEditable()}<li><a href="index.php?page=ContestPrice&amp;contestID={@$contestID}&amp;priceID={@$priceObj->priceID}&amp;action=edit{@SID_ARG_2ND}#priceObj{@$priceObj->priceID}" title="{lang}wcf.contest.price.edit{/lang}"><img src="{icon}editS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.edit{/lang}</span></a></li>{/if}
 													{if $priceObj->isDeletable()}<li><a href="index.php?action=ContestPriceDelete&amp;priceID={@$priceObj->priceID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" onclick="return confirm('{lang}wcf.contest.price.delete.sure{/lang}')" title="{lang}wcf.contest.price.delete{/lang}"><img src="{icon}deleteS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.delete{/lang}</span></a></li>{/if}
 												</ul>
 											</div>
@@ -189,7 +226,7 @@
 							{/foreach}
 							</ol>
 
-							{if $entry->isOwner()}
+							{if $entry->isOwner() && $prices|count > 1 && $action != 'edit'}
 							<div class="formSubmit">
 								{@SID_INPUT_TAG}
 								{@SECURITY_TOKEN_INPUT_TAG}
@@ -265,22 +302,21 @@
 											</div>
 										</div>
 
-										<div class="formElement{if $errorField == 'message' && $action == 'add'} formError{/if}">
+										<div class="formElement{if $errorField == 'text' && $action == 'add'} formError{/if}">
 											<div class="formFieldLabel">
-												<label for="message">{lang}wcf.contest.price.message{/lang}</label>
+												<label for="text">{lang}wcf.contest.price.message{/lang}</label>
 											</div>
 											<div class="formField">
-												<textarea name="message" id="message" rows="5" cols="40">{$message}</textarea>
-												{if $errorField == 'message' && $action == 'add'}
+												<textarea name="text" id="text" rows="5" cols="40" tabindex="{counter name='tabindex'}">{$text}</textarea>
+												{if $errorField == 'text'}
 													<p class="innerError">
 														{if $errorType == 'empty'}{lang}wcf.global.error.empty{/lang}{/if}
-														{if $errorType == 'tooLong'}{lang}wcf.contest.price.error.tooLong{/lang}{/if}
+														{if $errorType == 'tooLong'}{lang}wcf.message.error.tooLong{/lang}{/if}
 													</p>
 												{/if}
 											</div>
 										</div>
 									</fieldset>
-
 									<div class="formSubmit">
 										{@SID_INPUT_TAG}
 										{@SECURITY_TOKEN_INPUT_TAG}
