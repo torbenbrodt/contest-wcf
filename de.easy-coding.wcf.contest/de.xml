@@ -183,6 +183,11 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.price.closed.info"><![CDATA[Die Preise werden erst verschickt, nachdem alle Lösungen von allen Jury Mitgliedern geprüft wurden und die glücklichen Gewinner fest stehen.]]></item>
 		<item name="wcf.contest.price.pick.info"><![CDATA[Nach Beendigung des Wettbewerbe dürfen sich die Gewinner der Reihe nach die Preise aussuchen.]]></item>
 		<item name="wcf.contest.price.pick.success"><![CDATA[Sie haben einen Preis gewählt. Herzlichen Glückwunsch!]]></item>
+		
+		<item name="wcf.contest.price.congratulations"><![CDATA[Der Preis wurde gewählt, herzlichen Glückwunsch.]]></item>
+		<item name="wcf.contest.price.congratulations.next"><![CDATA[Der Preis kann voraussichtlich gewählt werden ab: {@$solutionObj->pickTime|time}]]></item>
+		<item name="wcf.contest.price.congratulations.now"><![CDATA[Herzlichen Glückwunsch, Sie können Sich jetzt einen Preis aussuchen.]]></item>
+		<item name="wcf.contest.price.congratulations.future"><![CDATA[Herzlichen Glückwunsch, Sie haben gewonnen und können sich in Kürze einen Preis aussuchen.]]></item>
 		<item name="wcf.contest.enableSolution"><![CDATA[Wird der Wettbewerb mit Einsendung von Lösungen ausgetragen?]]></item>
 		<item name="wcf.contest.enableOpenSolution"><![CDATA[Alle Lösungen sind direkt nach Fertigstellung öffentlich einsehbar.]]></item>
 		<item name="wcf.contest.enableOpenSolution.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>

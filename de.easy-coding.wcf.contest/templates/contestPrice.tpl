@@ -36,9 +36,9 @@
 					<div class="columnInner">
 						{if $isWinner && !$didPick}
 							{if $solution}
-{* TODO: translation *}						<p class="info">Herzlichen Glückwunsch, Sie können Sich jetzt einen Preis aussuchen.</p>
+								<p class="info">{lang}wcf.contest.price.congratulations.now{/lang}</p>
 							{else}
-{* TODO: translation *}						<p class="info">Herzlichen Glückwunsch, Sie haben gewonnen und können sich in Kürze einen Preis aussuchen.</p>
+								<p class="info">{lang}wcf.contest.price.congratulations.future{/lang}</p>
 							{/if}
 						{/if}
 					

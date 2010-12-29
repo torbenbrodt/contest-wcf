@@ -140,12 +140,17 @@ class ContestInteraction {
 			if(!$owner) {
 				throw new Exception('there are more prices than participants.');
 			}
+			
+			$lang = 'wcf.contest.interaction.tickets.solution';
+			$message = WCF::getLanguage()->getDynamicVariable($lang, array(
+				'$tickets' => $owner->c
+			));
 
 			// create pseudo solution
 			$solution = ContestSolutionEditor::create(
 				$this->contest->contestID,
 				$owner->participantID,
-				$message = 'Der Teilnehmer hat mit insgesamt '.$owner->c.' Losen am Gewinnspiel teilgenommen.', /* TODO: translation */
+				$message,
 				$state = 'accepted'
 			);
 			
