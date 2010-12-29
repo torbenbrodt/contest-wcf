@@ -73,7 +73,7 @@
 												{assign var="tmp" value=$priceObj->priceID}
 												{if $priceObj->isPickable() || $additionalSmallButtons.$tmp|isset}
 													<ul>
-														{if $priceObj->isPickable()}<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
+														{if $priceObj->isPickable() && $solution}<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
 														{if $additionalSmallButtons.$tmp|isset}{@$additionalSmallButtons.$tmp}{/if}
 													</ul>
 												{/if}
@@ -198,9 +198,14 @@
 											</div>
 										</div>
 										<div class="messageBody">
-											{if $priceObj->attachmentID}
-											<img style="float:right" src="index.php?page=Attachment&attachmentID={$priceObj->attachmentID}" alt="" />
-											{/if}
+											<div style="float:right; padding:0px 0px 10px 10px;">
+												{if $priceObj->attachmentID}
+												<img src="index.php?page=Attachment&attachmentID={$priceObj->attachmentID}" alt="" />
+												{else}
+												{assign var=x value=$priceObj->getOwner()->getAvatar()->setMaxSize(96, 96)}
+												{@$priceObj->getOwner()->getAvatar()}
+												{/if}
+											</div>
 											{@$priceObj->getFormattedMessage()}
 											{assign var="tmp" value=$priceObj->priceID}
 											{if $additionalMessageContents.$tmp|isset}{@$additionalMessageContents.$tmp}{/if}
