@@ -34,6 +34,7 @@ class ContestSolution extends DatabaseObject {
 	public function __construct($solutionID, $row = null) {
 		if ($solutionID !== null) {
 			$sql = "SELECT		contest_solution.*,
+						contest_price.priceID,
 						contest_participant.userID, 
 						contest_participant.groupID
 				FROM 		wcf".WCF_N."_contest_solution contest_solution

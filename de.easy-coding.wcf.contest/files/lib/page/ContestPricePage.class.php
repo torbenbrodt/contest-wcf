@@ -182,7 +182,7 @@ class ContestPricePage extends MultipleLinkPage {
 			// need winners
 			require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionList.class.php');
 			$solutionList = new ContestSolutionList();
-			$solutionList->sqlConditions .= 'contest_solution.contestID = '.$this->contestID;
+			$solutionList->sqlConditions .= 'contest_solution.contestID = '.intval($this->contestID);
 			$solutionList->sqlLimit = $this->countItems();
 			$solutionList->readObjects();
 

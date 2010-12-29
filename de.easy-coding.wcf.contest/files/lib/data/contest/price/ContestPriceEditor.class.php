@@ -116,6 +116,26 @@ class ContestPriceEditor extends ContestPrice {
 			WHERE	priceID = ".intval($this->priceID);
 		WCF::getDB()->sendQuery($sql);
 
+		// update pick times
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
+		$solution = new ContestSolutionEditor($solutionID);
+		$solution->updatePickTime(TIME_NOW);
+
+		// update price expirations, next winner may only have 24 hours from now on
+		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
+		$contest = new ContestEditor($this->contestID);
+		$contest->updatePickTimes();
+		
+		// TODO: send secretMessage to winner
+		if(false && $this->secretMessage) {
+			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+			$owner = $this->getOwner();
+			ContestEventEditor::create($this->contestID, $owner->userID, $owner->groupID, 'ContestPriceSecretMessage', array(
+				'priceID' => $this->priceID,
+				'owner' => $owner->getName()
+			));
+		}
+
 		// TODO: pricepick: send event to sponsor
 		if(false) {
 			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
@@ -125,15 +145,6 @@ class ContestPriceEditor extends ContestPrice {
 				'owner' => $owner->getName()
 			));
 		}
-
-		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolutionEditor.class.php');
-		$solution = new ContestSolutionEditor($solutionID);
-		$solution->updatePickTime(TIME_NOW);
-
-		// update price expirations, next winner may only have 24 hours from now on
-		require_once(WCF_DIR.'lib/data/contest/ContestEditor.class.php');
-		$contest = new ContestEditor($this->contestID);
-		$contest->updatePickTimes();
 	}
 	
 	/**

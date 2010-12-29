@@ -33,6 +33,7 @@ class ViewableContestSolution extends ContestSolution {
 		
 			$sql = "SELECT		avatar_table.*, 
 						contest_solution.*,
+						contest_price.priceID,
 						contest_participant.userID,
 						contest_participant.groupID,
 						user_table.username, 
