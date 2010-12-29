@@ -47,9 +47,18 @@ class ContestSolutionCommentEditForm extends ContestSolutionCommentAddForm {
 		// save solution
 		$this->entry->update($this->comment);
 		$this->saved();
-		
+
+		// get solution/contest
+		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
+		$solution = new ContestSolution($this->entry->solutionID);
+
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->entry->contestID.'&solutionID='.$this->entry->solutionID.'&solutionID='.$this->entry->solutionID.SID_ARG_2ND_NOT_ENCODED.'#solution'.$this->entry->solutionID);
+		HeaderUtil::redirect('index.php?page=ContestSolutionEntry'.
+			'&contestID='.$solution->contestID.
+			'&solutionID='.$solution->solutionID.
+			SID_ARG_2ND_NOT_ENCODED.
+			'#comment'.$this->entry->commentID
+		);
 		exit;
 	}
 	

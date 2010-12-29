@@ -110,7 +110,12 @@ class ContestSolutionCommentAddForm extends CaptchaForm {
 		$this->saved();
 		
 		// forward
-		HeaderUtil::redirect('index.php?page=ContestSolutionEntry&contestID='.$this->solutionObj->contestID.'&solutionID='.$this->solutionObj->solutionID.'&commentID='.$comment->commentID.SID_ARG_2ND_NOT_ENCODED.'#comment'.$comment->commentID);
+		HeaderUtil::redirect('index.php?page=ContestSolutionEntry'.
+			'&contestID='.$this->solutionObj->contestID.
+			'&solutionID='.$this->solutionObj->solutionID.
+			SID_ARG_2ND_NOT_ENCODED.
+			'#comment'.$comment->commentID
+		);
 		exit;
 	}
 	
