@@ -138,7 +138,7 @@ class ContestSponsortalkPage extends MultipleLinkPage {
 			'userID' => $this->entry->userID,
 			'sponsortalks' => $this->sponsortalkList->getObjects(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

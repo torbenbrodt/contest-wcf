@@ -78,7 +78,7 @@ class ContestJuryPage extends AbstractPage {
 			'entry' => $this->entry,
 			'contestID' => $this->contestID,
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

@@ -243,7 +243,7 @@ class ContestSolutionAddForm extends MessageForm {
 			'contestID' => $this->contestID,
 			'userID' => $this->contest->userID,
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

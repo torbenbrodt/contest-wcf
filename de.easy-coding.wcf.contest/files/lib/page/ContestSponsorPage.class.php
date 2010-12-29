@@ -172,7 +172,7 @@ class ContestSponsorPage extends MultipleLinkPage {
 			'sponsors' => $this->sponsorList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 
 			'contestmenu' => ContestMenu::getInstance(),
 		));

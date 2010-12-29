@@ -152,7 +152,7 @@ class ContestParticipantPage extends MultipleLinkPage {
 			'participants' => $this->participantList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

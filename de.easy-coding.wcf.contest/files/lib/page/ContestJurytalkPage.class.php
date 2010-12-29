@@ -138,7 +138,7 @@ class ContestJurytalkPage extends MultipleLinkPage {
 			'userID' => $this->entry->userID,
 			'jurytalks' => $this->jurytalkList->getObjects(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			
 			'contestmenu' => ContestMenu::getInstance(),
 		));

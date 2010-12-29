@@ -236,7 +236,7 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			'ratings' => $this->ratingList->getObjects(),
 			'todos' => $this->todoList ? $this->todoList->getObjects() : array(),
 			'templateName' => $this->templateName,
-			'allowSpidersToIndexThisForm' => true,
+			'allowSpidersToIndexThisPage' => true,
 			'attachments' => $this->attachments,
 			
 			'contestmenu' => ContestMenu::getInstance(),
