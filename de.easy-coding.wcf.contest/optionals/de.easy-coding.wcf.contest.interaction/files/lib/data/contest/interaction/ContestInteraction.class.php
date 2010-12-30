@@ -129,7 +129,7 @@ class ContestInteraction {
 		$priceList->sqlLimit = 0;
 		$priceList->readObjects();
 
-		$score = 255;
+		$score = 5 + $priceList->countObjects();
 
 		foreach($priceList->getObjects() as $price) {
 		

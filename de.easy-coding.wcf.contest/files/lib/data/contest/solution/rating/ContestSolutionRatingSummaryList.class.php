@@ -67,6 +67,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 				LEFT JOIN (
 					SELECT		optionID,
 							AVG(IF(score > 5, 5, score)) AS score,
+							AVG(score) AS realscore,
 							COUNT(score) AS count
 					FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
 					".(!empty($this->sqlConditions) ? "WHERE (".$this->sqlConditions.')' : '')."
@@ -79,6 +80,7 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 				-- jury score
 				SELECT		optionID,
 						AVG(IF(score > 5, 5, score)) AS juryscore,
+						AVG(score) AS juryrealscore,
 						COUNT(score) AS jurycount
 				FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				INNER JOIN	wcf".WCF_N."_contest_jury contest_jury
@@ -91,7 +93,8 @@ class ContestSolutionRatingSummaryList extends DatabaseObjectList {
 			LEFT JOIN (
 				-- my score
 				SELECT		optionID,
-						IF(score > 5, 5, score) AS myscore
+						IF(score > 5, 5, score) AS myscore,
+						AVG(score) AS myrealscore
 				FROM		wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				WHERE 		contest_solution_rating.userID = ".intval($userID)."
 				".(!empty($this->sqlConditions) ? "AND (".$this->sqlConditions.')' : '')."

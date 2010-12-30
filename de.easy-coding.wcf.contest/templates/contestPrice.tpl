@@ -36,9 +36,9 @@
 					<div class="columnInner">
 						{if $isWinner && !$didPick}
 							{if $solution}
-								<p class="info">{lang}wcf.contest.price.congratulations.now{/lang}</p>
+								<p class="success">{lang}wcf.contest.price.congratulations.now{/lang}</p>
 							{else}
-								<p class="info">{lang}wcf.contest.price.congratulations.future{/lang}</p>
+								<p class="success">{lang}wcf.contest.price.congratulations.future{/lang}</p>
 							{/if}
 						{/if}
 					
@@ -73,7 +73,7 @@
 												{assign var="tmp" value=$priceObj->priceID}
 												{if $priceObj->isPickable() || $additionalSmallButtons.$tmp|isset}
 													<ul>
-														{if $priceObj->isPickable() && $solution}<li><a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a></li>{/if}
+														{if $priceObj->isPickable()}<li>{if $solution}<a href="index.php?action=ContestPricePick&amp;priceID={$priceObj->priceID}&amp;solutionID={$solution->solutionID}&amp;t={@SECURITY_TOKEN}{@SID_ARG_2ND}" title="{lang}wcf.contest.price.pick{/lang}"><img src="{icon}contestPriceS.png{/icon}" alt="" /> <span>{lang}wcf.contest.price.pick{/lang}</span></a>{else}error occured{/if}</li>{/if}
 														{if $additionalSmallButtons.$tmp|isset}{@$additionalSmallButtons.$tmp}{/if}
 													</ul>
 												{/if}

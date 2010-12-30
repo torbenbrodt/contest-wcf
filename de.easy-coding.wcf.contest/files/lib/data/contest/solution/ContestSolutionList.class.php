@@ -24,7 +24,7 @@ class ContestSolutionList extends DatabaseObjectList {
 	 *
 	 * @var	string
 	 */
-	public $sqlOrderBy = 'juryscore DESC';
+	public $sqlOrderBy = 'juryrealscore DESC';
 	
 	/**
 	 * @see DatabaseObjectList::countObjects()
@@ -76,6 +76,7 @@ class ContestSolutionList extends DatabaseObjectList {
 				-- total score
 				SELECT		contest_solution.solutionID,
 						AVG(IF(score > 5, 5, score)) AS score,
+						AVG(score) AS realscore,
 						COUNT(DISTINCT contest_solution_rating.userID) AS count
 				FROM		wcf".WCF_N."_contest_solution contest_solution
 				INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -89,6 +90,7 @@ class ContestSolutionList extends DatabaseObjectList {
 				-- jury score
 				SELECT		contest_solution.solutionID,
 						AVG(IF(score > 5, 5, score)) AS juryscore,
+						AVG(score) AS juryrealscore,
 						COUNT(DISTINCT contest_solution_rating.userID) AS jurycount
 				FROM		wcf".WCF_N."_contest_solution contest_solution
 				INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -111,7 +113,8 @@ class ContestSolutionList extends DatabaseObjectList {
 			LEFT JOIN (
 				-- my score
 				SELECT		contest_solution.solutionID,
-						AVG(IF(score > 5, 5, score)) AS myscore
+						AVG(IF(score > 5, 5, score)) AS myscore,
+						AVG(score) AS myrealscore
 				FROM		wcf".WCF_N."_contest_solution contest_solution
 				INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 				ON		contest_solution.solutionID = contest_solution_rating.solutionID

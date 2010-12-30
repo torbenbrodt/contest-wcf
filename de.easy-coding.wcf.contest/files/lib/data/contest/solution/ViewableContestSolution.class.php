@@ -55,6 +55,7 @@ class ViewableContestSolution extends ContestSolution {
 					-- total score
 					SELECT		contest_solution.solutionID,
 							AVG(IF(score > 5, 5, score)) AS score,
+							AVG(score) AS realscore,
 							COUNT(DISTINCT contest_solution_rating.userID) AS count
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -68,6 +69,7 @@ class ViewableContestSolution extends ContestSolution {
 					-- jury score
 					SELECT		contest_solution.solutionID,
 							AVG(IF(score > 5, 5, score)) AS juryscore,
+							AVG(score) AS juryrealscore,
 							COUNT(DISTINCT contest_solution_rating.userID) AS jurycount
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
@@ -83,7 +85,8 @@ class ViewableContestSolution extends ContestSolution {
 				LEFT JOIN (
 					-- my score
 					SELECT		contest_solution.solutionID,
-							AVG(IF(score > 5, 5, score)) AS myscore
+							AVG(IF(score > 5, 5, score)) AS myscore,
+							AVG(score) AS myrealscore
 					FROM		wcf".WCF_N."_contest_solution contest_solution
 					INNER JOIN	wcf".WCF_N."_contest_solution_rating contest_solution_rating
 					ON		contest_solution.solutionID = contest_solution_rating.solutionID
@@ -95,7 +98,8 @@ class ViewableContestSolution extends ContestSolution {
 				
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest_participant.userID)
-				LEFT JOIN	wcf".WCF_N."_avatar avatar_table
+				LEFT JOIN	wcf".WCF_N."_avatar ava,
+						AVG(score) AS myrealscoretar_table
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_participant.groupID)

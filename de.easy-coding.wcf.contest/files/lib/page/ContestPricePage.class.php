@@ -207,7 +207,7 @@ class ContestPricePage extends MultipleLinkPage {
 
 		// which price is pickable be the current user NOW?
 		$solution = null;
-		$didPick = true;
+		$didPick = false;
 		if($isWinner) {
 			foreach($this->priceList->getObjects() as $price) {
 				if($price->isPickable()) {
