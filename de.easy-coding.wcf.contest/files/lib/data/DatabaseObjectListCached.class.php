@@ -54,7 +54,7 @@ abstract class DatabaseObjectListCached extends DatabaseObjectList {
 	protected function fromCache($method) {
 		$key = 'DatabaseObjectListCached.'.$this->getHash($method);
 		$cacheResource = array(
-			'file' => $key,
+			'file' => WCF_DIR.'cache/cache.'.$key.'.php',
 			'cache' => $key,
 			'minLifetime' => $this->minLifetime,
 			'maxLifetime' => $this->maxLifetime
