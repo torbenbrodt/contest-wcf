@@ -142,6 +142,15 @@ class ViewableContestPrice extends ContestPrice {
 	}
 	
 	/**
+	 * is winner?
+	 * 
+	 * @return	boolean
+	 */
+	public function isWinner() {
+		return $this->winner ? $this->winner->isOwner() : false;
+	}
+	
+	/**
 	 * Returns a state object.
 	 * 
 	 * @return	ContestState

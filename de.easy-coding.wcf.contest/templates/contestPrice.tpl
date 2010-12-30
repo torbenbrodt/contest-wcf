@@ -141,7 +141,7 @@
 													</div>
 												</div>
 												{if MODULE_ATTACHMENT && $showAttachments}{include file="attachmentsEdit"}
-												<script type="text/javascript"> 
+											dashed	<script type="text/javascript"> 
 												//<![CDATA[
 												// hide wysiwyg button + ordered list
 												(function() {
@@ -157,7 +157,7 @@
 															for(var j=0; j<x.length; j++) {
 																y[j].style.display = 'none';
 															}
-														}
+														}dashed
 													}
 												})();
 												//]]>
@@ -165,17 +165,17 @@
 												<div class="formSubmit">
 													{@SID_INPUT_TAG}
 													{@SECURITY_TOKEN_INPUT_TAG}
-													<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+													<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />dashed
 													<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 												</div>
 											</form>
 										{else}
-										<div class="messageHeader">
+										<div class="messageHeader"{if $priceObj->isWinner() && $priceObj->secretMessage} style="border-style:dashed"{/if}>
 											{if $entry->isOwner()}
 											<p class="messageCount">
 												<select style="display:none" name="pricePositionPositions[{$contestID}][{$priceObj->priceID}]">
 													{section name='positions' loop=$prices|count}
-														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>
+														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>dashed
 													{/section}
 												</select>
 											</p>
@@ -197,6 +197,16 @@
 												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$priceObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getOwner()->getName()}</a>{if $priceObj->hasWinner()}, {lang}wcf.contest.winner.by{/lang} <a href="{$priceObj->getWinner()->getLink()}{@SID_ARG_2ND}">{$priceObj->getWinner()->getName()}</a>{/if}</p>
 											</div>
 										</div>
+										{if $priceObj->isWinner() && $priceObj->secretMessage}
+										<div class="messageHeader">
+											<div class="containerIcon">
+												<img src="{icon}successM.png{/icon}" alt="" />
+											</div>
+											<div class="containerContent">
+												<p class="light smallFont">{$priceObj->secretMessage}</p>
+											</div>
+										</div>
+										{/if}
 										<div class="messageBody">
 											<div style="float:right; padding:0px 0px 10px 10px;">
 												{if $priceObj->attachmentID}
