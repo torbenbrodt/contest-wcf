@@ -98,8 +98,7 @@ class ViewableContestSolution extends ContestSolution {
 				
 				LEFT JOIN	wcf".WCF_N."_user user_table
 				ON		(user_table.userID = contest_participant.userID)
-				LEFT JOIN	wcf".WCF_N."_avatar ava,
-						AVG(score) AS myrealscoretar_table
+				LEFT JOIN	wcf".WCF_N."_avatar avatar_table
 				ON		(avatar_table.avatarID = user_table.avatarID)
 				LEFT JOIN	wcf".WCF_N."_group group_table
 				ON		(group_table.groupID = contest_participant.groupID)
