@@ -178,7 +178,7 @@ class ContestPrice extends DatabaseObject {
 
 		return "(
 			-- entry is accepted
-			contest_price.state = 'accepted'
+			contest_price.state IN ('accepted', 'sent', 'received')
 		) OR (
 			-- sponsor
 			IF(
