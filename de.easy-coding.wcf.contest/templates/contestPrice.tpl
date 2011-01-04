@@ -200,7 +200,7 @@
 										{if $priceObj->isWinner() && $priceObj->secretMessage}
 										<div class="messageHeader">
 											<div class="containerIcon">
-												<img src="{icon}successM.png{/icon}" alt="" />
+												<img src="{icon}helpM.png{/icon}" alt="" />
 											</div>
 											<div class="containerContent">
 												<p class="light smallFont">{$priceObj->secretMessage}</p>

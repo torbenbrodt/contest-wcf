@@ -147,7 +147,7 @@ class ViewableContestPrice extends ContestPrice {
 	 * @return	boolean
 	 */
 	public function isWinner() {
-		return $this->winner ? $this->winner->isOwner() : false;
+		return $this->winner ? $this->winner->isCurrentUser() : false;
 	}
 	
 	/**
