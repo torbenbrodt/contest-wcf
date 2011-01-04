@@ -141,7 +141,7 @@
 													</div>
 												</div>
 												{if MODULE_ATTACHMENT && $showAttachments}{include file="attachmentsEdit"}
-											dashed	<script type="text/javascript"> 
+												<script type="text/javascript"> 
 												//<![CDATA[
 												// hide wysiwyg button + ordered list
 												(function() {
@@ -157,7 +157,7 @@
 															for(var j=0; j<x.length; j++) {
 																y[j].style.display = 'none';
 															}
-														}dashed
+														}
 													}
 												})();
 												//]]>
@@ -165,7 +165,7 @@
 												<div class="formSubmit">
 													{@SID_INPUT_TAG}
 													{@SECURITY_TOKEN_INPUT_TAG}
-													<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />dashed
+													<input type="submit" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
 													<input type="reset" accesskey="r" value="{lang}wcf.global.button.reset{/lang}" />
 												</div>
 											</form>
@@ -175,7 +175,7 @@
 											<p class="messageCount">
 												<select style="display:none" name="pricePositionPositions[{$contestID}][{$priceObj->priceID}]">
 													{section name='positions' loop=$prices|count}
-														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>dashed
+														<option value="{@$positions+1}"{if $positions+1 == $priceObj->position} selected="selected"{/if}>{@$positions+1}</option>
 													{/section}
 												</select>
 											</p>
