@@ -184,6 +184,12 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.price.closed.info"><![CDATA[The prices will be sent after all solutions have be rated by all jury members and the lucky winners are ready to be announced.]]></item>
 		<item name="wcf.contest.price.pick.info"><![CDATA[After the finish of the contest all winners - beginning from the first winner - can choose the prices one by one.]]></item>
 		<item name="wcf.contest.price.pick.success"><![CDATA[You have chosen a price. Congratulations!]]></item>
+		
+		<item name="wcf.contest.price.congratulations"><![CDATA[The price has been chosen, congratulations.]]></item>
+		<item name="wcf.contest.price.congratulations.next"><![CDATA[The price can be chosen at: {@$solutionObj->pickTime|time}]]></item>
+		<item name="wcf.contest.price.congratulations.now"><![CDATA[Congratulations, you now can choose a price.]]></item>
+		<item name="wcf.contest.price.congratulations.future"><![CDATA[Congratulations, you have won and will soon be able to pick a price.]]></item>
+		<item name="wcf.contest.price.secretMessage"><![CDATA[Secret message]]></item>
 		<item name="wcf.contest.enableSolution"><![CDATA[Will the users have to add solutions to participate in this contest?]]></item>
 		<item name="wcf.contest.enableOpenSolution"><![CDATA[All Solutions will become available instantly after the solution gets finished.]]></item>
 		<item name="wcf.contest.enableOpenSolution.info"><![CDATA[Die Lösungen werden erst nach Beendigung des Wettbewerbs öffentlich einsehbar.]]></item>
