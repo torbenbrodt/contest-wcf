@@ -61,7 +61,7 @@
 		var fromMinute = document.getElementById('fromMinute');
 		var fromDate = new Date(fromYear.value, fromMonth.value-1, fromDay.value, fromHour.value, fromMinute.value, 0);
 		
-		var untilDay = document.getElementById('untilDay');{if $additionalFields1|isset}{@$additionalFields1}{/if}
+		var untilDay = document.getElementById('untilDay');
 		var untilMonth = document.getElementById('untilMonth');
 		var untilYear = document.getElementById('untilYear');
 		var untilHour = document.getElementById('untilHour')
@@ -159,8 +159,7 @@
 					<p class="formFieldDesc">{lang}wcf.contest.priceExpireSeconds.description{/lang}</p>
 				</div>
 				<script type="text/javascript">
-			
-	{if $additionalFields1|isset}{@$additionalFields1}{/if}		//<![CDATA[
+					//<![CDATA[
 					onloadEvents.push(function() {
 					{if $enablePricechoice}enableOptions('priceExpireSeconds');{else}disableOptions('priceExpireSeconds');{/if}
 					});
@@ -280,7 +279,7 @@
 					<div class="floatedElement noFullDay">
 						<label for="untilHour">{lang}wcf.global.date.hour{/lang}</label>
 						{htmlOptions options=$hourOptions selected=$eventDate->untilHour id=untilHour name=untilHour} :
-					</additionalFields1div>
+					</div>
 				
 					<div class="floatedElement noFullDay">
 						<label for="untilHour">{lang}wcf.global.date.minutes{/lang}</label>
