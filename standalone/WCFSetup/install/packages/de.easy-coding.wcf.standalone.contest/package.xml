@@ -56,6 +56,7 @@
 		<optionalpackage file="optionals/com.woltlab.community.customPage.tar.gz">com.woltlab.community.customPage</optionalpackage>
 		<optionalpackage file="optionals/com.woltlab.community.wcf.user.notification.tar.gz">com.woltlab.community.wcf.user.notification</optionalpackage>
 		<optionalpackage file="optionals/de.easy-coding.wcf.openid.tar.gz">de.easy-coding.wcf.openid</optionalpackage>
+		<optionalpackage file="optionals/de.easy-coding.wcf.googleanalytics.tar.gz">de.easy-coding.wcf.googleanalytics</optionalpackage>
 	</optionalpackages>
 
 	<instructions type="install">
