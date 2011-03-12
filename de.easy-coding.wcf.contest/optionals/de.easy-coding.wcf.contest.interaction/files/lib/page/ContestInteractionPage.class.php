@@ -67,8 +67,7 @@ class ContestInteractionPage extends MultipleLinkPage {
 		}
 
 		// init price list
-		$this->interactionList = new ContestInteractionList();
-		$this->interactionList->sqlConditions .= 'contestID = '.intval($this->contestID);
+		$this->interactionList = new ContestInteractionList($this->entry);
 	}
 	
 	/**

@@ -24,6 +24,12 @@
 				{/foreach}
 				</ul>
 			</fieldset>
+			<label>
+				<div id="interactionLastUpdateDiv">
+					<input type="text" class="inputText" name="interactionLastUpdate" value="{$interactionLastUpdate}" />
+					{lang}wcf.contest.interactionLastUpdate{/lang}
+				</div>
+			</label>
 		</div>
 	</div>
 </fieldset>

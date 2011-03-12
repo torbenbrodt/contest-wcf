@@ -11,7 +11,19 @@ require_once(WCF_DIR.'lib/system/event/EventListener.class.php');
  * @package	de.easy-coding.wcf.contest.interaction
  */
 class ContestEditFormInteractionListener implements EventListener {
+	/**
+	 * @var boolean
+	 */
 	protected $enableInteraction = false;
+	
+	/**
+	 * @var integer
+	 */
+	protected $interactionLastUpdate = 0;
+	
+	/**
+	 * @var ContestInteractionRulesetList
+	 */
 	protected $rulesetList = null;
 
 	/**
@@ -29,6 +41,7 @@ class ContestEditFormInteractionListener implements EventListener {
 	 */
 	public function readFormParameters() {
 		$this->enableInteraction = isset($_POST['enableInteraction']);
+		$this->interactionLastUpdate = isset($_POST['interactionLastUpdate']) ? intval($_POST['interactionLastUpdate']) : 0;
 	}
 	
 	/**
@@ -37,6 +50,7 @@ class ContestEditFormInteractionListener implements EventListener {
 	public function readData() {
 		if(count($_POST) == 0) {
 			$this->enableInteraction = $this->eventObj->entry->enableInteraction;
+			$this->interactionLastUpdate = $this->eventObj->entry->interactionLastUpdate;
 		}
 		
 		if($this->enableInteraction) {
@@ -55,7 +69,8 @@ class ContestEditFormInteractionListener implements EventListener {
 	 */
 	public function save() {
 		$sql = "UPDATE	wcf".WCF_N."_contest
-			SET	enableInteraction = ".intval($this->enableInteraction)."
+			SET	enableInteraction = ".intval($this->enableInteraction).",
+				interactionLastUpdate = ".intval($this->interactionLastUpdate)."
 			WHERE	contestID = ".intval($this->eventObj->entry->contestID);
 		WCF::getDB()->sendQuery($sql);
 	}
@@ -66,6 +81,7 @@ class ContestEditFormInteractionListener implements EventListener {
 	public function assignVariables() {
 		WCF::getTPL()->assign(array(
 			'enableInteraction' => $this->enableInteraction,
+			'interactionLastUpdate' => $this->interactionLastUpdate,
 			'interactionRulesetList' => $this->rulesetList ? $this->rulesetList->getObjects() : array(),
 		));
 		
