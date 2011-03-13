@@ -68,7 +68,7 @@
 									{/if}
 									
 									{if $pageNo == 1}
-									<div>
+									<div class="buttonBar">
 										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 											{@$entry->getFormattedMessage()}
 											{if $additionalMessageContent|isset}{@$additionalMessageContent}{/if}
@@ -82,6 +82,8 @@
 												{if $classes|count > 0}<p>{lang}wcf.contest.classes{/lang}: {implode from=$classes item=class}<a href="index.php?page=ContestOverview&amp;classID={@$class->classID}{@SID_ARG_2ND}">{lang}{$class->title}{/lang}</a>{/implode}</p>{/if}
 											</div>
 										{/if}
+										
+										{if $additionalButtonBar|isset}{@$additionalButtonBar}{/if}
 									</div>
 									
 									<div class="messageFooter">
@@ -107,7 +109,7 @@
 								{/if}
 							</div>
 						</div>
-					
+						{if $additionalContent1|isset}{@$additionalContent1}{/if}
 						{if $events|count > 0}
 							<a id="events"></a>
 							<div class="contentBox">
@@ -166,7 +168,7 @@
 								</div>
 							</div>
 						{/if}
-						
+						{if $additionalContent2|isset}{@$additionalContent2}{/if}
 						{if $entry->isCommentable()}{assign var=commentUsername value=$username}{/if}
 						{if $entry->isCommentable() && $action != 'edit'}
 							{assign var=username value=$commentUsername}
@@ -220,7 +222,7 @@
 								</form>
 							</div>
 						{/if}
-						{if $additionalContent1|isset}{@$additionalContent1}{/if}
+						{if $additionalContent3|isset}{@$additionalContent3}{/if}
 						<div class="contentFooter"> </div>
 					</div>
 				</div>
