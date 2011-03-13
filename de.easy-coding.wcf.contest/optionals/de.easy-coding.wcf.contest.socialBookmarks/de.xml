@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language languagecode="de" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd">
+	<category name="wcf.contest.trackback">
+		<item name="wcf.contest.trackback.jumpToLinkedArticle"><![CDATA[Zum verlinkten Artikel springen]]></item>
+		<item name="wcf.contest.trackback.title"><![CDATA[Trackbacks]]></item>
+	</category>
+</language>

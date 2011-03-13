@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/trackbackadapter.xsd">
+	<import>
+		<adapter>
+			<objecttype>contestEntry</objecttype>
+			<classname>ContestEntryAdapter</classname>
+			<adapterclassfile>lib/system/trackback/ContestEntryAdapter.class.php</adapterclassfile>
+		</adapter>
+	</import>
+</data>

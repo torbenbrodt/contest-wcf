@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE package SYSTEM "http://www.woltlab.com/DTDs/package.dtd">
+<package name="de.easy-coding.wcf.contest.socialBookmarks">
+	<packageinformation>
+		<packagename>easy-coding "contest" social bookmarks</packagename>
+		<packagedescription>Enables the social bookmarks bar and allows trackbacks.</packagedescription>
+		<version>0.9.4 RC 1</version>
+		<plugin>com.woltlab.wcf</plugin>
+		<isunique>1</isunique>
+		<date>DATE</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author>Torben Brodt</author>
+		<authorurl>http://trac.easy-coding.de/trac/contest</authorurl>
+	</authorinformation>
+	
+	<requiredpackages>
+		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf</requiredpackage>
+		<requiredpackage minversion="0.9.1 RC 1">de.easy-coding.wcf.contest</requiredpackage>
+		<requiredpackage minversion="1.0.0 Beta 2">com.woltlab.wcf.socialBookmarks</requiredpackage>
+		<requiredpackage minversion="1.0.0 Beta 2">com.woltlab.wcf.trackback</requiredpackage>
+	</requiredpackages>
+	
+	<instructions type="install">
+		<files>files.tar</files>
+		<eventlistener>eventlistener.xml</eventlistener>
+		<templates>templates.tar</templates>
+		<trackbackadapter>trackbackadapter.xml</trackbackadapter>
+		<sql>install.sql</sql>
+
+		<!-- language -->
+		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="en">en.xml</languages>
+	</instructions>
+</package>
