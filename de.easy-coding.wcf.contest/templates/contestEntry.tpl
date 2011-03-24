@@ -68,7 +68,7 @@
 									{/if}
 									
 									{if $pageNo == 1}
-									<div class="buttonBar">
+									<div class="buttonBar" style="border:0px">
 										<div class="messageBody" id="contestEntryText{@$entry->contestID}">
 											{@$entry->getFormattedMessage()}
 											{if $additionalMessageContent|isset}{@$additionalMessageContent}{/if}
