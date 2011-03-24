@@ -13,12 +13,12 @@ function ContestPermissionList(key, data, url) {
 	// can be a callback function
 	this.url = url;
 	this.selectedIndex = -1;
-	this.ajaxRequest;
+	this.ajaxRequest = null;
 	this.inputHasFocus = false;
 	
-	this.onfocusEvent;
-	this.onblurEvent;
-	this.onkeyupEvent;
+	this.onfocusEvent = null;
+	this.onblurEvent = null;
+	this.onkeyupEvent = null;
 	
 	/**
 	 * Initialises the permission list.
@@ -51,12 +51,18 @@ function ContestPermissionList(key, data, url) {
 			this.onkeyupEvent = input.onkeyup;
 			input.onkeyup = function(event) {
 				var result = this.list.onkeyupEvent(event);
-				if (!event) event = window.event;
+				if (!event) {
+					event = window.event;
+				}
 			
 				// get key code
 				var keyCode = 0;
-				if (event.which) keyCode = event.which;
-				else if (event.keyCode) keyCode = event.keyCode;
+				if (event.which) {
+					keyCode = event.which;
+				}
+				else if (event.keyCode) {
+					keyCode = event.keyCode;
+				}
 				
 				// return
 				if (keyCode == 13 && result) {
