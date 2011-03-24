@@ -93,7 +93,7 @@ class ContestInteractionList extends DatabaseObjectList {
 		}
 
 		// if contest update is only x seconds gone
-		if($this->contest->state != 'closed' && $this->contest->interactionLastUpdate < TIME_NOW - $this->maxLifetime) {
+		if($this->contest->state != 'closed' && $this->contest->interactionLastUpdate > TIME_NOW - $this->maxLifetime) {
 			return;
 		}
 
