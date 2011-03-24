@@ -1,9 +1,10 @@
 {* trackback / pingback *}
-{assign var=permalink value=PAGE_URL|concat:'/index.php?page=Contest&contestID=':$entry->entryID}
-{@$trackback->getRdfAutoDiscover($entry->subject, $permalink, $entry->entryID, 'contestEntry', $objectPackageID)}
+{if $entry|isset && $trackback|isset}
+	{@$trackback->getRdfAutoDiscover($entry->subject, $permalink, $entry->contestID, 'contestEntry', $objectPackageID)}
+{/if}
 
 <!-- Trackbacks -->
-{if $trackbacks|count > 0}
+{if $trackbacks|isset && $trackbacks|count > 0}
         <a id="trackbacks"></a>
         <div class="contentBox">
                 <h3 class="subHeadline">{lang}wcf.contest.trackback.title{/lang} <span>({#$trackbacks|count})</span></h3>
