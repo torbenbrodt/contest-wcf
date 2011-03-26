@@ -1,8 +1,3 @@
-{* trackback / pingback *}
-{if $entry|isset && $trackback|isset}
-	{@$trackback->getRdfAutoDiscover($entry->subject, $permalink, $entry->contestID, 'contestEntry', $objectPackageID)}
-{/if}
-
 <!-- Trackbacks -->
 {if $trackbacks|isset && $trackbacks|count > 0}
         <a id="trackbacks"></a>
