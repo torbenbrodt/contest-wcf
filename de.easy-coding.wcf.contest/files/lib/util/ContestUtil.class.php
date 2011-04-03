@@ -18,7 +18,7 @@ class ContestUtil {
 	/**
 	 * returns the groups for which the current user is admin
 	 */
-	public static function readAvailableGroups() {
+	public static function readAvailableGroups($prefix = '') {
 		$blacklisted = array(Group::GUESTS, Group::EVERYONE, Group::USERS);
 		$sql = "SELECT		usergroup.*, (
 						SELECT	COUNT(*)
@@ -34,7 +34,7 @@ class ContestUtil {
 		$result = WCF::getDB()->sendQuery($sql);
 		$availableGroups = array();
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$availableGroups[$row['groupID']] = new Group(null, $row);
+			$availableGroups[$prefix.$row['groupID']] = new Group(null, $row);
 		}
 		return $availableGroups;
 	}

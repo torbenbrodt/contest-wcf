@@ -295,9 +295,16 @@
 												<fieldset>
 													<legend>{lang}wcf.contest.owner{/lang}</legend>
 														<label><input type="radio" name="ownerID" value="0" {if 0 == $ownerID}checked="checked" {/if}/> {lang}wcf.contest.owner.self{/lang}</label>
-													{foreach from=$availableGroups item=availableGroup}
-														<label><input type="radio" name="ownerID" value="{@$availableGroup->groupID}" {if $availableGroup->groupID == $ownerID}checked="checked" {/if}/> {lang}{$availableGroup->groupName}{/lang}</label>
-													{/foreach}
+													{if $ownerGroups|count > 0}<b>{lang}wcf.user.userGroups.title{/lang}</b>
+														{foreach from=$ownerGroups item=ownerGroup key=idx}
+															<label><input type="radio" name="ownerID" value="{$idx}" {if $idx == $ownerID}checked="checked" {/if}/> {lang}{$ownerGroup->groupName}{/lang}</label>
+														{/foreach}
+													{/if}
+													{if $ownerSponsors|count > 0}<b>{lang}wcf.contest.sponsors{/lang}</b>
+														{foreach from=$ownerSponsors item=ownerSponsor key=idx}
+															<label><input type="radio" name="ownerID" value="{$idx}" {if $idx == $ownerID}checked="checked" {/if}/> {lang}{$ownerSponsor->getOwner()->getName()}{/lang}</label>
+														{/foreach}
+													{/if}
 												</fieldset>
 											</div>
 										</div>

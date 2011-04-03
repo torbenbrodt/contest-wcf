@@ -40,11 +40,18 @@ class ContestPriceAddForm extends MessageForm {
 	public $contest = null;
 
 	/**
-	 * available groups
+	 * owner groups
 	 *
 	 * @var array<Group>
 	 */
-	protected $availableGroups = array();
+	protected $ownerGroups = array();
+
+	/**
+	 * owner sponsors (loaded if the current user has the privileges)
+	 *
+	 * @var array<ContestSponsor>
+	 */
+	protected $ownerSponsors = array();
 
 	/**
 	 * Creates a new ContestPriceAddForm object.
@@ -75,16 +82,32 @@ class ContestPriceAddForm extends MessageForm {
 		parent::readFormParameters();
 
 		// get parameters
-		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
+		if (isset($_POST['ownerID'])) $this->ownerID = $_POST['ownerID'];
 		if (isset($_POST['state'])) $this->state = $_POST['state'];
 		if (isset($_POST['subject'])) $this->subject = StringUtil::trim($_POST['subject']);
 		if (isset($_POST['text'])) $this->text = StringUtil::trim($_POST['text']);
 		if (isset($_POST['secretMessage'])) $this->secretMessage = StringUtil::trim($_POST['secretMessage']);
 
+		// assume current user
 		if ($this->ownerID == 0) {
 			$this->userID = WCF::getUser()->userID;
-		} else {
-			$this->groupID = $this->ownerID;
+			$this->groupID = 0;
+			$this->sponsorID = 0;
+		}
+		
+		// assume group
+		else if (0 === strpos($this->ownerID, 'g')) {
+			$this->userID = 0;
+			$this->groupID = intval(substr($this->ownerID, 1));
+			$this->sponsorID = 0;
+			
+		}
+		
+		// assume different choice
+		else {
+			$this->userID = 0;
+			$this->groupID = 0;
+			$this->sponsorID = intval($this->ownerID);
 		}
 	}
 
@@ -97,7 +120,20 @@ class ContestPriceAddForm extends MessageForm {
 		$this->states = $this->getStates();
 
 		// owner
-		$this->availableGroups = ContestUtil::readAvailableGroups();
+		$prefix = 'g';
+		$this->ownerGroups = ContestUtil::readAvailableGroups($prefix);
+
+		// admin permissions
+		$this->ownerSponsors = array();
+		if($this->contest->isOwner() || ContestCrew::isMember()) {
+			$groupIDs = ContestUtil::readAvailableGroups();
+			$groupIDs = array_keys($groupIDs);
+			foreach($this->contest->getSponsors() as $sponsor) {
+				if(!in_array($sponsor->groupID, $groupIDs) && $sponsor->isOwner() == false) {
+					$this->ownerSponsors[$sponsor->sponsorID] = $sponsor;
+				}
+			}
+		}
 	}
 
 	/**
@@ -122,11 +158,28 @@ class ContestPriceAddForm extends MessageForm {
 			throw new UserInputException('secretMessage', 'tooLong');
 		}
 
-		if($this->ownerID != 0) {
-			$this->availableGroups = ContestUtil::readAvailableGroups();
+		if($this->groupID) {
+			$this->ownerGroups = ContestUtil::readAvailableGroups();
 
 			// validate group ids
-			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
+			if(!array_key_exists($this->groupID, $this->ownerGroups)) {
+				throw new UserInputException('ownerID'); 
+			}
+		}
+
+		if($this->sponsorID) {
+			if(!$this->contest->isOwner() && !ContestCrew::isMember()) {
+				throw new UserInputException('ownerID'); 
+			}
+			$this->ownerSponsors = array();
+			if($this->contest->isOwner() || ContestCrew::isMember()) {
+				foreach($this->contest->getSponsors() as $sponsor) {
+					$this->ownerSponsors[$sponsor->sponsorID] = $sponsor;
+				}
+			}
+
+			// validate group ids
+			if(!array_key_exists($this->sponsorID, $this->ownerSponsors)) {
 				throw new UserInputException('ownerID'); 
 			}
 		}
@@ -137,7 +190,7 @@ class ContestPriceAddForm extends MessageForm {
 	}
 
 	/**
-	 * returns available states
+	 * returns owner states
 	 */
 	protected function getStates() {
 		$flags = (!isset($this->entry) || $this->entry->isOwner() ? ContestState::FLAG_USER : 0)
@@ -209,7 +262,8 @@ class ContestPriceAddForm extends MessageForm {
 		WCF::getTPL()->assign(array(
 			'states' => $this->states,
 			'state' => $this->state,
-			'availableGroups' => $this->availableGroups,
+			'ownerGroups' => $this->ownerGroups,
+			'ownerSponsors' => $this->ownerSponsors,
 			'ownerID' => $this->ownerID,
 			'secretMessage' => $this->secretMessage,
 			'maxTextLength' => WCF::getUser()->getPermission('user.contest.maxSolutionLength')
