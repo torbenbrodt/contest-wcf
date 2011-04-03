@@ -1,4 +1,5 @@
 {if $additionalBoxes1|isset}{@$additionalBoxes1}{/if}
+{if $canAddContest}
 <div class="contentBox">
 	<div class="border"> 
 		<div class="containerHead">
@@ -16,6 +17,7 @@
 		</div>
 	</div>
 </div>
+{/if}
 {if $additionalBoxes2|isset}{@$additionalBoxes2}{/if}
 
 {if $todos|isset && $todos|count > 0}

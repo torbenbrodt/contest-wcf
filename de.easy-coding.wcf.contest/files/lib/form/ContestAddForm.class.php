@@ -386,6 +386,7 @@ class ContestAddForm extends MessageForm {
 		
 		// check permission
 		WCF::getUser()->checkPermission('user.contest.canUseContest');
+		WCF::getUser()->checkPermission('user.contest.canAddContest');
 		
 		if (!MODULE_CONTEST) {
 			throw new IllegalLinkException();

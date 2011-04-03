@@ -254,6 +254,7 @@ class ContestSidebar {
 		// assign variables
 		WCF::getTPL()->assign(array(
 			'isRegistered' => WCF::getUser()->userID > 0,
+			'canAddContest' => WCF::getUser()->getPermission('user.contest.canAddContest'),
 			'availableClasses' => $this->classList ? $this->classList->getObjects() : array(),
 			'availableJurys' => $this->juryList ? $this->juryList->getObjects() : array(),
 			'availableParticipants' => $this->participantList ? $this->participantList->getObjects() : array(),

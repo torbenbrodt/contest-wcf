@@ -9,6 +9,8 @@
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Supermoderatoren haben erweiterte Rechte, selbst gegenüber den Wettbewerb Ownern.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canViewContest"><![CDATA[Kann Wettbewerbe sehen]]></item>
 		<item name="wcf.acp.group.option.user.contest.canViewContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können die Wettbewerbe sehen.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canAddContest"><![CDATA[Kann Wettbewerbe anlegen]]></item>
+		<item name="wcf.acp.group.option.user.contest.canAddContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können die neue Wettbewerbe anlegen.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canUseContest"><![CDATA[Kann Wettbewerbe nutzen]]></item>
 		<item name="wcf.acp.group.option.user.contest.canUseContest.description"><![CDATA[Mitglieder dieser Benutzergruppe können mit der Wettbewerbsplattform interagieren.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest"><![CDATA[Kann Termin festlegen]]></item>
@@ -38,7 +40,9 @@
 		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions"><![CDATA[Erlaubte Dateiendungen]]></item>
 		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions.description"><![CDATA[Erlaubte Endungen für Dateianhänge. Pro Zeile eine Dateiendung angeben.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canSolution"><![CDATA[Kann Lösungen erstellen]]></item>
-		<item name="wcf.acp.group.option.user.contest.canSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Wettbewerb von anderen Benutzern kommentieren.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen zum Wettbewerb beisteuern.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canJury"><![CDATA[Kann Jury werden]]></item>
+		<item name="wcf.acp.group.option.user.contest.canJury.description"><![CDATA[Mitglieder dieser Benutzergruppe können als Jury am Wettbewerb teilnehmen.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteSolution"><![CDATA[Kann Lösungen im eigenen Wettbewerb löschen]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteSolution.description"><![CDATA[Mitglieder dieser Benutzergruppe können Lösungen im eigenen Wettbewerb löschen.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteOwnSolution"><![CDATA[Kann eigene Lösungen löschen]]></item>

@@ -9,6 +9,8 @@
 		<item name="wcf.acp.group.option.mod.contest.isSuperMod.description"><![CDATA[Super moderators have special permissions.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canViewContest"><![CDATA[Can view contest]]></item>
 		<item name="wcf.acp.group.option.user.contest.canViewContest.description"><![CDATA[Members of this usergroup can view the contest platform.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canAddContest"><![CDATA[Can add contest]]></item>
+		<item name="wcf.acp.group.option.user.contest.canAddContest.description"><![CDATA[Members of this usergroup can add new contests.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canUseContest"><![CDATA[Can use contest]]></item>
 		<item name="wcf.acp.group.option.user.contest.canUseContest.description"><![CDATA[Members of this usergroup can interact with the contest platform.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canScheduleOwnContest"><![CDATA[Can schedule contest]]></item>
@@ -39,6 +41,8 @@
 		<item name="wcf.acp.group.option.user.contest.allowedAttachmentExtensions.description"><![CDATA[Allowed file extensions. Enter one file extension each line.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canSolution"><![CDATA[Can solution contests]]></item>
 		<item name="wcf.acp.group.option.user.contest.canSolution.description"><![CDATA[Members of this usergroup can solution contests of other users.]]></item>
+		<item name="wcf.acp.group.option.user.contest.canJury"><![CDATA[Can jury contests]]></item>
+		<item name="wcf.acp.group.option.user.contest.canJury.description"><![CDATA[Members of this usergroup can jury contests of other users.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteSolution"><![CDATA[Can delete solutions in own contest]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteSolution.description"><![CDATA[Members of this usergroup can delete solutions in their own contest.]]></item>
 		<item name="wcf.acp.group.option.user.contest.canDeleteOwnSolution"><![CDATA[Can delete own solutions]]></item>

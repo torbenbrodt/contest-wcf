@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" app</packagename>
 		<packagedescription>contest application.</packagedescription>
-		<version>0.9.3 RC 1</version>
+		<version>0.9.4 RC 1</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -58,7 +58,7 @@
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.9.1 RC 1">
+	<instructions type="update" fromversion="0.9.3 RC 1">
 		<!-- files -->
 		<files>files.tar</files>
 		<templates>templates.tar</templates>
@@ -67,8 +67,6 @@
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>
-		<pagelocation>pagelocation.xml</pagelocation>
 		<groupoptions>groupoptions.xml</groupoptions>
-		<attachmentcontainertype>act.xml</attachmentcontainertype>
 	</instructions>
 </package>
