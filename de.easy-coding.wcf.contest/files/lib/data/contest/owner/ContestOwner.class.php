@@ -45,7 +45,7 @@ class ContestOwner {
 			} else {
 				$this->owner = new ContestGroupProfile($groupID);
 				if($this->owner->groupID != $groupID) {
-					throw new Exception('groupID '.$groupID.' not found');
+					// throw new Exception('groupID '.$groupID.' not found');
 				}
 			}
 		} else {
@@ -54,7 +54,7 @@ class ContestOwner {
 			} else {
 				$this->owner = new UserProfile($userID);
 				if($this->owner->userID != $userID) {
-					throw new Exception('userID '.$userID.' not found');
+					// throw new Exception('userID '.$userID.' not found');
 				}
 			}
 		}
