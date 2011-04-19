@@ -103,10 +103,11 @@ class ContestInteractionList extends DatabaseObjectList {
 			WHERE	contestID = '.intval($this->contest->contestID);
 		WCF::getDB()->sendQuery($sql);
 
-		$sql = 'DROP TEMPORARY TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_tmp1;';
+		// update user
+		$sql = 'DROP TEMPORARY TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_user_tmp;';
 		WCF::getDB()->sendQuery($sql);
 
-		$sql = 'CREATE TEMPORARY TABLE wcf'.WCF_N.'_contest_interaction_tmp1 (
+		$sql = 'CREATE TEMPORARY TABLE wcf'.WCF_N.'_contest_interaction_user_tmp (
 			userID int(10) unsigned NOT NULL DEFAULT "0",
 			c int(10) unsigned NOT NULL DEFAULT "0"
 		) Engine=MEMORY DEFAULT CHARSET=utf8';
@@ -115,11 +116,12 @@ class ContestInteractionList extends DatabaseObjectList {
 		$sql = 'SELECT		*
 			FROM 		wcf'.WCF_N.'_contest_interaction contest_interaction
 			INNER JOIN	wcf'.WCF_N.'_contest_interaction_ruleset contest_interaction_ruleset USING(rulesetID)
-			WHERE		contest_interaction.contestID = '.intval($this->contest->contestID);
+			WHERE		contest_interaction.contestID = '.intval($this->contest->contestID).'
+			AND		contest_interaction_ruleset.kind = "user"';
 		$result = WCF::getDB()->sendQuery($sql);
 		while ($row = WCF::getDB()->fetchArray($result)) {
 
-			$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_interaction_tmp1
+			$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_interaction_user_tmp
 				SELECT		'.$row['rulesetColumn'].' AS userID,
 						COUNT('.$row['rulesetColumn'].') * '.$row['rulesetFactor'].' AS c
 				FROM		'.$row['rulesetTable'].'
@@ -127,24 +129,101 @@ class ContestInteractionList extends DatabaseObjectList {
 				GROUP BY	'.$row['rulesetColumn'];
 			WCF::getDB()->sendQuery($sql);
 		}
-
-		// fire event
-		EventHandler::fireAction($this, 'updateData');
-
-		$sql = 'DROP TEMPORARY TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_tmp2;';
+		
+		// update group
+		$sql = 'DROP TEMPORARY TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_group_tmp;';
 		WCF::getDB()->sendQuery($sql);
 
-		// group score by userid
-		$sql = 'CREATE TEMPORARY TABLE    wcf'.WCF_N.'_contest_interaction_tmp2 Engine=MEMORY
-			SELECT		userID,
-					SUM(c) AS c
-			FROM		wcf'.WCF_N.'_contest_interaction_tmp1
-			GROUP BY	userID;';
+		$sql = 'CREATE TEMPORARY TABLE wcf'.WCF_N.'_contest_interaction_group_tmp (
+			groupID int(10) unsigned NOT NULL DEFAULT "0",
+			c int(10) unsigned NOT NULL DEFAULT "0"
+		) Engine=MEMORY DEFAULT CHARSET=utf8';
 		WCF::getDB()->sendQuery($sql);
 
-		$sql = 'ALTER TABLE	wcf'.WCF_N.'_contest_interaction_tmp2 ADD PRIMARY KEY (userid);';
+		$sql = 'SELECT		*
+			FROM 		wcf'.WCF_N.'_contest_interaction contest_interaction
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_ruleset contest_interaction_ruleset USING(rulesetID)
+			WHERE		contest_interaction.contestID = '.intval($this->contest->contestID).'
+			AND		contest_interaction_ruleset.kind = "group"';
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+
+			$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_interaction_group_tmp
+				SELECT		'.$row['rulesetColumn'].' AS groupID,
+						COUNT('.$row['rulesetColumn'].') * '.$row['rulesetFactor'].' AS c
+				FROM		'.$row['rulesetTable'].'
+				WHERE		'.$row['rulesetColumnTime'].' BETWEEN '.$row['fromTime'].' AND '.$row['untilTime'].'
+				GROUP BY	'.$row['rulesetColumn'];
+			WCF::getDB()->sendQuery($sql);
+		}
+
+		$sql = 'DROP TEMPORARY TABLE IF EXISTS wcf'.WCF_N.'_contest_interaction_tmp;';
 		WCF::getDB()->sendQuery($sql);
 		
+		$sql = 'CREATE TEMPORARY TABLE wcf'.WCF_N.'_contest_interaction_tmp (
+			participantID int(10) unsigned NOT NULL DEFAULT "0",
+			c int(10) unsigned NOT NULL DEFAULT "0"
+		) Engine=MEMORY DEFAULT CHARSET=utf8';
+		WCF::getDB()->sendQuery($sql);
+
+		// update participant		
+		$sql = 'SELECT		*
+			FROM 		wcf'.WCF_N.'_contest_interaction contest_interaction
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_ruleset contest_interaction_ruleset USING(rulesetID)
+			WHERE		contest_interaction.contestID = '.intval($this->contest->contestID).'
+			AND		contest_interaction_ruleset.kind = "participant"';
+		$result = WCF::getDB()->sendQuery($sql);
+		while ($row = WCF::getDB()->fetchArray($result)) {
+
+			$sql = 'INSERT INTO     wcf'.WCF_N.'_contest_interaction_tmp
+				SELECT		'.$row['rulesetColumn'].' AS participantID,
+						SUM('.$row['rulesetColumn'].') * '.$row['rulesetFactor'].' AS c
+				FROM		'.$row['rulesetTable'].'
+				GROUP BY	'.$row['rulesetColumn'];
+			WCF::getDB()->sendQuery($sql);
+		}
+
+		// group score by userid
+		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp
+
+			SELECT		contest_participant.participantID,
+					SUM(cit2.c) AS c
+			FROM		wcf'.WCF_N.'_contest_participant contest_participant
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_user_tmp cit2 USING(userID)
+			WHERE		contest_participant.contestID = '.intval($this->contest->contestID).'
+			AND		contest_participant.userID > 0
+			AND		contest_participant.state = "accepted"
+			GROUP BY	contest_participant.userID';
+		WCF::getDB()->sendQuery($sql);
+
+		// group score by groupid
+		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp
+
+			SELECT		contest_participant.participantID,
+					SUM(cit2.c) AS c
+			FROM		wcf'.WCF_N.'_contest_participant contest_participant
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_group_tmp cit2 USING(groupID)
+			WHERE		contest_participant.contestID = '.intval($this->contest->contestID).'
+			AND		contest_participant.groupID > 0
+			AND		contest_participant.state = "accepted"
+			GROUP BY	contest_participant.groupID';
+		WCF::getDB()->sendQuery($sql);
+
+		// group score by groupid (by usertogroup)
+		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp
+
+			SELECT		contest_participant.participantID,
+					SUM(cit2.c) AS c
+			FROM		wcf'.WCF_N.'_contest_participant contest_participant
+			INNER JOIN	wcf'.WCF_N.'_user_to_groups user_to_groups USING(groupID)
+			INNER JOIN	wcf'.WCF_N.'_contest_interaction_user_tmp cit2 ON cit2.userID = user_to_groups.userID
+			WHERE		contest_participant.contestID = '.intval($this->contest->contestID).'
+			AND		contest_participant.groupID > 0
+			AND		contest_participant.state = "accepted"
+			GROUP BY	contest_participant.groupID';
+		WCF::getDB()->sendQuery($sql);
+
+		// write back data
 		$sql = 'DELETE FROM	wcf'.WCF_N.'_contest_interaction_data
 			WHERE		contestID = '.intval($this->contest->contestID);
 		WCF::getDB()->sendQuery($sql);
@@ -152,33 +231,12 @@ class ContestInteractionList extends DatabaseObjectList {
 		// insert user participants in commonly used table
 		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_data
 					(contestID, participantID, score)
-
-			SELECT		contest_participant.contestID,
-					contest_participant.participantID,
-					SUM(cit2.c) AS c
-			FROM		wcf'.WCF_N.'_contest_participant contest_participant
-			INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 cit2 USING(userID)
-			WHERE		contest_participant.contestID = '.intval($this->contest->contestID).'
-			AND		contest_participant.userID > 0
-			AND		contest_participant.state = "accepted"
-			GROUP BY	contest_participant.userID';
+			SELECT		'.intval($this->contest->contestID).' AS contestID,
+					participantID,
+					SUM(c)
+			FROM		wcf'.WCF_N.'_contest_interaction_tmp
+			GROUP BY	participantID';
 		WCF::getDB()->sendQuery($sql);
-
-		// insert group participants in commonly used table
-		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_data
-					(contestID, participantID, score)
-
-			SELECT		contest_participant.contestID,
-					contest_participant.participantID,
-					SUM(cit2.c) AS c
-			FROM		wcf'.WCF_N.'_contest_participant contest_participant
-			INNER JOIN	wcf'.WCF_N.'_user_to_groups user_to_groups USING(groupID)
-			INNER JOIN	wcf'.WCF_N.'_contest_interaction_tmp2 cit2 ON cit2.userID = user_to_groups.userID
-			WHERE		contest_participant.contestID = '.intval($this->contest->contestID).'
-			AND		contest_participant.groupID > 0
-			AND		contest_participant.state = "accepted"
-			GROUP BY	contest_participant.groupID';
-		$result = WCF::getDB()->sendQuery($sql);
 	}
 
 	/**
