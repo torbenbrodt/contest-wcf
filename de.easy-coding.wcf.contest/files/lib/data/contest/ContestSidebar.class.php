@@ -141,9 +141,9 @@ class ContestSidebar {
 		
 		// advertising
 		$this->advertiseParticipant = $this->contest && !in_array('advertiseParticipant', $this->disabledModules) 
-			&& $this->contest->participants < 5 && $this->contest->isParticipantable(false);
+			&& $this->contest->isParticipantable(false);
 		$this->advertiseSponsor = $this->contest && !in_array('advertiseSponsor', $this->disabledModules) 
-			&& $this->contest->sponsors < 2 && $this->contest->isSponsorable(false);
+			&& $this->contest->isSponsorable(false);
 		$this->advertiseJury = false;
 	}
 	

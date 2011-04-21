@@ -186,7 +186,15 @@ class ContestAddForm extends MessageForm {
 		if (isset($_POST['participant']) && is_array($_POST['participant'])) $this->participants = $_POST['participant'];
 		if (isset($_POST['price']) && is_array($_POST['price'])) $this->prices = $_POST['price'];
 		if (isset($_POST['ownerID'])) $this->ownerID = intval($_POST['ownerID']);
-		
+
+		// add contest user to jury
+		if($this->enableSolution) {
+			$this->jurys[] = array(
+				'type' => $this->ownerID ? 'group' : 'user',
+				'id' => $this->ownerID
+			);
+		}
+
 		// jurytalk
 		$this->jurytalk_trigger = isset($_POST['jurytalk_trigger']);
 		if($this->jurytalk_trigger && isset($_POST['jurytalkAddText'])) $this->jurytalk_message = $_POST['jurytalkAddText'];
@@ -230,6 +238,8 @@ class ContestAddForm extends MessageForm {
 			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
 				throw new UserInputException('ownerID'); 
 			}
+		} else if ($this->userid == 0) {
+			throw new UserInputException('ownerID');
 		}
 		
 		if(!array_key_exists($this->state, $this->getStates())) {

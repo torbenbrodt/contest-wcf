@@ -62,7 +62,7 @@
 		<div class="largeButtons" style="width:175px;margin-top:10px; margin-left:10px">
 			<ul>
 				{if $isRegistered}
-				<li style="float:none"><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
+				<li style="float:none"><a href="index.php?page=ContestParticipant&amp;contestID={$contestID}&amp;doParticipate{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{else}<li style="float:none"><a href="index.php?form=UserLogin{@SID_ARG_2ND}"><img src="{icon}messageAddM.png{/icon}" alt="" /> <span>{lang}wcf.contest.sidebar.becomeparticipant.submit{/lang}</span></a></li>
 				{/if}
 			</ul>

@@ -281,6 +281,8 @@ class ContestEditForm extends MessageForm {
 			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
 				throw new UserInputException('ownerID'); 
 			}
+		} else if ($this->userid == 0) {
+			throw new UserInputException('ownerID');
 		}
 		
 		if(!array_key_exists($this->state, $this->getStates())) {

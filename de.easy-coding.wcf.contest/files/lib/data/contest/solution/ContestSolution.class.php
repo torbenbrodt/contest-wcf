@@ -76,7 +76,7 @@ class ContestSolution extends DatabaseObject {
 			return true;
 		}
 		$contest = Contest::getInstance($this->contestID);
-		if($contest->state == 'closed' || ($contest->state == 'scheduled' && $contest->untilTime < TIME_NOW)) {
+		if($contest->isJury() || $contest->state == 'closed' || ($contest->state == 'scheduled' && $contest->untilTime < TIME_NOW)) {
 			return true;
 		}
 		return false;

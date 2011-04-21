@@ -171,8 +171,8 @@
 					
 						
 						{assign var='messageNumber' value=0}
+						<a id="comments"></a>
 						{if $comments|count > 0}
-							<a id="comments"></a>
 							<div class="contentBox">
 								<h4 class="subHeadline">{lang}wcf.contest.comments{/lang} <span>({#$items})</span></h4>
 								

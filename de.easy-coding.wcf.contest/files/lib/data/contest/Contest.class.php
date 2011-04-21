@@ -199,18 +199,13 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSolutionable() {
-	
 		if(!$this->enableSolution) {
 			return false;
 		}
-	
 		if(ContestCrew::isMember()) {
 			return true;
 		}
 		if(WCF::getUser()->getPermission('user.contest.canSolution') == false) {
-			return false;
-		}
-		if($this->isParticipantable() == false) {
 			return false;
 		}
 		if($this->enableParticipantCheck) {
@@ -382,13 +377,31 @@ class Contest extends DatabaseObject {
 		}
 
 		// alreay participant
-		foreach($this->getParticipants() as $participant) {
-			if($participant->isOwner()) {
-				return false;
-			}
+		if($this->isParticipant()) {
+			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Returns true, if the active user is participant
+	 *
+	 * @return	boolean
+	 */
+	public function isParticipant() {
+		if(WCF::getUser()->userID == 0) {
+			return false;
+		}
+
+		// alreay participant
+		foreach($this->getParticipants() as $participant) {
+			if($participant->isOwner()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

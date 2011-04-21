@@ -45,6 +45,11 @@ class ContestParticipantAddForm extends AbstractSecureForm {
 	 */
 	public function __construct(Contest $contest) {
 		$this->contest = $contest;
+		
+		// autosubmit form i action is doParticipate
+		if(isset($_GET['doParticipate']) && count($_POST) == 0) {
+			$_POST['ownerID'] = 0;
+		}
 
 		parent::__construct();
 	}
@@ -98,14 +103,16 @@ class ContestParticipantAddForm extends AbstractSecureForm {
 	 */
 	public function validate() {
 		parent::validate();
-
+		
 		if($this->ownerID != 0) {
 			$this->availableGroups = ContestUtil::readAvailableGroups();
 
 			// validate group ids
 			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
-				throw new UserInputException('ownerID'); 
+				throw new UserInputException('ownerID');
 			}
+		} else if ($this->userid == 0) {
+			throw new UserInputException('ownerID');
 		}
 
 		if(!array_key_exists($this->state, $this->getStates())) {
@@ -133,7 +140,12 @@ class ContestParticipantAddForm extends AbstractSecureForm {
 		parent::save();
 
 		// save participant
-		$participant = ContestParticipantEditor::create($this->contest->contestID, WCF::getUser()->userID, $this->groupID, $this->state);
+		$participant = ContestParticipantEditor::create(
+			$this->contest->contestID,
+			WCF::getUser()->userID,
+			$this->groupID,
+			$this->state
+		);
 		$this->saved();
 
 		// forward

@@ -236,7 +236,7 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.participant.create.description"><![CDATA[To reach new participants, you should write a message. This message will be sent, after the contest gets unlocked.]]></item>
 		<item name="wcf.contest.participants"><![CDATA[Participants]]></item>
 		<item name="wcf.contest.participant.owner.description"><![CDATA[]]></item>
-		<item name="wcf.contest.participant.add"><![CDATA[Add participant]]></item>
+		<item name="wcf.contest.participant.add"><![CDATA[Become participant]]></item>
 		<item name="wcf.contest.participant.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant.by"><![CDATA[By]]></item>
 		<item name="wcf.contest.participant.delete"><![CDATA[Delete participant]]></item>
@@ -248,7 +248,7 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 		<item name="wcf.contest.participant.invite"><![CDATA[Invite participant]]></item>
 		<item name="wcf.contest.participant.description"><![CDATA[]]></item>
 		<item name="wcf.contest.sponsor"><![CDATA[Sponsor]]></item>
-		<item name="wcf.contest.sponsor.add"><![CDATA[Add sponsor]]></item>
+		<item name="wcf.contest.sponsor.add"><![CDATA[Become sponsor]]></item>
 		<item name="wcf.contest.solution"><![CDATA[Solution]]></item>
 		<item name="wcf.contest.solution.message.hidden"><![CDATA[The solution is not visible to you.]]></item>
 		<item name="wcf.contest.solution.number"><![CDATA[Solution #{$solutionID}]]></item>
@@ -395,11 +395,11 @@ You can also <p>send invitations or <b>unlock prices</b>.</p>
 
 		<item name="wcf.contest.sidebar.becomeparticipant.title"><![CDATA[Become participant]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.submit"><![CDATA[Join the battle]]></item>
-		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Do you want to join this contest or want to take part in future contests?]]></item>
+		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Take your chance, enter the contest.]]></item>
 
 		<item name="wcf.contest.sidebar.becomesponsor.title"><![CDATA[Become Sponsor]]></item>
 		<item name="wcf.contest.sidebar.becomesponsor.submit"><![CDATA[Add a price]]></item>
-		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[There are different reasons why peope add prices. Everybody can benefit from it.]]></item>
+		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[Everybody can benefit from it, so just sign up as a sponsor.]]></item>
 
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Become a judge]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Become judge]]></item>

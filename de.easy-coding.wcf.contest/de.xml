@@ -226,7 +226,7 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.participants"><![CDATA[Teilnehmer]]></item>
 		<item name="wcf.contest.participant.create"><![CDATA[Kommentar eröffnen]]></item>
 		<item name="wcf.contest.participant.create.description"><![CDATA[Um Teilnehmer zu gewinnen können Sie ihnen eine persönliche Nachricht schicken. Die Nachricht wird verschickt, nachdem der Contest freigeschatet wurde.]]></item>
-		<item name="wcf.contest.participant.add"><![CDATA[Teilnehmer hinzufügen]]></item>
+		<item name="wcf.contest.participant.add"><![CDATA[Teilnehmer werden]]></item>
 		<item name="wcf.contest.participant.add.description"><![CDATA[]]></item>
 		<item name="wcf.contest.participant.by"><![CDATA[Von]]></item>
 		<item name="wcf.contest.participant.delete"><![CDATA[Teilnehmer löschen]]></item>
@@ -312,7 +312,7 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 		<item name="wcf.contest.sponsor.message"><![CDATA[Nachricht]]></item>
 		<item name="wcf.contest.sponsor.description"><![CDATA[Bewerbt euch als Sponsor für diesen Wettbewerb. Nach Freischaltung könnt ihr dem Wettbewerb Preise hinzufügen.]]></item>
 		<item name="wcf.contest.sponsor.owner.description"><![CDATA[Wenn Sie Sponsoren überzeugen wollen, an ihrem Wettbewerb teilzunehmen, sollten Sie mit einem Text überzeugen. Der Text ist optional.]]></item>
-		<item name="wcf.contest.sponsor.add"><![CDATA[Sponsor hinzufügen]]></item>
+		<item name="wcf.contest.sponsor.add"><![CDATA[Werde Sponsor]]></item>
 		<item name="wcf.contest.sponsor.invite"><![CDATA[Sponsoren einladen]]></item>
 		<item name="wcf.contest.sponsor.by"><![CDATA[Von]]></item>
 		<item name="wcf.contest.sponsor.delete"><![CDATA[Sponsor löschen]]></item>
@@ -383,11 +383,11 @@ Wenn ihr denkt, dass die Aufgabe sauber formuliert ist, könnt ihr sie zur Prüf
 
 		<item name="wcf.contest.sidebar.becomeparticipant.title"><![CDATA[Werde Teilnehmer]]></item>
 		<item name="wcf.contest.sidebar.becomeparticipant.submit"><![CDATA[Teilnehmer werden]]></item>
-		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Der Wettbewerb hat erst wenige Teilnehmer. Überlege dir eine Lösung und nehme Teil am Wettbewerb. Nutze deine Chance!]]></item>
+		<item name="wcf.contest.sidebar.becomeparticipant.description"><![CDATA[Nimm am Contest teil, nutze deine Chance.]]></item>
 
 		<item name="wcf.contest.sidebar.becomesponsor.title"><![CDATA[Werde Sponsor]]></item>
 		<item name="wcf.contest.sidebar.becomesponsor.submit"><![CDATA[Preis hinzufügen]]></item>
-		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[Die Teilnehmer arbeiten hart und wollen belohnt werden. Werde Sponsor. Es gibt die verschiedensten Motive warum man Preise für einen Wettbewerb sponsorn sollte. Jeder kann davon profitieren.]]></item>
+		<item name="wcf.contest.sidebar.becomesponsor.description"><![CDATA[Jeder kann von Sponsoring profitieren, also werde Sponsor.]]></item>
 
 		<item name="wcf.contest.sidebar.becomejury.title"><![CDATA[Werde Juror]]></item>
 		<item name="wcf.contest.sidebar.becomejury.submit"><![CDATA[Juror werden]]></item>

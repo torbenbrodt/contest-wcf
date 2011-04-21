@@ -22,7 +22,6 @@ class ContestMenu extends TreeMenu {
 		'wcf.contest.menu.link.sponsortalk' => 'isSponsortalkable',
 		'wcf.contest.menu.link.solution' => 'isEnabledSolution',
 		'wcf.contest.menu.link.jury' => 'isEnabledJury',
-		'wcf.contest.menu.link.jurytalk' => 'isEnabledJury',
 	);
 	
 	/**
