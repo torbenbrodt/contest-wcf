@@ -113,8 +113,7 @@ class ContestInteraction {
 		}
 
 		// get interactions
-		$interactionList = new ContestInteractionList();
-		$interactionList->sqlConditions .= 'contestID = '.intval($this->contest->contestID);
+		$interactionList = new ContestInteractionList($this->contest);
 		$interactionList->sqlLimit = 0;
 		$interactionList->readObjects();
 		$owners = $interactionList->getObjects();
@@ -143,7 +142,7 @@ class ContestInteraction {
 			
 			$lang = 'wcf.contest.interaction.tickets.solution';
 			$message = WCF::getLanguage()->getDynamicVariable($lang, array(
-				'$tickets' => $owner->c
+				'tickets' => $owner->c
 			));
 
 			// create pseudo solution
