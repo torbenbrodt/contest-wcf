@@ -210,7 +210,7 @@ class Contest extends DatabaseObject {
 		}
 		if($this->enableParticipantCheck) {
 			foreach($this->getParticipants() as $participant) {
-				if($jury->state == 'accepted' && $participant->isOwner()) {
+				if($participant->state == 'accepted' && $participant->isOwner()) {
 					return true;
 				}
 			}
