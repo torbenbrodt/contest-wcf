@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" price interest</packagename>
 		<packagedescription>The more interaction the user has, the greater the chance, that the user wins.</packagedescription>
-		<version>0.9.3 RC 1</version>
+		<version>0.9.4 RC 3</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -28,15 +28,11 @@
 
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="de-informal">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.9.2 RC 1">
-		<files>files.tar</files>
-		<templates>templates.tar</templates>
-
-		<!-- languages -->
-		<languages languagecode="de">de.xml</languages>
-		<languages languagecode="en">en.xml</languages>
+	<instructions type="update" fromversion="0.9.3 RC 1">
+		<languages languagecode="de-informal">de.xml</languages>
 	</instructions>
 </package>

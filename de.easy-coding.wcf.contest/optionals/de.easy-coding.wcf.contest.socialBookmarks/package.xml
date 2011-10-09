@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" social bookmarks</packagename>
 		<packagedescription>Enables the social bookmarks bar and allows trackbacks.</packagedescription>
-		<version>0.9.4 RC 1</version>
+		<version>0.9.4 RC 3</version>
 		<plugin>com.woltlab.wcf</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -31,6 +31,11 @@
 
 		<!-- language -->
 		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="de-informal">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>
+	</instructions>
+	
+	<instructions type="update" fromversion="0.9.4 RC 1">
+		<languages languagecode="de-informal">de.xml</languages>
 	</instructions>
 </package>

@@ -4,7 +4,7 @@
 	<packageinformation>
 		<packagename>easy-coding "contest" app</packagename>
 		<packagedescription>contest application.</packagedescription>
-		<version>0.9.4 RC 2</version>
+		<version>0.9.4 RC 3</version>
 		<plugin>com.woltlab.wcf.page.user.profile</plugin>
 		<isunique>1</isunique>
 		<date>DATE</date>
@@ -16,6 +16,7 @@
 	</authorinformation>
 	
 	<requiredpackages>
+		<languages languagecode="de-informal">de.xml</languages>
 		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf</requiredpackage>
 		<requiredpackage minversion="1.0.0 Beta 1">com.woltlab.wcf.tagging</requiredpackage>
 		<requiredpackage minversion="1.1.0 Beta 1">com.woltlab.wcf.page.user.profile</requiredpackage>
@@ -54,23 +55,13 @@
 		
 		<!-- languages -->
 		<languages languagecode="de">de.xml</languages>
+		<languages languagecode="de-informal">de.xml</languages>
 		<languages languagecode="en">en.xml</languages>
 	</instructions>
 	
-	<instructions type="update" fromversion="0.9.4 RC 1">
+	<instructions type="update" fromversion="0.9.4 RC 2">
 		<!-- files -->
 		<files>files.tar</files>
-	</instructions>
-	
-	<instructions type="update" fromversion="0.9.3 RC 1">
-		<!-- files -->
-		<files>files.tar</files>
-		<templates>templates.tar</templates>
-		<sql>update.sql</sql>
-
-		<!-- languages -->
-		<languages languagecode="de">de.xml</languages>
-		<languages languagecode="en">en.xml</languages>
-		<groupoptions>groupoptions.xml</groupoptions>
+		<languages languagecode="de-informal">de.xml</languages>
 	</instructions>
 </package>
