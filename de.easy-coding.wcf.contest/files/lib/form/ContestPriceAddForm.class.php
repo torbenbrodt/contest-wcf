@@ -206,7 +206,11 @@ class ContestPriceAddForm extends MessageForm {
 	public function save() {
 		parent::save();
 
-		$sponsor = ContestSponsor::find($this->contest->contestID, $this->userID, $this->groupID);
+		if($this->sponsorID) {
+			$sponsor = new ContestSponsor($this->sponsorID);
+		} else {
+			$sponsor = ContestSponsor::find($this->contest->contestID, $this->userID, $this->groupID);
+		}
 
 		if($sponsor === null) {
 			require_once(WCF_DIR.'lib/data/contest/sponsor/ContestSponsorEditor.class.php');
