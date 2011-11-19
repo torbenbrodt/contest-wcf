@@ -503,11 +503,18 @@ class ContestEditor extends Contest {
 			$timestamp = $lastPick;
 		}
 
+		$nextSolution = null;
+
 		foreach(ContestSolution::getWinners($this->contestID) as $solution) {
 			// contest already has price?
 			// pick time has passed since the winner did not choose a price in time
 			if($solution->hasPrice() || ($solution->pickTime && $solution->pickTime < TIME_NOW)) {
 				continue;
+			}
+
+			// remember first valid solution
+			if($nextSolution === null) {
+				$nextSolution = $solution;
 			}
 
 			// no change, skip database update
@@ -522,15 +529,7 @@ class ContestEditor extends Contest {
 			}
 		}
 
-		// TODO: send event to the next winner
-		if(false) {
-			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-			$owner = $this->getOwner();
-			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
-				'priceID' => $priceID,
-				'owner' => $owner->getName()
-			));
-		}
+		return $nextSolution;
 	}
 
 	/**
@@ -547,22 +546,33 @@ class ContestEditor extends Contest {
 
 		// if state is changed to closed, then update timestamps, when winners have to pick prices
 		if($state == 'closed') {
-			$this->updatePickTimes();
-
 			// winners cannot choose prices on their own, so give prices now
-			if(!$this->enablePricechoice) {
-				$this->updatePricechoices();
-			}
-		}
+			if($this->enablePricechoice) {
+				$nextSolution = $this->updatePickTimes();
 
-		// TODO: send event to participants that contest is finished
-		if(false) {
-			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-			$owner = $this->getOwner();
-			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestState', array(
-				'priceID' => $priceID,
-				'owner' => $owner->getName()
-			));
+				// notify next winner
+				if(false && $nextSolution) {
+					require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+					$owner = $nextSolution->getOwner();
+					ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
+						'priceID' => $priceID,
+						'owner' => $owner->getName()
+					));
+				}
+
+			} else {
+				$this->updatePricechoices();
+
+				// notify all participants that contest is finished
+				if(false) {
+					require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+					$owner = $this->getOwner();
+					ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestState', array(
+						'priceID' => $priceID,
+						'owner' => $owner->getName()
+					));
+				}
+			}
 		}
 	}
 }
