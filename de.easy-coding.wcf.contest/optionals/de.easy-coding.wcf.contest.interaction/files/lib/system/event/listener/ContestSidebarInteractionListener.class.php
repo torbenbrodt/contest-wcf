@@ -28,6 +28,9 @@ class ContestSidebarInteractionListener implements EventListener {
 			if(isset($_POST['saveExtraPoints'])) {
 				$contestID = intval($eventObj->contest->contestID);
 				$participantID = intval($_POST['participantID']);
+				
+				// TODO: validation if participant belongs to this contest
+				
 				$score = intval($_POST['score']);
 
 				$sql = "INSERT INTO	wcf".WCF_N."_contest_interaction_extra

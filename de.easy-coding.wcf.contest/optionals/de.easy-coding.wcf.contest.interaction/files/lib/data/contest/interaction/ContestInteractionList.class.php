@@ -240,7 +240,8 @@ class ContestInteractionList extends DatabaseObjectList {
 		// insert user participants in commonly used table
 		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_data
 					(contestID, participantID, score)
-			SELECT		participantID,
+			SELECT		'.intval($this->contest->contestID).' AS contestID,
+					participantID,
 					SUM(c)
 			FROM		wcf'.WCF_N.'_contest_interaction_tmp
 			GROUP BY	participantID';
