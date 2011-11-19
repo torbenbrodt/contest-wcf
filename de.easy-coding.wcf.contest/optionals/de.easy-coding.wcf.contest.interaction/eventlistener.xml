@@ -27,5 +27,10 @@
 			<eventname>assignVariables</eventname>
 			<listenerclassfile>lib/system/event/listener/ContestPageInteractionListener.class.php</listenerclassfile>
 		</eventlistener>
+		<eventlistener>
+			<eventclassname>ContestSidebar</eventclassname>
+			<eventname>init</eventname>
+			<listenerclassfile>lib/system/event/listener/ContestSidebarInteractionListener.class.php</listenerclassfile>
+		</eventlistener>
 	</import>
 </data>
