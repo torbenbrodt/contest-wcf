@@ -39,22 +39,7 @@
 							<div class="message content">
 								<div class="messageInner container-1">
 									<a id="entry{@$entry->contestID}"></a>
-									<div class="messageHeader"{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)} style="border-style:dashed"{/if}>
-										<div class="containerIcon">
-											
-											{if $entry->getOwner()->getAvatar()}
-												{assign var=x value=$entry->getOwner()->getAvatar()->setMaxSize(24, 24)}
-												<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}">{@$entry->getOwner()->getAvatar()}</a>
-											{else}
-												<a href="{$entry->getOwner()->getLink()}{@SID_ARG_2ND}"><img src="{@RELATIVE_WCF_DIR}images/avatars/avatar-default.png" alt="" style="width: 24px; height: 24px" /></a>
-											{/if}
-										</div>
-										<div class="containerContent">
-											<div style="float:right">{@$entry->getState()->renderButton()}</div>
-											<h4 style="margin: 0; padding: 0"><a href="index.php?page=Contest&amp;contestID={@$entry->contestID}{@SID_ARG_2ND}">{$entry->subject}</a></h4>
-											<p class="light smallFont">{@$entry->time|time}</p>
-										</div>
-									</div>
+									<div style="float:right">{@$entry->getState()->renderButton()}</div>
 									{if $entry->state == scheduled && ($entry->fromTime > 0 || $entry->untilTime > 0)}
 									<div class="messageHeader">
 										<div class="containerIcon" style="padding-top:6px">
