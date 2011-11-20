@@ -337,7 +337,7 @@ class Contest extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isSponsorable($userCheck = true) {
-		return (!$userCheck || WCF::getUser()->userID) && $this->state != 'closed';
+		return (!$userCheck || WCF::getUser()->userID) && $this->state != 'closed' && WCF::getUser()->getPermission('user.contest.canSponsor');
 	}
 
 	/**
