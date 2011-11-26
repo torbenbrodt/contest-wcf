@@ -21,16 +21,58 @@ class ContestSidebarInteractionListener implements EventListener {
 			return;
 		}
 
-		// show form to give extra points
+		// show coupon field
+		$this->executeCoupon();
+
+		// contest owner might give extra points
+		$this->executeExtraPoints();
+	}
+
+	/**
+	 *
+	 */
+	protected function executeCoupon() {
+		// TODO: check for contest->enableCoupon
+		if(isset($_POST['saveCoupon'])) {
+			require_once(WCF_DIR.'lib/data/contest/coupon/ContestCoupon.class.php');
+			
+			try {
+				$coupon = new ContestCoupon($eventObj->contest, $_POST['couponCode']);
+				$coupon->giveToParticipant($_POST['participantID']);
+			} catch(Exception $e) {
+				// show user form, that error occurred
+			}
+		}
+
+		// possible participants for current user
+		$possibleParticipants = array();
+		foreach($this->getParticipants() as $participant) {
+			if($participant->isOwner()) {
+				$possibleParticipants[] = $participant;
+			}
+		}
+		WCF::getTPL()->assign('contestCouponPossibleParticipants', $possibleParticipants);
+		WCF::getTPL()->append('additionalBoxes1', WCF::getTPL()->fetch('contestInteractionCouponSidebar'));
+	}
+
+	/**
+	 * show form to give extra points
+	 */
+	protected function executeExtraPoints() {
 		if($eventObj->contest->isOwner()) {
 
 			// save
 			if(isset($_POST['saveExtraPoints'])) {
+				require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 				$contestID = intval($eventObj->contest->contestID);
 				$participantID = intval($_POST['participantID']);
 				
-				// TODO: validation if participant belongs to this contest
-				
+				$participant = new ContestParticipant($participantID);
+				if(!$participant->participantID || $participant->contestID != $eventObj->contest->contestID) {
+					// TODO: use user exception and display error
+					throw new SystemException('participant does not exist in this contest');
+				}
+
 				$score = intval($_POST['score']);
 
 				$sql = "INSERT INTO	wcf".WCF_N."_contest_interaction_extra
