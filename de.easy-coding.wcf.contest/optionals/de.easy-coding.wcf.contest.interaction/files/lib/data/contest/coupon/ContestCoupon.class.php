@@ -35,7 +35,7 @@ class ContestCoupon extends DatabaseObject {
 	 */
 	protected function validate() {
 		if(!$this->couponID) {
-			throw new UserInputException('coupon', 'wrong coupon code');
+			throw new UserInputException('coupon', 'Der Coupon Code ist ungültig.');
 		}
 		
 		if(!$this->contest) {
@@ -43,7 +43,7 @@ class ContestCoupon extends DatabaseObject {
 		}
 		
 		if(($this->fromTime && $this->fromTime > TIME_NOW) || ($this->untilTime && TIME_NOW > $this->untilTime)) {
-			throw new UserInputException('coupon', 'coupon code is not valid any longer');
+			throw new UserInputException('coupon', 'Der Coupon Code ist nicht mehr gültig.');
 		}
 		
 		// TODO: check if participant did already use a code
@@ -67,7 +67,7 @@ class ContestCoupon extends DatabaseObject {
 		}
 
 		require_once(WCF_DIR.'lib/data/contest/coupon/participant/ContestCouponParticipantEditor.class.php');				
-		ContestCouponParticipantEditor::create($couponID, $participantID);
+		ContestCouponParticipantEditor::create($this->couponID, $participantID);
 	}
 }
 ?>

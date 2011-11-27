@@ -23,7 +23,7 @@ class ContestCouponParticipantEditor extends ContestCouponParticipant {
 	public static function create($couponID, $participantID, $time = TIME_NOW) {
 		$sql = "INSERT INTO	wcf".WCF_N."_contest_coupon_participant
 					(couponID, participantID, time)
-			VALUES		(".intval($contestID).", ".intval($participantID).", ".$time.")";
+			VALUES		(".intval($couponID).", ".intval($participantID).", ".$time.")";
 		WCF::getDB()->sendQuery($sql);
 		
 		return new ContestCouponParticipantEditor(null, null, array(

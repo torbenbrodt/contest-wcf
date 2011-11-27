@@ -1,7 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/DatabaseObjectList.class.php');
-require_once(WCF_DIR.'lib/data/contest/participant/ViewableContestParticipant.class.php');
+require_once(WCF_DIR.'lib/data/contest/coupon/participant/ContestCouponParticipant.class.php');
 
 /**
  * List of coupons which a single user makes use from.
@@ -35,22 +35,22 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 	public function __construct(Contest $contest) {
 		$this->contest = $contest;
 	}
-	
+
 	/**
 	 *
 	 */
 	public function setUser($user) {
 		$this->participantIDs = array();
-		
+
 		if($user->userID) {
 			foreach($this->contest->getParticipants() as $participant) {
-				if($participant->getOwner->isUser($user)) {
+				if($participant->getOwner()->isUser($user)) {
 					$this->participantIDs[] = $participant->participantID;
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * @see DatabaseObjectList::countObjects()
 	 */
@@ -58,16 +58,16 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 		if(empty($this->participantIDs)) return 0;
 
 		$sql = 'SELECT		COUNT(contest_coupon.couponID) AS count
-			FROM		wcf'.WCF_N.'_contest_coupon_user contest_coupon_participant
+			FROM		wcf'.WCF_N.'_contest_coupon_participant contest_coupon_participant
 			INNER JOIN	wcf'.WCF_N.'_contest_coupon contest_coupon
-			ON		contest_coupon_user.couponID = contest_coupon.couponID
+			ON		contest_coupon_participant.couponID = contest_coupon.couponID
 			WHERE		contestID = '.intval($this->contest->contestID).'
 			AND		participantID IN ('.implode(',', $this->participantIDs).')
 			'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '');
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
-	
+
 	/**
 	 * @see DatabaseObjectList::readObjects()
 	 */
@@ -75,19 +75,19 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 		if(empty($this->participantIDs)) return;
 
 		$sql = 'SELECT		*
-			FROM		wcf'.WCF_N.'_contest_coupon_user contest_coupon_participant
+			FROM		wcf'.WCF_N.'_contest_coupon_participant contest_coupon_participant
 			INNER JOIN	wcf'.WCF_N.'_contest_coupon contest_coupon
-			ON		contest_coupon_user.couponID = contest_coupon.couponID
+			ON		contest_coupon_participant.couponID = contest_coupon.couponID
 			WHERE		contestID = '.intval($this->contest->contestID).'
 			AND		participantID IN ('.implode(',', $this->participantIDs).')
 			'.(!empty($this->sqlConditions) ? "AND ".$this->sqlConditions : '')."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
 		while ($row = WCF::getDB()->fetchArray($result)) {
-			$this->coupons[] = new ContestCouponParticipant(null, null, $row);
+			$this->coupons[] = new ContestCouponParticipant(null, $row);
 		}
 	}
-	
+
 	/**
 	 * @see DatabaseObjectList::getObjects()
 	 */
