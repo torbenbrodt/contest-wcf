@@ -8,7 +8,7 @@
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
  * @package	de.easy-coding.wcf.contest.interaction
  */
-class ContestCoupon {
+class ContestCoupon extends DatabaseObject {
 
 	/**
 	 * construct with contest instance
@@ -16,6 +16,9 @@ class ContestCoupon {
 	 * @param	$contest	Contest
 	 */
 	public function __construct(Contest $contest = null, $couponCode = null, $row = array()) {
+		if($contest) {
+			$this->contest = $contest;
+		}
 
 		if(empty($row)) {
 			$sql = "SELECT		*
@@ -32,11 +35,15 @@ class ContestCoupon {
 	 */
 	protected function validate() {
 		if(!$this->couponID) {
-			throw new SystemException('wrong coupon code');
+			throw new UserInputException('coupon', 'wrong coupon code');
 		}
 		
-		if($this->fromTime && $this->fromTime > TIME_NOW) || ($this->untilTime && TIME_NOW > $this->untilTime)) {
-			throw new SystemException('coupon code is not valid any longer');
+		if(!$this->contest) {
+			throw new SystemException('invalid contest given');
+		}
+		
+		if(($this->fromTime && $this->fromTime > TIME_NOW) || ($this->untilTime && TIME_NOW > $this->untilTime)) {
+			throw new UserInputException('coupon', 'coupon code is not valid any longer');
 		}
 		
 		// TODO: check if participant did already use a code
@@ -48,6 +55,17 @@ class ContestCoupon {
 	public function giveToParticipant($participantID) {
 		$this->validate();
 		
+		// user is not a participant yet, need to create entry
+		if($participantID == 0) {
+			$state = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
+
+			// add participant
+			require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipantEditor.class.php');
+			$participant = ContestParticipantEditor::create($this->contest->contestID, WCF::getUser()->userID, 0, $state);
+			
+			$participantID = $participant->participantID;
+		}
+
 		require_once(WCF_DIR.'lib/data/contest/coupon/participant/ContestCouponParticipantEditor.class.php');				
 		ContestCouponParticipantEditor::create($couponID, $participantID);
 	}

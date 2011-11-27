@@ -228,9 +228,9 @@ class ContestInteractionList extends DatabaseObjectList {
 					(participantID, c)
 			SELECT		participantID,
 					score
-			FROM		wcf'.WCF_N.'_contest_coupon_user contest_coupon_participant
+			FROM		wcf'.WCF_N.'_contest_coupon_participant contest_coupon_participant
 			INNER JOIN	wcf'.WCF_N.'_contest_coupon contest_coupon
-			ON		contest_coupon_user.couponID = contest_coupon.couponID
+			ON		contest_coupon_participant.couponID = contest_coupon.couponID
 			WHERE		contestID = '.intval($this->contest->contestID);
 		WCF::getDB()->sendQuery($sql);
 

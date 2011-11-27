@@ -5,6 +5,10 @@
 		</div>
 		<div style="padding:10px">
 			<form method="post">
+			{if $contestCouponException|isset}
+				<p class="error">{lang}{$contestCouponException->getMessage()}{/lang}</p>
+			{/if}
+			
 			{if $contestCouponExisingCoupons|isset}
 				{lang}Sie haben bereits folgende(n) Coupon(s) eingelöst:{/lang}
 				<ul>
@@ -13,7 +17,9 @@
 				{/foreach}
 				</ul>
 			{else}
-				{if $contestCouponPossibleParticipants|count == 1}
+				{if $contestCouponPossibleParticipants|count == 0}
+					<input type="hidden" name="participantID" value="0" />
+				{else if $contestCouponPossibleParticipants|count == 1}
 					{foreach from=$contestCouponPossibleParticipants item=participant}
 					<input type="hidden" name="participantID" value="{$participant->participantID}" />
 					{/foreach}

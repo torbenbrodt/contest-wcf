@@ -20,6 +20,8 @@ class ContestSidebarInteractionListener implements EventListener {
 		if(!$eventObj->contest || $eventObj->contest->enableInteraction == 0) {
 			return;
 		}
+		
+		$this->eventObj = $eventObj;
 
 		// show coupon field
 		$this->executeCoupon();
@@ -31,14 +33,16 @@ class ContestSidebarInteractionListener implements EventListener {
 	/**
 	 *
 	 */
-	protected function executeCouponList(array $coupons) {
+	protected function showCouponList(array $coupons) {
 		WCF::getTPL()->assign('contestCouponExisingCoupons', $coupons);
 	}
 	
 	/**
 	 *
 	 */
-	protected function executeCouponForm() {
+	protected function showCouponForm() {
+		$eventObj = $this->eventObj;
+
 		// TODO: check for contest->enableCoupon
 		if(isset($_POST['saveCoupon'])) {
 			require_once(WCF_DIR.'lib/data/contest/coupon/ContestCoupon.class.php');
@@ -47,14 +51,15 @@ class ContestSidebarInteractionListener implements EventListener {
 				$coupon = new ContestCoupon($eventObj->contest, $_POST['couponCode']);
 				$coupon->giveToParticipant($_POST['participantID']);
 
-			} catch(Exception $e) {
+			} catch(UserInputException $e) {
 				// show user form, that error occurred
+				WCF::getTPL()->assign('contestCouponException', $e);
 			}
 		}
 
 		// possible participants for current user
 		$possibleParticipants = array();
-		foreach($this->getParticipants() as $participant) {
+		foreach($eventObj->contest->getParticipants() as $participant) {
 			if($participant->isOwner()) {
 				$possibleParticipants[] = $participant;
 			}
@@ -66,16 +71,22 @@ class ContestSidebarInteractionListener implements EventListener {
 	 *
 	 */
 	protected function executeCoupon() {
+		$eventObj = $this->eventObj;
+		if(!$eventObj->contest) {
+			return;
+		}
 	
-		$list = new ContestCouponUserList();
+		require_once(WCF_DIR.'lib/data/contest/coupon/participant/ContestCouponParticipantList.class.php');
+	
+		$list = new ContestCouponParticipantList($eventObj->contest);
 		$list->setUser(WCF::getUser());
 		$list->readObjects();
 		$coupons = $list->getObjects();
 
 		if(count($coupons)) {
-			$this->executeCouponList($coupons);
+			$this->showCouponList($coupons);
 		} else {
-			$this->executeCouponForm();
+			$this->showCouponForm();
 		}
 		
 		WCF::getTPL()->append('additionalBoxes1', WCF::getTPL()->fetch('contestInteractionCouponSidebar'));
@@ -85,7 +96,8 @@ class ContestSidebarInteractionListener implements EventListener {
 	 * show form to give extra points
 	 */
 	protected function executeExtraPoints() {
-		if($eventObj->contest->isOwner()) {
+		$eventObj = $this->eventObj;
+		if($eventObj->contest && $eventObj->contest->isOwner()) {
 
 			// save
 			if(isset($_POST['saveExtraPoints'])) {
