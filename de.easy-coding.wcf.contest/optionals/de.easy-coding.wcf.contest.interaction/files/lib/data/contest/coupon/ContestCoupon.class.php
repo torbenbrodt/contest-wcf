@@ -6,22 +6,22 @@
  * @author	Torben Brodt
  * @copyright	2011 easy-coding.de
  * @license	GNU General Public License <http://opensource.org/licenses/gpl-3.0.html>
- * @package	de.easy-coding.wcf.contest
+ * @package	de.easy-coding.wcf.contest.interaction
  */
-class ContestParticipant {
+class ContestCoupon {
 
 	/**
 	 * construct with contest instance
 	 *
 	 * @param	$contest	Contest
 	 */
-	public function __construct(Contest $contest, $couponCode) {
+	public function __construct(Contest $contest = null, $couponCode = null, $row = array()) {
 
-		if(true) {
+		if(empty($row)) {
 			$sql = "SELECT		*
 				FROM 		wcf".WCF_N."_contest_coupon
 				WHERE 		contestID IN (0, ".intval($contest->contestID).")
-				AND		ccouponCode = '".escapeString($couponCode)."'";
+				AND		couponCode = '".escapeString($couponCode)."'";
 			$row = WCF::getDB()->getFirstRow($sql);
 		}
 		parent::__construct($row);
@@ -47,6 +47,9 @@ class ContestParticipant {
 	 */
 	public function giveToParticipant($participantID) {
 		$this->validate();
+		
+		require_once(WCF_DIR.'lib/data/contest/coupon/participant/ContestCouponParticipantEditor.class.php');				
+		ContestCouponParticipantEditor::create($couponID, $participantID);
 	}
 }
 ?>

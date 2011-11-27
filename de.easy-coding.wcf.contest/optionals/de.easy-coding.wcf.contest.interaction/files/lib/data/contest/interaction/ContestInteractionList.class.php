@@ -223,6 +223,17 @@ class ContestInteractionList extends DatabaseObjectList {
 			GROUP BY	contest_participant.groupID';
 		WCF::getDB()->sendQuery($sql);
 
+		// insert coupon data
+		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp
+					(participantID, c)
+			SELECT		participantID,
+					score
+			FROM		wcf'.WCF_N.'_contest_coupon_user contest_coupon_participant
+			INNER JOIN	wcf'.WCF_N.'_contest_coupon contest_coupon
+			ON		contest_coupon_user.couponID = contest_coupon.couponID
+			WHERE		contestID = '.intval($this->contest->contestID);
+		WCF::getDB()->sendQuery($sql);
+
 		// insert extra points
 		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp
 					(participantID, c)

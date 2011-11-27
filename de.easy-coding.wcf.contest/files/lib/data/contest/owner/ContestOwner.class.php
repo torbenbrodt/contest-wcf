@@ -158,12 +158,21 @@ class ContestOwner {
 	 * @return boolean
 	 */
 	public function isCurrentUser() {
-		$myuserID = WCF::getUser()->userID;
+		return $this->isUser(WCF::getUser());
+	}
+	
+	/**
+	 * is the current user member of this?
+	 *
+	 * @return boolean
+	 */
+	public function isUser($user) {
+		$myuserID = $user->userID;
 		if(empty($myuserID)) {
 			return false;
 		}
 
-		return $myuserID == $this->owner->userID || in_array($this->owner->groupID, WCF::getUser()->getGroupIDs());
+		return $myuserID == $this->owner->userID || in_array($this->owner->groupID, $user->getGroupIDs());
 	}
 }
 ?>
