@@ -20,6 +20,13 @@ class ContestPricePage extends MultipleLinkPage {
 	public $templateName = 'contestPrice';
 	
 	/**
+	 * The number of items shown per page.
+	 * 
+	 * @var integer
+	 */
+	public $itemsPerPage = 100;
+	
+	/**
 	 * entry id
 	 *
 	 * @var	integer
