@@ -37,6 +37,11 @@ class ContestParticipantAddForm extends AbstractSecureForm {
 	 * @var array<Group>
 	 */
 	protected $availableGroups = array();
+	
+	/**
+	 *
+	 */
+	protected $skipSecurityToken = false;
 
 	/**
 	 * Creates a new ContestParticipantAddForm object.
@@ -49,9 +54,21 @@ class ContestParticipantAddForm extends AbstractSecureForm {
 		// autosubmit form i action is doParticipate
 		if(isset($_GET['doParticipate']) && count($_POST) == 0) {
 			$_POST['ownerID'] = 0;
+			$_POST['state'] = $this->contest->enableParticipantCheck ? 'applied' : 'accepted';
+			$this->skipSecurityToken = true;
 		}
 
 		parent::__construct();
+	}
+	
+	/**
+	 * Validates the security token.
+	 */
+	protected function checkSecurityToken() {
+		if($this->skipSecurityToken) {
+			return;
+		}
+		parent::checkSecurityToken();
 	}
 
 	/**
