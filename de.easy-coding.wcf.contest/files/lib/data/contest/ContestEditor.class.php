@@ -552,7 +552,7 @@ class ContestEditor extends Contest {
 					'easy-coding Gewinnspiel - du hast gewonnen',
 'Hallo '.$nextSolution->getOwner()->getName().',
 du gehörst zu den glücklichen Gewinnern beim easy-coding Gewinnspiel.
-Bitte suche dir innerhalb von 24h auf folgender Seite einen Preis aus: '.PAGE_URL.'/index.php?page=ContestSolution&contestID='.$this->contestID.'
+Bitte suche dir innerhalb von 24h auf folgender Seite einen Preis aus: '.PAGE_URL.'/index.php?page=ContestPrice&contestID='.$this->contestID.'
 
 Vielen Dank für die Teilnahme beim Gewinnspiel,
 
