@@ -127,13 +127,36 @@ class ContestPriceEditor extends ContestPrice {
 		$contest->updatePickTimes();
 		
 		// TODO: send secretMessage to winner
-		if(false && $this->secretMessage) {
-			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-			$owner = $this->getOwner();
-			ContestEventEditor::create($this->contestID, $owner->userID, $owner->groupID, 'ContestPriceSecretMessage', array(
-				'priceID' => $this->priceID,
-				'owner' => $owner->getName()
-			));
+		if($this->secretMessage) {
+			// use notification api
+			if(false) {
+				require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+				$owner = $this->getOwner();
+				ContestEventEditor::create($this->contestID, $owner->userID, $owner->groupID, 'ContestPriceSecretMessage', array(
+					'priceID' => $this->priceID,
+					'owner' => $owner->getName()
+				));
+			}
+			
+			// TODO: remove after notification api is implemented
+			// TODO: missing translation
+			if($solution->getOwner()->userID) {
+				$mail = new Mail(
+					$solution->getOwner()->email,
+					'easy-coding Gewinnspiel - du hast gewonnen',
+'Hallo '.$solution->getOwner()->getName().',
+du hast soeben einen Preis beim easy-coding Gewinnspiel gewählt.
+
+Der Sponsor hat dir dazu einen Hinweis mit folgendem Inhalt hinterlassen:
+
+'.$this->secretMessage.'
+
+Vielen Dank für die Teilnahme beim Gewinnspiel,
+
+Torben Brodt');
+				$mail->addBCC(MAIL_ADMIN_ADDRESS);
+				$mail->send();
+			}
 		}
 
 		// TODO: pricepick: send event to sponsor
@@ -149,6 +172,7 @@ class ContestPriceEditor extends ContestPrice {
 	
 	/**
 	 * updates positions
+
 	 * @param	array		$data
 	 */
 	public static function updatePositions($data) {
