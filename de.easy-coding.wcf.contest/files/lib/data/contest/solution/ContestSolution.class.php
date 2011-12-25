@@ -152,7 +152,16 @@ class ContestSolution extends DatabaseObject {
 	 * @return	boolean
 	 */
 	public function isOwner() {
-		return ContestOwner::get($this->userID, $this->groupID)->isCurrentUser();
+		return $this->getOwner()->isCurrentUser();
+	}
+
+	/**
+	 * Returns true, if the active user is member
+	 * 
+	 * @return	ContestOwner
+	 */
+	public function getOwner() {
+		return ContestOwner::get($this->userID, $this->groupID);
 	}
 
 	/**

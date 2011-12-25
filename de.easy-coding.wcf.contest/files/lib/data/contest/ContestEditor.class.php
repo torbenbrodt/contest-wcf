@@ -472,7 +472,7 @@ class ContestEditor extends Contest {
 	 * if priceExpireSeconds is set, the solution will have a maximum time to choose a price
 	 * if no price is chosen in this period, the next winner can take a price
 	 */
-	public function updatePickTimes() {
+	public function updatePickTimes($allowSendMail = true) {
 		require_once(WCF_DIR.'lib/data/contest/solution/ContestSolution.class.php');
 
 		// get first + latest pick
@@ -521,17 +521,17 @@ class ContestEditor extends Contest {
 			// no change, skip database update
 			$save = $this->priceExpireSeconds == 0 ? 0 : $timestamp;
 
-			// user will have xx hours from now on
-			$timestamp += $this->priceExpireSeconds;
-
 			// database update, if needed
 			if($solution->pickTime != $save) {
 				$solution->getEditor()->updatePickTime($save);
 			}
+
+			// user will have xx hours from now on
+			$timestamp += $this->priceExpireSeconds;
 		}
 
 		// notify next winner
-		if($nextSolution) {
+		if($allowSendMail && $nextSolution) {
 
 			// use notification api
 			if(false) {
