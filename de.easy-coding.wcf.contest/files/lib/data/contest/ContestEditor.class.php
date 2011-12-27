@@ -1,7 +1,6 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/data/contest/Contest.class.php');
-require_once(WCF_DIR.'lib/data/mail/Mail.class.php');
 
 /**
  * Provides functions to manage contest entries.
@@ -532,34 +531,7 @@ class ContestEditor extends Contest {
 
 		// notify next winner
 		if($allowSendMail && $nextSolution) {
-
-			// use notification api
-			if(false) {
-				require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
-				$owner = $nextSolution->getOwner();
-				ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
-					'priceID' => $priceID,
-					'owner' => $owner->getName()
-				));
-			}
-
-			// use mail if participant is single user
-			// TODO: remove after notification api is implemented
-			// TODO: missing translation
-			if($nextSolution->getOwner()->userID) {
-				$mail = new Mail(
-					$nextSolution->getOwner()->email,
-					'easy-coding Gewinnspiel - du hast gewonnen',
-'Hallo '.$nextSolution->getOwner()->getName().',
-du gehörst zu den glücklichen Gewinnern beim easy-coding Gewinnspiel.
-Bitte suche dir innerhalb von 24h auf folgender Seite einen Preis aus: '.PAGE_URL.'/index.php?page=ContestPrice&contestID='.$this->contestID.'
-
-Vielen Dank für die Teilnahme beim Gewinnspiel,
-
-Torben Brodt');
-				$mail->addBCC(MAIL_ADMIN_ADDRESS);
-				$mail->send();
-			}
+			$nextSolution->sendPickNotification();
 		}
 
 		return $nextSolution;

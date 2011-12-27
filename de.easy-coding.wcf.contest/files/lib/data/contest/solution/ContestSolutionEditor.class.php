@@ -132,6 +132,40 @@ class ContestSolutionEditor extends ContestSolution {
 	}
 
 	/**
+	 * Sends notification
+	 */
+	public function sendPickNotification() {
+		// use notification api
+		if(false) {
+			require_once(WCF_DIR.'lib/data/contest/event/ContestEventEditor.class.php');
+			$owner = $this->getOwner();
+			ContestEventEditor::create($contestID, $owner->userID, $owner->groupID, 'ContestPriceExpire', array(
+				'priceID' => $priceID,
+				'owner' => $owner->getName()
+			));
+		}
+
+		// use mail if participant is single user
+		// TODO: remove after notification api is implemented
+		// TODO: missing translation
+		if($this->getOwner()->userID) {
+			require_once(WCF_DIR.'lib/data/mail/Mail.class.php');
+			$mail = new Mail(
+				$this->getOwner()->email,
+				'easy-coding Gewinnspiel - du hast gewonnen',
+	'Hallo '.$this->getOwner()->getName().',
+du gehörst zu den glücklichen Gewinnern beim easy-coding Gewinnspiel.
+Bitte suche dir innerhalb von 24h auf folgender Seite einen Preis aus: '.PAGE_URL.'/index.php?page=ContestPrice&contestID='.$this->contestID.'
+
+Vielen Dank für die Teilnahme beim Gewinnspiel,
+
+Torben Brodt');
+			$mail->addBCC(MAIL_ADMIN_ADDRESS);
+			$mail->send();
+		}
+	}
+
+	/**
 	 * Deletes this entry solution.
 	 */
 	public function delete() {
