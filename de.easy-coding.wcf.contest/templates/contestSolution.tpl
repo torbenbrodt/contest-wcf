@@ -76,7 +76,7 @@
 											<div class="containerContent">
 												<div style="float:right">{@$solutionObj->getState()->renderButton()}</div>
 												<h4 style="margin: 0; padding: 0"><a href="index.php?page=ContestSolutionEntry&amp;contestID={@$entry->contestID}&amp;solutionID={@$solutionObj->solutionID}{@SID_ARG_2ND}">{$solutionObj->subject}</a></h4>
-												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a> ({@$solutionObj->time|time})</p>
+												<p class="light smallFont">{lang}wcf.contest.by{/lang} <a href="{$solutionObj->getOwner()->getLink()}{@SID_ARG_2ND}">{$solutionObj->getOwner()->getName()}</a>{* ({@$solutionObj->time|time})*}</p>
 											</div>
 										</div>
 										{if $entry->priceExpireSeconds && $entry->state == 'closed' && $solutionObj->pickTime > 0}
@@ -85,7 +85,7 @@
 												<img src="{icon}{if $solutionObj->hasPrice()}success{else}contestScheduled{/if}M.png{/icon}" alt="" />
 											</div>
 											<div class="containerContent">
-												<p class="light smallFont">{if $solutionObj->hasPrice()}{lang}wcf.contest.price.congratulations{/lang}{else}{lang}wcf.contest.price.congratulations.next{/lang}{/if}</p>
+												<p class="light smallFont">{if $solutionObj->hasPrice()}{lang}wcf.contest.price.congratulations{/lang}{else if $solutionObj->pickTime < TIME_NOW}{lang}Der Preis kann jetzt gewählt werden.{/lang}{else}{lang}wcf.contest.price.congratulations.next{/lang}{/if}</p>
 											</div>
 										</div>
 										{/if}
