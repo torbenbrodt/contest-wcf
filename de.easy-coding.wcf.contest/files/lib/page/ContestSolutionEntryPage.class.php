@@ -106,6 +106,13 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	public $sidebar = null;
 	
 	/**
+	 * action to send pick notification
+	 *
+	 * @var boolean
+	 */
+	public $sendPickNotification = false;
+
+	/**
 	 * @see Form::readParameters()
 	 */
 	public function readParameters() {
@@ -125,6 +132,8 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 			throw new IllegalLinkException();
 		}
 		
+		if (isset($_REQUEST['sendPickNotification'])) $this->sendPickNotification = true;
+		
 		// init comment list
 		$this->commentList = new ContestSolutionCommentList();
 		$this->commentList->sqlConditions .= 'contest_solution_comment.solutionID = '.intval($this->solutionID);
@@ -143,6 +152,10 @@ class ContestSolutionEntryPage extends MultipleLinkPage {
 	 */
 	public function readData() {
 		parent::readData();
+		
+		if($this->sendPickNotification) {
+			$this->solutionObj->getEditor()->sendPickNotification();
+		}
 		
 		// init todo list
 		$this->todoList = new ContestParticipantTodoList();
