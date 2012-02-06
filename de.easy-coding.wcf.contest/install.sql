@@ -87,7 +87,7 @@ CREATE TABLE wcf1_contest_event (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	eventName VARCHAR(255) NOT NULL DEFAULT '',
-	placeholders TEXT NOT NULL DEFAULT '',
+	placeholders TEXT,
 	time INT(10) NOT NULL DEFAULT 0,
 	KEY (contestID, time),
 	KEY (userID),
