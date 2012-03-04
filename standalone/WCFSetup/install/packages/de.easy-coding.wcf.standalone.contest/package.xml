@@ -12,7 +12,7 @@
 
 	<authorinformation>
 		<author><![CDATA[Torben Brodt]]></author>
-		<authorurl><![CDATA[http://trac.easy-coding.de/trac/contest]]></authorurl>
+		<authorurl><![CDATA[https://github.com/torbenbrodt/contest]]></authorurl>
 	</authorinformation>
 
 	<requiredpackages>
