@@ -5,6 +5,7 @@ Die Webanwendung hat keine Voraussetzungen und kann eigenständig betrieben werd
 Features
 -------------
 Ein komplexes Rollensystem ermöglicht vielerlei Erweiterungen:
+
  * Mitglieder können Fragen einstellen.
  * Teilnehmer können Lösungen einsenden.
  * Juroren werden die Lösungen bewerten.
@@ -13,7 +14,7 @@ Ein komplexes Rollensystem ermöglicht vielerlei Erweiterungen:
 
 Erweiterungen
 -------------
-Das System ist erweiterbar entwickelt worden um eine Spezialisierung für verschiedene Wettbewerbsformen zu ermöglichen. Die folgenden Erweiterungen sind über easy-coding verfügbar:
+Das System ist erweiterbar entwickelt worden um eine Spezialisierung für verschiedene Wettbewerbsformen zu ermöglichen. Die folgenden Erweiterungen sind über http://www.easy-coding.de verfügbar:
 
  * Promotion, zeigt allen Besuchern einmalig Info-Nachrichten
  * Social Bookmarks, ermöglicht die Verbreitung über soziale Netzwerke, Track- und Pingbacks
@@ -23,7 +24,7 @@ Das System ist erweiterbar entwickelt worden um eine Spezialisierung für versch
 
 Open Source Community Projekt
 -----------------------------
-Die Plattform wird unter Leitung von easy-coding.de entwickelt, langfristig durch die easy-coding Community betreut und vor allem auf easy-coding.de als Plattform betrieben werden.
+Die Plattform wird unter Leitung von http://www.easy-coding.de entwickelt, langfristig durch die easy-coding Community betreut und vor allem auf easy-coding.de als Plattform betrieben werden.
 
 Das gesamte Projekt wird "Open Source" unter der GPLv3 entwickelt, kann also überall betrieben werden.
 
