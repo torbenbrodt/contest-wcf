@@ -30,6 +30,18 @@ function ContestListRender(list) {
 				'{$buttons}'+
 			'</li>'
 		},
+		contestView: {
+			className: 'dataList messages',
+			style: '<li class="container-1">'+
+				'<div class="containerIcon" style="width:200px; padding-right:10px">'+
+					'<a href="{$url}" title="{$title}"><img src="{$img}" style="width:auto" alt=""></a>'+
+				'</div>'+
+				'<div class="containerContent">'+
+					'<div class="buttons">{$buttons}</div>'+
+					'<p><a href="{$url}">{$username}</a></p>'+
+				'</div>'+
+			'</li>'
+		},
 		messages: {
 			className: 'dataList messages'
 		}
@@ -106,6 +118,17 @@ function ContestListRender(list) {
 		
 		img = document.createElement('img');
 		img.style.cursor = 'pointer';
+		img.src = RELATIVE_WCF_DIR + 'icon/contestThumbnailViewS.png';
+		img.onclick = function(list) {
+			return function() {
+				list.change('contestView');
+			};
+		}(this);
+		div.appendChild(img);
+		
+		img = document.createElement('img');
+		img.style.cursor = 'pointer';
+		img.style.marginLeft = '3px';
 		img.src = RELATIVE_WCF_DIR + 'icon/contestThumbnailViewS.png';
 		img.onclick = function(list) {
 			return function() {

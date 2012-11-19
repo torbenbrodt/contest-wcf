@@ -168,6 +168,7 @@ CREATE TABLE wcf1_contest_sponsor (
 	userID INT(10) NOT NULL DEFAULT 0,
 	groupID INT(10) NOT NULL DEFAULT 0,
 	time INT(10) NOT NULL DEFAULT 0,
+	description TEXT NULL,
 	state ENUM('invited', 'accepted', 'declined', 'applied') NOT NULL DEFAULT 'invited',
 	KEY (userID, contestID),
 	KEY (groupID, contestID),
