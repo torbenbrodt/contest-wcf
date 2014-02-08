@@ -49,7 +49,7 @@ class ContestPriceExpireNotificationObject extends AbstractContestNotificationOb
 	 * @see NotificationObject::getURL()
 	 */
 	public function getURL() {
-		return 'index.php?page=Contest&contestID='.$this->contestID.'&priceID='.$this->priceID.'#priceObj'.$this->priceID;
+		return 'index.php?page=Contest&contestID='.$this->contestID.'&priceID='.$this->priceID.'#price'.$this->priceID;
 	}
 
 	/**

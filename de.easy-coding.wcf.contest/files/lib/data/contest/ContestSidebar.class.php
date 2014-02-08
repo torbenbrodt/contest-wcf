@@ -115,7 +115,7 @@ class ContestSidebar {
 		$userID = WCF::getUser()->userID;
 		$key = __CLASS__.'.'.($this->contest ? $this->contest->contestID : 0).'.'.$userID;
 		$cacheResource = array(
-			'file' => $key,
+			'file' => WCF_DIR.'cache/cache.'.$key.'.php',
 			'cache' => $key,
 			'minLifetime' => 0,
 			'maxLifetime' => 15 * 60

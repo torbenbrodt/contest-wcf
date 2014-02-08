@@ -85,8 +85,7 @@
 												<img src="{icon}{if $solutionObj->hasPrice()}success{else}contestScheduled{/if}M.png{/icon}" alt="" />
 											</div>
 											<div class="containerContent">
-												<p class="light smallFont">{if $solutionObj->hasPrice()}{lang}wcf.contest.price.congratulations{/lang}{else if $solutionObj->pickTime < TIME_NOW}{lang}Der Preis kann jetzt gewählt werden.{/lang}{else}{lang}wcf.contest.price.congratulations.next{/lang}{/if}</p>
-											</div>
+											<p class="light smallFont">{if $solutionObj->hasPrice()}{lang}wcf.contest.price.congratulations{/lang}{else if $solutionObj->pickTime < TIME_NOW}{lang}Der Preis kann jetzt gewählt werden.{/lang}{else}{lang}wcf.contest.price.congratulations.next{/lang}{/if}</p></div>
 										</div>
 										{/if}
 										<div class="messageBody">

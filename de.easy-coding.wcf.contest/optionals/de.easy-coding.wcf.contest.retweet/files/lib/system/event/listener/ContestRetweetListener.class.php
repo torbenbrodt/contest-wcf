@@ -1,6 +1,7 @@
 <?php
 // wcf imports
 require_once(WCF_DIR.'lib/system/event/listener/TwitterRetweetDisplayListener.class.php');
+require_once(WCF_DIR.'lib/data/twitter/TwitterRetweetMessage.class.php');
 
 /**
  * Displays retweets of a contest.

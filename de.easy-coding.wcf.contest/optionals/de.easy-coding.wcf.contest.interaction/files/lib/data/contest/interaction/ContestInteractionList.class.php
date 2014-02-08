@@ -182,6 +182,7 @@ class ContestInteractionList extends DatabaseObjectList {
 				GROUP BY	'.$row['rulesetColumn'];
 			WCF::getDB()->sendQuery($sql);
 		}
+
 		
 		// insert standard participants
 		$sql = 'INSERT INTO	wcf'.WCF_N.'_contest_interaction_tmp

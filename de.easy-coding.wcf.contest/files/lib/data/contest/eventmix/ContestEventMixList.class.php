@@ -99,6 +99,7 @@ class ContestEventMixList extends DatabaseObjectListCached {
 			".$this->sqlJoins."
 			".(!empty($this->sqlOrderBy) ? "ORDER BY ".$this->sqlOrderBy : '');
 		$result = WCF::getDB()->sendQuery($sql, $this->sqlLimit, $this->sqlOffset);
+		$events = array();
 		while ($row = WCF::getDB()->fetchArray($result)) {
 			$events[] = new ViewableContestEventMix($row);
 		}

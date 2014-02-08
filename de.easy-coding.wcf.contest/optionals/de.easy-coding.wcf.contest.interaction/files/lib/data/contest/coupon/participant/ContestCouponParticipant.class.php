@@ -24,7 +24,7 @@ class ContestCouponParticipant extends DatabaseObject {
 		}
 		parent::__construct($row);
 	}
-
+	
 	/**
 	 * Returns an editor object for this jurytalk.
 	 *

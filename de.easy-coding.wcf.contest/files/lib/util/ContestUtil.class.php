@@ -51,7 +51,7 @@ class ContestUtil {
 		if($showBranding) {
 			self::$BRANDED = true;
 
-			WCF::getTPL()->append('additionalFooterOptions', '<li><a class="externalURL" href="https://github.com/torbenbrodt/contest"><span>'.WCF::getLanguage()->get('wcf.contest.branding').'</span></a></li>');
+			WCF::getTPL()->append('additionalFooterOptions', '<li><a class="externalURL" href="http://trac.easy-coding.de/trac/contest"><span>'.WCF::getLanguage()->get('wcf.contest.branding').'</span></a></li>');
 		}
 	}
 }

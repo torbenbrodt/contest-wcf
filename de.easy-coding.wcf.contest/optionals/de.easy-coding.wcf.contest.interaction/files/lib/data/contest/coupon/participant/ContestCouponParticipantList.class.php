@@ -35,13 +35,13 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 	public function __construct(Contest $contest) {
 		$this->contest = $contest;
 	}
-
+	
 	/**
 	 *
 	 */
 	public function setUser($user) {
 		$this->participantIDs = array();
-
+		
 		if($user->userID) {
 			foreach($this->contest->getParticipants() as $participant) {
 				if($participant->getOwner()->isUser($user)) {
@@ -50,7 +50,7 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 			}
 		}
 	}
-
+	
 	/**
 	 * @see DatabaseObjectList::countObjects()
 	 */
@@ -67,7 +67,7 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 		$row = WCF::getDB()->getFirstRow($sql);
 		return $row['count'];
 	}
-
+	
 	/**
 	 * @see DatabaseObjectList::readObjects()
 	 */
@@ -87,7 +87,7 @@ class ContestCouponParticipantList extends DatabaseObjectList {
 			$this->coupons[] = new ContestCouponParticipant(null, $row);
 		}
 	}
-
+	
 	/**
 	 * @see DatabaseObjectList::getObjects()
 	 */

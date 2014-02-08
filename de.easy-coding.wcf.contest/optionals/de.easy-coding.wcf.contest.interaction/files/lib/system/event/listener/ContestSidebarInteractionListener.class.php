@@ -16,11 +16,11 @@ class ContestSidebarInteractionListener implements EventListener {
 	 * @see EventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-
+	
 		if(!$eventObj->contest || $eventObj->contest->enableInteraction == 0) {
 			return;
 		}
-
+		
 		$this->eventObj = $eventObj;
 
 		// show coupon field
@@ -29,14 +29,14 @@ class ContestSidebarInteractionListener implements EventListener {
 		// contest owner might give extra points
 		$this->executeExtraPoints();
 	}
-
+	
 	/**
 	 *
 	 */
 	protected function showCouponList(array $coupons) {
 		WCF::getTPL()->assign('contestCouponExisingCoupons', $coupons);
 	}
-
+	
 	/**
 	 *
 	 */
@@ -46,7 +46,7 @@ class ContestSidebarInteractionListener implements EventListener {
 		// TODO: check for contest->enableCoupon
 		if(isset($_POST['saveCoupon'])) {
 			require_once(WCF_DIR.'lib/data/contest/coupon/ContestCoupon.class.php');
-
+			
 			try {
 				$coupon = new ContestCoupon($eventObj->contest, $_POST['couponCode']);
 				$coupon->giveToParticipant($_POST['participantID']);
@@ -89,7 +89,7 @@ class ContestSidebarInteractionListener implements EventListener {
 				$this->showCouponForm();
 			}
 		}
-
+		
 		WCF::getTPL()->append('additionalBoxes1', WCF::getTPL()->fetch('contestInteractionCouponSidebar'));
 	}
 
@@ -105,7 +105,7 @@ class ContestSidebarInteractionListener implements EventListener {
 				require_once(WCF_DIR.'lib/data/contest/participant/ContestParticipant.class.php');
 				$contestID = intval($eventObj->contest->contestID);
 				$participantID = intval($_POST['participantID']);
-
+				
 				$participant = new ContestParticipant($participantID);
 				if(!$participant->participantID || $participant->contestID != $eventObj->contest->contestID) {
 					// TODO: use user exception and display error
@@ -119,7 +119,7 @@ class ContestSidebarInteractionListener implements EventListener {
 					VALUES		(".$contestID.", ".$participantID.", ".$score.")";
 				WCF::getDB()->sendQuery($sql);
 			}
-
+		
 			WCF::getTPL()->append('additionalBoxes1', WCF::getTPL()->fetch('contestInteractionExtraSidebar'));
 		}
 	}

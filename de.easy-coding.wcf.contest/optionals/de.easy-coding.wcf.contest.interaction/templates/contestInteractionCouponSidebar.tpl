@@ -8,7 +8,7 @@
 			{if $contestCouponException|isset}
 				<p class="error">{lang}{$contestCouponException->getType()}{/lang}</p>
 			{/if}
-
+			
 			{if $contestCouponExisingCoupons|isset}
 				{lang}Sie haben bereits folgende(n) Coupon(s) eingelöst:{/lang}
 				<ul>

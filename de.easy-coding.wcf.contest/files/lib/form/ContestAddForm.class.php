@@ -83,7 +83,6 @@ class ContestAddForm extends MessageForm {
 	 * @var	array
 	 */
 	public $participants = array();
-	
 	/**
 	 * list of available prices
 	 * 
@@ -238,6 +237,8 @@ class ContestAddForm extends MessageForm {
 			if(!array_key_exists($this->ownerID, $this->availableGroups)) {
 				throw new UserInputException('ownerID'); 
 			}
+		} else if ($this->userID == 0) {
+			throw new UserInputException('ownerID');
 		}
 		
 		if(!array_key_exists($this->state, $this->getStates())) {
